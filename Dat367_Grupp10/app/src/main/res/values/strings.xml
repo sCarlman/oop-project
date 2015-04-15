@@ -7,5 +7,6 @@
     <string name="title_activity_maps">Map</string>
 
     <string name="title_activity_create_profile">CreateProfileActivity</string>
+    <string name="title_activity_create_ad">CreateAdActivity</string>
 
 </resources>

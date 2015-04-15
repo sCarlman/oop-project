@@ -36,7 +36,8 @@
         android:layout_marginTop="70dp"
         android:layout_below="@+id/createProfilePage"
         android:layout_centerHorizontal="true"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:onClick="openCreateAdView"/>
 
     <TextView
         android:layout_width="wrap_content"
