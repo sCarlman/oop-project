@@ -12,7 +12,8 @@
         android:id="@+id/mapButton"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="97dp" />
+        android:layout_marginTop="97dp"
+        android:visibility="visible" />
 
     <Button
         android:layout_width="wrap_content"
@@ -20,7 +21,8 @@
         android:text="Ny Profil"
         android:id="@+id/createProfilePage"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="visible" />
 
     <Button
         android:layout_width="wrap_content"
@@ -29,7 +31,8 @@
         android:id="@+id/postAdButton"
         android:layout_marginTop="70dp"
         android:layout_below="@+id/createProfilePage"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,6 +42,7 @@
         android:id="@+id/headerTextView"
         android:layout_marginTop="42dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="visible" />
 
 </RelativeLayout>
