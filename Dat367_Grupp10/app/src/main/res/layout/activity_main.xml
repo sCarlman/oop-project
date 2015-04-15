@@ -25,7 +25,8 @@
         android:id="@+id/createProfilePage"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:onClick="openCreateProfileView"/>
 
     <Button
         android:layout_width="wrap_content"

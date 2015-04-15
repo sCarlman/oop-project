@@ -39,6 +39,12 @@
             android:required="true" />
         <uses-library
             android:name="com.google.android.maps" />
+
+        <activity
+            android:name=".CreateProfileActivity"
+            android:label="@string/title_activity_create_profile" >
+        </activity>
+
     </application>
 
 </manifest>
