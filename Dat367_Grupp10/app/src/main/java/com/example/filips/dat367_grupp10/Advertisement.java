@@ -5,7 +5,7 @@ package com.example.filips.dat367_grupp10;
  */
 public class Advertisement {
 
-    TestProfile testProfile;
+    Profile profile;
     Category category;
     String description;
 
@@ -14,30 +14,37 @@ public class Advertisement {
     public Advertisement(){
     }
 
-    public Advertisement(TestProfile profile, String description, Category category){
-        this.testProfile = profile;
+    public Advertisement(Profile profile, String description, Category category){
+        this.setProfile(profile);
+        this.setCategory(category);
+        this.setDescription(description);
+    }
+
+    public Advertisement(String firstName, String lastName, String email, String phone, String preferredLocation,
+                         Category category, String description){
+        this.setProfile(new Profile(firstName, lastName, email, phone, preferredLocation));
+        this.setCategory(category);
+        this.setDescription(description);
+    }
+
+    public void setProfile(Profile profile){
+        this.profile = profile;
+    }
+
+    public Profile getProfile() {
+        return profile;
+    }
+
+    public void setCategory(Category category){
         this.category = category;
-        this.description = description;
     }
-
-    public String getFirstName(){
-        return testProfile.getfName();
-    }
-
-    public String getLastName(){
-        return testProfile.getlName();
-    }
-
-    public String getEMail(){
-        return testProfile.geteMail();
-    }
-
-    public String getPhone(){
-        return testProfile.getPhone();
-    }
-
+    
     public Category getCategory() {
         return category;
+    }
+
+    public void setDescription(String description){
+        this.description = description;
     }
 
     public String getDescription() {
