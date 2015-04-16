@@ -20,7 +20,6 @@ public class Location {
 
 
     LatLng coordinates = null;
-    //Context asd = getBaseContext();
 
     public LatLng getLocationFromAddress(Context context,String strAddress) {
 
@@ -59,11 +58,11 @@ public class Location {
         }
         Criteria criteria = new Criteria();
         String provider = locationManager.getBestProvider(criteria,false);
-        System.out.println(provider);
         android.location.Location location = locationManager.getLastKnownLocation(provider);
-        System.out.println(location);
+        LatLng currentLocation = new LatLng(location.getLatitude(),location.getLongitude());
+        coordinates = currentLocation;
 
-        return null;
+        return currentLocation;
     }
 
 
@@ -74,6 +73,7 @@ public class Location {
     public LatLng getCoordinates() {
         return coordinates;
     }
+
     public double getLatitude(){
         return coordinates.latitude;
     }
