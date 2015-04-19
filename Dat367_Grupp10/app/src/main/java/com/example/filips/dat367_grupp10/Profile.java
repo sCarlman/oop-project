@@ -36,6 +36,18 @@ public class Profile {
         }
         //TODO check preferredLocation??
         this.preferredLocation = preferredLocation;
+        LoggedIn.loggaIn();
+        LoggedIn.chosenProfile(this);
+    }
+
+    public static Profile createProfile(String firstName, String lastName, String email, String phone,
+                                        String preferredLocation){
+        if (LoggedIn.isInLoggad()){
+            System.out.println("Du är redan inloggad");
+            return null;
+        }else{
+            return new Profile(firstName, lastName, email, phone, preferredLocation);
+        }
     }
 
     public String getFirstName() {

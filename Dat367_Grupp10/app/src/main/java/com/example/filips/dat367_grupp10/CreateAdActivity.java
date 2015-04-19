@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -16,6 +17,20 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_ad);
+
+        if(LoggedIn.isInLoggad()){
+            EditText firstNameText = (EditText)findViewById(R.id.firstNameEditText);
+            firstNameText.setText(LoggedIn.valdProfil.getFirstName(), android.widget.TextView.BufferType.EDITABLE);
+            EditText lastNameText = (EditText)findViewById(R.id.lastNameEditText);
+            lastNameText.setText(LoggedIn.valdProfil.getLastName(), android.widget.TextView.BufferType.EDITABLE);
+            EditText emailText = (EditText)findViewById(R.id.emailEditText);
+            emailText.setText(LoggedIn.valdProfil.getEmail(), android.widget.TextView.BufferType.EDITABLE);
+            EditText phoneText = (EditText)findViewById(R.id.phoneEditText);
+            phoneText.setText(LoggedIn.valdProfil.getPhone(), android.widget.TextView.BufferType.EDITABLE);
+            EditText addressText = (EditText)findViewById(R.id.adressEditText);
+            addressText.setText(LoggedIn.valdProfil.getPreferredLocation(), android.widget.TextView.BufferType.EDITABLE);
+            
+        }
     }
 
 
@@ -46,7 +61,7 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
     }
 
     public void createAd(View v){
-       
+
         EditText firstName = (EditText)findViewById(R.id.firstNameEditText);
         EditText lastName = (EditText)findViewById(R.id.lastNameEditText);
         EditText email = (EditText)findViewById(R.id.emailEditText);
