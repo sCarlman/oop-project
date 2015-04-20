@@ -82,6 +82,14 @@
                 android:layout_alignParentEnd="true"
                 android:text="Telefon"
                 android:visibility="visible" />
+=======
+            <TableRow
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+
+
+            </TableRow>
 
             <EditText
                 android:layout_width="wrap_content"
@@ -153,7 +161,9 @@
                 android:visibility="visible"
                 android:layout_gravity="right"
                 android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:onClick="createAd"
+                />
         </TableLayout>
     </ScrollView>
 

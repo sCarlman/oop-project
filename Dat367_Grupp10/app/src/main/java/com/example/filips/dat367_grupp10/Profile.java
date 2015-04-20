@@ -40,8 +40,12 @@ public class Profile {
         }
         //TODO check preferredLocation
         this.preferredLocation = preferredLocation;
+
         //TODO check password
         this.password = password;
+
+        LoggedIn.loggaIn();
+        LoggedIn.chosenProfile(this);
     }
 
     public String getFirstName() {

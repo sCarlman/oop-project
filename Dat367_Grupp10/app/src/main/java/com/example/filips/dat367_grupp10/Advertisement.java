@@ -9,11 +9,6 @@ public class Advertisement {
     Category category;
     String description;
 
-
-
-    public Advertisement(){
-    }
-
     public Advertisement(Profile profile, String description, Category category){
         this.setProfile(profile);
         this.setCategory(category);
@@ -49,5 +44,10 @@ public class Advertisement {
 
     public String getDescription() {
         return description;
+    }
+
+    public void printAd(){
+
+        System.out.println(this.getDescription());
     }
 }
