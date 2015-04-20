@@ -12,16 +12,21 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MapsActivity extends Activity implements OnMapReadyCallback {
 
     Location locationHelper = new Location();
     GoogleMap map;
+    List<MarkerOptions> markers = new ArrayList<MarkerOptions>();
 
     @Override
+    //Sets up the map, check onMapReady for "Constructor"
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
@@ -34,17 +39,17 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap map) {
         this.map = map;
-        LatLng currentPosition = locationHelper.getCurrecntLocation(this);
-        System.out.println(currentPosition);
+        LatLng currentPosition = locationHelper.getCurrentLocation(this);
 
         map.setMyLocationEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentPosition, 13));
         //addAllStartMarkers();
 
-        Advertisement add = new Advertisement("slottner","Seholm","Fille","0302302230","ros",Category.LABOUR,"asdassd asdasdasd f asd eeffsa as");
+        Advertisement add = new Advertisement("slottner","Seholm","Fille","0302302230","ros",
+                Category.LABOUR,"adsadasfgbdgsaad");
 
         addMarker(add);
         addMarker(locationHelper.getLocationFromAddress(this,"Rosenvägen2a,Lerum"),"Här bor jag!");
+        map.moveCamera(CameraUpdateFactory.newLatLngBounds(setMapBounds().build(),200)); //sets the location to your current location
     }
 
     private void addMarker(LatLng location,String title){
@@ -55,8 +60,40 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
 
     private void addMarker(Advertisement ad){
 
-        map.addMarker(new MarkerOptions().position(ad.getPosition()).title(ad.getDescription()).icon(addCorrectCollorMarker(ad))
-                .snippet(ad.getDescription()));
+        MarkerOptions marker = new MarkerOptions().position(ad.getPosition()).title(ad.getDescription()).icon(addCorrectCollorMarker(ad))
+                .snippet("" + locationHelper.calculateDistanceFromCurrentPosition(ad, this));
+
+        map.addMarker(marker);
+        markers.add(marker);
+
+    }
+
+    private LatLngBounds.Builder setMapBounds(){
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        MarkerOptions closestMarker = null;
+        double closestDistance = -1;
+        LatLng currentposition = locationHelper.getCurrentLocation(this);
+
+        for (MarkerOptions marker : markers){
+
+            double markerDistance = locationHelper.calculateDistanceFromPosition(currentposition.latitude,marker.getPosition().latitude,
+                    currentposition.longitude,marker.getPosition().longitude);
+            if(closestMarker==null){ //Sets the first marker as the closest marker
+                closestMarker = marker;
+                closestDistance = markerDistance;
+            }
+            else if(closestDistance > markerDistance){ //chooses the closest marker
+                closestDistance = markerDistance;
+                closestMarker = marker;
+            }
+        }
+
+        System.out.println(currentposition);
+        System.out.println(closestMarker.getPosition());
+        builder.include(currentposition);
+        builder.include(closestMarker.getPosition());
+        return builder;
+
 
     }
 
