@@ -1,5 +1,7 @@
 package com.example.filips.dat367_grupp10;
 
+import java.util.List;
+
 /**
  * Created by Isaac on 2015-04-01.
  * A profile is needed to post ads
@@ -11,9 +13,11 @@ public class Profile {
     private String email;
     private String phone;
     private String preferredLocation;
+    private String password;
+    private static List<Profile> ProfileList;
 
     public Profile(String firstName, String lastName, String email, String phone,
-                   String preferredLocation) {
+                   String preferredLocation, String password) {
         if (InfoCheck.isAlphabetic(firstName)) {
             this.firstName = firstName;
         }else {
@@ -34,8 +38,10 @@ public class Profile {
         }else {
             //TODO: throw some exception.
         }
-        //TODO check preferredLocation??
+        //TODO check preferredLocation
         this.preferredLocation = preferredLocation;
+        //TODO check password
+        this.password = password;
     }
 
     public String getFirstName() {
@@ -58,6 +64,8 @@ public class Profile {
         return preferredLocation;
     }
 
+    public String getPassword() { return password; }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
@@ -77,4 +85,6 @@ public class Profile {
     public void setPreferredLocation(String preferredLocation) {
         this.preferredLocation = preferredLocation;
     }
+
+    public void setPassword(String password) { this.password = password; }
 }

@@ -21,7 +21,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Förnamn"
         android:ems="10"
         android:id="@+id/firstNameEditText"
         android:layout_below="@+id/headerTextView"
@@ -30,13 +29,13 @@
         android:layout_marginTop="38dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:hint="Förnamn" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Efternamn"
         android:ems="10"
         android:id="@+id/lastNameEditText"
         android:layout_below="@+id/firstNameEditText"
@@ -44,7 +43,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:hint="Efternamn" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -57,8 +57,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:text="E-mail"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:hint="E-mail" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -69,22 +69,24 @@
         android:layout_below="@+id/emailEditText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="Telefon"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:phoneNumber="false"
+        android:hint="Telefon" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/preferedLocationEditText"
+        android:id="@+id/passwordEditText"
         android:layout_below="@+id/phoneEditText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:text="Önskad Adress"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:inputType="textPassword"
+        android:hint="Lösenord" />
 
     <Button
         android:layout_width="wrap_content"
