@@ -21,10 +21,14 @@ public class InfoCheck {
     }
 
     public static boolean isEmailCorrect(String email) {
-        Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
-        Matcher m = p.matcher(email);
-        boolean emailValid = m.matches();
-        return emailValid;
+        if (email != null || email != "") {
+            Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+            Matcher m = p.matcher(email);
+            boolean emailValid = m.matches();
+            return emailValid;
+        }else {
+            return false;
+        }
     }
 
     public static boolean isNumeric(String phone) {
