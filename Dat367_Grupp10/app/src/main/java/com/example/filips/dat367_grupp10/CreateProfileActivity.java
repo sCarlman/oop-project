@@ -72,7 +72,13 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
         phone = phoneEditText.getText().toString();
         password = passwordEditText.getText().toString();
         preferredLocation = ""; //tills vidare tom...
+
         newProfile = new Profile(firstName, lastName, email, phone, preferredLocation);
+
+        //newProfile = new Profile(firstName, lastName, email, phone, preferredLocation);
+        LoggedIn.loggaIn();
+        LoggedIn.chosenProfile(newProfile);
+
 
     }
 }

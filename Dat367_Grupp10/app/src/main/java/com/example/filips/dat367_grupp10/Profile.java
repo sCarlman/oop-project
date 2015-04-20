@@ -44,8 +44,7 @@ public class Profile {
         //TODO check password
         this.password = password;
 
-        LoggedIn.loggaIn();
-        LoggedIn.chosenProfile(this);
+
     }
 
     public String getFirstName() {
