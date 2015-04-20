@@ -17,7 +17,7 @@ public class Profile {
     private static List<Profile> ProfileList;
 
     public Profile(String firstName, String lastName, String email, String phone,
-                   String preferredLocation, String password) {
+                   String preferredLocation) {
         if (InfoCheck.isAlphabetic(firstName)) {
             this.firstName = firstName;
         }else {
