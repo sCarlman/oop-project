@@ -4,6 +4,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AdListActivity extends ActionBarActivity {
@@ -12,6 +17,15 @@ public class AdListActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad_list);
+
+        ListView lv = (ListView) findViewById(R.id.adListView);
+        List<Advertisement> list = Database.getInstance().getAddList();
+        List<String> stringList = new ArrayList<>();
+        for (int i = 0; i < list.size(); ++i) {
+            stringList.add(list.get(i).getDescription());
+        }
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, stringList);
+        lv.setAdapter(adapter);
     }
 
 
@@ -36,4 +50,5 @@ public class AdListActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
