@@ -6,26 +6,36 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class AdListActivity extends ActionBarActivity {
-
+    private ListView adListView;
+    private List<Advertisement> adList;
+    private List<String> stringList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad_list);
 
-        ListView lv = (ListView) findViewById(R.id.adListView);
-        List<Advertisement> list = Database.getInstance().getAddList();
-        List<String> stringList = new ArrayList<>();
-        for (int i = 0; i < list.size(); ++i) {
-            stringList.add(list.get(i).getDescription());
+        //update List of ads from parse (database)
+        Advertisement.fetchList();
+
+        adListView = (ListView) findViewById(R.id.adListView);
+        adList = Advertisement.getAdList();
+        stringList = new ArrayList<>();
+        if (adList == null) {
+            Toast.makeText(this, "FML", Toast.LENGTH_LONG).show();
         }
-        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, stringList);
-        lv.setAdapter(adapter);
+        //for (int i = 0; i < adList.size(); ++i) {
+            //stringList.add(adList.get(i).getDescription());
+        //}
+        //ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, stringList);
+        //adListView.setAdapter(adapter);
+
     }
 
 

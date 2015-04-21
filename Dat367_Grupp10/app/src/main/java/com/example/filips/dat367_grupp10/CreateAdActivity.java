@@ -12,6 +12,17 @@ import android.widget.Toast;
 
 
 public class CreateAdActivity extends ActionBarActivity implements View.OnClickListener{
+    private Advertisement newAd;
+    private Profile newProfile;
+    private EditText firstName;
+    private EditText lastName;
+    private EditText email;
+    private EditText phone;
+    private EditText address;
+    private EditText description;
+    private RadioButton gardenRadioButton;
+    private RadioButton labourRadioButton;
+    private RadioButton otherRadioButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,29 +76,34 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
     public void createAd(View v){
 
         //Gör det möjligt att hämta värdet från textfälten
-        EditText firstName = (EditText)findViewById(R.id.firstNameEditText);
-        EditText lastName = (EditText)findViewById(R.id.lastNameEditText);
-        EditText email = (EditText)findViewById(R.id.emailEditText);
-        EditText phone = (EditText)findViewById(R.id.phoneEditText);
-        EditText address = (EditText)findViewById(R.id.adressEditText);
-        EditText description = (EditText)findViewById(R.id.discriptionEditText);
+        firstName = (EditText)findViewById(R.id.firstNameEditText);
+        lastName = (EditText)findViewById(R.id.lastNameEditText);
+        email = (EditText)findViewById(R.id.emailEditText);
+        phone = (EditText)findViewById(R.id.phoneEditText);
+        address = (EditText)findViewById(R.id.adressEditText);
+        description = (EditText)findViewById(R.id.discriptionEditText);
 
         //Skapar en ny profil av det man anger i input för att sedan kunna skapa en ad
-        Profile newProfile = new Profile(firstName.getText().toString(), lastName.getText().toString(),
+        newProfile = new Profile(firstName.getText().toString(), lastName.getText().toString(),
                 email.getText().toString(),phone.getText().toString(),null);
 
         //Ger ett värde till radiobuttons
-        RadioButton gardenRadioButton = (RadioButton) findViewById(R.id.gardenRadioButton);
-        RadioButton labourRadioButton = (RadioButton) findViewById(R.id.labourRadioButton);
-        RadioButton otherRadioButton = (RadioButton) findViewById(R.id.otherRadioButton);
+        gardenRadioButton = (RadioButton) findViewById(R.id.gardenRadioButton);
+        labourRadioButton = (RadioButton) findViewById(R.id.labourRadioButton);
+        otherRadioButton = (RadioButton) findViewById(R.id.otherRadioButton);
+
+        Database tempDataBase = new Database();
 
         //Skapar ad beroende på category
         if (gardenRadioButton.isSelected()){
             Advertisement newAd = new Advertisement(newProfile, description.getText().toString(), Category.GARDEN);
+            tempDataBase.addAdToDatabase(newAd);
         }else if(labourRadioButton.isSelected()){
             Advertisement newAd = new Advertisement(newProfile, description.getText().toString(), Category.LABOUR);
+            tempDataBase.addAdToDatabase(newAd);
         }else{
             Advertisement newAd = new Advertisement(newProfile, description.getText().toString(), Category.OTHER);
+            tempDataBase.addAdToDatabase(newAd);
         }
 
         //Notis som meddelar att aden har publicerats

@@ -99,7 +99,7 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
 
     private void addAllStartMarkers(){
 
-        List<Advertisement> ads = Database.getInstance().getAddList();
+        List<Advertisement> ads = Database.getInstance().getAdList();
 
         for(Advertisement ad : ads){
             addMarker(ad);

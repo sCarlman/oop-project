@@ -20,17 +20,17 @@ public class TempAddList implements DataBaseInterface {
     }
 
     @Override
-    public List<Advertisement> getAddList() {
+    public List<Advertisement> getAdList() {
         return null;
     }
 
     @Override
-    public void adAddToDataBase(Advertisement add) {
+    public void addAdToDatabase(Advertisement add) {
 
     }
 
     @Override
-    public void removeAddFromDataBase(Advertisement add) {
+    public void removeAddFromDatabase(Advertisement add) {
 
     }
 }
