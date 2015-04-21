@@ -44,8 +44,8 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
         map.setMyLocationEnabled(true);
         //addAllStartMarkers();
 
-        Advertisement add = new Advertisement("slottner","Seholm","Fille","0302302230","ros",
-                Category.LABOUR,"adsadasfgbdgsaad");
+        Advertisement add = new Advertisement("slottner","Seholm","Fille","0302302230",new LatLng(57.728175, 11.989438),
+                Category.LABOUR,"asdasdasd");
 
         addMarker(add);
         addMarker(locationHelper.getLocationFromAddress(this,"Rosenvägen2a,Lerum"),"Här bor jag!");
@@ -97,7 +97,9 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
 
     }
 
-    private void addAllStartMarkers(List<Advertisement> ads){
+    private void addAllStartMarkers(){
+
+        List<Advertisement> ads = Database.getInstance().getAddList();
 
         for(Advertisement ad : ads){
             addMarker(ad);

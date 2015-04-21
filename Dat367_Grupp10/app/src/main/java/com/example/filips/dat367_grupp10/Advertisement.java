@@ -7,7 +7,7 @@ import com.google.android.gms.maps.model.LatLng;
  */
 public class Advertisement {
 
-    LatLng position = new LatLng(57.615883, 12.030819);
+    LatLng position;
     Profile profile;
     Category category;
     String description;

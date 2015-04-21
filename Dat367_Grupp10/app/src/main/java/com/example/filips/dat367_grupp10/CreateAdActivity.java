@@ -30,7 +30,7 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
             EditText phoneText = (EditText)findViewById(R.id.phoneEditText);
             phoneText.setText(LoggedIn.valdProfil.getPhone(), android.widget.TextView.BufferType.EDITABLE);
             EditText addressText = (EditText)findViewById(R.id.adressEditText);
-            addressText.setText(LoggedIn.valdProfil.getPreferredLocation(), android.widget.TextView.BufferType.EDITABLE);
+            addressText.setText(LoggedIn.valdProfil.getPreferredLocation().toString(), android.widget.TextView.BufferType.EDITABLE);
 
         }
     }
@@ -74,7 +74,7 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
 
         //Skapar en ny profil av det man anger i input för att sedan kunna skapa en ad
         Profile newProfile = new Profile(firstName.getText().toString(), lastName.getText().toString(),
-                email.getText().toString(),phone.getText().toString(),address.getText().toString());
+                email.getText().toString(),phone.getText().toString(),null);
 
         //Ger ett värde till radiobuttons
         RadioButton gardenRadioButton = (RadioButton) findViewById(R.id.gardenRadioButton);

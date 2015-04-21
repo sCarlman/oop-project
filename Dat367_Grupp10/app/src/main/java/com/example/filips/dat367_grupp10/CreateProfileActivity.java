@@ -82,7 +82,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
         password = passwordEditText.getText().toString().trim();
         preferredLocation = ""; //tills vidare tom...
 
-        newProfile = new Profile(firstName, lastName, email, phone, preferredLocation);
+        newProfile = new Profile(firstName, lastName, email, phone, null);
         ParseUser PinJobProfile = new ParseUser();
         PinJobProfile.setEmail(email);
         PinJobProfile.setPassword(password);

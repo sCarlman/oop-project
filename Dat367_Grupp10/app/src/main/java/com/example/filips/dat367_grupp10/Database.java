@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Filips on 4/21/2015.
  */
-public class Database {
+public class Database implements DataBaseInterface {
     private static Database instance = null;
     private Database() { }
 

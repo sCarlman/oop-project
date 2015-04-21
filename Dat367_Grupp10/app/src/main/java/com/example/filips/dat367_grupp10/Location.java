@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
+import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Bundle;
 import android.provider.Settings;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -16,7 +18,7 @@ import java.util.List;
 /**
  * Created by Filips on 4/1/2015.
  */
-public class Location {
+public class Location implements LocationListener {
 
 
     LatLng coordinates = null;
@@ -26,7 +28,7 @@ public class Location {
         Geocoder coder = new Geocoder(context);
         List<Address> address;
         //the coordinates in latitude and longitude
-        LatLng coordinates = null;
+        LatLng position = null;
 
         try {
             address = coder.getFromLocationName(strAddress, 5);
@@ -37,13 +39,13 @@ public class Location {
             location.getLatitude();
             location.getLongitude();
 
-            coordinates = new LatLng(location.getLatitude(), location.getLongitude());
+            position = new LatLng(location.getLatitude(), location.getLongitude());
 
 
         } catch (Exception e) {
             System.out.println("EXCEPTION");
         }
-        return coordinates;
+        return position;
     }
 
     public LatLng getCurrentLocation(Context context){
@@ -100,4 +102,23 @@ public class Location {
     }
 
 
+    @Override
+    public void onLocationChanged(android.location.Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
 }
