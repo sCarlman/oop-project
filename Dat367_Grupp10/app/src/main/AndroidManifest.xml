@@ -50,6 +50,10 @@
             android:name=".CreateAdActivity"
             android:label="@string/title_activity_create_ad" >
         </activity>
+        <activity
+            android:name=".AdListActivity"
+            android:label="@string/title_activity_ad_list" >
+        </activity>
     </application>
 
 </manifest>

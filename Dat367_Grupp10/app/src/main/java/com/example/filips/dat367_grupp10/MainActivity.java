@@ -61,5 +61,10 @@ public class MainActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
+    public void openListView(View view) {
+        Intent intent = new Intent(getApplicationContext(), AdListActivity.class);
+        startActivity(intent);
+    }
+
 }
 
