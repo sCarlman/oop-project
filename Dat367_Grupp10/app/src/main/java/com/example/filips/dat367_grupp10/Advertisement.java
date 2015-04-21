@@ -18,11 +18,12 @@ public class Advertisement {
         this.setDescription(description);
     }
 
-    public Advertisement(String firstName, String lastName, String email, String phone, String preferredLocation,
+    public Advertisement(String firstName, String lastName, String email, String phone, LatLng position,
                          Category category, String description){
-        this.setProfile(new Profile(firstName, lastName, email, phone, preferredLocation));
+        this.setProfile(new Profile(firstName, lastName, email, phone, position));
         this.setCategory(category);
         this.setDescription(description);
+        this.setPosition(position);
     }
 
     public LatLng getPosition(){
@@ -51,6 +52,9 @@ public class Advertisement {
 
     public String getDescription() {
         return description;
+    }
+    public void setPosition(LatLng pos){
+        position = pos;
     }
 
     public void printAd(){

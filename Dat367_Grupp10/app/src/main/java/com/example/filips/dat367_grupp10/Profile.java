@@ -1,5 +1,7 @@
 package com.example.filips.dat367_grupp10;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.List;
 
 /**
@@ -12,12 +14,12 @@ public class Profile {
     private String lastName;
     private String email;
     private String phone;
-    private String preferredLocation;
+    private LatLng preferredLocation;
     private String password;
     private static List<Profile> ProfileList;
 
     public Profile(String firstName, String lastName, String email, String phone,
-                   String preferredLocation) {
+                   LatLng preferredLocation) {
         if (InfoCheck.isAlphabetic(firstName)) {
             this.firstName = firstName;
         }else {
@@ -63,7 +65,7 @@ public class Profile {
         return phone;
     }
 
-    public String getPreferredLocation() {
+    public LatLng getPreferredLocation() {
         return preferredLocation;
     }
 
@@ -85,7 +87,7 @@ public class Profile {
         this.phone = phone;
     }
 
-    public void setPreferredLocation(String preferredLocation) {
+    public void setPreferredLocation(LatLng preferredLocation) {
         this.preferredLocation = preferredLocation;
     }
 
