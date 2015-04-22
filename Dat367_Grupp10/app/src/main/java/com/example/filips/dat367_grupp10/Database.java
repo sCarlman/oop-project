@@ -5,6 +5,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,9 @@ import java.util.List;
  */
 public class Database  {
     private static Database instance = null;
-    private static List<Advertisement> tempAdList;
+    boolean doneCalc = false;
+    private List<Advertisement> tempAdList = new ArrayList<Advertisement>();
+
     public Database() { }
 
     public static synchronized Database getInstance() {
@@ -23,18 +26,21 @@ public class Database  {
         return instance;
     }
 
-    public List<Advertisement> getAdList(){
+    public synchronized void fetchAdList(){
+
         ParseQuery<Advertisement> query = ParseQuery.getQuery("Advertisement");
-        query.findInBackground(new FindCallback<Advertisement>() {
-            public void done(List<Advertisement> objects, ParseException e) {
-                if (e == null) {
-                    tempAdList = objects;
-                } else {
-                    //FUDGE!
-                }
-            }
-        });
+        try {
+            System.out.println(query.find().get(0).getPosition().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<Advertisement> getAdList(){
+        fetchAdList();
+        System.out.println("2ASDASDASD" + tempAdList);
         return tempAdList;
+
     }
 
     public void addAdToDatabase(Advertisement ad){

@@ -20,31 +20,11 @@ public class Profile {
 
     public Profile(String firstName, String lastName, String email, String phone,
                    LatLng preferredLocation) {
-        if (InfoCheck.isAlphabetic(firstName)) {
             this.firstName = firstName;
-        }else {
-            //TODO: throw some exception.
-        }
-        if (InfoCheck.isAlphabetic(lastName)) {
             this.lastName = lastName;
-        }else {
-            //TODO: throw some exception.
-        }
-        if (InfoCheck.isEmailCorrect(email)) {
             this.email = email;
-        }else {
-            //TODO: throw some exception.
-        }
-        if (InfoCheck.isNumeric(phone)) {
             this.phone = phone;
-        }else {
-            //TODO: throw some exception.
-        }
-        //TODO check preferredLocation
         this.preferredLocation = preferredLocation;
-
-        //TODO check password
-        this.password = password;
 
 
     }

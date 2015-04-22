@@ -15,6 +15,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,29 +41,48 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap map) {
-        TempAddList database = TempAddList.getInstance();
+        Database database = Database.getInstance();
         this.map = map;
         LatLng currentPosition = locationHelper.getCurrentLocation(this);
 
         map.setMyLocationEnabled(true);
 
+        /*
         Advertisement add = new Advertisement("slottner","Seholm","Fille","0302302230",locationHelper.getLocationFromAddress(this,"Sulitelmagatan,Göteborg"),
                 Category.LABOUR,"asdasdasd");
         Advertisement add2 = new Advertisement("slottner","Seholm","Fille","0302302230",locationHelper.getLocationFromAddress(this,"Majorna,Göteborg"),
                 Category.LABOUR,"asdasdasd");
         database.addAdToDatabase(add);
         database.addAdToDatabase(add2);
+        */
 
-        if(database.getAddList()!=null) {
+        /*
+        ParseQuery<Advertisement> query = ParseQuery.getQuery("Advertisement");
+        query.getInBackground("zTcWGcyoWU", new GetCallback<Advertisement>() {
+            public void done(Advertisement object, ParseException e) {
+                System.out.println("************" + object.getObjectId());
+                if (e == null) {
+                    // object will be your game score
+                } else {
+                    // something went wrong
+                }
+            }
+        });
+        */
+
+        System.out.println(database.getAdList());
+        if(database.getAdList()!=null) {
             addAllStartMarkers();
         }
 
+        /*
         Advertisement add1 = new Advertisement("slottner","Seholm","Fille","0302302230",new LatLng(57.728175, 11.989438),
                 Category.LABOUR,"asdasdasd");
+                */
 
-        addMarker(add1);
+        //addMarker(add1);
         addMarker(locationHelper.getLocationFromAddress(this,"Rosenvägen2a,Lerum"),"Här bor jag!");
-        map.moveCamera(CameraUpdateFactory.newLatLngBounds(setMapBounds().build(),200)); //sets the location to your current location
+//        map.moveCamera(CameraUpdateFactory.newLatLngBounds(setMapBounds().build(),200)); //sets the location to your current location
     }
 
     private void addMarker(LatLng location,String title){
@@ -99,8 +121,6 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
             }
         }
 
-        System.out.println(currentposition);
-        System.out.println(closestMarker.getPosition());
         builder.include(currentposition);
         builder.include(closestMarker.getPosition());
         return builder;
@@ -110,10 +130,12 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
 
     private void addAllStartMarkers(){
 
-        List<Advertisement> ads = TempAddList.getInstance().getAddList();
+        List<Advertisement> ads = Database.getInstance().getAdList();
+        System.out.println(ads.size());
 
         for(Advertisement ad : ads){
             addMarker(ad);
+            System.out.println(ad.getPosition());
 
         }
     }

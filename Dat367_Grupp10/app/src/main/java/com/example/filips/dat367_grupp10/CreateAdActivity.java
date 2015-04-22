@@ -12,14 +12,13 @@ import android.widget.Toast;
 
 
 public class CreateAdActivity extends ActionBarActivity implements View.OnClickListener{
-    private Advertisement newAd;
     private Profile newProfile;
-    private EditText firstName;
-    private EditText lastName;
-    private EditText email;
-    private EditText phone;
-    private EditText address;
-    private EditText description;
+    private EditText firstNameEditText;
+    private EditText lastNameEditText;
+    private EditText emailEditText;
+    private EditText phoneEditText;
+    private EditText addressEditText;
+    private EditText descriptionEditText;
     private RadioButton gardenRadioButton;
     private RadioButton labourRadioButton;
     private RadioButton otherRadioButton;
@@ -31,19 +30,20 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
 
         //Fixar defaults om man är inloggad.
         //Saknar location tills vidare
-        if(LoggedIn.isInLoggad()){
-            EditText firstNameText = (EditText)findViewById(R.id.firstNameEditText);
-            firstNameText.setText(LoggedIn.valdProfil.getFirstName(), android.widget.TextView.BufferType.EDITABLE);
-            EditText lastNameText = (EditText)findViewById(R.id.lastNameEditText);
-            lastNameText.setText(LoggedIn.valdProfil.getLastName(), android.widget.TextView.BufferType.EDITABLE);
-            EditText emailText = (EditText)findViewById(R.id.emailEditText);
-            emailText.setText(LoggedIn.valdProfil.getEmail(), android.widget.TextView.BufferType.EDITABLE);
-            EditText phoneText = (EditText)findViewById(R.id.phoneEditText);
-            phoneText.setText(LoggedIn.valdProfil.getPhone(), android.widget.TextView.BufferType.EDITABLE);
-            EditText addressText = (EditText)findViewById(R.id.adressEditText);
-            addressText.setText(LoggedIn.valdProfil.getPreferredLocation().toString(), android.widget.TextView.BufferType.EDITABLE);
+        //if(LoggedIn.isInLoggad()){
+             firstNameEditText = (EditText)findViewById(R.id.firstNameEditText);
+//            firstNameText.setText(LoggedIn.valdProfil.getFirstName(), android.widget.TextView.BufferType.EDITABLE);
+              lastNameEditText = (EditText)findViewById(R.id.lastNameEditText);
+  //          lastNameText.setText(LoggedIn.valdProfil.getLastName(), android.widget.TextView.BufferType.EDITABLE);
+              emailEditText = (EditText)findViewById(R.id.emailEditText);
+//            emailText.setText(LoggedIn.valdProfil.getEmail(), android.widget.TextView.BufferType.EDITABLE);
+              phoneEditText = (EditText)findViewById(R.id.phoneEditText);
+      //      phoneText.setText(LoggedIn.valdProfil.getPhone(), android.widget.TextView.BufferType.EDITABLE);
+              addressEditText = (EditText)findViewById(R.id.adressEditText);
+              descriptionEditText = (EditText)findViewById(R.id.discriptionEditText);
+        //    addressText.setText(LoggedIn.valdProfil.getPreferredLocation().toString(), android.widget.TextView.BufferType.EDITABLE);
 
-        }
+        //}
     }
 
 
@@ -75,34 +75,54 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
 
     public void createAd(View v){
 
-        //Gör det möjligt att hämta värdet från textfälten
+        Location locationhelper = new Location();
+
+        //Gör det möjligt att hämta värdet från
+        /*
         firstName = (EditText)findViewById(R.id.firstNameEditText);
         lastName = (EditText)findViewById(R.id.lastNameEditText);
         email = (EditText)findViewById(R.id.emailEditText);
         phone = (EditText)findViewById(R.id.phoneEditText);
         address = (EditText)findViewById(R.id.adressEditText);
         description = (EditText)findViewById(R.id.discriptionEditText);
+        */
 
         //Skapar en ny profil av det man anger i input för att sedan kunna skapa en ad
-        newProfile = new Profile(firstName.getText().toString(), lastName.getText().toString(),
-                email.getText().toString(),phone.getText().toString(),null);
+        newProfile = new Profile(firstNameEditText.getText().toString(), lastNameEditText.getText().toString(),
+                emailEditText.getText().toString(),phoneEditText.getText().toString(),
+                locationhelper.getLocationFromAddress(this,addressEditText.getText().toString()));
 
         //Ger ett värde till radiobuttons
         gardenRadioButton = (RadioButton) findViewById(R.id.gardenRadioButton);
         labourRadioButton = (RadioButton) findViewById(R.id.labourRadioButton);
         otherRadioButton = (RadioButton) findViewById(R.id.otherRadioButton);
 
-        Database tempDataBase = new Database();
+        Database tempDataBase = Database.getInstance();
 
         //Skapar ad beroende på category
         if (gardenRadioButton.isSelected()){
-            Advertisement newAd = new Advertisement(newProfile, description.getText().toString(), Category.GARDEN);
+            Advertisement newAd = new Advertisement();
+            newAd.setDetails(firstNameEditText.getText().toString(),lastNameEditText.getText().toString(),
+                    emailEditText.getText().toString(),phoneEditText.getText().toString(),locationhelper.getLocationFromAddress(this,addressEditText.getText().toString()),
+                    Category.GARDEN, descriptionEditText.getText().toString());
+            System.out.println(newAd);
+            System.out.println(newAd.getPosition());
             tempDataBase.addAdToDatabase(newAd);
         }else if(labourRadioButton.isSelected()){
-            Advertisement newAd = new Advertisement(newProfile, description.getText().toString(), Category.LABOUR);
+            Advertisement newAd = new Advertisement();
+            newAd.setDetails(firstNameEditText.getText().toString(),lastNameEditText.getText().toString(),
+                    emailEditText.getText().toString(),phoneEditText.getText().toString(),locationhelper.getLocationFromAddress(this,addressEditText.getText().toString()),
+                    Category.GARDEN, descriptionEditText.getText().toString());
+            System.out.println(newAd);
+            System.out.println(newAd.getPosition());
             tempDataBase.addAdToDatabase(newAd);
         }else{
-            Advertisement newAd = new Advertisement(newProfile, description.getText().toString(), Category.OTHER);
+
+            Advertisement newAd = new Advertisement();
+            newAd.setDetails(firstNameEditText.getText().toString(),lastNameEditText.getText().toString(),
+                    emailEditText.getText().toString(),phoneEditText.getText().toString(),locationhelper.getLocationFromAddress(this,addressEditText.getText().toString()),
+                    Category.GARDEN, descriptionEditText.getText().toString());
+            System.out.println(newAd);
             tempDataBase.addAdToDatabase(newAd);
         }
 

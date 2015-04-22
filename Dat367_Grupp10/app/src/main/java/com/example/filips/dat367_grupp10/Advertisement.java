@@ -2,6 +2,7 @@ package com.example.filips.dat367_grupp10;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.parse.ParseClassName;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 
 import java.util.List;
@@ -18,14 +19,18 @@ public class Advertisement extends ParseObject{
     private Category category;
     private String description;
 
-    public Advertisement() {}
+    public Advertisement() { super();}
 
+    /*
     public Advertisement(Profile profile, String description, Category category){
         setProfile(profile);
         setCategory(category);
         setDescription(description);
     }
+    */
 
+
+    /*
     public Advertisement(String firstName, String lastName, String email, String phone, LatLng position,
                          Category category, String description){
         setProfile(new Profile(firstName, lastName, email, phone, position));
@@ -33,9 +38,10 @@ public class Advertisement extends ParseObject{
         setDescription(description);
         setPosition(position);
     }
+*/
 
-    public LatLng getPosition(){
-        return position;
+    public ParseGeoPoint getPosition(){
+        return getParseGeoPoint("Position");
     }
 
     public void setProfile(Profile profile){
@@ -55,27 +61,19 @@ public class Advertisement extends ParseObject{
     }
 
     public void setDescription(String description){
-        this.description = description;
+        put("Description", description);
     }
 
     public String getDescription() {
-        return description;
+        return getString("Description");
     }
-    public void setPosition(LatLng pos){
-        position = pos;
+    public void setPosition(ParseGeoPoint pos){
+        put("Position", pos);
     }
 
     public void printAd(){
 
         System.out.println(this.getDescription());
-    }
-
-    public void setObjectId(String objectId){
-        this.objectId = objectId;
-    }
-
-    public String getObjectId(){
-        return this.objectId;
     }
 
     public static void fetchList(){
@@ -85,5 +83,13 @@ public class Advertisement extends ParseObject{
 
     public static List<Advertisement> getAdList(){
         return adList;
+    }
+
+    public void setDetails(String firstName, String lastName, String email, String phone, LatLng position,
+                         Category category, String description){
+        setProfile(new Profile(firstName, lastName, email, phone, position));
+        setCategory(category);
+        setDescription(description);
+        setPosition(new ParseGeoPoint(position.latitude,position.longitude));
     }
 }

@@ -40,19 +40,15 @@ public class AdListActivity extends ActionBarActivity {
         //}
         //ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, stringList);
         //adListView.setAdapter(adapter);
-
         ParseQuery<Advertisement> query = ParseQuery.getQuery("Advertisement");
         query.findInBackground(new FindCallback<Advertisement>() {
             public void done(List<Advertisement> objects, ParseException e) {
+                System.out.println("hejha");
                 System.out.print(objects);
                 if (e == null) {
 
                 } else {
-                    if(e.getMessage() == null) {
-                        error = "I'm null";
-                    }else{
-                        error = "I'm not null";
-                    }
+                    System.out.println("exxception with parse");
                 }
             }
         });
