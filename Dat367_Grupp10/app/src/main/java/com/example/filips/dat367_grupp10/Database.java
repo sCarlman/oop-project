@@ -38,9 +38,9 @@ public class Database  {
     }
 
     public void addAdToDatabase(Advertisement ad){
-        Advertisement shieldReference = ParseObject.createWithoutData(Advertisement.class, ad.getObjectId());
+        Advertisement adReference = ParseObject.createWithoutData(Advertisement.class, ad.getObjectId());
         ad.saveInBackground();
-        ad.setObjectId(shieldReference.getObjectId());
+        ad.setObjectId(adReference.getObjectId());
     }
 
     public void removeAddFromDatabase(Advertisement ad){
