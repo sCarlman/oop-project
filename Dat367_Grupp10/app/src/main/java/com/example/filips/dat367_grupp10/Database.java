@@ -38,9 +38,7 @@ public class Database  {
 
     public List<Advertisement> getAdList(){
         fetchAdList();
-        System.out.println("2ASDASDASD" + tempAdList);
         return tempAdList;
-
     }
 
     public void addAdToDatabase(Advertisement ad){

@@ -12,84 +12,77 @@ import java.util.List;
  */
 @ParseClassName("Advertisement")
 public class Advertisement extends ParseObject{
-    private static List<Advertisement> adList;
-    private String objectId;
-    private LatLng position;
-    private Profile profile;
-    private Category category;
-    private String description;
 
-    public Advertisement() { super();}
+    public Advertisement() {
+        super();
+    }
 
-    /*
-    public Advertisement(Profile profile, String description, Category category){
-        setProfile(profile);
+    public void setDetails(String firstName, String lastName, String email, String phone, LatLng position,
+                           Category category, String description){
+        setFirstName(firstName);
+        setLastName(lastName);
+        setEmail(email);
+        setPhone(phone);
+        setPosition(new ParseGeoPoint(position.latitude,position.longitude));
         setCategory(category);
         setDescription(description);
     }
-    */
 
-
-    /*
-    public Advertisement(String firstName, String lastName, String email, String phone, LatLng position,
-                         Category category, String description){
-        setProfile(new Profile(firstName, lastName, email, phone, position));
-        setCategory(category);
-        setDescription(description);
-        setPosition(position);
-    }
-*/
-
-    public ParseGeoPoint getPosition(){
-        return getParseGeoPoint("Position");
+    private void setFirstName(String firstName) {
+        put("FirstName", firstName);
     }
 
-    public void setProfile(Profile profile){
-        this.profile = profile;
+    private void setLastName(String lastName) {
+        put("LastName", lastName);
     }
 
-    public Profile getProfile() {
-        return profile;
+    private void setEmail(String email) {
+        put("Email", email);
+    }
+
+    private void setPhone(String phone) {
+        put("Phone", phone);
+    }
+
+    public void setPosition(ParseGeoPoint pos){
+        put("Position", pos);
     }
 
     public void setCategory(Category category){
-        this.category = category;
-    }
-    
-    public Category getCategory() {
-        return category;
+        put("Category", category.toString());
     }
 
     public void setDescription(String description){
         put("Description", description);
     }
 
+
+    public String getFirstName(){
+        return getString("FirstName");
+    }
+
+    public String getLastName(){
+        return getString("LastName");
+    }
+
+    public String getEmail(){
+        return getString("Email");
+    }
+
+    public String getPhone(){
+        return getString("Phone");
+    }
+
+    public ParseGeoPoint getPosition(){
+        return getParseGeoPoint("Position");
+    }
+
+    public Category getCategory() {
+        String categoryString = getString("Category");
+        return Category.valueOf(categoryString);
+    }
+
     public String getDescription() {
         return getString("Description");
-    }
-    public void setPosition(ParseGeoPoint pos){
-        put("Position", pos);
-    }
-
-    public void printAd(){
-
-        System.out.println(this.getDescription());
-    }
-
-    public static void fetchList(){
-        Database tempDatabase = new Database();
-        adList = tempDatabase.getAdList();
-    }
-
-    public static List<Advertisement> getAdList(){
-        return adList;
-    }
-
-    public void setDetails(String firstName, String lastName, String email, String phone, LatLng position,
-                         Category category, String description){
-        setProfile(new Profile(firstName, lastName, email, phone, position));
-        setCategory(category);
-        setDescription(description);
-        setPosition(new ParseGeoPoint(position.latitude,position.longitude));
     }
 }

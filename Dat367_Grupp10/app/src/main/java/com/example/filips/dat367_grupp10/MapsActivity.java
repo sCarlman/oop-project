@@ -93,7 +93,7 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
 
     private void addMarker(Advertisement ad){
 
-        MarkerOptions marker = new MarkerOptions().position(ad.getPosition()).title(ad.getDescription()).icon(addCorrectCollorMarker(ad))
+        MarkerOptions marker = new MarkerOptions().position(new LatLng(ad.getPosition().getLatitude(), ad.getPosition().getLongitude())).title(ad.getDescription()).icon(addCorrectCollorMarker(ad))
                 .snippet("" + locationHelper.calculateDistanceFromCurrentPosition(ad, this));
 
         map.addMarker(marker);

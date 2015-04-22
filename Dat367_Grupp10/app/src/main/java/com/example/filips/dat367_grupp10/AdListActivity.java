@@ -17,43 +17,24 @@ import java.util.List;
 
 
 public class AdListActivity extends ActionBarActivity {
-    private String error;
     private ListView adListView;
     private List<Advertisement> adList;
-    private List<String> stringList;
+    private List<String> descriptionList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad_list);
 
-        //update List of ads from parse (database)
-        //Advertisement.fetchList();
-
-        //adListView = (ListView) findViewById(R.id.adListView);
-        //adList = Advertisement.getAdList();
-        //stringList = new ArrayList();
-        //if (adList == null) {
-          //  Toast.makeText(this, "FML", Toast.LENGTH_LONG).show();
-        //}
-        //for (int i = 0; i < adList.size(); ++i) {
-            //stringList.add(adList.get(i).getDescription());
-        //}
-        //ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1, stringList);
-        //adListView.setAdapter(adapter);
-        ParseQuery<Advertisement> query = ParseQuery.getQuery("Advertisement");
-        query.findInBackground(new FindCallback<Advertisement>() {
-            public void done(List<Advertisement> objects, ParseException e) {
-                System.out.println("hejha");
-                System.out.print(objects);
-                if (e == null) {
-
-                } else {
-                    System.out.println("exxception with parse");
-                }
-            }
-        });
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
-
+        Database cloud = Database.getInstance();
+        adListView = (ListView) findViewById(R.id.adListView);
+        adList = cloud.getAdList();
+        descriptionList = new ArrayList();
+        for (int i = 0; i < adList.size(); ++i) {
+            descriptionList.add(adList.get(i).getDescription());
+        }
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,
+                descriptionList);
+        adListView.setAdapter(adapter);
     }
 
 
