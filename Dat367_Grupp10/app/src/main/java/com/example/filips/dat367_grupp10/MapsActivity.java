@@ -48,8 +48,8 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
                 Category.LABOUR,"asdasdasd");
         Advertisement add2 = new Advertisement("slottner","Seholm","Fille","0302302230",locationHelper.getLocationFromAddress(this,"Majorna,Göteborg"),
                 Category.LABOUR,"asdasdasd");
-        database.adAddToDataBase(add);
-        database.adAddToDataBase(add2);
+        database.addAdToDatabase(add);
+        database.addAdToDatabase(add2);
 
         if(database.getAddList()!=null) {
             addAllStartMarkers();

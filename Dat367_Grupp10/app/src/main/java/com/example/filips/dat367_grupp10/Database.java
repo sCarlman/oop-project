@@ -1,5 +1,10 @@
 package com.example.filips.dat367_grupp10;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+
 import java.util.List;
 
 /**
@@ -7,7 +12,8 @@ import java.util.List;
  */
 public class Database  {
     private static Database instance = null;
-    private Database() { }
+    private static List<Advertisement> tempAdList;
+    public Database() { }
 
     public static synchronized Database getInstance() {
         if (instance == null) {
@@ -17,17 +23,27 @@ public class Database  {
         return instance;
     }
 
-    public List<Advertisement> getAddList(){
-
-        return null;
+    public List<Advertisement> getAdList(){
+        ParseQuery<Advertisement> query = ParseQuery.getQuery("Advertisement");
+        query.findInBackground(new FindCallback<Advertisement>() {
+            public void done(List<Advertisement> objects, ParseException e) {
+                if (e == null) {
+                    tempAdList = objects;
+                } else {
+                    //FUDGE!
+                }
+            }
+        });
+        return tempAdList;
     }
 
-    public void adAddToDataBase(Advertisement add){
-
-
+    public void addAdToDatabase(Advertisement ad){
+        Advertisement shieldReference = ParseObject.createWithoutData(Advertisement.class, ad.getObjectId());
+        ad.saveInBackground();
+        ad.setObjectId(shieldReference.getObjectId());
     }
 
-    public void removeAddFromDataBase(Advertisement add){
+    public void removeAddFromDatabase(Advertisement ad){
 
 
     }

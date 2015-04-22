@@ -1,29 +1,37 @@
 package com.example.filips.dat367_grupp10;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.parse.ParseClassName;
+import com.parse.ParseObject;
+
+import java.util.List;
 
 /**
  * Created by Albertsson on 15-04-01.
  */
-public class Advertisement {
+@ParseClassName("Advertisement")
+public class Advertisement extends ParseObject{
+    private static List<Advertisement> adList;
+    private String objectId;
+    private LatLng position;
+    private Profile profile;
+    private Category category;
+    private String description;
 
-    LatLng position;
-    Profile profile;
-    Category category;
-    String description;
+    public Advertisement() {}
 
     public Advertisement(Profile profile, String description, Category category){
-        this.setProfile(profile);
-        this.setCategory(category);
-        this.setDescription(description);
+        setProfile(profile);
+        setCategory(category);
+        setDescription(description);
     }
 
     public Advertisement(String firstName, String lastName, String email, String phone, LatLng position,
                          Category category, String description){
-        this.setProfile(new Profile(firstName, lastName, email, phone, position));
-        this.setCategory(category);
-        this.setDescription(description);
-        this.setPosition(position);
+        setProfile(new Profile(firstName, lastName, email, phone, position));
+        setCategory(category);
+        setDescription(description);
+        setPosition(position);
     }
 
     public LatLng getPosition(){
@@ -60,5 +68,22 @@ public class Advertisement {
     public void printAd(){
 
         System.out.println(this.getDescription());
+    }
+
+    public void setObjectId(String objectId){
+        this.objectId = objectId;
+    }
+
+    public String getObjectId(){
+        return this.objectId;
+    }
+
+    public static void fetchList(){
+        Database tempDatabase = new Database();
+        adList = tempDatabase.getAdList();
+    }
+
+    public static List<Advertisement> getAdList(){
+        return adList;
     }
 }

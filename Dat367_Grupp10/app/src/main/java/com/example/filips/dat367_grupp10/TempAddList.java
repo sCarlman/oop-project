@@ -25,13 +25,13 @@ public class TempAddList {
         return adList;
     }
 
-    public void adAddToDataBase(Advertisement add) {
+    public void addAdToDatabase(Advertisement add) {
 
         adList.add(add);
 
     }
 
-    public void removeAddFromDataBase(Advertisement add) {
+    public void removeAddFromDatabase(Advertisement add) {
 
         adList.remove(add);
     }
