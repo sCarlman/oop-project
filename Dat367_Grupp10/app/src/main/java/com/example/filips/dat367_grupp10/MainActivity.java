@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.parse.Parse;
 
 
@@ -19,6 +20,8 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
+
+        Location locationhelper = new Location();
 
         Parse.initialize(this, "W4QRsIPB5oFT6F6drmZi0BrxdPYPEYHY2GYSUU4q", "JpXn4VB0Y63wqNIf0qgvRGg7k3QmjfzJjD9qhzqE");
     }

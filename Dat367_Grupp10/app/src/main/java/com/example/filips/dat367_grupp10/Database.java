@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by Filips on 4/21/2015.
  */
-public class Database implements DataBaseInterface {
+public class Database  {
     private static Database instance = null;
     private Database() { }
 
@@ -28,6 +28,7 @@ public class Database implements DataBaseInterface {
     }
 
     public void removeAddFromDataBase(Advertisement add){
+
 
     }
 }

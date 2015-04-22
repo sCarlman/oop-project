@@ -1,12 +1,14 @@
 package com.example.filips.dat367_grupp10;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Filips on 4/21/2015.
  */
-public class TempAddList implements DataBaseInterface {
+public class TempAddList {
     private static TempAddList instance = null;
+    List<Advertisement> adList = new ArrayList<Advertisement>();
 
     private TempAddList() {
     }
@@ -19,18 +21,18 @@ public class TempAddList implements DataBaseInterface {
         return instance;
     }
 
-    @Override
     public List<Advertisement> getAddList() {
-        return null;
+        return adList;
     }
 
-    @Override
     public void adAddToDataBase(Advertisement add) {
 
+        adList.add(add);
+
     }
 
-    @Override
     public void removeAddFromDataBase(Advertisement add) {
 
+        adList.remove(add);
     }
 }

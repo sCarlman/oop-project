@@ -38,16 +38,27 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap map) {
+        TempAddList database = TempAddList.getInstance();
         this.map = map;
         LatLng currentPosition = locationHelper.getCurrentLocation(this);
 
         map.setMyLocationEnabled(true);
-        //addAllStartMarkers();
 
-        Advertisement add = new Advertisement("slottner","Seholm","Fille","0302302230",new LatLng(57.728175, 11.989438),
+        Advertisement add = new Advertisement("slottner","Seholm","Fille","0302302230",locationHelper.getLocationFromAddress(this,"Sulitelmagatan,Göteborg"),
+                Category.LABOUR,"asdasdasd");
+        Advertisement add2 = new Advertisement("slottner","Seholm","Fille","0302302230",locationHelper.getLocationFromAddress(this,"Majorna,Göteborg"),
+                Category.LABOUR,"asdasdasd");
+        database.adAddToDataBase(add);
+        database.adAddToDataBase(add2);
+
+        if(database.getAddList()!=null) {
+            addAllStartMarkers();
+        }
+
+        Advertisement add1 = new Advertisement("slottner","Seholm","Fille","0302302230",new LatLng(57.728175, 11.989438),
                 Category.LABOUR,"asdasdasd");
 
-        addMarker(add);
+        addMarker(add1);
         addMarker(locationHelper.getLocationFromAddress(this,"Rosenvägen2a,Lerum"),"Här bor jag!");
         map.moveCamera(CameraUpdateFactory.newLatLngBounds(setMapBounds().build(),200)); //sets the location to your current location
     }
@@ -99,7 +110,7 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
 
     private void addAllStartMarkers(){
 
-        List<Advertisement> ads = Database.getInstance().getAddList();
+        List<Advertisement> ads = TempAddList.getInstance().getAddList();
 
         for(Advertisement ad : ads){
             addMarker(ad);
