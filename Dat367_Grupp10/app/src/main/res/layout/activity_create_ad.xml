@@ -30,7 +30,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Förnamn"
+                android:text=""
                 android:ems="10"
                 android:id="@+id/firstNameEditText"
                 android:layout_below="@+id/headerTextView"
@@ -39,13 +39,14 @@
                 android:layout_marginTop="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:visibility="visible" />
+                android:visibility="visible"
+                android:hint="Förnamn" />
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:text="Efternamn"
+                android:text=""
                 android:ems="10"
                 android:id="@+id/lastNameEditText"
                 android:layout_below="@+id/firstNameEditText"
@@ -53,13 +54,14 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:visibility="visible" />
+                android:visibility="visible"
+                android:hint="Efternamn"/>
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:text="E-mail"
+                android:text=""
                 android:ems="10"
                 android:id="@+id/emailEditText"
                 android:layout_below="@+id/firstNameEditText"
@@ -67,7 +69,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:visibility="visible" />
+                android:visibility="visible"
+                android:hint="E-mail"/>
 
             <EditText
                 android:layout_width="wrap_content"
@@ -80,9 +83,10 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:text="Telefon"
-                android:visibility="visible" />
-=======
+                android:text=""
+                android:visibility="visible"
+                android:hint="Telefon"/>
+
             <TableRow
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent">
@@ -102,8 +106,9 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
-                android:text="Adress"
-                android:visibility="visible" />
+                android:text=""
+                android:visibility="visible"
+                android:hint="Adress"/>
 
             <EditText
                 android:layout_width="match_parent"
@@ -111,11 +116,24 @@
                 android:inputType="textMultiLine"
                 android:ems="10"
                 android:id="@+id/discriptionEditText"
-                android:text="Beskrivning"
+                android:text=""
+                android:visibility="visible"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:hint="Beskrivning"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/titleEditText"
+                android:text=""
                 android:visibility="visible"
                 android:layout_below="@+id/adressEditText"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:hint="Titel"/>
 
             <RadioGroup
                 android:layout_width="wrap_content"
