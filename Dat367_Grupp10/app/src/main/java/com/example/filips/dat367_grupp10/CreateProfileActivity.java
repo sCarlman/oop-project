@@ -1,6 +1,5 @@
 package com.example.filips.dat367_grupp10;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,14 +7,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
-
-import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
-import com.parse.ParseUser;
-import com.parse.SignUpCallback;
-
-import java.util.List;
 
 
 public class CreateProfileActivity extends ActionBarActivity implements View.OnClickListener{
@@ -23,14 +16,13 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
     private EditText lastNameEditText;
     private EditText emailEditText;
     private EditText phoneEditText;
-    private EditText passwordEditText;
+    private EditText addressEditText;
     private Button createProfileButton;
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
-    private String preferredLocation;
-    private String password;
+    private ParseGeoPoint preferredLocation;
     private Profile newProfile;
 
     @Override
@@ -41,7 +33,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
         lastNameEditText = (EditText) findViewById(R.id.lastNameEditText);
         emailEditText = (EditText) findViewById(R.id.emailEditText);
         phoneEditText = (EditText) findViewById(R.id.phoneEditText);
-        passwordEditText = (EditText) findViewById(R.id.passwordEditText);
+        addressEditText = (EditText) findViewById(R.id.passwordEditText);
         createProfileButton = (Button) findViewById(R.id.createProfileButton);
         createProfileButton.setOnClickListener(this);
 
@@ -79,38 +71,9 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
         lastName = lastNameEditText.getText().toString().trim();
         email = emailEditText.getText().toString().trim();
         phone = phoneEditText.getText().toString().trim();
-        password = passwordEditText.getText().toString().trim();
-        preferredLocation = ""; //tills vidare tom...
-
-        newProfile = new Profile();
-        newProfile.setProfile("Username", password, firstName, lastName, email, phone, null);
-        ParseUser PinJobProfile = new ParseUser();
-        PinJobProfile.setEmail(email);
-        PinJobProfile.setPassword(password);
-        PinJobProfile.setUsername(firstName + "_" + lastName);
-        PinJobProfile.put("phone", phone);
-
-        PinJobProfile.signUpInBackground(new SignUpCallback() {
-            @Override
-            public void done(ParseException e) {
-                //TODO: hantera det...
-                if (e != null) {
-                    // Show the error message
-                    Toast.makeText(CreateProfileActivity.this, e.getMessage(),
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    // Start an intent for the dispatch activity
-                    Intent intent = new Intent(CreateProfileActivity.this, DispatchActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
-                            Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
-                }
-            }
-        });
-        //newProfile = new Profile(firstName, lastName, email, phone, preferredLocation);
-        //LoggedIn.loggaIn();
-        //LoggedIn.chosenProfile(newProfile);
-
-
+        addressEditText.getText().toString().trim();
+        //preferredLocation = addressEditText.getText().toString().trim();; //needs some map function
+        newProfile = new Profile(firstName, lastName, email, phone, preferredLocation);
+        ProfileService.saveProfile(newProfile);
     }
 }

@@ -29,6 +29,12 @@ public class MainActivity extends ActionBarActivity {
         ParseObject.registerSubclass(Advertisement.class);
         Parse.initialize(this, "W4QRsIPB5oFT6F6drmZi0BrxdPYPEYHY2GYSUU4q", "JpXn4VB0Y63wqNIf0qgvRGg7k3QmjfzJjD9qhzqE");
 
+        if (ProfileService.fetchParseProfiles() != null) {
+            System.out.println("WRONG! YOU NEED TO LEARN ABOUT THREADS SON!");
+        }else {
+            System.out.println(ProfileService.fetchParseProfiles().size());
+        }
+
     }
 
 
