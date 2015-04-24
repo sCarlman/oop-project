@@ -1,4 +1,4 @@
-package com.example.filips.dat367_grupp10;
+package edu.ctl.pinjobs.model;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

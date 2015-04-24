@@ -1,4 +1,4 @@
-package com.example.filips.dat367_grupp10;
+package edu.ctl.pinjobs.controller;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -7,6 +7,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import edu.ctl.pinjobs.model.Profile;
+import edu.ctl.pinjobs.model.ProfileService;
+import com.example.filips.dat367_grupp10.R;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 

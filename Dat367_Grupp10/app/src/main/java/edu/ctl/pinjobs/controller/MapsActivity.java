@@ -1,10 +1,13 @@
-package com.example.filips.dat367_grupp10;
+package edu.ctl.pinjobs.controller;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
+import edu.ctl.pinjobs.model.Advertisement;
+import edu.ctl.pinjobs.model.Category;
+import edu.ctl.pinjobs.model.Database;
+import edu.ctl.pinjobs.model.Location;
+import com.example.filips.dat367_grupp10.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -13,11 +16,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.parse.GetCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;

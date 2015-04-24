@@ -1,4 +1,4 @@
-package com.example.filips.dat367_grupp10;
+package edu.ctl.pinjobs.controller;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -6,15 +6,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.parse.GetCallback;
+import edu.ctl.pinjobs.model.Advertisement;
+import edu.ctl.pinjobs.model.Location;
+import edu.ctl.pinjobs.model.ProfileService;
+import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
-import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -28,12 +26,6 @@ public class MainActivity extends ActionBarActivity {
 
         ParseObject.registerSubclass(Advertisement.class);
         Parse.initialize(this, "W4QRsIPB5oFT6F6drmZi0BrxdPYPEYHY2GYSUU4q", "JpXn4VB0Y63wqNIf0qgvRGg7k3QmjfzJjD9qhzqE");
-
-        if (ProfileService.fetchParseProfiles() != null) {
-            System.out.println("WRONG! YOU NEED TO LEARN ABOUT THREADS SON!");
-        }else {
-            System.out.println(ProfileService.fetchParseProfiles().size());
-        }
 
     }
 

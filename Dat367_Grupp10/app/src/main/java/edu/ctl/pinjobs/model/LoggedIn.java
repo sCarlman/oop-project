@@ -1,4 +1,4 @@
-package com.example.filips.dat367_grupp10;
+package edu.ctl.pinjobs.model;
 
 /**
  * Created by filiplarsson on 15-04-19.

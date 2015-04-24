@@ -1,11 +1,9 @@
-package com.example.filips.dat367_grupp10;
+package edu.ctl.pinjobs.model;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.parse.ParseClassName;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
-
-import java.util.List;
 
 /**
  * Created by Albertsson on 15-04-01.

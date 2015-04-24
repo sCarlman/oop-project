@@ -1,4 +1,4 @@
-package com.example.filips.dat367_grupp10;
+package edu.ctl.pinjobs.model;
 
 import android.content.Context;
 import android.content.Intent;

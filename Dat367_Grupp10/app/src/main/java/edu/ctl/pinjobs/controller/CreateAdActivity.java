@@ -1,4 +1,4 @@
-package com.example.filips.dat367_grupp10;
+package edu.ctl.pinjobs.controller;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,6 +9,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
+import edu.ctl.pinjobs.model.Advertisement;
+import edu.ctl.pinjobs.model.Category;
+import edu.ctl.pinjobs.model.Database;
+import edu.ctl.pinjobs.model.Location;
+import edu.ctl.pinjobs.model.Profile;
+import com.example.filips.dat367_grupp10.R;
 
 
 public class CreateAdActivity extends ActionBarActivity implements View.OnClickListener{

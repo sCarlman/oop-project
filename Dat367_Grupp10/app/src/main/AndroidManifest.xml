@@ -24,7 +24,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="edu.ctl.pinjobs.controller.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -41,7 +41,7 @@
             android:value="AIzaSyBZvZY_xxM7YISuB9dAimaXDf-4JtdY6_o" />
 
         <activity
-            android:name=".MapsActivity"
+            android:name="edu.ctl.pinjobs.controller.MapsActivity"
             android:label="@string/title_activity_maps" >
         </activity>
 
@@ -52,15 +52,15 @@
         <uses-library android:name="com.google.android.maps" />
 
         <activity
-            android:name=".CreateProfileActivity"
+            android:name="edu.ctl.pinjobs.controller.CreateProfileActivity"
             android:label="@string/title_activity_create_profile" >
         </activity>
         <activity
-            android:name=".CreateAdActivity"
+            android:name="edu.ctl.pinjobs.controller.CreateAdActivity"
             android:label="@string/title_activity_create_ad" >
         </activity>
         <activity
-            android:name=".AdListActivity"
+            android:name="edu.ctl.pinjobs.controller.AdListActivity"
             android:label="@string/title_activity_ad_list" >
         </activity>
         <activity

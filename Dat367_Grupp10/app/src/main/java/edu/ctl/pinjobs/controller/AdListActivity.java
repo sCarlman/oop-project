@@ -1,4 +1,4 @@
-package com.example.filips.dat367_grupp10;
+package edu.ctl.pinjobs.controller;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -6,11 +6,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseQuery;
+import edu.ctl.pinjobs.model.Advertisement;
+import edu.ctl.pinjobs.model.Database;
+import com.example.filips.dat367_grupp10.R;
 
 import java.util.ArrayList;
 import java.util.List;
