@@ -17,8 +17,8 @@ public class Advertisement extends ParseObject{
         super();
     }
 
-    public void setDetails(String firstName, String lastName, String email, String phone, LatLng position,
-                           Category category, String description){
+    public void setAdvertisement(String firstName, String lastName, String email, String phone, LatLng position,
+                                 Category category, String description){
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);

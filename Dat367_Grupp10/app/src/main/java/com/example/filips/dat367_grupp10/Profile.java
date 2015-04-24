@@ -1,6 +1,9 @@
 package com.example.filips.dat367_grupp10;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.parse.ParseClassName;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseUser;
 
 import java.util.List;
 
@@ -9,67 +12,72 @@ import java.util.List;
  * A profile is needed to post ads
  *
  */
-public class Profile {
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private LatLng preferredLocation;
-    private String password;
-    private static List<Profile> ProfileList;
+@ParseClassName("Profile")
+public class Profile extends ParseUser{
 
-    public Profile(String firstName, String lastName, String email, String phone,
+    public Profile(){
+        super();
+    }
+
+    public void setProfile(String userName, String password, String firstName, String lastName, String email, String phone,
                    LatLng preferredLocation) {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.email = email;
-            this.phone = phone;
-        this.preferredLocation = preferredLocation;
-
-
+            setUsername(userName);
+            setPassword(password);
+            setFirstName(firstName);
+            setLastName(lastName);
+            setEmail(email);
+            setPhone(phone);
+            setPreferredLocation(new ParseGeoPoint(preferredLocation.latitude,preferredLocation.longitude));
     }
 
-    public String getFirstName() {
-        return this.firstName;
+    @Override
+    public void setUsername(String username){
+        super.setUsername(username);
     }
 
-    public String getLastName() {
-        return lastName;
+    @Override
+    public void setPassword(String password) {
+        super.setPassword(password);
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public LatLng getPreferredLocation() {
-        return preferredLocation;
-    }
-
-    public String getPassword() { return password; }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        put("FirstName", firstName);
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        put("LastName", lastName);
     }
-
+    @Override
     public void setEmail(String email) {
-        this.email = email;
+        super.setEmail(email);
     }
 
     public void setPhone(String phone) {
-        this.phone = phone;
+        put("Phone", phone);
     }
 
-    public void setPreferredLocation(LatLng preferredLocation) {
-        this.preferredLocation = preferredLocation;
+    public void setPreferredLocation(ParseGeoPoint preferredLocation) {
+        put("PreferredLocation", preferredLocation);
     }
 
-    public void setPassword(String password) { this.password = password; }
+    public String getFirstName() {
+        return getString("FirstName");
+    }
+
+    public String getLastName() {
+        return getString("LastName");
+    }
+
+    @Override
+    public String getEmail() {
+        return super.getEmail();
+    }
+
+    public String getPhone() {
+        return getString("Phone");
+    }
+
+    public ParseGeoPoint getPreferredLocation() {
+        return getParseGeoPoint("preferredLocation");
+    }
 }

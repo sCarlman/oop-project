@@ -88,9 +88,9 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
         */
 
         //Skapar en ny profil av det man anger i input för att sedan kunna skapa en ad
-        newProfile = new Profile(firstNameEditText.getText().toString(), lastNameEditText.getText().toString(),
-                emailEditText.getText().toString(),phoneEditText.getText().toString(),
-                locationhelper.getLocationFromAddress(this,addressEditText.getText().toString()));
+        //newProfile = new Profile(firstNameEditText.getText().toString(), lastNameEditText.getText().toString(),
+                //emailEditText.getText().toString(),phoneEditText.getText().toString(),
+               // locationhelper.getLocationFromAddress(this,addressEditText.getText().toString()));
 
         //Ger ett värde till radiobuttons
         gardenRadioButton = (RadioButton) findViewById(R.id.gardenRadioButton);
@@ -102,26 +102,26 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
         //Skapar ad beroende på category
         if (gardenRadioButton.isSelected()){
             Advertisement newAd = new Advertisement();
-            newAd.setDetails(firstNameEditText.getText().toString(),lastNameEditText.getText().toString(),
-                    emailEditText.getText().toString(),phoneEditText.getText().toString(),locationhelper.getLocationFromAddress(this,addressEditText.getText().toString()),
+            newAd.setAdvertisement(firstNameEditText.getText().toString(), lastNameEditText.getText().toString(),
+                    emailEditText.getText().toString(), phoneEditText.getText().toString(), locationhelper.getLocationFromAddress(this, addressEditText.getText().toString()),
                     Category.GARDEN, descriptionEditText.getText().toString());
             System.out.println(newAd);
             System.out.println(newAd.getPosition());
             tempDataBase.addAdToDatabase(newAd);
         }else if(labourRadioButton.isSelected()){
             Advertisement newAd = new Advertisement();
-            newAd.setDetails(firstNameEditText.getText().toString(),lastNameEditText.getText().toString(),
-                    emailEditText.getText().toString(),phoneEditText.getText().toString(),locationhelper.getLocationFromAddress(this,addressEditText.getText().toString()),
-                    Category.GARDEN, descriptionEditText.getText().toString());
+            newAd.setAdvertisement(firstNameEditText.getText().toString(), lastNameEditText.getText().toString(),
+                    emailEditText.getText().toString(), phoneEditText.getText().toString(), locationhelper.getLocationFromAddress(this, addressEditText.getText().toString()),
+                    Category.LABOUR, descriptionEditText.getText().toString());
             System.out.println(newAd);
             System.out.println(newAd.getPosition());
             tempDataBase.addAdToDatabase(newAd);
         }else{
 
             Advertisement newAd = new Advertisement();
-            newAd.setDetails(firstNameEditText.getText().toString(),lastNameEditText.getText().toString(),
-                    emailEditText.getText().toString(),phoneEditText.getText().toString(),locationhelper.getLocationFromAddress(this,addressEditText.getText().toString()),
-                    Category.GARDEN, descriptionEditText.getText().toString());
+            newAd.setAdvertisement(firstNameEditText.getText().toString(), lastNameEditText.getText().toString(),
+                    emailEditText.getText().toString(), phoneEditText.getText().toString(), locationhelper.getLocationFromAddress(this, addressEditText.getText().toString()),
+                    Category.OTHER, descriptionEditText.getText().toString());
             System.out.println(newAd);
             tempDataBase.addAdToDatabase(newAd);
         }
