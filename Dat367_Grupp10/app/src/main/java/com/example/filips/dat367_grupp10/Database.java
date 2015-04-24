@@ -37,8 +37,13 @@ public class Database  {
     }
 
     public List<Advertisement> getAdList(){
-        fetchAdList();
-        return tempAdList;
+        ParseQuery<Advertisement> query = ParseQuery.getQuery("Advertisement");
+        try {
+            return query.find();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public void addAdToDatabase(Advertisement ad){
