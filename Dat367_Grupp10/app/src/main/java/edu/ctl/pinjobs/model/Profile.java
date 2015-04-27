@@ -8,7 +8,7 @@ import com.parse.ParseGeoPoint;
  * A profile is needed to post ads
  *
  */
-public class Profile {
+public class Profile implements IProfile{
 
     private String firstName;
     private String lastName;
