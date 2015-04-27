@@ -1,86 +1,96 @@
 package edu.ctl.pinjobs.model;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.parse.ParseClassName;
 import com.parse.ParseGeoPoint;
-import com.parse.ParseObject;
 
 /**
  * Created by Albertsson on 15-04-01.
  */
-@ParseClassName("Advertisement")
-public class Advertisement extends ParseObject{
 
-    public Advertisement() {
-        super();
-    }
+public class Advertisement implements IAdvertisement{
 
-    public void setAdvertisement(String firstName, String lastName, String email, String phone, LatLng position,
-                                 Category category, String description){
-        setFirstName(firstName);
-        setLastName(lastName);
-        setEmail(email);
-        setPhone(phone);
-        setPosition(new ParseGeoPoint(position.latitude,position.longitude));
-        setCategory(category);
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    private ParseGeoPoint location;
+    private String title;
+    private String description;
+    private Category category;
+
+    public Advertisement(IProfile advertiser, String title, String description, Category category) {
+        setFirstName(advertiser.getFirstName());
+        setLastName(advertiser.getLastName());
+        setEmail(advertiser.getEmail());
+        setPhone(advertiser.getPhone());
+        setLocation(advertiser.getAddress());
+        setTitle(title);
         setDescription(description);
+        setCategory(category);
     }
 
-    private void setFirstName(String firstName) {
-        put("FirstName", firstName);
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    private void setLastName(String lastName) {
-        put("LastName", lastName);
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    private void setEmail(String email) {
-        put("Email", email);
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    private void setPhone(String phone) {
-        put("Phone", phone);
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public void setPosition(ParseGeoPoint pos){
-        put("Position", pos);
+    public void setLocation(ParseGeoPoint location){
+        this.location = location;
     }
 
-    public void setCategory(Category category){
-        put("Category", category.toString());
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setDescription(String description){
-        put("Description", description);
+        this.description = description;
     }
 
+    public void setCategory(Category category){
+        this.category = category;
+    }
 
     public String getFirstName(){
-        return getString("FirstName");
+        return firstName;
     }
 
     public String getLastName(){
-        return getString("LastName");
+        return lastName;
     }
 
     public String getEmail(){
-        return getString("Email");
+        return email;
     }
 
     public String getPhone(){
-        return getString("Phone");
+        return phone;
     }
 
-    public ParseGeoPoint getPosition(){
-        return getParseGeoPoint("Position");
+    public ParseGeoPoint getLocation(){
+        return location;
     }
 
     public Category getCategory() {
-        String categoryString = getString("Category");
-        return Category.valueOf(categoryString);
+        return category;
+    }
+
+    public String getTitle() {
+        return title;
     }
 
     public String getDescription() {
-        return getString("Description");
+        return description;
     }
+
 }
