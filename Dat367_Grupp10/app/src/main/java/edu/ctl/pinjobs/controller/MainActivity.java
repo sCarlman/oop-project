@@ -11,6 +11,7 @@ import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.model.Advertisement;
 import edu.ctl.pinjobs.Handler.Location;
 
+import edu.ctl.pinjobs.model.ProfileService;
 import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -21,11 +22,9 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
-        Location locationhelper = new Location();
-
-        ParseObject.registerSubclass(Advertisement.class);
         Parse.initialize(this, "W4QRsIPB5oFT6F6drmZi0BrxdPYPEYHY2GYSUU4q", "JpXn4VB0Y63wqNIf0qgvRGg7k3QmjfzJjD9qhzqE");
 
     }
@@ -35,6 +34,7 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
         return true;
     }
 
