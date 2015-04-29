@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.model;
+package edu.ctl.pinjobs.Handler;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,61 +14,56 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
+import edu.ctl.pinjobs.model.Advertisement;
+
 
 /**
  * Created by Filips on 4/1/2015.
  */
 public class Location implements LocationListener {
 
-
-    LatLng coordinates = null;
-
-    public LatLng getLocationFromAddress(Context context,String strAddress) {
+    public static LatLng getLocationFromAddress(Context context,String strAddress) {
 
         Geocoder coder = new Geocoder(context);
-        List<Address> address;
-        //the coordinates in latitude and longitude
-        LatLng position = null;
+        List<Address> address; //A list witch holds the adresses that match the adress input.
+        LatLng position = null; //the coordinates in latitude and longitude
 
         try {
-            address = coder.getFromLocationName(strAddress, 5);
+            address = coder.getFromLocationName(strAddress, 5); //saves the 5 best matches from the input
             if (address == null) {
-                return null;
+                return null; //return null if the geocoder cant find any adress for some reason
             }
             Address location = address.get(0);
-            location.getLatitude();
-            location.getLongitude();
-
             position = new LatLng(location.getLatitude(), location.getLongitude());
 
-
-        } catch (Exception e) {
+        } catch (Exception e) { //the method throws both IOexception and illegalargumentexcpetion, Ioexception if there is no
+            //internet connection and illegalargument which should be handled above.
             System.out.println("EXCEPTION");
         }
         return position;
     }
 
-    public LatLng getCurrentLocation(Context context){
+    public static LatLng getCurrentLocation(Context context){
 
         LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         boolean enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        //Checks if the user has allowed the use of gps for the app
 
         if (!enabled) {
-            System.out.println("i if sats");
             Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             context.startActivity(intent);
+            //Starts an intent for the user to allow gps
         }
         Criteria criteria = new Criteria();
         String provider = locationManager.getBestProvider(criteria,false);
         android.location.Location location = locationManager.getLastKnownLocation(provider);
         LatLng currentLocation = new LatLng(location.getLatitude(),location.getLongitude());
-        coordinates = currentLocation;
 
         return currentLocation;
     }
 
     //Calculates the distance from the users current location to the given coordinates using haversine formula
-    public double calculateDistanceFromPosition(double lat1, double lat2, double long1, double long2){
+    public static double calculateDistanceFromPosition(double lat1, double lat2, double long1, double long2){
         int radius = 6371; //earth radius
         double dlat = (lat1-lat2)*Math.PI/180; //delta lat
         double dlong = (long1-long2)*Math.PI/180; //delta long
@@ -81,24 +76,9 @@ public class Location implements LocationListener {
         return distance;
     }
 
-    public double calculateDistanceFromCurrentPosition(Advertisement add, Context context){
-        // return calculateDistanceFromPosition(add.getPosition().latitude, getCurrentLocation(context).latitude,
-          //  add.getPosition().longitude, getCurrentLocation(context).longitude);
-        return 0;
-    }
-
-
-
-    public LatLng getCoordinates() {
-        return coordinates;
-    }
-
-    public double getLatitude(){
-        return coordinates.latitude;
-    }
-
-    public double getLongitude(){
-        return coordinates.longitude;
+    public static double calculateDistanceFromCurrentPosition(Advertisement add, Context context){
+         return calculateDistanceFromPosition(add.getPosition().getLatitude(), getCurrentLocation(context).latitude,
+            add.getPosition().getLongitude(), getCurrentLocation(context).longitude);
     }
 
 

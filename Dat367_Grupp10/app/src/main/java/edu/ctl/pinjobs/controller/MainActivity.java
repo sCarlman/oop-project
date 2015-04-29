@@ -7,9 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.model.Advertisement;
-import edu.ctl.pinjobs.model.Location;
-import edu.ctl.pinjobs.model.ProfileService;
+import edu.ctl.pinjobs.Handler.Location;
+
 import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -68,7 +69,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void openListView(View view) {
-        Intent intent = new Intent(getApplicationContext(), AdListActivity.class);
+        Intent intent = new Intent(getApplicationContext(), HandlerActivity.class);
         startActivity(intent);
     }
 

@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.controller;
+package edu.ctl.pinjobs.Handler;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class AdListActivity extends ActionBarActivity {
+public class HandlerActivity extends ActionBarActivity {
     private ListView adListView;
     private List<Advertisement> adList;
     private List<String> descriptionList;

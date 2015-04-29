@@ -13,7 +13,7 @@ import android.widget.Toast;
 import edu.ctl.pinjobs.model.Advertisement;
 import edu.ctl.pinjobs.model.Category;
 import edu.ctl.pinjobs.model.Database;
-import edu.ctl.pinjobs.model.Location;
+import edu.ctl.pinjobs.Handler.Location;
 import edu.ctl.pinjobs.model.Profile;
 import com.example.filips.dat367_grupp10.R;
 
