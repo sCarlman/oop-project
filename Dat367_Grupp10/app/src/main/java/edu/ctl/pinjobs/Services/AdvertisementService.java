@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.model;
+package edu.ctl.pinjobs.Services;
 
 /**
  * Created by Isaac on 2015-04-27.

@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import edu.ctl.pinjobs.model.Profile;
-import edu.ctl.pinjobs.model.ProfileService;
+import edu.ctl.pinjobs.Services.ProfileService;
 import com.example.filips.dat367_grupp10.R;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;

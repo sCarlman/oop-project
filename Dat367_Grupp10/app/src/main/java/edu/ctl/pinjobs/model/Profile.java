@@ -25,6 +25,10 @@ public class Profile implements IProfile{
         setAddress(address);
     }
 
+    public static void test(){
+
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }

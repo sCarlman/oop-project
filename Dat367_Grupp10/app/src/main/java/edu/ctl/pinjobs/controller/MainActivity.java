@@ -8,13 +8,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import edu.ctl.pinjobs.Handler.HandlerActivity;
-import edu.ctl.pinjobs.model.Advertisement;
-import edu.ctl.pinjobs.Handler.Location;
 
-import edu.ctl.pinjobs.model.ProfileService;
 import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
-import com.parse.ParseObject;
 
 
 public class MainActivity extends ActionBarActivity {
