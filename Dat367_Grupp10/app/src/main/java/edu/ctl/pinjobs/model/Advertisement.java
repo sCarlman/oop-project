@@ -1,7 +1,5 @@
 package edu.ctl.pinjobs.model;
 
-import com.google.android.gms.maps.model.LatLng;
-import com.parse.ParseGeoPoint;
 
 /**
  * Created by Albertsson on 15-04-01.
@@ -9,43 +7,25 @@ import com.parse.ParseGeoPoint;
 
 public class Advertisement implements IAdvertisement{
 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private ParseGeoPoint location;
+    private IProfile advertiser;
+    private String location;
     private String title;
     private String description;
     private Category category;
 
     public Advertisement(IProfile advertiser, String title, String description, Category category) {
-        setFirstName(advertiser.getFirstName());
-        setLastName(advertiser.getLastName());
-        setEmail(advertiser.getEmail());
-        setPhone(advertiser.getPhone());
+        setAdvertiser(advertiser);
         setLocation(advertiser.getAddress());
         setTitle(title);
         setDescription(description);
         setCategory(category);
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setAdvertiser(IProfile advertiser) {
+        this.advertiser = advertiser;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public void setLocation(ParseGeoPoint location){
+    public void setLocation(String location){
         this.location = location;
     }
 
@@ -61,23 +41,11 @@ public class Advertisement implements IAdvertisement{
         this.category = category;
     }
 
-    public String getFirstName(){
-        return firstName;
+    public IProfile getAdvertiser() {
+        return advertiser;
     }
 
-    public String getLastName(){
-        return lastName;
-    }
-
-    public String getEmail(){
-        return email;
-    }
-
-    public String getPhone(){
-        return phone;
-    }
-
-    public ParseGeoPoint getLocation(){
+    public String getLocation(){
         return location;
     }
 

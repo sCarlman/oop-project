@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import edu.ctl.pinjobs.model.Advertisement;
 import edu.ctl.pinjobs.model.Category;
-import edu.ctl.pinjobs.model.Database;
 import edu.ctl.pinjobs.Handler.Location;
 import edu.ctl.pinjobs.model.Profile;
 import com.example.filips.dat367_grupp10.R;
@@ -104,7 +103,7 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
         labourRadioButton = (RadioButton) findViewById(R.id.labourRadioButton);
         otherRadioButton = (RadioButton) findViewById(R.id.otherRadioButton);
 
-        Database tempDataBase = Database.getInstance();
+        /*Database tempDataBase = Database.getInstance();
 
         //Skapar ad beroende på category
         if (gardenRadioButton.isSelected()){
@@ -135,6 +134,6 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
 
         //Notis som meddelar att aden har publicerats
         Toast.makeText(this, "Din annons har publicerats", Toast.LENGTH_LONG).show();
-
+        */
     }
 }

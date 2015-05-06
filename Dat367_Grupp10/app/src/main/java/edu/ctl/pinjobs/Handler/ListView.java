@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ctl.pinjobs.Services.EventBus;
-import edu.ctl.pinjobs.model.Database;
 import edu.ctl.pinjobs.model.IAdvertisement;
 
 /**

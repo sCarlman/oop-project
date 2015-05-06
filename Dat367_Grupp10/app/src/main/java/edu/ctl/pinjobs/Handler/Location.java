@@ -78,8 +78,9 @@ public class Location implements LocationListener {
     }
 
     public static double calculateDistanceFromCurrentPosition(IAdvertisement add, Context context){
-         return calculateDistanceFromPosition(add.getPosition().getLatitude(), getCurrentLocation(context).latitude,
-            add.getPosition().getLongitude(), getCurrentLocation(context).longitude);
+         LatLng addLocation = getLocationFromAddress(context,add.getLocation());
+         return calculateDistanceFromPosition(addLocation.latitude, getCurrentLocation(context).latitude,
+            addLocation.longitude, getCurrentLocation(context).longitude);
     }
 
 

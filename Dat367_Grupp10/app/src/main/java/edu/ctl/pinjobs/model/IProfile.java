@@ -11,12 +11,12 @@ public interface IProfile {
     public void setLastName(String lastName);
     public void setEmail(String email);
     public void setPhone(String phone);
-    public void setAddress(ParseGeoPoint preferredLocation);
+    public void setAddress(String preferredLocation);
 
     public String getFirstName();
     public String getLastName();
     public String getEmail();
     public String getPhone();
-    public ParseGeoPoint getAddress();
+    public String getAddress();
 
 }

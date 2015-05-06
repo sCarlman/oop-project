@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import edu.ctl.pinjobs.Handler.MapModel;
+import edu.ctl.pinjobs.Services.AdvertisementService;
+import edu.ctl.pinjobs.Services.IAdListService;
+import edu.ctl.pinjobs.Services.IAdvertisementService;
 
 import com.example.filips.dat367_grupp10.R;
 import com.google.android.gms.maps.GoogleMap;
@@ -26,8 +29,9 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
     @Override
     public void onMapReady(GoogleMap Gmap) {
 
+        IAdvertisementService service = new AdvertisementService();
         MapModel map = new MapModel(Gmap,this);
-        map.setUpMap();
+        map.setUpMap(service.fetchAllAds());
 
     }
 }

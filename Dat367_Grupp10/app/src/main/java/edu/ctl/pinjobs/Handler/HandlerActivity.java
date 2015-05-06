@@ -8,11 +8,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.Services.EventBus;
 import edu.ctl.pinjobs.Services.IAdListService;
+import edu.ctl.pinjobs.Services.IAdvertisementService;
 import edu.ctl.pinjobs.model.Advertisement;
-import edu.ctl.pinjobs.model.AdvertisementService;
-import edu.ctl.pinjobs.model.Database;
 import com.example.filips.dat367_grupp10.R;
 
 import java.util.ArrayList;
@@ -25,8 +25,8 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        IAdListService adService = new AdvertisementService();
-        IListModel listModel = new ListModel(adService.getAdList();
+        IAdvertisementService adService = new AdvertisementService();
+        IListModel listModel = new ListModel(adService.fetchAllAds());
         ListView view = (ListView) View.inflate(this, R.layout.activity_ad_list, null);
 
 

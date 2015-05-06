@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.model;
+package edu.ctl.pinjobs.Services;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -6,6 +6,9 @@ import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.ctl.pinjobs.model.IProfile;
+import edu.ctl.pinjobs.model.Profile;
 
 /**
  * ProfileService handles the communication or exchanging of data concerning
@@ -73,7 +76,7 @@ public class ProfileService {
                     parseProfile.getString("LastName"),
                     parseProfile.getString("Email"),
                     parseProfile.getString("Phone"),
-                    parseProfile.getParseGeoPoint("PreferredLocation")));
+                    parseProfile.getString("PreferredLocation")));
         }
         return fetchedProfiles;
     }
@@ -111,7 +114,7 @@ public class ProfileService {
                 parseProfile.getString("LastName"),
                 parseProfile.getString("Email"),
                 parseProfile.getString("Phone"),
-                parseProfile.getParseGeoPoint("PreferredLocation"));
+                parseProfile.getString("PreferredLocation"));
         return fetchedProfile;
     }
 

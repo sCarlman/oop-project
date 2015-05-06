@@ -13,9 +13,10 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ctl.pinjobs.Services.IAdvertisementService;
 import edu.ctl.pinjobs.model.Advertisement;
 import edu.ctl.pinjobs.model.Category;
-import edu.ctl.pinjobs.model.Database;
+import edu.ctl.pinjobs.model.IAdvertisement;
 
 /**
  * Created by Filips on 4/26/2015.
@@ -35,9 +36,9 @@ public class MapModel implements IMapModel {
         map.addMarker(new MarkerOptions().position(location).title(title));
     }
 
-    private void addMarker(Advertisement ad){
-
-        MarkerOptions marker = new MarkerOptions().position(new LatLng(ad.getPosition().getLatitude(), ad.getPosition().getLongitude())).title(ad.getDescription()).icon(addCorrectCollorMarker(ad))
+    private void addMarker(IAdvertisement ad){
+        LatLng adPosition = Location.getLocationFromAddress(context,ad.getLocation());
+        MarkerOptions marker = new MarkerOptions().position(new LatLng(adPosition.latitude, adPosition.longitude)).title(ad.getDescription()).icon(addCorrectCollorMarker(ad))
                 .snippet("" + Location.calculateDistanceFromCurrentPosition(ad, context));
 
         map.addMarker(marker);
@@ -69,16 +70,15 @@ public class MapModel implements IMapModel {
         return builder;
     }
 
-    private void addAllStartMarkers(){
+    private void addAllStartMarkers(List<IAdvertisement> list){
 
-        List<Advertisement> ads = Database.getInstance().getAdList();
-        for(Advertisement ad : ads){
+        for(IAdvertisement ad : list){
             addMarker(ad);
         }
     }
 
     //Chooses different colors depending on the Job category
-    private BitmapDescriptor addCorrectCollorMarker(Advertisement ad){
+    private BitmapDescriptor addCorrectCollorMarker(IAdvertisement ad){
         Category category = ad.getCategory();
         switch (category){
             case GARDEN : return BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
@@ -92,12 +92,11 @@ public class MapModel implements IMapModel {
         map.moveCamera(CameraUpdateFactory.newLatLngBounds(setMapBounds().build(), 200)); //sets the location to your current location
     }
 
-    public void setUpMap(){
-        Database database = Database.getInstance();
+    public void setUpMap(List<IAdvertisement> list){
         map.setMyLocationEnabled(true);
 
-        if(database.getAdList()!=null) {
-            addAllStartMarkers();
+        if(list!=null) {
+            addAllStartMarkers(list);
         }
         setUpCamera();
     }
