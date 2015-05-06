@@ -4,10 +4,14 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import edu.ctl.pinjobs.Services.EventBus;
+import edu.ctl.pinjobs.Services.IAdListService;
 import edu.ctl.pinjobs.model.Advertisement;
+import edu.ctl.pinjobs.model.AdvertisementService;
 import edu.ctl.pinjobs.model.Database;
 import com.example.filips.dat367_grupp10.R;
 
@@ -15,25 +19,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class HandlerActivity extends ActionBarActivity {
+public class HandlerActivity extends ActionBarActivity implements EventBus.IEventHandler {
     private ListView adListView;
-    private List<Advertisement> adList;
-    private List<String> descriptionList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ad_list);
 
-        Database cloud = Database.getInstance();
-        adListView = (ListView) findViewById(R.id.adListView);
-        adList = cloud.getAdList();
-        descriptionList = new ArrayList();
-        for (int i = 0; i < adList.size(); ++i) {
-            descriptionList.add(adList.get(i).getDescription());
+        super.onCreate(savedInstanceState);
+        IAdListService adService = new AdvertisementService();
+        IListModel listModel = new ListModel(adService.getAdList();
+        ListView view = (ListView) View.inflate(this, R.layout.activity_ad_list, null);
+
+
+    }
+
+    @Override
+    public void onEvent(EventBus.Event evt, Object o){
+        if(evt == EventBus.Event.ADLIST_UPDATED) {
+            setContentView(R.layout.activity_ad_list);
         }
-        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,
-                descriptionList);
-        adListView.setAdapter(adapter);
     }
 
 
@@ -58,5 +61,7 @@ public class HandlerActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
 }

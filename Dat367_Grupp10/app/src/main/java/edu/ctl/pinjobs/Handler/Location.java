@@ -15,6 +15,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.List;
 
 import edu.ctl.pinjobs.model.Advertisement;
+import edu.ctl.pinjobs.model.IAdvertisement;
 
 
 /**
@@ -76,7 +77,7 @@ public class Location implements LocationListener {
         return distance;
     }
 
-    public static double calculateDistanceFromCurrentPosition(Advertisement add, Context context){
+    public static double calculateDistanceFromCurrentPosition(IAdvertisement add, Context context){
          return calculateDistanceFromPosition(add.getPosition().getLatitude(), getCurrentLocation(context).latitude,
             add.getPosition().getLongitude(), getCurrentLocation(context).longitude);
     }
