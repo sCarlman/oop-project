@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.example.filips.dat367_grupp10.R;
 
@@ -17,11 +18,12 @@ import java.util.regex.Pattern;
 /**
  * Created by Albertsson on 15-05-05.
  */
-public class LoginView extends LinearLayout {
+public class LoginView extends RelativeLayout {
 
     private Button loginButton;
     private EditText eMail;
     private EditText pwd;
+    LoginModel lm = new LoginModel();
 
 
     public LoginView(Context context, AttributeSet attrs) {
@@ -36,11 +38,12 @@ public class LoginView extends LinearLayout {
     }
 
     /**
-     * Attempts to sign in or register the account specified by the login form.
+     * Attempts to sign in to the account.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
     public void attemptLogin() {
+        System.out.println("Går in i attemptLogin! ---> 2");
 
         // Reset errors.
         eMail.setError(null);
@@ -49,16 +52,20 @@ public class LoginView extends LinearLayout {
         // Store values at the time of the login attempt.
         String email = eMail.getText().toString();
         String password = pwd.getText().toString();
+        System.out.print(email);
 
         boolean cancel = false;
         View focusView = null;
 
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(password)) {
+            System.out.println("Går in i empty password -----> 3");
             pwd.setError("Du måste fylla i ett lösenord!!!");
             focusView = pwd;
+            System.out.println("CANCEL = --->" + cancel);
             cancel = true;
+            System.out.println("CANCEL = --->" + cancel);
         }
 
         // Check for a valid email address.
@@ -78,6 +85,7 @@ public class LoginView extends LinearLayout {
             focusView.requestFocus();
         } else {
             // perform the user login attempt.
+            lm.matchLoginWithDatabase(email, password);
         }
     }
 

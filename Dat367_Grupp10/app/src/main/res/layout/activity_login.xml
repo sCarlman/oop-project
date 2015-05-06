@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<edu.ctl.pinjobs.User.LoginView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -40,7 +40,7 @@
         android:layout_marginTop="40dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:text="Mail" />
+        android:hint="Type your e-mail here"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -53,5 +53,5 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/editText"
         android:layout_alignEnd="@+id/editText"
-        android:text="Password" />
-</RelativeLayout>
+        android:hint="Type your password here"/>
+</edu.ctl.pinjobs.User.LoginView>

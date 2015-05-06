@@ -8,7 +8,9 @@ import android.view.View;
 
 import com.example.filips.dat367_grupp10.R;
 
-public class LoginActivity extends ActionBarActivity {
+import edu.ctl.pinjobs.Services.EventBus;
+
+public class LoginActivity extends ActionBarActivity implements EventBus.IEventHandler {
 
     private LoginView view;
 
@@ -17,6 +19,7 @@ public class LoginActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         view = (LoginView) View.inflate(this, R.layout.activity_login, null);
+
     }
 
 
@@ -43,6 +46,14 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     public void testView(View view){
+        System.out.println("Går in i metoden testView ----> 1");
         this.view.attemptLogin();
+    }
+
+    @Override
+    public void onEvent(EventBus.Event evt, Object o) {
+        if(evt == EventBus.Event.LOGIN_MATCH){
+
+        }
     }
 }

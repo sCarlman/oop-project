@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import edu.ctl.pinjobs.Services.IProfileService;
 import edu.ctl.pinjobs.model.Profile;
 import edu.ctl.pinjobs.Services.ProfileService;
 import com.example.filips.dat367_grupp10.R;
@@ -78,6 +79,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
         addressEditText.getText().toString().trim();
         //preferredLocation = addressEditText.getText().toString().trim();; //needs some map function
         newProfile = new Profile(firstName, lastName, email, phone, preferredLocation);
-        ProfileService.saveProfile(newProfile);
+        IProfileService service = new ProfileService();
+        service.saveProfile(newProfile);
     }
 }
