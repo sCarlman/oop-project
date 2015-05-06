@@ -15,7 +15,7 @@ import edu.ctl.pinjobs.model.IAdvertisement;
  */
 public class ListModel implements IListModel {
 
-    private List<IAdvertisement> adList;
+    private List<IAdvertisement> adList = new ArrayList<>();
 
     public ListModel(List<IAdvertisement> adList) {
         setList(adList);
@@ -33,9 +33,12 @@ public class ListModel implements IListModel {
 
     @Override
     public void setList(List<IAdvertisement> addList) {
-        this.adList.clear();
-        adList.addAll(addList);
-        EventBus.INSTANCE.publish(EventBus.Event.ADLIST_UPDATED,adList);
+        if(adList!=null) {
+            this.adList.clear();
+        }else {
+            adList.addAll(addList);
+            EventBus.INSTANCE.publish(EventBus.Event.ADLIST_UPDATED, adList);
+        }
     }
 
     @Override

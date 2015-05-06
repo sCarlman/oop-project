@@ -8,16 +8,21 @@ import android.view.MenuItem;
 import android.view.View;
 
 import edu.ctl.pinjobs.Handler.HandlerActivity;
+import edu.ctl.pinjobs.Services.AdvertisementService;
+import edu.ctl.pinjobs.model.Advertisement;
+import edu.ctl.pinjobs.model.Category;
+import edu.ctl.pinjobs.model.Profile;
 
 import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
 
 
 public class MainActivity extends ActionBarActivity {
-    @Override
+        @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         // Enable Local Datastore.
         Parse.enableLocalDatastore(this);
