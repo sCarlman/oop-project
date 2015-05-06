@@ -76,7 +76,7 @@ public class ProfileService {
                     parseProfile.getString("LastName"),
                     parseProfile.getString("Email"),
                     parseProfile.getString("Phone"),
-                    parseProfile.getParseGeoPoint("PreferredLocation")));
+                    parseProfile.getString("PreferredLocation")));
         }
         return fetchedProfiles;
     }
@@ -114,7 +114,7 @@ public class ProfileService {
                 parseProfile.getString("LastName"),
                 parseProfile.getString("Email"),
                 parseProfile.getString("Phone"),
-                parseProfile.getParseGeoPoint("PreferredLocation"));
+                parseProfile.getString("PreferredLocation"));
         return fetchedProfile;
     }
 

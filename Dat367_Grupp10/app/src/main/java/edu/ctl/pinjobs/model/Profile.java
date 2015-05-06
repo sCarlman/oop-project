@@ -1,7 +1,6 @@
 package edu.ctl.pinjobs.model;
 
 
-import com.parse.ParseGeoPoint;
 
 /**
  * Created by Isaac on 2015-04-01.
@@ -14,10 +13,10 @@ public class Profile implements IProfile{
     private String lastName;
     private String email;
     private String phone;
-    private ParseGeoPoint address;
+    private String address;
 
     public Profile(String firstName, String lastName, String email, String phone,
-                           ParseGeoPoint address) {
+                           String address) {
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
@@ -45,7 +44,7 @@ public class Profile implements IProfile{
         this.phone = phone;
     }
 
-    public void setAddress(ParseGeoPoint preferredLocation) {
+    public void setAddress(String preferredLocation) {
         this.address = preferredLocation;
     }
 
@@ -65,7 +64,7 @@ public class Profile implements IProfile{
         return phone;
     }
 
-    public ParseGeoPoint getAddress() {
+    public String getAddress() {
         return address;
     }
 }
