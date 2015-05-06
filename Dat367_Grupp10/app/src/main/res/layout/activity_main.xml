@@ -61,4 +61,15 @@
         android:layout_marginTop="35dp"
         android:onClick="openListView"/>
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LoggaIN"
+        android:id="@+id/loginButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/headerTextView"
+        android:layout_alignStart="@+id/headerTextView"
+        android:onClick="openLoginView"/>
+
 </RelativeLayout>

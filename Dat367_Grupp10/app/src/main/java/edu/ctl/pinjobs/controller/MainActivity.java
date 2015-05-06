@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import edu.ctl.pinjobs.Handler.HandlerActivity;
+import edu.ctl.pinjobs.User.LoginActivity;
 
 import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
@@ -66,6 +67,11 @@ public class MainActivity extends ActionBarActivity {
 
     public void openListView(View view) {
         Intent intent = new Intent(getApplicationContext(), HandlerActivity.class);
+        startActivity(intent);
+    }
+
+    public void openLoginView(View view) {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
     }
 
