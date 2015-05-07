@@ -54,12 +54,9 @@ public class AdvertisementService implements IAdvertisementService {
 
     private List<IAdvertisement> copyToAdvertisements(List<ParseObject> parseAds) {
         List<IAdvertisement> fetchedAds = new ArrayList<IAdvertisement>();
+        ProfileService pService = new ProfileService();
         for (ParseObject parseAd: parseAds) {
-            fetchedAds.add(new Advertisement(new Profile(parseAd.getString("FirstName"),
-                    parseAd.getString("LastName"),
-                    parseAd.getString("Email"),
-                    parseAd.getString("Phone"),
-                    parseAd.getString("PreferredLocation")),
+            fetchedAds.add(new Advertisement(pService.fetchProfile(parseAd.getString("Email")),
                     parseAd.getString("Title"),
                     parseAd.getString("Description"),
                     Category.valueOf(parseAd.getString("Category"))));

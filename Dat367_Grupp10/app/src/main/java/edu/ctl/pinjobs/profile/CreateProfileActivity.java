@@ -15,13 +15,13 @@ import com.parse.ParseObject;
 
 
 public class CreateProfileActivity extends ActionBarActivity implements View.OnClickListener{
-    private CreateProfileView view;
+    private CreateProfileView profileView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createprofile);
-        view = new CreateProfileView((EditText) findViewById(R.id.firstNameEditText),
+        profileView = new CreateProfileView((EditText) findViewById(R.id.firstNameEditText),
                 (EditText) findViewById(R.id.lastNameEditText),
                 (EditText) findViewById(R.id.emailEditText),
                 (EditText) findViewById(R.id.phoneEditText),
