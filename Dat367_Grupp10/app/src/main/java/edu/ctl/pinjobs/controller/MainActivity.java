@@ -9,6 +9,7 @@ import android.view.View;
 
 import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.User.LoginActivity;
+import edu.ctl.pinjobs.profile.CreateProfileActivity;
 
 import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;

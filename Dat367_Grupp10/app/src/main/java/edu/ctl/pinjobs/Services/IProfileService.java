@@ -2,7 +2,7 @@ package edu.ctl.pinjobs.Services;
 
 import java.util.List;
 
-import edu.ctl.pinjobs.model.IProfile;
+import edu.ctl.pinjobs.IProfile;
 
 /**
  * Created by Isaac on 2015-05-06.

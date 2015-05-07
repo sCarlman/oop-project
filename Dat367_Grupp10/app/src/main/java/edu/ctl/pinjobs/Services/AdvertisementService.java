@@ -7,10 +7,11 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ctl.pinjobs.IProfile;
 import edu.ctl.pinjobs.model.Advertisement;
 import edu.ctl.pinjobs.model.Category;
 import edu.ctl.pinjobs.model.IAdvertisement;
-import edu.ctl.pinjobs.model.Profile;
+import edu.ctl.pinjobs.profile.Profile;
 
 /**
  * Created by Isaac on 2015-04-27.
@@ -67,28 +68,16 @@ public class AdvertisementService implements IAdvertisementService {
     }
 
     @Override
-    public IAdvertisement fetchAd(String email) {
+    public List<IAdvertisement> fetchAdsOfAdvertiser(IProfile advertiser) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Advertisement");
-        query.whereEqualTo("Email", email);
+        query.whereEqualTo("Email", advertiser.getEmail());
         try {
-            return copyToAdvertisement(query.getFirst());
+            return copyToAdvertisements(query.find());
         } catch (ParseException e) {
             e.printStackTrace();
             //TODO: Handle error.
             return null;
         }
-    }
-
-    private IAdvertisement copyToAdvertisement(ParseObject parseAd) {
-        Advertisement fetchedAd = new Advertisement(new Profile(parseAd.getString("FirstName"),
-                parseAd.getString("LastName"),
-                parseAd.getString("Email"),
-                parseAd.getString("Phone"),
-                parseAd.getString("PreferredLocation")),
-                parseAd.getString("Title"),
-                parseAd.getString("Description"),
-                Category.valueOf(parseAd.getString("Category")));
-        return fetchedAd;
     }
 
 }

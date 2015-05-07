@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.controller;
+package edu.ctl.pinjobs.profile;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,44 +8,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import edu.ctl.pinjobs.Services.IProfileService;
-import edu.ctl.pinjobs.Services.ProfileService;
 import edu.ctl.pinjobs.profile.Profile;
-
+import edu.ctl.pinjobs.Services.ProfileService;
 import com.example.filips.dat367_grupp10.R;
 import com.parse.ParseObject;
 
 
 public class CreateProfileActivity extends ActionBarActivity implements View.OnClickListener{
-    private EditText firstNameEditText;
-    private EditText lastNameEditText;
-    private EditText emailEditText;
-    private EditText phoneEditText;
-    private EditText addressEditText;
-    private Button createProfileButton;
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private String preferredLocation;
-    private Profile newProfile;
+    private CreateProfileView view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createprofile);
-        firstNameEditText = (EditText) findViewById(R.id.firstNameEditText);
-        lastNameEditText = (EditText) findViewById(R.id.lastNameEditText);
-        emailEditText = (EditText) findViewById(R.id.emailEditText);
-        phoneEditText = (EditText) findViewById(R.id.phoneEditText);
-        addressEditText = (EditText) findViewById(R.id.passwordEditText);
+        view = new CreateProfileView((EditText) findViewById(R.id.firstNameEditText),
+                (EditText) findViewById(R.id.lastNameEditText),
+                (EditText) findViewById(R.id.emailEditText),
+                (EditText) findViewById(R.id.phoneEditText),
+                (EditText) findViewById(R.id.passwordEditText),
+                (EditText) findViewById(R.id.addressEditText));
         createProfileButton = (Button) findViewById(R.id.createProfileButton);
         createProfileButton.setOnClickListener(this);
-
-        // Test creation of object
-        ParseObject testObject = new ParseObject("TestObject");
-        testObject.put("foo", "bar");
-        testObject.saveInBackground();
     }
 
     @Override
@@ -79,7 +62,6 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
         addressEditText.getText().toString().trim();
         //preferredLocation = addressEditText.getText().toString().trim();; //needs some map function
         newProfile = new Profile(firstName, lastName, email, phone, preferredLocation);
-        IProfileService service = new ProfileService();
-        service.saveProfile(newProfile);
+        //ProfileService.saveProfile(newProfile);
     }
 }

@@ -1,6 +1,5 @@
-package edu.ctl.pinjobs.model;
+package edu.ctl.pinjobs;
 
-import com.parse.ParseGeoPoint;
 
 /**
  * Created by Isaac on 2015-04-27.

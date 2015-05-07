@@ -1,13 +1,14 @@
-package edu.ctl.pinjobs.model;
+package edu.ctl.pinjobs.profile;
 
 
+import edu.ctl.pinjobs.IProfile;
 
 /**
  * Created by Isaac on 2015-04-01.
  * A profile is needed to post ads
  *
  */
-public class Profile implements IProfile{
+public class Profile implements IProfile {
 
     private String firstName;
     private String lastName;

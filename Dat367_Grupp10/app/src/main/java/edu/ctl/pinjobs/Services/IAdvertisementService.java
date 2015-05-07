@@ -2,6 +2,7 @@ package edu.ctl.pinjobs.Services;
 
 import java.util.List;
 
+import edu.ctl.pinjobs.IProfile;
 import edu.ctl.pinjobs.model.IAdvertisement;
 
 /**
@@ -12,6 +13,6 @@ public interface IAdvertisementService {
     public void saveAd(IAdvertisement Ad);
 
     public List<IAdvertisement> fetchAllAds();
-    public IAdvertisement fetchAd(String email);
+    public List<IAdvertisement> fetchAdsOfAdvertiser(IProfile advertiser);
 
 }
