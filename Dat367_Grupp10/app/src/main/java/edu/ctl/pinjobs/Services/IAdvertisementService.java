@@ -2,7 +2,7 @@ package edu.ctl.pinjobs.Services;
 
 import java.util.List;
 
-import edu.ctl.pinjobs.IProfile;
+import edu.ctl.pinjobs.profile.IProfile;
 import edu.ctl.pinjobs.model.IAdvertisement;
 
 /**

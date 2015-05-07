@@ -1,7 +1,7 @@
 package edu.ctl.pinjobs.model;
 
 
-import edu.ctl.pinjobs.IProfile;
+import edu.ctl.pinjobs.profile.IProfile;
 
 /**
  * Created by Isaac on 2015-04-27.

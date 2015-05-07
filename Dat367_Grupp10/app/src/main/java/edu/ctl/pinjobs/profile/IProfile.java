@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs;
+package edu.ctl.pinjobs.profile;
 
 
 /**

@@ -7,7 +7,7 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ctl.pinjobs.IProfile;
+import edu.ctl.pinjobs.profile.IProfile;
 import edu.ctl.pinjobs.profile.Profile;
 
 /**
