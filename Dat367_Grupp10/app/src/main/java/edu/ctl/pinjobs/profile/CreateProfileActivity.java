@@ -26,9 +26,8 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                 (EditText) findViewById(R.id.emailEditText),
                 (EditText) findViewById(R.id.phoneEditText),
                 (EditText) findViewById(R.id.passwordEditText),
-                (EditText) findViewById(R.id.addressEditText));
-        //createProfileButton = (Button) findViewById(R.id.createProfileButton);
-        //createProfileButton.setOnClickListener(this);
+                (EditText) findViewById(R.id.addressEditText),
+                (Button) findViewById((R.id.createProfileButton)));
     }
 
     @Override

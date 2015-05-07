@@ -1,6 +1,7 @@
 package edu.ctl.pinjobs.profile;
 
 
+import android.widget.Button;
 import android.widget.EditText;
 
 /**
@@ -13,19 +14,35 @@ public class CreateProfileView {
     private EditText phoneEditText;
     private EditText passwordEditText;
     private EditText addressEditText;
+    private Button createProfileButton;
+
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String phone;
+    private String password;
+    private String address;
 
     CreateProfileView(EditText firstNameEditText, EditText lastNameEditText,
                       EditText emailEditText, EditText phoneEditText, EditText passwordEditText,
-                      EditText addressEditText) {
+                      EditText addressEditText, Button createProfileButton) {
         this.firstNameEditText = firstNameEditText;
         this.lastNameEditText = lastNameEditText;
         this.emailEditText = emailEditText;
         this.phoneEditText = phoneEditText;
         this.passwordEditText = passwordEditText;
         this.addressEditText = addressEditText;
+        this.createProfileButton = createProfileButton;
     }
 
+    public void createProfileButtonClicked() {
+        firstName = firstNameEditText.getText().toString().trim();
+        lastName = lastNameEditText.getText().toString().trim();
+        email = emailEditText.getText().toString().trim();
+        phone = phoneEditText.getText().toString().trim();
+        password = passwordEditText.getText().toString().trim();
+        address = addressEditText.getText().toString().trim();
 
-
-
+        
+    }
 }
