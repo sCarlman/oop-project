@@ -1,4 +1,4 @@
-<edu.ctl.pinjobs.User.LoginView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -13,7 +13,8 @@
         android:text="Logga In"
         android:id="@+id/headerTextView"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:visibility="visible"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -26,7 +27,8 @@
         android:layout_alignEnd="@+id/pwdEditText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:onClick="testView"/>
+        android:onClick="testView"
+        android:visibility="visible"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -40,7 +42,8 @@
         android:layout_marginTop="40dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:hint="Type your e-mail here"/>
+        android:hint="Type your e-mail here"
+        android:visibility="visible"/>
 
     <EditText
         android:layout_width="wrap_content"
@@ -53,5 +56,6 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/editText"
         android:layout_alignEnd="@+id/editText"
-        android:hint="Type your password here"/>
-</edu.ctl.pinjobs.User.LoginView>
+        android:hint="Type your password here"
+        android:visibility="visible"/>
+</RelativeLayout>

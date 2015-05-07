@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 
 import com.example.filips.dat367_grupp10.R;
 
@@ -14,12 +15,14 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
 
     private LoginView view;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        view = (LoginView) View.inflate(this, R.layout.activity_login, null);
-
+        LoginView view = new LoginView((EditText)findViewById(R.id.editText), (EditText)findViewById(R.id.pwdEditText));
+        this.view = view;
+        EventBus.INSTANCE.addListener(this);
     }
 
 
@@ -46,13 +49,16 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
     }
 
     public void testView(View view){
-        System.out.println("Går in i metoden testView ----> 1");
         this.view.attemptLogin();
     }
 
     @Override
     public void onEvent(EventBus.Event evt, Object o) {
         if(evt == EventBus.Event.LOGIN_MATCH){
+
+        }
+        if(evt == EventBus.Event.REPAINT_LOGIN_VIEW){
+
 
         }
     }
