@@ -8,9 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ctl.pinjobs.profile.IProfile;
-import edu.ctl.pinjobs.model.Advertisement;
-import edu.ctl.pinjobs.model.Category;
-import edu.ctl.pinjobs.model.IAdvertisement;
+import edu.ctl.pinjobs.Advertisement.Advertisement;
+import edu.ctl.pinjobs.Advertisement.Category;
+import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 
 /**
  * Created by Isaac on 2015-04-27.

@@ -13,7 +13,7 @@ import com.example.filips.dat367_grupp10.R;
 
 import edu.ctl.pinjobs.Handler.Location;
 import edu.ctl.pinjobs.Services.EventBus;
-import edu.ctl.pinjobs.model.Advertisement;
+import edu.ctl.pinjobs.Advertisement.Advertisement;
 import edu.ctl.pinjobs.profile.Profile;
 
 /**

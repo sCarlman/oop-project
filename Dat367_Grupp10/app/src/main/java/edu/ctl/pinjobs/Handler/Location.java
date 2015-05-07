@@ -14,8 +14,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
-import edu.ctl.pinjobs.model.Advertisement;
-import edu.ctl.pinjobs.model.IAdvertisement;
+import edu.ctl.pinjobs.Advertisement.Advertisement;
+import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 
 
 /**

@@ -12,7 +12,7 @@ import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.Services.EventBus;
 import edu.ctl.pinjobs.Services.IAdListService;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
-import edu.ctl.pinjobs.model.Advertisement;
+import edu.ctl.pinjobs.Advertisement.Advertisement;
 import com.example.filips.dat367_grupp10.R;
 
 import java.util.ArrayList;

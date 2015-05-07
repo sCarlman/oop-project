@@ -10,9 +10,9 @@ import java.util.List;
 
 import edu.ctl.pinjobs.Handler.ListModel;
 import edu.ctl.pinjobs.Services.AdvertisementService;
-import edu.ctl.pinjobs.model.Advertisement;
-import edu.ctl.pinjobs.model.Category;
-import edu.ctl.pinjobs.model.IAdvertisement;
+import edu.ctl.pinjobs.Advertisement.Advertisement;
+import edu.ctl.pinjobs.Advertisement.Category;
+import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import edu.ctl.pinjobs.profile.Profile;
 
 /**
