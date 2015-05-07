@@ -7,10 +7,14 @@ import edu.ctl.pinjobs.profile.IProfile;
 /**
  * Created by filiplarsson on 15-05-07.
  */
+
+//Ett sätt att spara den ad-infon som från den ad man klickar på
+//så att man kan visa detaljerad info om den ad'en
 public class ClickedAd {
 
-    Advertisement clickedAd;
+    static Advertisement clickedAd;
 
+    //setmetod för att sätta en ad som vald
     public void setClickedAd(IProfile advertiser, String title, String description, Category category){
 
         clickedAd.setAdvertiser(advertiser);
@@ -20,7 +24,8 @@ public class ClickedAd {
         clickedAd.setLocation(advertiser.getAddress());
 
     }
-    public Advertisement getClickedAd(){
+    //getmetod för att hämta den ad man klickat på
+    public static Advertisement getClickedAd(){
         return clickedAd;
     }
 

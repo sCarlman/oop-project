@@ -7,11 +7,12 @@ import edu.ctl.pinjobs.Advertisement.Category;
  */
 public class DetaildAdModel {
 
-    static ClickedAd hej = new ClickedAd();
-    static Advertisement clickedAd = new Advertisement(hej.clickedAd.getAdvertiser(),
-            hej.clickedAd.getTitle(),
-            hej.clickedAd.getDescription(),
-            hej.clickedAd.getCategory());
+    static Advertisement hej = ClickedAd.getClickedAd();
+
+    static Advertisement clickedAd = new Advertisement(hej.getAdvertiser(),
+            hej.getTitle(),
+            hej.getDescription(),
+            hej.getCategory());
 
     public static String getClickedAdTitle(){
         return clickedAd.getTitle().toString().trim();
