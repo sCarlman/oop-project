@@ -27,8 +27,8 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                 (EditText) findViewById(R.id.phoneEditText),
                 (EditText) findViewById(R.id.passwordEditText),
                 (EditText) findViewById(R.id.addressEditText));
-        createProfileButton = (Button) findViewById(R.id.createProfileButton);
-        createProfileButton.setOnClickListener(this);
+        //createProfileButton = (Button) findViewById(R.id.createProfileButton);
+        //createProfileButton.setOnClickListener(this);
     }
 
     @Override
@@ -55,13 +55,13 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        firstName = firstNameEditText.getText().toString().trim();
-        lastName = lastNameEditText.getText().toString().trim();
-        email = emailEditText.getText().toString().trim();
-        phone = phoneEditText.getText().toString().trim();
-        addressEditText.getText().toString().trim();
+        //firstName = firstNameEditText.getText().toString().trim();
+        //lastName = lastNameEditText.getText().toString().trim();
+        //email = emailEditText.getText().toString().trim();
+        //phone = phoneEditText.getText().toString().trim();
+        //addressEditText.getText().toString().trim();
         //preferredLocation = addressEditText.getText().toString().trim();; //needs some map function
-        newProfile = new Profile(firstName, lastName, email, phone, preferredLocation);
+        //newProfile = new Profile(firstName, lastName, email, phone, preferredLocation);
         //ProfileService.saveProfile(newProfile);
     }
 }

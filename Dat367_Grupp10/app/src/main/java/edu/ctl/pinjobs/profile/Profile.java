@@ -12,11 +12,12 @@ public class Profile implements IProfile {
 
     private String firstName;
     private String lastName;
+    private String password;
     private String email;
     private String phone;
     private String address;
 
-    public Profile(String firstName, String lastName, String email, String phone,
+    public Profile(String firstName, String lastName, String password, String email, String phone,
                            String address) {
         setFirstName(firstName);
         setLastName(lastName);
@@ -37,6 +38,10 @@ public class Profile implements IProfile {
         this.lastName = lastName;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
@@ -55,6 +60,10 @@ public class Profile implements IProfile {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getEmail() {
