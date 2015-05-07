@@ -1,6 +1,7 @@
-package edu.ctl.pinjobs.model;
+package edu.ctl.pinjobs.Advertisement;
 
 
+import edu.ctl.pinjobs.Advertisement.Category;
 import edu.ctl.pinjobs.profile.IProfile;
 
 /**
