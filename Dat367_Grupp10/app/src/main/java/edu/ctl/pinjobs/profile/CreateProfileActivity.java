@@ -8,11 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import edu.ctl.pinjobs.profile.Profile;
-import edu.ctl.pinjobs.Services.ProfileService;
 import com.example.filips.dat367_grupp10.R;
-import com.parse.ParseObject;
-
 
 public class CreateProfileActivity extends ActionBarActivity implements View.OnClickListener{
     private CreateProfileView view;
@@ -27,7 +23,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                 (EditText) findViewById(R.id.phoneEditText),
                 (EditText) findViewById(R.id.passwordEditText),
                 (EditText) findViewById(R.id.addressEditText),
-                (Button) findViewById((R.id.createProfileButton)));
+                (Button) findViewById(R.id.createProfileButton), this);
     }
 
     @Override
@@ -54,13 +50,8 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        //firstName = firstNameEditText.getText().toString().trim();
-        //lastName = lastNameEditText.getText().toString().trim();
-        //email = emailEditText.getText().toString().trim();
-        //phone = phoneEditText.getText().toString().trim();
-        //addressEditText.getText().toString().trim();
-        //preferredLocation = addressEditText.getText().toString().trim();; //needs some map function
-        //newProfile = new Profile(firstName, lastName, email, phone, preferredLocation);
-        //ProfileService.saveProfile(newProfile);
+        if (v == findViewById(R.id.createProfileButton)) {
+            view.createProfileButtonClicked();
+        }
     }
 }

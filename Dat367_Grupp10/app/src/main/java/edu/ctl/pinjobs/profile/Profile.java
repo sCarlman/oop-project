@@ -19,13 +19,10 @@ public class Profile implements IProfile {
                            String address) {
         setFirstName(firstName);
         setLastName(lastName);
+        setPassword(password);
         setEmail(email);
         setPhone(phone);
         setAddress(address);
-    }
-
-    public static void test(){
-
     }
 
     public void setFirstName(String firstName) {
