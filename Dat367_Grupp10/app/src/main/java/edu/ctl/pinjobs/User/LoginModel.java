@@ -15,30 +15,49 @@ public class LoginModel {
 
     public LoginModel(){}
 
-        public void matchLoginWithDatabase(String eMail, String password){
+        public void matchLoginWithDatabase(){
 
-            this.eMail = eMail;
-            this.password = password;
-
-            EventBus.INSTANCE.publish(EventBus.Event.LOGIN_MATCH, null);
+            EventBus.INSTANCE.publish(EventBus.Event.LOGIN_MATCH, this);
         }
 
     public void doesMailExistInUserDatabase(List<IProfile> profiles){
+        //FORLOOPEN LOOPAR JUE IGENOM DÄRFÖR DEN GÅR IN I SHITTTT!!!!!!
         for (IProfile profile : profiles){
             if (profile.getEmail().equals(eMail)){
-                matchPasswordlWithUserDatabase(profile);
-            }else{
+                matchPasswordWithUserDatabase(profile);
+            }else if(!profile.getEmail().equals(eMail)){
                 System.out.println("*>*>*>*>*>Finns ingen profil med denna mail!!!");
+                EventBus.INSTANCE.publish(EventBus.Event.LOGIN_FAILED, null);
             }
         }
     }
 
-    public void matchPasswordlWithUserDatabase(IProfile profile){
+    public void matchPasswordWithUserDatabase(IProfile profile){
         if(profile.getPassword() != null){
-            EventBus.INSTANCE.publish(EventBus.Event.LOGIN_SUCCESS, null);
+            if(profile.getPassword().equals(password)){
+                EventBus.INSTANCE.publish(EventBus.Event.LOGIN_SUCCESS, null);
+            }else{
+                System.out.println("*!*!*!*!*FEL LÖSENORD *!*!*!*!*!");
+            }
+
         }else{
             System.out.println("Databas null!!!!!");
         }
     }
 
+    public String geteMail(){
+        return this.eMail;
+    }
+
+    public String getPassword(){
+        return this.password;
+    }
+
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

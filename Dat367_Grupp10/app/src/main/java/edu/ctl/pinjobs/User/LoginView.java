@@ -86,7 +86,9 @@ public class LoginView{
             focusView.requestFocus();
         } else {
             // perform the user login attempt.
-            lm.matchLoginWithDatabase(email, password);
+            lm.seteMail(email);
+            lm.setPassword(password);
+            lm.matchLoginWithDatabase();
         }
     }
 
