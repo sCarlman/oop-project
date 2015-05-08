@@ -5,7 +5,15 @@ package edu.ctl.pinjobs.User;
  */
 public class UserModel {
 
-    boolean isLoggedIn = false;
+    public boolean isLoggedIn = false;
 
     public UserModel(){}
+
+    public boolean getIsLoggedIn(){
+        return isLoggedIn;
+    }
+
+    public void setLoggedIn(Boolean b){
+        this.isLoggedIn = b;
+    }
 }
