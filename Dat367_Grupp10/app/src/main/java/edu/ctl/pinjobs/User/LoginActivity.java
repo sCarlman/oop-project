@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.filips.dat367_grupp10.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.ctl.pinjobs.Services.EventBus;
@@ -21,7 +23,7 @@ import edu.ctl.pinjobs.profile.Profile;
 public class LoginActivity extends ActionBarActivity implements EventBus.IEventHandler {
 
     private LoginView view;
-    private LoginModel loginModel;
+    private LoginModel loginModel = new LoginModel();
     private IProfileService service = new ProfileService();
     private UserModel userModel = new UserModel();
 
@@ -33,6 +35,7 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
         LoginView view = new LoginView((EditText)findViewById(R.id.editText), (EditText)findViewById(R.id.pwdEditText));
         this.view = view;
         EventBus.INSTANCE.addListener(this);
+
     }
 
 
@@ -65,20 +68,32 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
 
     @Override
     public void onEvent(EventBus.Event evt, Object o) {
+
         if(evt == EventBus.Event.LOGIN_MATCH){
             List<IProfile> profileList = service.fetchAllProfiles();
             if(profileList == null){
                 Toast.makeText(this, "Finns inga registrerade profiler", Toast.LENGTH_LONG).show();
             }else{
-                System.out.println("****NU SKALL DET KOLLAS OM MAIL FINNS!******");
-                this.loginModel.doesMailExistInUserDatabase(profileList);
+                if(o instanceof LoginModel){
+                    ((LoginModel) o).doesMailExistInUserDatabase(profileList);
+                }
             }
 
         }
+
         if(evt == EventBus.Event.LOGIN_SUCCESS){
             System.out.println("*****!!!!!**** SOULD BE FALSE >>>>>>" + userModel.getIsLoggedIn());
-            userModel.setLoggedIn(true);
+            if(o instanceof LoginModel){
+                userModel.setLoggedIn(true);
+                userModel.setProfile(((LoginModel) o).getProfile());
+            }
+
             System.out.println("!!!!!******!!!!!! SOULD BE TRUE >>>>>>" + userModel.getIsLoggedIn());
         }
+
+        if(evt == EventBus.Event.LOGIN_FAILED){
+            Toast.makeText(this, "Input ogliltligt!!!", Toast.LENGTH_LONG).show();
+        }
     }
+
 }
