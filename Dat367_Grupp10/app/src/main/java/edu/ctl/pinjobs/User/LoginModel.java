@@ -22,13 +22,19 @@ public class LoginModel {
 
     public void doesMailExistInUserDatabase(List<IProfile> profiles){
         //FORLOOPEN LOOPAR JUE IGENOM DÄRFÖR DEN GÅR IN I SHITTTT!!!!!!
+
+        boolean matchFound = false;
+
         for (IProfile profile : profiles){
             if (profile.getEmail().equals(eMail)){
+                matchFound = true;
                 matchPasswordWithUserDatabase(profile);
-            }else if(!profile.getEmail().equals(eMail)){
-                System.out.println("*>*>*>*>*>Finns ingen profil med denna mail!!!");
-                EventBus.INSTANCE.publish(EventBus.Event.LOGIN_FAILED, null);
+                break;
             }
+        }
+
+        if(!matchFound){
+            EventBus.INSTANCE.publish(EventBus.Event.LOGIN_FAILED, null);
         }
     }
 
