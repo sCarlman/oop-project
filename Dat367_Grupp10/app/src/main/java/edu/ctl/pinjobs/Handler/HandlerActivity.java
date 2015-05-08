@@ -7,7 +7,6 @@ import android.view.MenuItem;
 
 import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.Services.EventBus;
-import edu.ctl.pinjobs.Handler.ListView;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import com.example.filips.dat367_grupp10.R;
@@ -37,7 +36,6 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
 
     @Override
     public void onEvent(EventBus.Event evt, Object o){
-        System.out.println("ARRRÅÅÅ");
         if(evt == EventBus.Event.ADLIST_UPDATED) {
             System.out.println(android.R.layout.simple_list_item_1);
             listView.setupView((List<IAdvertisement>)o,android.R.layout.simple_list_item_1);

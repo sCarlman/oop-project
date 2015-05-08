@@ -30,6 +30,7 @@ public class ListView  {
                 id, titleList);
         listView.setAdapter(adapter);
         listView.invalidate();
+
     }
 
 }

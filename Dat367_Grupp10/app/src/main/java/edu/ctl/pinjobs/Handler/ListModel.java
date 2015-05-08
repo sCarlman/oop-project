@@ -1,13 +1,11 @@
 package edu.ctl.pinjobs.Handler;
 
 import android.content.Context;
-import android.content.res.Resources;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.ctl.pinjobs.Services.EventBus;
-import edu.ctl.pinjobs.Advertisement.Advertisement;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 
 /**
