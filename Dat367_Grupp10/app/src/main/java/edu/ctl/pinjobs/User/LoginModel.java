@@ -12,6 +12,7 @@ public class LoginModel {
 
     private String eMail;
     private String password;
+    private IProfile profile;
 
     public LoginModel(){}
 
@@ -41,7 +42,8 @@ public class LoginModel {
     public void matchPasswordWithUserDatabase(IProfile profile){
         if(profile.getPassword() != null){
             if(profile.getPassword().equals(password)){
-                EventBus.INSTANCE.publish(EventBus.Event.LOGIN_SUCCESS, null);
+                this.profile = profile;
+                EventBus.INSTANCE.publish(EventBus.Event.LOGIN_SUCCESS, this);
             }else{
                 System.out.println("*!*!*!*!*FEL LÖSENORD *!*!*!*!*!");
             }
@@ -57,6 +59,10 @@ public class LoginModel {
 
     public String getPassword(){
         return this.password;
+    }
+
+    public IProfile getProfile(){
+        return this.profile;
     }
 
     public void seteMail(String eMail) {

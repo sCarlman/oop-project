@@ -83,7 +83,11 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
 
         if(evt == EventBus.Event.LOGIN_SUCCESS){
             System.out.println("*****!!!!!**** SOULD BE FALSE >>>>>>" + userModel.getIsLoggedIn());
-            userModel.setLoggedIn(true);
+            if(o instanceof LoginModel){
+                userModel.setLoggedIn(true);
+                userModel.setProfile(((LoginModel) o).getProfile());
+            }
+
             System.out.println("!!!!!******!!!!!! SOULD BE TRUE >>>>>>" + userModel.getIsLoggedIn());
         }
 
