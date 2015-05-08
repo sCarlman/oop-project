@@ -12,6 +12,7 @@ import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.model.Advertisement;
 import edu.ctl.pinjobs.model.Category;
 import edu.ctl.pinjobs.model.Profile;
+import edu.ctl.pinjobs.User.LoginActivity;
 
 import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
@@ -71,6 +72,11 @@ public class MainActivity extends ActionBarActivity {
 
     public void openListView(View view) {
         Intent intent = new Intent(getApplicationContext(), HandlerActivity.class);
+        startActivity(intent);
+    }
+
+    public void openLoginView(View view) {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
     }
 

@@ -9,5 +9,6 @@
     <string name="title_activity_create_profile">CreateProfileActivity</string>
     <string name="title_activity_create_ad">CreateAdActivity</string>
     <string name="title_activity_ad_list">AdListActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
 
 </resources>

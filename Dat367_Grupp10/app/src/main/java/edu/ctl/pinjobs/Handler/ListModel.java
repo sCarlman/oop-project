@@ -35,10 +35,9 @@ public class ListModel implements IListModel {
     public void setList(List<IAdvertisement> addList) {
         if(adList!=null) {
             this.adList.clear();
-        }else {
-            adList.addAll(addList);
-            EventBus.INSTANCE.publish(EventBus.Event.ADLIST_UPDATED, adList);
         }
+        adList.addAll(addList);
+        EventBus.INSTANCE.publish(EventBus.Event.ADLIST_UPDATED, adList);
     }
 
     @Override

@@ -66,7 +66,11 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize|stateHidden" >
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+        <activity
+            android:name="edu.ctl.pinjobs.User.LoginActivity"
+            android:label="@string/title_activity_login" >
         </activity>
     </application>
 

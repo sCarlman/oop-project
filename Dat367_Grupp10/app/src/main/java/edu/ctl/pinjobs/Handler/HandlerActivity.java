@@ -4,37 +4,44 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
 
 import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.Services.EventBus;
-import edu.ctl.pinjobs.Services.IAdListService;
+import edu.ctl.pinjobs.Handler.ListView;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
-import edu.ctl.pinjobs.model.Advertisement;
+import edu.ctl.pinjobs.model.IAdvertisement;
+
 import com.example.filips.dat367_grupp10.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class HandlerActivity extends ActionBarActivity implements EventBus.IEventHandler {
-    private ListView adListView;
+
+    IListModel listModel;
+    edu.ctl.pinjobs.Handler.ListView listView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ad_list);
+        EventBus.INSTANCE.addListener(this);
         IAdvertisementService adService = new AdvertisementService();
-        IListModel listModel = new ListModel(adService.fetchAllAds());
-        ListView view = (ListView) View.inflate(this, R.layout.activity_ad_list, null);
+        List<IAdvertisement> adList = adService.fetchAllAds();
+        this.listView = new ListView(this,(android.widget.ListView)findViewById(R.id.adListView));
+        this.listModel = new ListModel(adList);
+
 
 
     }
 
     @Override
     public void onEvent(EventBus.Event evt, Object o){
+        System.out.println("ARRRÅÅÅ");
         if(evt == EventBus.Event.ADLIST_UPDATED) {
-            setContentView(R.layout.activity_ad_list);
+            System.out.println(android.R.layout.simple_list_item_1);
+            listView.setupView((List<IAdvertisement>)o,android.R.layout.simple_list_item_1);
         }
     }
 
