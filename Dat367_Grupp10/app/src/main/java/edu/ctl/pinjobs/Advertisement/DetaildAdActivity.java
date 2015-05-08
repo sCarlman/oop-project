@@ -38,7 +38,7 @@ public class DetaildAdActivity extends ActionBarActivity implements EventBus.IEv
                 (TextView)findViewById(R.id.phoneTextView),
                 (TextView)findViewById(R.id.mailTextView));
         this.view = view;
-        EventBus.INSTANCE.addListener(this);
+
 
     }
 

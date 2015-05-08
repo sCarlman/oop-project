@@ -19,10 +19,10 @@ import edu.ctl.pinjobs.profile.Profile;
  * Created by filiplarsson on 15-05-07.
  */
 public class Search {
+    List<IAdvertisement> searchedAds;
+    public List<IAdvertisement> doSearch(String s, List<ParseObject> parseAds){
 
-    public void doSearch(String s, List<ParseObject> parseAds){
-
-        List<IAdvertisement> searchedAds = new ArrayList<IAdvertisement>();
+        searchedAds = new ArrayList<IAdvertisement>();
         for(ParseObject parseAd: parseAds){
             if (parseAd.getString("Title").equals(s)){
                // searchedAds.add(parseAd.);
@@ -38,6 +38,7 @@ public class Search {
                         Category.valueOf(parseAd.getString("Category"))));
             }
         }
+        return searchedAds;
     }
 
 }

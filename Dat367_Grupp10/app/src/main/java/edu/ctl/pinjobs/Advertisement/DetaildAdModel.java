@@ -5,35 +5,35 @@ import edu.ctl.pinjobs.Advertisement.Category;
 /**
  * Created by filiplarsson on 15-05-07.
  */
-public class DetaildAdModel {
+public class DetaildAdModel implements IDetaildAdModel {
 
-    static Advertisement hej = ClickedAd.getClickedAd();
+    Advertisement hej = ClickedAd.getClickedAd();
 
-    static Advertisement clickedAd = new Advertisement(hej.getAdvertiser(),
+    Advertisement clickedAd = new Advertisement(hej.getAdvertiser(),
             hej.getTitle(),
             hej.getDescription(),
             hej.getCategory());
 
-    public static String getClickedAdTitle(){
+    public String getClickedAdTitle(){
         return clickedAd.getTitle().toString().trim();
     }
-    public static String getClickedAdCategory(){
+    public String getClickedAdCategory(){
         return clickedAd.getCategory().toString().trim();
     }
-    public static String getClickedAdDescription(){
+    public String getClickedAdDescription(){
         return clickedAd.getDescription().toString().trim();
     }
-    public static String getClickedAdName(){
+    public String getClickedAdName(){
         return clickedAd.getAdvertiser().getFirstName().toString().trim() + " " +
                 clickedAd.getAdvertiser().getLastName().toString().trim();
     }
-    public static String getClickedAdAddress(){
+    public String getClickedAdAddress(){
         return clickedAd.getLocation().toString().trim();
     }
-    public static String getClickedAdPhone(){
+    public String getClickedAdPhone(){
         return clickedAd.getAdvertiser().getPhone().toString().trim();
     }
-    public static String getClickedAdEmail(){
+    public String getClickedAdEmail(){
         return clickedAd.getAdvertiser().getEmail().toString().trim();
     }
 
