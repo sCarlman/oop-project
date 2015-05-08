@@ -9,8 +9,7 @@ import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.Services.EventBus;
 import edu.ctl.pinjobs.Handler.ListView;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
-import edu.ctl.pinjobs.model.IAdvertisement;
-
+import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import com.example.filips.dat367_grupp10.R;
 
 import java.util.List;

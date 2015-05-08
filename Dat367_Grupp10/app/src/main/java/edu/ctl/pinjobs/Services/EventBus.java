@@ -18,7 +18,9 @@ public enum EventBus {
     public enum Event {  // All possible events
 
         ADLIST_UPDATED,
-        LOGIN_MATCH
+        LOGIN_MATCH,
+        REPAINT_LOGIN_VIEW,
+        LOGIN_SUCCESS
 
     };
     private boolean trace = true;

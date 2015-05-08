@@ -52,11 +52,11 @@
         <uses-library android:name="com.google.android.maps" />
 
         <activity
-            android:name="edu.ctl.pinjobs.controller.CreateProfileActivity"
+            android:name="edu.ctl.pinjobs.profile.CreateProfileActivity"
             android:label="@string/title_activity_create_profile" >
         </activity>
         <activity
-            android:name="edu.ctl.pinjobs.controller.CreateAdActivity"
+            android:name="edu.ctl.pinjobs.Advertisement.CreateAdActivity"
             android:label="@string/title_activity_create_ad" >
         </activity>
         <activity

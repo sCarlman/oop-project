@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.controller;
+package edu.ctl.pinjobs.Advertisement;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -8,12 +8,9 @@ import android.view.View;
 
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
-import edu.ctl.pinjobs.model.Advertisement;
-import edu.ctl.pinjobs.model.Category;
 import edu.ctl.pinjobs.Handler.Location;
-import edu.ctl.pinjobs.model.Profile;
+import edu.ctl.pinjobs.profile.Profile;
 import com.example.filips.dat367_grupp10.R;
 
 

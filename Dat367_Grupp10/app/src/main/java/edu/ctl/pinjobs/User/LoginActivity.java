@@ -5,21 +5,34 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.filips.dat367_grupp10.R;
 
+import java.util.List;
+
 import edu.ctl.pinjobs.Services.EventBus;
+import edu.ctl.pinjobs.Services.IProfileService;
+import edu.ctl.pinjobs.Services.ProfileService;
+import edu.ctl.pinjobs.profile.IProfile;
+import edu.ctl.pinjobs.profile.Profile;
 
 public class LoginActivity extends ActionBarActivity implements EventBus.IEventHandler {
 
     private LoginView view;
+    private LoginModel loginModel;
+    private IProfileService service = new ProfileService();
+    private UserModel userModel = new UserModel();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        view = (LoginView) View.inflate(this, R.layout.activity_login, null);
-
+        LoginView view = new LoginView((EditText)findViewById(R.id.editText), (EditText)findViewById(R.id.pwdEditText));
+        this.view = view;
+        EventBus.INSTANCE.addListener(this);
     }
 
 
@@ -46,7 +59,6 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
     }
 
     public void testView(View view){
-        System.out.println("Går in i metoden testView ----> 1");
         this.view.attemptLogin();
         view.postInvalidate();
     }
@@ -54,7 +66,19 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
     @Override
     public void onEvent(EventBus.Event evt, Object o) {
         if(evt == EventBus.Event.LOGIN_MATCH){
+            List<IProfile> profileList = service.fetchAllProfiles();
+            if(profileList == null){
+                Toast.makeText(this, "Finns inga registrerade profiler", Toast.LENGTH_LONG).show();
+            }else{
+                System.out.println("****NU SKALL DET KOLLAS OM MAIL FINNS!******");
+                this.loginModel.doesMailExistInUserDatabase(profileList);
+            }
 
+        }
+        if(evt == EventBus.Event.LOGIN_SUCCESS){
+            System.out.println("*****!!!!!**** SOULD BE FALSE >>>>>>" + userModel.getIsLoggedIn());
+            userModel.setLoggedIn(true);
+            System.out.println("!!!!!******!!!!!! SOULD BE TRUE >>>>>>" + userModel.getIsLoggedIn());
         }
     }
 }

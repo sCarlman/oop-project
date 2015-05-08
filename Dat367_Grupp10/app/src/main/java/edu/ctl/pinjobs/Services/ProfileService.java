@@ -7,8 +7,8 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ctl.pinjobs.model.IProfile;
-import edu.ctl.pinjobs.model.Profile;
+import edu.ctl.pinjobs.profile.IProfile;
+import edu.ctl.pinjobs.profile.Profile;
 
 /**
  * Created by Isaac on 2015-04-23.
@@ -25,6 +25,7 @@ public class ProfileService implements IProfileService{
     private void setParseProfile(IProfile p, ParseObject returnParseObject) {
         returnParseObject.put("FirstName", p.getFirstName());
         returnParseObject.put("LastName", p.getLastName());
+        returnParseObject.put("Password", p.getPassword());
         returnParseObject.put("Email", p.getEmail());
         returnParseObject.put("Phone", p.getPhone());
         returnParseObject.put("PreferredLocation", p.getAddress());
@@ -50,6 +51,7 @@ public class ProfileService implements IProfileService{
         for (ParseObject parseProfile: profileList) {
             fetchedProfiles.add(new Profile(parseProfile.getString("FirstName"),
                     parseProfile.getString("LastName"),
+                    parseProfile.getString("Password"),
                     parseProfile.getString("Email"),
                     parseProfile.getString("Phone"),
                     parseProfile.getString("PreferredLocation")));
@@ -72,6 +74,7 @@ public class ProfileService implements IProfileService{
     private IProfile copyToProfile(ParseObject parseProfile) {
         Profile fetchedProfile = new Profile(parseProfile.getString("FirstName"),
                 parseProfile.getString("LastName"),
+                parseProfile.getString("Password"),
                 parseProfile.getString("Email"),
                 parseProfile.getString("Phone"),
                 parseProfile.getString("PreferredLocation"));

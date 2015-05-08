@@ -4,8 +4,8 @@ import android.content.Context;
 
 import java.util.List;
 
-import edu.ctl.pinjobs.model.Advertisement;
-import edu.ctl.pinjobs.model.IAdvertisement;
+import edu.ctl.pinjobs.Advertisement.Advertisement;
+import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 
 /**
  * Created by Filips on 4/28/2015.

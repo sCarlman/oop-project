@@ -1,5 +1,4 @@
-package edu.ctl.pinjobs.model;
-
+package edu.ctl.pinjobs.profile;
 
 
 /**
@@ -7,25 +6,23 @@ package edu.ctl.pinjobs.model;
  * A profile is needed to post ads
  *
  */
-public class Profile implements IProfile{
+public class Profile implements IProfile {
 
     private String firstName;
     private String lastName;
+    private String password;
     private String email;
     private String phone;
     private String address;
 
-    public Profile(String firstName, String lastName, String email, String phone,
+    public Profile(String firstName, String lastName, String password, String email, String phone,
                            String address) {
         setFirstName(firstName);
         setLastName(lastName);
+        setPassword(password);
         setEmail(email);
         setPhone(phone);
         setAddress(address);
-    }
-
-    public static void test(){
-
     }
 
     public void setFirstName(String firstName) {
@@ -34,6 +31,10 @@ public class Profile implements IProfile{
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setEmail(String email) {
@@ -54,6 +55,10 @@ public class Profile implements IProfile{
 
     public String getLastName() {
         return lastName;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public String getEmail() {

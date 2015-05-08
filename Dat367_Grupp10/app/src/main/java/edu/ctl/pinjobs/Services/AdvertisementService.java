@@ -7,10 +7,10 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ctl.pinjobs.model.Advertisement;
-import edu.ctl.pinjobs.model.Category;
-import edu.ctl.pinjobs.model.IAdvertisement;
-import edu.ctl.pinjobs.model.Profile;
+import edu.ctl.pinjobs.profile.IProfile;
+import edu.ctl.pinjobs.Advertisement.Advertisement;
+import edu.ctl.pinjobs.Advertisement.Category;
+import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 
 /**
  * Created by Isaac on 2015-04-27.
@@ -53,12 +53,9 @@ public class AdvertisementService implements IAdvertisementService {
 
     private List<IAdvertisement> copyToAdvertisements(List<ParseObject> parseAds) {
         List<IAdvertisement> fetchedAds = new ArrayList<IAdvertisement>();
+        ProfileService pService = new ProfileService();
         for (ParseObject parseAd: parseAds) {
-            fetchedAds.add(new Advertisement(new Profile(parseAd.getString("FirstName"),
-                    parseAd.getString("LastName"),
-                    parseAd.getString("Email"),
-                    parseAd.getString("Phone"),
-                    parseAd.getString("PreferredLocation")),
+            fetchedAds.add(new Advertisement(pService.fetchProfile(parseAd.getString("Email")),
                     parseAd.getString("Title"),
                     parseAd.getString("Description"),
                     Category.valueOf(parseAd.getString("Category"))));
@@ -67,28 +64,16 @@ public class AdvertisementService implements IAdvertisementService {
     }
 
     @Override
-    public IAdvertisement fetchAd(String email) {
+    public List<IAdvertisement> fetchAdsOfAdvertiser(IProfile advertiser) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Advertisement");
-        query.whereEqualTo("Email", email);
+        query.whereEqualTo("Email", advertiser.getEmail());
         try {
-            return copyToAdvertisement(query.getFirst());
+            return copyToAdvertisements(query.find());
         } catch (ParseException e) {
             e.printStackTrace();
             //TODO: Handle error.
             return null;
         }
-    }
-
-    private IAdvertisement copyToAdvertisement(ParseObject parseAd) {
-        Advertisement fetchedAd = new Advertisement(new Profile(parseAd.getString("FirstName"),
-                parseAd.getString("LastName"),
-                parseAd.getString("Email"),
-                parseAd.getString("Phone"),
-                parseAd.getString("PreferredLocation")),
-                parseAd.getString("Title"),
-                parseAd.getString("Description"),
-                Category.valueOf(parseAd.getString("Category")));
-        return fetchedAd;
     }
 
 }

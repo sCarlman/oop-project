@@ -1,11 +1,13 @@
-package edu.ctl.pinjobs.model;
+package edu.ctl.pinjobs.Advertisement;
 
+
+import edu.ctl.pinjobs.profile.IProfile;
 
 /**
  * Created by Albertsson on 15-04-01.
  */
 
-public class Advertisement implements IAdvertisement{
+public class Advertisement implements IAdvertisement {
 
     private IProfile advertiser;
     private String location;
