@@ -1,6 +1,8 @@
 package edu.ctl.pinjobs.profile;
 
 
+import edu.ctl.pinjobs.Services.EventBus;
+
 /**
  * Created by Isaac on 2015-04-01.
  * A profile is needed to post ads
@@ -23,6 +25,10 @@ public class Profile implements IProfile {
         setEmail(email);
         setPhone(phone);
         setAddress(address);
+    }
+
+    public void sendProfile(){
+        EventBus.INSTANCE.publish(EventBus.Event.SAVE_PROFILE, this);
     }
 
     public void setFirstName(String firstName) {

@@ -22,7 +22,7 @@ public class CreateProfileView {
     private String password;
     private String address;
 
-    private CreateProfileModel model = new CreateProfileModel();
+    private Profile newProfile;
 
     CreateProfileView(EditText firstNameEditText, EditText lastNameEditText,
                       EditText emailEditText, EditText phoneEditText, EditText passwordEditText,
@@ -43,7 +43,7 @@ public class CreateProfileView {
         phone = phoneEditText.getText().toString().trim();
         password = passwordEditText.getText().toString().trim();
         address = addressEditText.getText().toString().trim();
-        model.CreateProfile(firstName, lastName, password, email, phone, address);
-        System.out.println("ASDASDKWIUASDIAJSDSKAJDHN");
+        newProfile = new Profile(firstName, lastName, password, email, phone, address);
+        newProfile.sendProfile();
     }
 }
