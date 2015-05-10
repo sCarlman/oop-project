@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import edu.ctl.pinjobs.Handler.Location;
 import edu.ctl.pinjobs.Services.EventBus;
 import edu.ctl.pinjobs.profile.IProfile;
 
@@ -33,7 +34,7 @@ public class CreateAdView {
     public CreateAdView(EditText addressEditText, EditText descriptionEditText,
                         EditText titleEditText,RadioButton gardenRadioButton,
                         RadioButton labourRadioButton, RadioButton otherRadioButton,
-                        Button createAdButton, View.OnClickListener v, IProfile newProfile){
+                        Button createAdButton, View.OnClickListener v){
         this.locationEditText = addressEditText;
         this.descriptionEditText = descriptionEditText;
         this.titleEditText = titleEditText;
@@ -41,7 +42,11 @@ public class CreateAdView {
         this.labourRadioButton = labourRadioButton;
         this.otherRadioButton = otherRadioButton;
         createAdButton.setOnClickListener(v);
+    }
+
+    public void setNewProfile(IProfile newProfile){
         this.newProfile = newProfile;
+
         //sets location to default address of the advertiser
         locationEditText.setText(newProfile.getAddress());
     }
@@ -53,7 +58,7 @@ public class CreateAdView {
         setSelectedCategory();
 
         newAd = new Advertisement(newProfile, title, description, location, category);
-        EventBus.INSTANCE.publish(EventBus.Event.SAVE_AD, newAd);
+        EventBus.INSTANCE.publish(EventBus.Event.POST_AD, newAd);
     }
 
     private void setSelectedCategory() {
@@ -68,5 +73,17 @@ public class CreateAdView {
 
     public void notLoggedIn(Context c){
         Toast.makeText(c, "Pls log in to create ad", Toast.LENGTH_LONG).show();
+    }
+
+    public void AdPosted(Context c){
+        Toast.makeText(c, "Ad posted!", Toast.LENGTH_LONG).show();
+        clearFields();
+    }
+
+    private void clearFields() {
+        titleEditText.setText("");
+        descriptionEditText.setText("");
+        locationEditText.setText("");
+        newProfile = null;
     }
 }

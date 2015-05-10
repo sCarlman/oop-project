@@ -35,9 +35,17 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
                 (RadioButton) findViewById(R.id.gardenRadioButton),
                 (RadioButton) findViewById(R.id.labourRadioButton),
                 (RadioButton) findViewById(R.id.otherRadioButton),
-                (Button) findViewById(R.id.createAdButton), this,
-                user.getProfile());
-        EventBus.INSTANCE.addListener(this);
+                (Button) findViewById(R.id.createAdButton), this);
+
+        if (user.getIsLoggedIn()){
+            view.setNewProfile(user.getProfile());
+            EventBus.INSTANCE.addListener(this);
+        }else{
+            view.notLoggedIn(this);
+            finish();
+        }
+
+        
     }
 
 
@@ -73,9 +81,11 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
 
     @Override
     public void onEvent(EventBus.Event evt, Object o) {
-        if(evt == EventBus.Event.SAVE_AD){
+        if(evt == EventBus.Event.POST_AD){
             service = new AdvertisementService();
             service.saveAd((IAdvertisement)o);
+            view.AdPosted(CreateAdActivity.this);
+            finish();
         }
     }
 }

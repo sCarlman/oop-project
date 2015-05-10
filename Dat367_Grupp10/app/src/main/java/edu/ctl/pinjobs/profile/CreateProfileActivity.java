@@ -68,6 +68,8 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
         if(evt == EventBus.Event.SAVE_PROFILE){
             service = new ProfileService();
             service.saveProfile((Profile) o);
+            view.profileCreated(CreateProfileActivity.this);
+            finish();
         }
     }
 }

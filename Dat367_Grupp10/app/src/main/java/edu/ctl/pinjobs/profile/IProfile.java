@@ -6,7 +6,6 @@ package edu.ctl.pinjobs.profile;
  */
 public interface IProfile {
 
-    public void sendProfile();
     public void setFirstName(String firstName);
     public void setLastName(String lastName);
     public void setPassword(String password);

@@ -22,7 +22,7 @@ public enum EventBus {
         LOGIN_SUCCESS,
         LOGIN_FAILED,
         SAVE_PROFILE,
-        SAVE_AD
+        POST_AD
 
     };
     private boolean trace = true;

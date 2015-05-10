@@ -1,8 +1,12 @@
 package edu.ctl.pinjobs.profile;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import edu.ctl.pinjobs.Services.EventBus;
 
 /**
  * Created by Isaac on 2015-05-06.
@@ -44,6 +48,10 @@ public class CreateProfileView {
         password = passwordEditText.getText().toString().trim();
         address = locationEditText.getText().toString().trim();
         newProfile = new Profile(firstName, lastName, password, email, phone, address);
-        newProfile.sendProfile();
+        EventBus.INSTANCE.publish(EventBus.Event.SAVE_PROFILE, newProfile);
+    }
+
+    public void profileCreated(Context c) {
+        Toast.makeText(c, "Profile created!", Toast.LENGTH_LONG).show();
     }
 }

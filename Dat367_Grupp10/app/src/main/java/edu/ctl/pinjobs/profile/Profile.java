@@ -27,10 +27,6 @@ public class Profile implements IProfile {
         setAddress(address);
     }
 
-    public void sendProfile(){
-        EventBus.INSTANCE.publish(EventBus.Event.SAVE_PROFILE, this);
-    }
-
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
