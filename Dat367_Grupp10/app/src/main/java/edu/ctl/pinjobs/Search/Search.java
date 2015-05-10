@@ -35,6 +35,7 @@ public class Search {
 
                         parseAd.getString("Title"),
                         parseAd.getString("Description"),
+                        parseAd.getString("Location"),
                         Category.valueOf(parseAd.getString("Category"))));
             }
         }

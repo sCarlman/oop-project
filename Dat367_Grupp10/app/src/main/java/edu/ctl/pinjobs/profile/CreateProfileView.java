@@ -13,7 +13,7 @@ public class CreateProfileView {
     private EditText emailEditText;
     private EditText phoneEditText;
     private EditText passwordEditText;
-    private EditText addressEditText;
+    private EditText locationEditText;
 
     private String firstName;
     private String lastName;
@@ -26,13 +26,13 @@ public class CreateProfileView {
 
     CreateProfileView(EditText firstNameEditText, EditText lastNameEditText,
                       EditText emailEditText, EditText phoneEditText, EditText passwordEditText,
-                      EditText addressEditText, Button createProfileButton, View.OnClickListener v) {
+                      EditText locationEditText, Button createProfileButton, View.OnClickListener v) {
         this.firstNameEditText = firstNameEditText;
         this.lastNameEditText = lastNameEditText;
         this.emailEditText = emailEditText;
         this.phoneEditText = phoneEditText;
         this.passwordEditText = passwordEditText;
-        this.addressEditText = addressEditText;
+        this.locationEditText = locationEditText;
         createProfileButton.setOnClickListener(v);
     }
 
@@ -42,7 +42,7 @@ public class CreateProfileView {
         email = emailEditText.getText().toString().trim();
         phone = phoneEditText.getText().toString().trim();
         password = passwordEditText.getText().toString().trim();
-        address = addressEditText.getText().toString().trim();
+        address = locationEditText.getText().toString().trim();
         newProfile = new Profile(firstName, lastName, password, email, phone, address);
         newProfile.sendProfile();
     }

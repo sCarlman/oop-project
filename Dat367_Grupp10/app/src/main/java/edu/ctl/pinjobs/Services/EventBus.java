@@ -21,7 +21,8 @@ public enum EventBus {
         LOGIN_MATCH,
         LOGIN_SUCCESS,
         LOGIN_FAILED,
-        SAVE_PROFILE
+        SAVE_PROFILE,
+        SAVE_AD
 
     };
     private boolean trace = true;

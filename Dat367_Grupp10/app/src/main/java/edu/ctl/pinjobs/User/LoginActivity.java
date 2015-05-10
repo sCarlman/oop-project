@@ -25,7 +25,7 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
     private LoginView view;
     private LoginModel loginModel = new LoginModel();
     private IProfileService service = new ProfileService();
-    private UserModel userModel = new UserModel();
+    private UserModel userModel = UserModel.getInstance();
 
 
     @Override
@@ -86,6 +86,7 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
             if(o instanceof LoginModel){
                 userModel.setLoggedIn(true);
                 userModel.setProfile(((LoginModel) o).getProfile());
+
             }
 
             System.out.println("!!!!!******!!!!!! SOULD BE TRUE >>>>>>" + userModel.getIsLoggedIn());
