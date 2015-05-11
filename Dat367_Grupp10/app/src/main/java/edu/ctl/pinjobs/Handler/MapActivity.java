@@ -5,48 +5,36 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import edu.ctl.pinjobs.Services.AdvertisementService;
-import edu.ctl.pinjobs.Services.EventBus;
-import edu.ctl.pinjobs.Services.IAdvertisementService;
-import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import com.example.filips.dat367_grupp10.R;
-import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
 
 import java.util.List;
-import java.util.logging.Handler;
 
+import edu.ctl.pinjobs.Advertisement.IAdvertisement;
+import edu.ctl.pinjobs.Services.AdvertisementService;
+import edu.ctl.pinjobs.Services.IAdvertisementService;
 
-public class HandlerActivity extends ActionBarActivity implements EventBus.IEventHandler {
+public class MapActivity extends ActionBarActivity {
 
-    IListModel listModel;
-    edu.ctl.pinjobs.Handler.ListView listView;
-
+    MapView mapView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_maps);
+        MapFragment mapFragment = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
 
-        EventBus.INSTANCE.addListener(this);
         IAdvertisementService adService = new AdvertisementService();
         List<IAdvertisement> adList = adService.fetchAllAds();
-        setListView(adList);
-    }
 
-    @Override
-    public void onEvent(EventBus.Event evt, Object o){
-        if(evt == EventBus.Event.ADLIST_UPDATED) {
-            //Starts the view with the list from model
-            listView.setupView((List<IAdvertisement>) o, android.R.layout.simple_list_item_1);
-        }
+        mapView = new MapView(this,adList,mapFragment);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_ad_list, menu);
+        getMenuInflater().inflate(R.menu.menu_map, menu);
         return true;
     }
 
@@ -63,11 +51,5 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    private void setListView(List<IAdvertisement> adList){
-        setContentView(R.layout.activity_ad_list);
-        this.listView = new ListView(this,(android.widget.ListView)findViewById(R.id.adListView));
-        this.listModel = new ListModel(adList);
     }
 }

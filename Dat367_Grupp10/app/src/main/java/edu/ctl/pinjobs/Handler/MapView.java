@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -13,23 +15,22 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ctl.pinjobs.Services.IAdvertisementService;
-import edu.ctl.pinjobs.Advertisement.Advertisement;
 import edu.ctl.pinjobs.Advertisement.Category;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 
 /**
- * Created by Filips on 4/26/2015.
+ * Created by Filips on 5/11/2015.
  */
-public class MapModel implements IMapModel {
-
+public class MapView implements OnMapReadyCallback {
     Context context;
     GoogleMap map;
+    List<IAdvertisement> adList;
     List<MarkerOptions> markers = new ArrayList<MarkerOptions>(); //a list of all the markers placed on the map
 
-    public MapModel(GoogleMap map, Context context){
-        this.map = map;
+    public MapView(Context context, List<IAdvertisement> adList,MapFragment mapFragment){
         this.context = context;
+        this.adList = adList;
+        mapFragment.getMapAsync(this);
     }
 
     private void addMarker(LatLng location,String title){
@@ -99,5 +100,11 @@ public class MapModel implements IMapModel {
             addAllStartMarkers(list);
         }
         setUpCamera();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        this.map = googleMap;
+        setUpMap(adList);
     }
 }

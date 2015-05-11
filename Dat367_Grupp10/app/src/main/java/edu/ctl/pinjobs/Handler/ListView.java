@@ -16,12 +16,11 @@ public class ListView  {
     private Context context;
 
     public ListView(Context context,android.widget.ListView listView){
-        this.listView=listView;
+        this.listView = listView;
         this.context = context;
     }
 
     public void setupView(List<IAdvertisement> adList, int id){
-        System.out.println("asdasd");
         List<String> titleList = new ArrayList<String>();
         for(IAdvertisement ad : adList){
             titleList.add(ad.getTitle());

@@ -72,6 +72,10 @@
             android:name="edu.ctl.pinjobs.User.LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
+        <activity
+            android:name="edu.ctl.pinjobs.Handler.MapActivity"
+            android:label="@string/title_activity_map" >
+        </activity>
     </application>
 
 </manifest>

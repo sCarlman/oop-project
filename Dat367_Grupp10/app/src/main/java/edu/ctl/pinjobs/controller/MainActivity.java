@@ -8,10 +8,13 @@ import android.view.MenuItem;
 import android.view.View;
 
 import edu.ctl.pinjobs.Handler.HandlerActivity;
+import edu.ctl.pinjobs.Handler.MapActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.User.LoginActivity;
 import edu.ctl.pinjobs.profile.CreateProfileActivity;
 import edu.ctl.pinjobs.Advertisement.CreateAdActivity;
+import edu.ctl.pinjobs.profile.Profile;
+
 import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
 
@@ -54,7 +57,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void openMapView(View view){
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
 
