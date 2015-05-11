@@ -30,7 +30,7 @@ public class UserModel {
         this.isLoggedIn = b;
     }
 
-    public void setProfile(IProfile p){
+    protected void setProfile(IProfile p){
         this.profile = p;
     }
 

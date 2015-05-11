@@ -35,7 +35,7 @@ public class LoginModel {
         }
 
         if(!matchFound){
-            EventBus.INSTANCE.publish(EventBus.Event.LOGIN_FAILED, null);
+            EventBus.INSTANCE.publish(EventBus.Event.LOGIN_FAILED_WRONG_EMAIL, null);
         }
     }
 
@@ -45,7 +45,7 @@ public class LoginModel {
                 this.profile = profile;
                 EventBus.INSTANCE.publish(EventBus.Event.LOGIN_SUCCESS, this);
             }else{
-                System.out.println("*!*!*!*!*FEL LÖSENORD *!*!*!*!*!");
+                EventBus.INSTANCE.publish(EventBus.Event.LOGIN_FAILED_WRONG_PASSWORD, null);
             }
 
         }else{

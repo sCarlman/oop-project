@@ -82,18 +82,20 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
         }
 
         if(evt == EventBus.Event.LOGIN_SUCCESS){
-            System.out.println("*****!!!!!**** SOULD BE FALSE >>>>>>" + userModel.getIsLoggedIn());
             if(o instanceof LoginModel){
                 userModel.setLoggedIn(true);
                 userModel.setProfile(((LoginModel) o).getProfile());
-
+                Toast.makeText(this, "Du är nu inloggad!", Toast.LENGTH_LONG).show();
             }
 
-            System.out.println("!!!!!******!!!!!! SOULD BE TRUE >>>>>>" + userModel.getIsLoggedIn());
         }
 
-        if(evt == EventBus.Event.LOGIN_FAILED){
-            Toast.makeText(this, "Input ogliltligt!!!", Toast.LENGTH_LONG).show();
+        if(evt == EventBus.Event.LOGIN_FAILED_WRONG_EMAIL){
+            this.view.failedMatchEmailWithDatabase();
+        }
+
+        if(evt == EventBus.Event.LOGIN_FAILED_WRONG_PASSWORD){
+            this.view.failedMatchPasswordWithDatabase();
         }
     }
 
