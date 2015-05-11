@@ -18,6 +18,9 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -38,16 +41,7 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyBZvZY_xxM7YISuB9dAimaXDf-4JtdY6_o" />
-
-        <activity
-            android:name="edu.ctl.pinjobs.controller.MapsActivity"
-            android:label="@string/title_activity_maps" >
-        </activity>
-
-        <uses-feature
-            android:glEsVersion="0x00020000"
-            android:required="true" />
+            android:value="AIzaSyCo_yKsfRhfo663Xx9RVCwkitSwxC9DyOs" />
 
         <uses-library android:name="com.google.android.maps" />
 
@@ -62,11 +56,6 @@
         <activity
             android:name="edu.ctl.pinjobs.Handler.HandlerActivity"
             android:label="@string/title_activity_ad_list" >
-        </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
         <activity
             android:name="edu.ctl.pinjobs.User.LoginActivity"

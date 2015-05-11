@@ -7,6 +7,7 @@ import java.util.List;
 
 import edu.ctl.pinjobs.Services.EventBus;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
+import edu.ctl.pinjobs.Utils.LocationUtils;
 
 /**
  * Created by Filips on 4/28/2015.
@@ -14,6 +15,7 @@ import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 public class ListModel implements IListModel {
 
     private List<IAdvertisement> adList = new ArrayList<>();
+    HandlerLocationUtils locationUtils = new HandlerLocationUtils();
 
     public ListModel(List<IAdvertisement> adList) {
         setList(adList);
@@ -52,7 +54,7 @@ public class ListModel implements IListModel {
         for(int j=0;tempAdList.size()<j;j++) {
 
             for (int i = 0; i < tempAdList.size(); i++) {
-                double adDistance = Location.calculateDistanceFromCurrentPosition(tempAdList.get(i), context);
+                double adDistance = locationUtils.calculateDistanceFromCurrentPosition(tempAdList.get(i), context);
                 if (i == 0) {
                     closestDistance = adDistance;
                     closestAd = tempAdList.get(i);

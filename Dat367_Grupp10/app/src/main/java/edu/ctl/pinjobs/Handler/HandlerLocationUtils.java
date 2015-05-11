@@ -16,14 +16,15 @@ import java.util.List;
 
 import edu.ctl.pinjobs.Advertisement.Advertisement;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
+import edu.ctl.pinjobs.Utils.LocationUtils;
 
 
 /**
  * Created by Filips on 4/1/2015.
  */
-public class Location implements LocationListener {
+public class HandlerLocationUtils {
 
-    public static LatLng getLocationFromAddress(Context context,String strAddress) {
+    public LatLng getLocationFromAddress(Context context,String strAddress) {
 
         Geocoder coder = new Geocoder(context);
         List<Address> address; //A list witch holds the adresses that match the adress input.
@@ -44,63 +45,26 @@ public class Location implements LocationListener {
         return position;
     }
 
-    public static LatLng getCurrentLocation(Context context){
-
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
-        boolean enabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        //Checks if the user has allowed the use of gps for the app
-
-        if (!enabled) {
-            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            context.startActivity(intent);
-            //Starts an intent for the user to allow gps
-        }
-        Criteria criteria = new Criteria();
-        String provider = locationManager.getBestProvider(criteria,false);
-        android.location.Location location = locationManager.getLastKnownLocation(provider);
-        LatLng currentLocation = new LatLng(location.getLatitude(),location.getLongitude());
-
-        return currentLocation;
-    }
-
     //Calculates the distance from the users current location to the given coordinates using haversine formula
-    public static double calculateDistanceFromPosition(double lat1, double lat2, double long1, double long2){
+    public double calculateDistanceFromPosition(double lat1, double lat2, double long1, double long2){
         int radius = 6371; //earth radius
         double dlat = (lat1-lat2)*Math.PI/180; //delta lat
         double dlong = (long1-long2)*Math.PI/180; //delta long
 
         double calculation = Math.sin(dlat/2)*Math.sin(dlat/2) + //sin(delta latitude/2)^2
                 Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)* //cos(latitude 1)*cos(latitude 2)
-                Math.sin(dlong/2)*Math.sin(dlong/2);  //sin(delta longitude/2)^2
+                        Math.sin(dlong/2)*Math.sin(dlong/2);  //sin(delta longitude/2)^2
 
         double distance = radius * 2 * Math.asin(Math.sqrt(calculation)); //the distance given in kilometers
         return distance;
     }
 
-    public static double calculateDistanceFromCurrentPosition(IAdvertisement add, Context context){
-         LatLng addLocation = getLocationFromAddress(context,add.getLocation());
-         return calculateDistanceFromPosition(addLocation.latitude, getCurrentLocation(context).latitude,
-            addLocation.longitude, getCurrentLocation(context).longitude);
+    public double calculateDistanceFromCurrentPosition(IAdvertisement add, Context context){
+        LatLng addLocation = getLocationFromAddress(context,add.getLocation());
+        return calculateDistanceFromPosition(addLocation.latitude, LocationUtils.getCurrentLocation(context).latitude,
+                addLocation.longitude, LocationUtils.getCurrentLocation(context).longitude);
     }
 
 
-    @Override
-    public void onLocationChanged(android.location.Location location) {
 
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-    }
 }

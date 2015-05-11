@@ -14,9 +14,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
 
 import edu.ctl.pinjobs.Advertisement.Category;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
+import edu.ctl.pinjobs.Utils.LocationUtils;
 
 /**
  * Created by Filips on 5/11/2015.
@@ -24,6 +26,7 @@ import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 public class MapView implements OnMapReadyCallback {
     Context context;
     GoogleMap map;
+    HandlerLocationUtils locationUtils;
     List<IAdvertisement> adList;
     List<MarkerOptions> markers = new ArrayList<MarkerOptions>(); //a list of all the markers placed on the map
 
@@ -31,6 +34,7 @@ public class MapView implements OnMapReadyCallback {
         this.context = context;
         this.adList = adList;
         mapFragment.getMapAsync(this);
+        this.locationUtils = new HandlerLocationUtils();
     }
 
     private void addMarker(LatLng location,String title){
@@ -38,9 +42,9 @@ public class MapView implements OnMapReadyCallback {
     }
 
     private void addMarker(IAdvertisement ad){
-        LatLng adPosition = Location.getLocationFromAddress(context,ad.getLocation());
+        LatLng adPosition = locationUtils.getLocationFromAddress(context, ad.getLocation());
         MarkerOptions marker = new MarkerOptions().position(new LatLng(adPosition.latitude, adPosition.longitude)).title(ad.getDescription()).icon(addCorrectCollorMarker(ad))
-                .snippet("" + Location.calculateDistanceFromCurrentPosition(ad, context));
+                .snippet("" + locationUtils.calculateDistanceFromCurrentPosition(ad, context));
 
         map.addMarker(marker);
         markers.add(marker);
@@ -50,11 +54,11 @@ public class MapView implements OnMapReadyCallback {
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
         MarkerOptions closestMarker = null; //keeps track of the closest marker
         double closestDistance = -1; //Keeps track of the closest distance
-        LatLng currentposition = Location.getCurrentLocation(context); //keeps track of current position
+        LatLng currentposition = LocationUtils.getCurrentLocation(context); //keeps track of current position
 
         for (MarkerOptions marker : markers){
-            double markerDistance = Location.calculateDistanceFromPosition(currentposition.latitude,marker.getPosition().latitude,
-                    currentposition.longitude,marker.getPosition().longitude); //calulates the distance from your current position to the marker
+            double markerDistance = locationUtils.calculateDistanceFromPosition(currentposition.latitude, marker.getPosition().latitude,
+                    currentposition.longitude, marker.getPosition().longitude); //calulates the distance from your current position to the marker
             if(closestMarker==null){ //Sets the first marker as the closest marker
                 closestMarker = marker;
                 closestDistance = markerDistance;

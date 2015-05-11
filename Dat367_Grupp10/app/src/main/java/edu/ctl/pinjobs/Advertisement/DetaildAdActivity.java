@@ -5,16 +5,11 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.filips.dat367_grupp10.R;
 
-import edu.ctl.pinjobs.Handler.Location;
 import edu.ctl.pinjobs.Services.EventBus;
-import edu.ctl.pinjobs.Advertisement.Advertisement;
-import edu.ctl.pinjobs.profile.Profile;
 
 /**
  * Created by filiplarsson on 15-05-07.
