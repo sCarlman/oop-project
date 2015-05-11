@@ -60,7 +60,7 @@ public class LoginView{
 
         // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password)) {
-            pwd.setError("Du måste fylla i ett lösenord!!!");
+            pwd.setError("Du måste fylla i ett lösenord!");
 
             cancel = true;
             focusView = pwd;
@@ -68,13 +68,13 @@ public class LoginView{
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
-            eMail.setError("Du måste fylla i en e-mail!!!");
+            eMail.setError("Du måste fylla i en e-mail!");
 
             cancel = true;
             focusView = eMail;
 
         } else if (!isEmailCorrect(email)) {
-            eMail.setError("Fel! Fel! Fel! LÖSENORDET ÄR EJ GILTLIGT!");
+            eMail.setError("Fel struktur på e-mail!");
 
             cancel = true;
             focusView = eMail;
@@ -92,6 +92,7 @@ public class LoginView{
         }
     }
 
+    //Makes check if e-maill is typed correct
     public static boolean isEmailCorrect(String email) {
         if (email != null || email != "") {
             Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
@@ -101,6 +102,14 @@ public class LoginView{
         }else {
             return false;
         }
+    }
+
+    public void failedMatchEmailWithDatabase(){
+        eMail.setError("Fel lösenord!");
+    }
+
+    public void failedMatchPasswordWithDatabase(){
+        pwd.setError("Fel E-mail!");
     }
 
 }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.Handler.MapActivity;
@@ -20,14 +21,24 @@ import com.parse.Parse;
 
 
 public class MainActivity extends ActionBarActivity {
-        @Override
+
+    private MainView mainView;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Gets boolean true if login success
+        boolean login = getIntent().getBooleanExtra("LoginSuccess", false);
+
+        MainView mainView = new MainView((Button)findViewById(R.id.mapButton), (Button)findViewById(R.id.listButton),(Button)findViewById(R.id.postAdButton),
+                (Button)findViewById(R.id.loginButton), login);
+
+        this.mainView = mainView;
 
         // Enable Local Datastore.
-        Parse.enableLocalDatastore(this);
+        // Parse.enableLocalDatastore(this);
         Parse.initialize(this, "W4QRsIPB5oFT6F6drmZi0BrxdPYPEYHY2GYSUU4q", "JpXn4VB0Y63wqNIf0qgvRGg7k3QmjfzJjD9qhzqE");
 
     }
@@ -61,11 +72,6 @@ public class MainActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-    public void openCreateProfileView(View view) {
-        Intent intent = new Intent(getApplicationContext(),CreateProfileActivity.class);
-        startActivity(intent);
-    }
-
     public void openCreateAdView(View view) {
         Intent intent = new Intent(getApplicationContext(), CreateAdActivity.class);
         startActivity(intent);
@@ -80,6 +86,5 @@ public class MainActivity extends ActionBarActivity {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
     }
-
 }
 

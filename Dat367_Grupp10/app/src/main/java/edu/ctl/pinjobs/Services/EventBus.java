@@ -20,7 +20,10 @@ public enum EventBus {
         ADLIST_UPDATED,
         LOGIN_MATCH,
         LOGIN_SUCCESS,
-        LOGIN_FAILED
+        LOGIN_FAILED_WRONG_EMAIL,
+        LOGIN_FAILED_WRONG_PASSWORD,
+        SAVE_PROFILE,
+        POST_AD
 
     };
     private boolean trace = true;

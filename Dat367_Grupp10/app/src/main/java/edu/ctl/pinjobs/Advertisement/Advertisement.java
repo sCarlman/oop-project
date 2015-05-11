@@ -15,9 +15,10 @@ public class Advertisement implements IAdvertisement {
     private String description;
     private Category category;
 
-    public Advertisement(IProfile advertiser, String title, String description, Category category) {
+    public Advertisement(IProfile advertiser, String title, String description, String location,
+                         Category category) {
         setAdvertiser(advertiser);
-        setLocation(advertiser.getAddress());
+        setLocation(location);
         setTitle(title);
         setDescription(description);
         setCategory(category);

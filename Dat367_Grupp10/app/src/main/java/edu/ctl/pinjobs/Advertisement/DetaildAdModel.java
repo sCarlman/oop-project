@@ -12,6 +12,7 @@ public class DetaildAdModel implements IDetaildAdModel {
     Advertisement clickedAd = new Advertisement(hej.getAdvertiser(),
             hej.getTitle(),
             hej.getDescription(),
+            hej.getLocation(),
             hej.getCategory());
 
     public String getClickedAdTitle(){

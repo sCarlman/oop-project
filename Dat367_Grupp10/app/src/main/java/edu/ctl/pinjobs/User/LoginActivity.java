@@ -1,5 +1,7 @@
 package edu.ctl.pinjobs.User;
 
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +19,8 @@ import java.util.List;
 import edu.ctl.pinjobs.Services.EventBus;
 import edu.ctl.pinjobs.Services.IProfileService;
 import edu.ctl.pinjobs.Services.ProfileService;
+import edu.ctl.pinjobs.controller.MainActivity;
+import edu.ctl.pinjobs.profile.CreateProfileActivity;
 import edu.ctl.pinjobs.profile.IProfile;
 import edu.ctl.pinjobs.profile.Profile;
 
@@ -25,7 +29,7 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
     private LoginView view;
     private LoginModel loginModel = new LoginModel();
     private IProfileService service = new ProfileService();
-    private UserModel userModel = new UserModel();
+    private UserModel userModel = UserModel.getInstance();
 
 
     @Override
@@ -61,6 +65,11 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
         return super.onOptionsItemSelected(item);
     }
 
+    public void openCreateProfileView(View view) {
+        Intent intent = new Intent(getApplicationContext(),CreateProfileActivity.class);
+        startActivity(intent);
+    }
+
     public void testView(View view){
         this.view.attemptLogin();
         view.postInvalidate();
@@ -82,17 +91,26 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
         }
 
         if(evt == EventBus.Event.LOGIN_SUCCESS){
-            System.out.println("*****!!!!!**** SOULD BE FALSE >>>>>>" + userModel.getIsLoggedIn());
             if(o instanceof LoginModel){
                 userModel.setLoggedIn(true);
                 userModel.setProfile(((LoginModel) o).getProfile());
+                Toast.makeText(this, "Du är nu inloggad!", Toast.LENGTH_LONG).show();
+
+                //open mainWindow
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("LoginSuccess", true);
+                startActivity(intent);
+
             }
 
-            System.out.println("!!!!!******!!!!!! SOULD BE TRUE >>>>>>" + userModel.getIsLoggedIn());
         }
 
-        if(evt == EventBus.Event.LOGIN_FAILED){
-            Toast.makeText(this, "Input ogliltligt!!!", Toast.LENGTH_LONG).show();
+        if(evt == EventBus.Event.LOGIN_FAILED_WRONG_EMAIL){
+            this.view.failedMatchEmailWithDatabase();
+        }
+
+        if(evt == EventBus.Event.LOGIN_FAILED_WRONG_PASSWORD){
+            this.view.failedMatchPasswordWithDatabase();
         }
     }
 

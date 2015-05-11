@@ -10,8 +10,15 @@ import android.widget.EditText;
 
 import com.example.filips.dat367_grupp10.R;
 
-public class CreateProfileActivity extends ActionBarActivity implements View.OnClickListener{
+import edu.ctl.pinjobs.Services.EventBus;
+import edu.ctl.pinjobs.Services.IProfileService;
+import edu.ctl.pinjobs.Services.ProfileService;
+
+public class CreateProfileActivity extends ActionBarActivity implements View.OnClickListener,
+        EventBus.IEventHandler{
+
     private CreateProfileView view;
+    private IProfileService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +31,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                 (EditText) findViewById(R.id.passwordEditText),
                 (EditText) findViewById(R.id.addressEditText),
                 (Button) findViewById(R.id.createProfileButton), this);
+        EventBus.INSTANCE.addListener(this);
     }
 
     @Override
@@ -52,6 +60,16 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
     public void onClick(View v) {
         if (v == findViewById(R.id.createProfileButton)) {
             view.createProfileButtonClicked();
+        }
+    }
+
+    @Override
+    public void onEvent(EventBus.Event evt, Object o) {
+        if(evt == EventBus.Event.SAVE_PROFILE){
+            service = new ProfileService();
+            service.saveProfile((Profile) o);
+            view.profileCreated(CreateProfileActivity.this);
+            finish();
         }
     }
 }

@@ -1,8 +1,12 @@
 package edu.ctl.pinjobs.profile;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import edu.ctl.pinjobs.Services.EventBus;
 
 /**
  * Created by Isaac on 2015-05-06.
@@ -13,7 +17,7 @@ public class CreateProfileView {
     private EditText emailEditText;
     private EditText phoneEditText;
     private EditText passwordEditText;
-    private EditText addressEditText;
+    private EditText locationEditText;
 
     private String firstName;
     private String lastName;
@@ -22,17 +26,17 @@ public class CreateProfileView {
     private String password;
     private String address;
 
-    private CreateProfileModel model = new CreateProfileModel();
+    private Profile newProfile;
 
     CreateProfileView(EditText firstNameEditText, EditText lastNameEditText,
                       EditText emailEditText, EditText phoneEditText, EditText passwordEditText,
-                      EditText addressEditText, Button createProfileButton, View.OnClickListener v) {
+                      EditText locationEditText, Button createProfileButton, View.OnClickListener v) {
         this.firstNameEditText = firstNameEditText;
         this.lastNameEditText = lastNameEditText;
         this.emailEditText = emailEditText;
         this.phoneEditText = phoneEditText;
         this.passwordEditText = passwordEditText;
-        this.addressEditText = addressEditText;
+        this.locationEditText = locationEditText;
         createProfileButton.setOnClickListener(v);
     }
 
@@ -42,8 +46,12 @@ public class CreateProfileView {
         email = emailEditText.getText().toString().trim();
         phone = phoneEditText.getText().toString().trim();
         password = passwordEditText.getText().toString().trim();
-        address = addressEditText.getText().toString().trim();
-        model.CreateProfile(firstName, lastName, password, email, phone, address);
-        System.out.println("ASDASDKWIUASDIAJSDSKAJDHN");
+        address = locationEditText.getText().toString().trim();
+        newProfile = new Profile(firstName, lastName, password, email, phone, address);
+        EventBus.INSTANCE.publish(EventBus.Event.SAVE_PROFILE, newProfile);
+    }
+
+    public void profileCreated(Context c) {
+        Toast.makeText(c, "Profile created!", Toast.LENGTH_LONG).show();
     }
 }

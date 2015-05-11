@@ -58,4 +58,25 @@
         android:layout_alignEnd="@+id/editText"
         android:hint="Type your password here"
         android:visibility="visible"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Har du ingen profil?"
+        android:id="@+id/noProfileTextView"
+        android:layout_below="@+id/loginButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:visibility="visible"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Registrera dig här!"
+        android:id="@+id/registerButton"
+        android:layout_below="@+id/noProfileTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:visibility="visible"
+        android:onClick="openCreateProfileView"/>
 </RelativeLayout>

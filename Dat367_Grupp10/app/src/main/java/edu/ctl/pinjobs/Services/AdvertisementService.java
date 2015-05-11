@@ -58,6 +58,7 @@ public class AdvertisementService implements IAdvertisementService {
             fetchedAds.add(new Advertisement(pService.fetchProfile(parseAd.getString("Email")),
                     parseAd.getString("Title"),
                     parseAd.getString("Description"),
+                    parseAd.getString("Location"),
                     Category.valueOf(parseAd.getString("Category"))));
         }
         return fetchedAds;
