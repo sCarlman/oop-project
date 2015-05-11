@@ -20,7 +20,6 @@ public enum EventBus {
         ADLIST_UPDATED,
         LOGIN_MATCH,
         LOGIN_SUCCESS,
-        LOGIN_SUCCESS_REDRAW_MAIN,
         LOGIN_FAILED_WRONG_EMAIL,
         LOGIN_FAILED_WRONG_PASSWORD,
         SAVE_PROFILE,

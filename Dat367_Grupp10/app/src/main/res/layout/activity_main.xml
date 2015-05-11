@@ -47,8 +47,7 @@
         android:layout_below="@+id/listButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:onClick="openCreateAdView"
-        android:visibility="gone"/>
+        android:onClick="openCreateAdView" />
 
     <Button
         style="?android:attr/buttonStyleSmall"

@@ -1,5 +1,6 @@
 package edu.ctl.pinjobs.User;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -97,6 +98,7 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
 
                 //open mainWindow
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.putExtra("LoginSuccess", true);
                 startActivity(intent);
 
             }

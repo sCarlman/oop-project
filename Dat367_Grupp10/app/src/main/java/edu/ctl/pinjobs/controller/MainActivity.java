@@ -26,8 +26,11 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Gets boolean true if login success
+        boolean login = getIntent().getBooleanExtra("LoginSuccess", false);
+
         MainView mainView = new MainView((Button)findViewById(R.id.mapButton), (Button)findViewById(R.id.listButton),(Button)findViewById(R.id.postAdButton),
-                (Button)findViewById(R.id.loginButton));
+                (Button)findViewById(R.id.loginButton), login);
 
         this.mainView = mainView;
 

@@ -8,28 +8,26 @@ import edu.ctl.pinjobs.Services.EventBus;
 /**
  * Created by Albertsson on 15-05-11.
  */
-public class MainView implements EventBus.IEventHandler {
+public class MainView {
 
     private Button mapButton;
     private Button listButton;
     private Button createNewAdButton;
     private Button loginButton;
 
-    public MainView(Button map, Button list, Button newAd, Button login){
+    public MainView(Button map, Button list, Button newAd, Button login, Boolean loginSuccess){
+
+        if(loginSuccess == true){
+            newAd.setVisibility(View.VISIBLE);
+        }else{
+            newAd.setVisibility(View.GONE);
+        }
 
         this.mapButton = map;
         this.listButton = list;
         this.createNewAdButton = newAd;
         this.listButton = login;
 
-        EventBus.INSTANCE.addListener(this);
     }
 
-    @Override
-    public void onEvent(EventBus.Event evt, Object o) {
-        if(evt == EventBus.Event.LOGIN_SUCCESS_REDRAW_MAIN){
-            createNewAdButton.setVisibility(View.VISIBLE);
-            createNewAdButton.invalidate();
-        }
-    }
 }
