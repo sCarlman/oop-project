@@ -80,6 +80,10 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
         userModel.setLoggedIn(false);
     }
 
+    public String getProfileNameForMainView(){
+        return userModel.getProfile().getFirstName() + " " + userModel.getProfile().getLastName();
+    }
+
     @Override
     public void onEvent(EventBus.Event evt, Object o) {
 

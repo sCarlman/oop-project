@@ -47,7 +47,8 @@
         android:layout_below="@+id/listButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
-        android:onClick="openCreateAdView" />
+        android:onClick="openCreateAdView"
+        android:visibility="gone" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -68,5 +69,14 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:onClick="logOfUser"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Du är inloggad som: "
+        android:id="@+id/loggedInTextView"
+        android:layout_above="@+id/logOfButton"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

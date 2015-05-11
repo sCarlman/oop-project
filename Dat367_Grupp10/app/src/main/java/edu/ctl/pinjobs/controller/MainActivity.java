@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.Handler.MapActivity;
@@ -24,6 +25,7 @@ public class MainActivity extends ActionBarActivity {
 
     private MainView mainView;
     private LoginActivity loginActivity = new LoginActivity();
+    private String profileName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +35,10 @@ public class MainActivity extends ActionBarActivity {
         //Gets boolean true if login success
         boolean login = getIntent().getBooleanExtra("LoginSuccess", false);
 
-        MainView mainView = new MainView((Button)findViewById(R.id.mapButton), (Button)findViewById(R.id.listButton),(Button)findViewById(R.id.postAdButton),
-                (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton), login);
+        this.mainView = new MainView((Button)findViewById(R.id.mapButton), (Button)findViewById(R.id.listButton),(Button)findViewById(R.id.postAdButton),
+                (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton), login, (TextView)findViewById(R.id.loggedInTextView));
 
-        this.mainView = mainView;
+
 
         // Enable Local Datastore.
         // Parse.enableLocalDatastore(this);
@@ -91,6 +93,15 @@ public class MainActivity extends ActionBarActivity {
     public void logOfUser(View view){
         loginActivity.changeValueOfLoggedOfUser();
         mainView.repaintForLogOf();
+    }
+
+    public void setProfileNameForView(){
+        String profileName = loginActivity.getProfileNameForMainView();
+        this.profileName = profileName;
+    }
+
+    public String getProfileName() {
+        return profileName;
     }
 }
 
