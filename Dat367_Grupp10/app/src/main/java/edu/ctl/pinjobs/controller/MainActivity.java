@@ -23,6 +23,7 @@ import com.parse.Parse;
 public class MainActivity extends ActionBarActivity {
 
     private MainView mainView;
+    private LoginActivity loginActivity = new LoginActivity();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +34,7 @@ public class MainActivity extends ActionBarActivity {
         boolean login = getIntent().getBooleanExtra("LoginSuccess", false);
 
         MainView mainView = new MainView((Button)findViewById(R.id.mapButton), (Button)findViewById(R.id.listButton),(Button)findViewById(R.id.postAdButton),
-                (Button)findViewById(R.id.loginButton), login);
+                (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton), login);
 
         this.mainView = mainView;
 
@@ -85,6 +86,11 @@ public class MainActivity extends ActionBarActivity {
     public void openLoginView(View view) {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
+    }
+
+    public void logOfUser(View view){
+        loginActivity.changeValueOfLoggedOfUser();
+        mainView.repaintForLogOf();
     }
 }
 

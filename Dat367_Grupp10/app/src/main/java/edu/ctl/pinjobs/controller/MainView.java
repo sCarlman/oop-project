@@ -14,19 +14,37 @@ public class MainView {
     private Button listButton;
     private Button createNewAdButton;
     private Button loginButton;
+    private Button logOfButton;
+    private Boolean loginSuccess;
 
-    public MainView(Button map, Button list, Button newAd, Button login, Boolean loginSuccess){
-
-        if(loginSuccess == true){
-            newAd.setVisibility(View.VISIBLE);
-        }else{
-            newAd.setVisibility(View.GONE);
-        }
+    public MainView(Button map, Button list, Button newAd, Button login, Button logOf, Boolean loginSuccess){
 
         this.mapButton = map;
         this.listButton = list;
         this.createNewAdButton = newAd;
-        this.listButton = login;
+        this.loginButton = login;
+        this.logOfButton = logOf;
+        this.loginSuccess = loginSuccess;
+
+        repaintViewOnLogin();
+
+    }
+
+    public void repaintForLogOf(){
+        createNewAdButton.setVisibility(View.GONE);
+        logOfButton.setVisibility(View.GONE);
+        loginButton.setVisibility(View.VISIBLE);
+    }
+
+    private void repaintViewOnLogin() {
+
+        if (loginSuccess == true) {
+            createNewAdButton.setVisibility(View.VISIBLE);
+            logOfButton.setVisibility(View.VISIBLE);
+            loginButton.setVisibility(View.GONE);
+        } else {
+            repaintForLogOf();
+        }
 
     }
 

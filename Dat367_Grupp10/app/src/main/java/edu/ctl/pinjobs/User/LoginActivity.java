@@ -75,6 +75,11 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
         view.postInvalidate();
     }
 
+    public void changeValueOfLoggedOfUser(){
+        userModel.setProfile(null);
+        userModel.setLoggedIn(false);
+    }
+
     @Override
     public void onEvent(EventBus.Event evt, Object o) {
 
