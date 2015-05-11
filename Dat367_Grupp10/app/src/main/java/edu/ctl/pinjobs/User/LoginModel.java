@@ -43,6 +43,7 @@ public class LoginModel {
         if(profile.getPassword() != null){
             if(profile.getPassword().equals(password)){
                 this.profile = profile;
+                EventBus.INSTANCE.publish(EventBus.Event.LOGIN_SUCCESS_REDRAW_MAIN, null);
                 EventBus.INSTANCE.publish(EventBus.Event.LOGIN_SUCCESS, this);
             }else{
                 EventBus.INSTANCE.publish(EventBus.Event.LOGIN_FAILED_WRONG_PASSWORD, null);

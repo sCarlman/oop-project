@@ -1,5 +1,6 @@
 package edu.ctl.pinjobs.User;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,6 +18,8 @@ import java.util.List;
 import edu.ctl.pinjobs.Services.EventBus;
 import edu.ctl.pinjobs.Services.IProfileService;
 import edu.ctl.pinjobs.Services.ProfileService;
+import edu.ctl.pinjobs.controller.MainActivity;
+import edu.ctl.pinjobs.profile.CreateProfileActivity;
 import edu.ctl.pinjobs.profile.IProfile;
 import edu.ctl.pinjobs.profile.Profile;
 
@@ -61,6 +64,11 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
         return super.onOptionsItemSelected(item);
     }
 
+    public void openCreateProfileView(View view) {
+        Intent intent = new Intent(getApplicationContext(),CreateProfileActivity.class);
+        startActivity(intent);
+    }
+
     public void testView(View view){
         this.view.attemptLogin();
         view.postInvalidate();
@@ -86,6 +94,11 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
                 userModel.setLoggedIn(true);
                 userModel.setProfile(((LoginModel) o).getProfile());
                 Toast.makeText(this, "Du är nu inloggad!", Toast.LENGTH_LONG).show();
+
+                //open mainWindow
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+
             }
 
         }

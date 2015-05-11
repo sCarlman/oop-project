@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
@@ -17,11 +18,18 @@ import com.parse.Parse;
 
 
 public class MainActivity extends ActionBarActivity {
-        @Override
+
+    private MainView mainView;
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        MainView mainView = new MainView((Button)findViewById(R.id.mapButton), (Button)findViewById(R.id.listButton),(Button)findViewById(R.id.postAdButton),
+                (Button)findViewById(R.id.loginButton));
+
+        this.mainView = mainView;
 
         // Enable Local Datastore.
         // Parse.enableLocalDatastore(this);
@@ -58,11 +66,6 @@ public class MainActivity extends ActionBarActivity {
         startActivity(intent);
     }
 
-    public void openCreateProfileView(View view) {
-        Intent intent = new Intent(getApplicationContext(),CreateProfileActivity.class);
-        startActivity(intent);
-    }
-
     public void openCreateAdView(View view) {
         Intent intent = new Intent(getApplicationContext(), CreateAdActivity.class);
         startActivity(intent);
@@ -77,6 +80,5 @@ public class MainActivity extends ActionBarActivity {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
     }
-
 }
 
