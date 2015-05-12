@@ -22,7 +22,6 @@ public class LoginModel {
         }
 
     public void doesMailExistInUserDatabase(List<IProfile> profiles){
-        //FORLOOPEN LOOPAR JUE IGENOM DÄRFÖR DEN GÅR IN I SHITTTT!!!!!!
 
         boolean matchFound = false;
 

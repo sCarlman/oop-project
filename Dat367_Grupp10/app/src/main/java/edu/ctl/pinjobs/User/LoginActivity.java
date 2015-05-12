@@ -101,17 +101,15 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
 
         if(evt == EventBus.Event.LOGIN_SUCCESS){
             if(o instanceof LoginModel){
-                userModel.setLoggedIn(true);
-                userModel.setProfile(((LoginModel) o).getProfile());
-                Toast.makeText(this, "Du är nu inloggad!", Toast.LENGTH_LONG).show();
-
-                //open mainWindow
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                intent.putExtra("LoginSuccess", true);
-                startActivity(intent);
-
+                loginSuccess(((LoginModel) o).getProfile());
             }
 
+        }
+
+        if(evt == EventBus.Event.SAVE_PROFILE){
+            if(o instanceof IProfile){
+                loginSuccess((IProfile)o);
+            }
         }
 
         if(evt == EventBus.Event.LOGIN_FAILED_WRONG_EMAIL){
@@ -121,6 +119,16 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
         if(evt == EventBus.Event.LOGIN_FAILED_WRONG_PASSWORD){
             this.view.failedMatchPasswordWithDatabase();
         }
+    }
+
+    public void loginSuccess(IProfile profile){
+        userModel.setLoggedIn(true);
+        userModel.setProfile(profile);
+
+        //open mainWindow
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.putExtra("LoginSuccess", true);
+        startActivity(intent);
     }
 
 }

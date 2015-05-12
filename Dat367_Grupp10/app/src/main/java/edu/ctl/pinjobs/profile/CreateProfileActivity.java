@@ -13,12 +13,14 @@ import com.example.filips.dat367_grupp10.R;
 import edu.ctl.pinjobs.Services.EventBus;
 import edu.ctl.pinjobs.Services.IProfileService;
 import edu.ctl.pinjobs.Services.ProfileService;
+import edu.ctl.pinjobs.User.LoginActivity;
 
 public class CreateProfileActivity extends ActionBarActivity implements View.OnClickListener,
         EventBus.IEventHandler{
 
     private CreateProfileView view;
     private IProfileService service;
+    private LoginActivity loginActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +69,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
     public void onEvent(EventBus.Event evt, Object o) {
         if(evt == EventBus.Event.SAVE_PROFILE){
             service = new ProfileService();
-            service.saveProfile((Profile) o);
+            service.saveProfile((IProfile) o);
             view.profileCreated(CreateProfileActivity.this);
             finish();
         }
