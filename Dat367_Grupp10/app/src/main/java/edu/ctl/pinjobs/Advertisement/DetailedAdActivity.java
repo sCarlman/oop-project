@@ -19,7 +19,8 @@ public class DetailedAdActivity extends ActionBarActivity {
 
         Bundle bundle = getIntent().getExtras();
 
-        AndroidAdvertisement ad = (AndroidAdvertisement)bundle.getParcelable("Advertisement");
+        AndroidAdvertisement androidAd = (AndroidAdvertisement)bundle.getParcelable("Advertisement");
+        Advertisement ad = androidAd.getAd();
         DetailedAdView view = new DetailedAdView((TextView)findViewById(R.id.titleTextView),
                 (TextView)findViewById(R.id.categoryTextView),
                         (TextView)findViewById(R.id.distanceTextView),

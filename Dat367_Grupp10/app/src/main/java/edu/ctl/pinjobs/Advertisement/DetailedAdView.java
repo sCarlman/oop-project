@@ -18,7 +18,7 @@ public class DetailedAdView {
 
     public DetailedAdView(TextView titleTextView, TextView categoryTextView, TextView distanceTextView,
                           TextView descriptionTextView, TextView nameTextView, TextView addressTextView,
-                          TextView phoneTextView, TextView mailTextView, AndroidAdvertisement ad){
+                          TextView phoneTextView, TextView mailTextView, Advertisement ad){
 
         this.titleTextView = titleTextView;
         this.categoryTextView = categoryTextView;

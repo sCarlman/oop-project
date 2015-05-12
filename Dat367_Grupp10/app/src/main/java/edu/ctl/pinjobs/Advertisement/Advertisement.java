@@ -5,7 +5,7 @@ import edu.ctl.pinjobs.profile.IProfile;
  * Created by Albertsson on 15-04-01.
  */
 
-public class Advertisement implements IAdvertisement {
+public class Advertisement implements IAdvertisement, Serializable {
 
     private IProfile advertiser;
     private String location;
@@ -91,5 +91,12 @@ public class Advertisement implements IAdvertisement {
     public void setYear(int year) {
         this.year = year;
     }
+<<<<<<< Updated upstream
+=======
+
+
+
+
+>>>>>>> Stashed changes
 }
 
