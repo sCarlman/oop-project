@@ -20,7 +20,6 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
 
     private CreateProfileView view;
     private IProfileService service;
-    private LoginActivity loginActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +31,8 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                 (EditText) findViewById(R.id.phoneEditText),
                 (EditText) findViewById(R.id.passwordEditText),
                 (EditText) findViewById(R.id.addressEditText),
-                (Button) findViewById(R.id.createProfileButton), this);
+                (Button) findViewById(R.id.createProfileButton), this,
+                (EditText) findViewById(R.id.cityEditText));
         EventBus.INSTANCE.addListener(this);
     }
 
@@ -61,7 +61,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
     @Override
     public void onClick(View v) {
         if (v == findViewById(R.id.createProfileButton)) {
-            view.createProfileButtonClicked();
+            view.attemptCreateProfile();
         }
     }
 
