@@ -1,10 +1,6 @@
 package edu.ctl.pinjobs.Advertisement;
 
-
-
-
 import edu.ctl.pinjobs.profile.IProfile;
-import java.io.Serializable;
 /**
  * Created by Albertsson on 15-04-01.
  */
