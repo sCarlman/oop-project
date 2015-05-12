@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.ctl.pinjobs.Advertisement.Advertisement;
+import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
 import edu.ctl.pinjobs.Advertisement.DetailedAdActivity;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import edu.ctl.pinjobs.controller.MainActivity;
@@ -47,7 +48,8 @@ public class ListView{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HandlerActivity hej = new HandlerActivity();
                 Advertisement ad = (Advertisement) adList.get(position);
-                hej.openDetailedAdView(listView, ad);
+                AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
+                hej.openDetailedAdView(listView, androidAD);
 
 
             }
@@ -56,7 +58,7 @@ public class ListView{
     private String setMessage(IAdvertisement ad){
         String message =ad.getTitle();
         //String distance = ""+locationUtils.calculateDistanceFromCurrentPosition(ad,context);
-        String distance = "4";
+        String distance ="4";
         int index = distance.indexOf('.');
         distance = distance.substring(0,index+2);
 

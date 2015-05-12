@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import edu.ctl.pinjobs.Advertisement.Advertisement;
+import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
 import edu.ctl.pinjobs.Advertisement.DetailedAdActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.Services.EventBus;
@@ -78,7 +79,7 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
         this.listModel = new ListModel(adList);
     }
 
-    public void openDetailedAdView(View view, Advertisement ad){
+    public void openDetailedAdView(View view, AndroidAdvertisement ad){
 
         //Bundle bundle = new Bundle();
 
