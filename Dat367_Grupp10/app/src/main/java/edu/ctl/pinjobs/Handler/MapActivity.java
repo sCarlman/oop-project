@@ -30,6 +30,10 @@ public class MapActivity extends ActionBarActivity {
         mapView = new MapView(this,adList,mapFragment);
     }
 
+    public void setNewPin(IAdvertisement ad){
+        mapView.addPinAndZoom(ad);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

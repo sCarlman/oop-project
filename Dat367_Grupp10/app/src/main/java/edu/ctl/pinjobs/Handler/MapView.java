@@ -14,7 +14,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
 
 import edu.ctl.pinjobs.Advertisement.Category;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
@@ -37,7 +36,7 @@ public class MapView implements OnMapReadyCallback {
         this.locationUtils = new HandlerLocationUtils();
     }
 
-    private void addMarker(LatLng location,String title){
+    public void addMarker(LatLng location,String title){
         map.addMarker(new MarkerOptions().position(location).title(title));
     }
 
@@ -110,5 +109,10 @@ public class MapView implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         this.map = googleMap;
         setUpMap(adList);
+    }
+
+    public void addPinAndZoom(IAdvertisement ad){
+        addMarker(ad);
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(locationUtils.getLocationFromAddress(context,ad.getLocation()), 15));
     }
 }

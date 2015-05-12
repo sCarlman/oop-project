@@ -33,13 +33,13 @@ public class HandlerLocationUtils {
         try {
             address = coder.getFromLocationName(strAddress, 5); //saves the 5 best matches from the input
             if (address == null) {
-                return null; //return null if the geocoder cant find any adress for some reason
+                throw new AdressNotFoundException();
             }
             Address location = address.get(0);
             position = new LatLng(location.getLatitude(), location.getLongitude());
 
         } catch (Exception e) { //the method throws both IOexception and illegalargumentexcpetion, Ioexception if there is no
-            //internet connection and illegalargument which should be handled above.
+            //internet connection and illegalargument if input is null
             System.out.println("EXCEPTION");
         }
         return position;
