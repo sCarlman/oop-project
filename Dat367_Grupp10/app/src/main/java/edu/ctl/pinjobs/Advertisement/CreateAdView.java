@@ -24,6 +24,7 @@ public class CreateAdView {
     private RadioButton labourRadioButton;
     private RadioButton otherRadioButton;
     private DatePicker adEndDatePicker;
+    private Button chooseDateButton;
 
     private Advertisement newAd;
     private String location;
@@ -36,10 +37,11 @@ public class CreateAdView {
     private int month;
     private int year;
 
+
     public CreateAdView(EditText addressEditText, EditText descriptionEditText,
                         EditText titleEditText,RadioButton gardenRadioButton,
                         RadioButton labourRadioButton, RadioButton otherRadioButton,
-                        Button createAdButton, View.OnClickListener v,
+                        Button createAdButton, Button chooseDateButton, View.OnClickListener v,
                         DatePicker adEndDatePicker){
         this.locationEditText = addressEditText;
         this.descriptionEditText = descriptionEditText;
@@ -48,6 +50,8 @@ public class CreateAdView {
         this.labourRadioButton = labourRadioButton;
         this.otherRadioButton = otherRadioButton;
         createAdButton.setOnClickListener(v);
+        chooseDateButton.setOnClickListener(v);
+        this.chooseDateButton = chooseDateButton;
         this.adEndDatePicker = adEndDatePicker;
     }
 
@@ -97,13 +101,16 @@ public class CreateAdView {
 
     public void AdPosted(Context c){
         Toast.makeText(c, "Ad posted!", Toast.LENGTH_LONG).show();
-        clearFields();
     }
 
-    private void clearFields() {
-        titleEditText.setText("");
-        descriptionEditText.setText("");
-        locationEditText.setText("");
-        newProfile = null;
+    public void showDatePicker() {
+
+        if(!(adEndDatePicker.getVisibility() == View.VISIBLE)) {
+            adEndDatePicker.setVisibility(View.VISIBLE);
+            chooseDateButton.setText("Dölj datum");
+        }else {
+            adEndDatePicker.setVisibility(View.GONE);
+            chooseDateButton.setText("Välj slutdatum för annons");
+        }
     }
 }

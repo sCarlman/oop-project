@@ -85,19 +85,20 @@
                 android:layout_column="0"
                 android:inputType="phone" />
 
-            <TextView
+            <Button
+                style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text"
-                android:id="@+id/textView" />
+                android:text="Välj slutdatum för annons"
+                android:id="@+id/chooseDateButton" />
 
             <DatePicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/adEndDateDatePicker"
                 android:calendarViewShown="true"
-                android:datePickerMode="spinner" />
+                android:datePickerMode="spinner"
+                android:visibility="gone" />
 
             <RadioGroup
                 android:layout_width="wrap_content"

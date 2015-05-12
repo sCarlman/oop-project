@@ -36,7 +36,8 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
                 (RadioButton) findViewById(R.id.gardenRadioButton),
                 (RadioButton) findViewById(R.id.labourRadioButton),
                 (RadioButton) findViewById(R.id.otherRadioButton),
-                (Button) findViewById(R.id.createAdButton), this,
+                (Button) findViewById(R.id.createAdButton),
+                (Button) findViewById(R.id.chooseDateButton), this,
                 (DatePicker) findViewById(R.id.adEndDateDatePicker));
 
         if (user.getIsLoggedIn()){
@@ -74,10 +75,10 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
     }
 
     public void onClick(View v){
-        if (v == findViewById(R.id.createAdButton) && user.getIsLoggedIn()){
+        if (v == findViewById(R.id.createAdButton)){
             view.createAd();
-        }else if(v == findViewById(R.id.createAdButton) && !(user.getIsLoggedIn())){
-            view.notLoggedIn(this);
+        }else if(v == findViewById(R.id.chooseDateButton)){
+            view.showDatePicker();
         }
     }
 
