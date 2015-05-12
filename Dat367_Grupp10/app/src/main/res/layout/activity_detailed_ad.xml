@@ -1,37 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="edu.ctl.pinjobs.Advertisement.DetaildAdActivity"
-    android:id="@+id/detailedAd">
+    tools:context="edu.ctl.pinjobs.Advertisement.DetailedAdActivity">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/scrollView"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView" >
 
         <TableLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:stretchColumns="1" >
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Jobb titel"
+                android:text="Jobb Titel"
                 android:visibility="visible"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
@@ -39,31 +29,31 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Jobbkategori"
+                android:text="Avstånd"
                 android:visibility="visible"
+                android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/destianceTextView"
-                android:id="@+id/categoryTextView" />
+                android:id="@+id/distanceTextView" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Avstånd från användare"
-                android:layout_marginTop="0dp"
-                android:layout_below="@+id/descriptionTextView"
+                android:text="Kategori"
+                android:visibility="visible"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignRight="@+id/scrollView"
-                android:layout_alignEnd="@+id/scrollView"
-                android:id="@+id/distanceTextView"/>
+                android:layout_centerHorizontal="true"
+                android:id="@+id/categoryTextView" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="92dp"
+                android:layout_height="90dp"
                 android:text="Beskrivning"
+                android:visibility="visible"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
                 android:id="@+id/descriptionTextView" />
 
             <TextView
@@ -71,32 +61,49 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Namn"
-                android:id="@+id/nameTextView" />
+                android:visibility="visible"
+                android:id="@+id/nameTextView"
+                android:layout_alignBaseline="@+id/phoneTextView"
+                android:layout_alignBottom="@+id/phoneTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Adress"
-                android:id="@+id/addressTextView" />
+                android:visibility="visible"
+                android:id="@+id/addressTextView"
+                android:layout_alignBaseline="@+id/phoneTextView"
+                android:layout_alignBottom="@+id/phoneTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Telefonnummer"
-                android:id="@+id/phoneTextView" />
+                android:visibility="visible"
+                android:id="@+id/phoneTextView"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="E-mail"
-                android:id="@+id/mailTextView" />
+                android:text="Email"
+                android:visibility="visible"
+                android:id="@+id/emailTextView"
+                android:layout_alignBottom="@+id/scrollView"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginBottom="148dp" />
 
         </TableLayout>
     </ScrollView>
-
-
 
 </RelativeLayout>

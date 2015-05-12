@@ -11,5 +11,6 @@
     <string name="title_activity_ad_list">AdListActivity</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_map">MapActivity</string>
+    <string name="title_activity_detailed_ad">DetailedAdActivity</string>
 
 </resources>

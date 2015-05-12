@@ -65,6 +65,14 @@
             android:name="edu.ctl.pinjobs.Handler.MapActivity"
             android:label="@string/title_activity_map" >
         </activity>
+        <activity
+            android:name="edu.ctl.pinjobs.Advertisement.DetailedAdActivity"
+            android:label="@string/title_activity_detailed_ad" >
+        </activity>
+        <activity
+            android:name=".DetailedAdActivity"
+            android:label="@string/title_activity_detailed_ad" >
+        </activity>
     </application>
 
 </manifest>

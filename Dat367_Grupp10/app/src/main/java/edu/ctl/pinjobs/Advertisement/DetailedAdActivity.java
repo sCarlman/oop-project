@@ -1,42 +1,37 @@
 package edu.ctl.pinjobs.Advertisement;
 
-import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
 import com.example.filips.dat367_grupp10.R;
 
-import edu.ctl.pinjobs.Services.EventBus;
+public class DetailedAdActivity extends ActionBarActivity {
 
-/**
- * Created by filiplarsson on 15-05-07.
- */
-public class DetaildAdActivity extends ActionBarActivity implements EventBus.IEventHandler{
-
-    private  DetaildAdView view;
-
+    private DetailedAdView view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_ad);
 
-        DetaildAdView view = new DetaildAdView((TextView)findViewById(R.id.titleTextView),
+        Bundle bundle = getIntent().getExtras();
+
+        Advertisement ad = (Advertisement)bundle.getParcelable("Advertisement");
+        DetailedAdView view = new DetailedAdView((TextView)findViewById(R.id.titleTextView),
                 (TextView)findViewById(R.id.categoryTextView),
-                (TextView)findViewById(R.id.distanceTextView),
+                        (TextView)findViewById(R.id.distanceTextView),
                 (TextView)findViewById(R.id.descriptionTextView),
                 (TextView)findViewById(R.id.nameTextView),
                 (TextView)findViewById(R.id.addressTextView),
                 (TextView)findViewById(R.id.phoneTextView),
-                (TextView)findViewById(R.id.mailTextView));
+                (TextView)findViewById(R.id.emailTextView),
+                ad);
         this.view = view;
 
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,14 +54,4 @@ public class DetaildAdActivity extends ActionBarActivity implements EventBus.IEv
 
         return super.onOptionsItemSelected(item);
     }
-
-    public void onClick(View v){
-
-    }
-
-    @Override
-    public void onEvent(EventBus.Event evt, Object o) {
-
-    }
 }
-
