@@ -72,10 +72,6 @@ public class Advertisement implements IAdvertisement {
         return description;
     }
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
     public int getDay() {
         return day;
     }
@@ -101,31 +97,5 @@ public class Advertisement implements IAdvertisement {
     }
 
 
-
-
-<<<<<<< Updated upstream
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeValue(advertiser);
-        dest.writeString(location);
-        dest.writeString(title);
-        dest.writeString(description);
-        dest.writeValue(category);
-    }
-
-    @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Advertisement> CREATOR = new Parcelable.Creator<Advertisement>() {
-        @Override
-        public Advertisement createFromParcel(Parcel in) {
-            return new Advertisement(in);
-        }
-
-        @Override
-        public Advertisement[] newArray(int size) {
-            return new Advertisement[size];
-        }
-    };
-
-=======
->>>>>>> Stashed changes
 }
 
