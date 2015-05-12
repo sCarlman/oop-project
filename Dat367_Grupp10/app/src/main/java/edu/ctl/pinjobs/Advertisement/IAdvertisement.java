@@ -14,10 +14,16 @@ public interface IAdvertisement {
     public void setTitle(String title);
     public void setDescription(String description);
     public void setCategory(Category category);
+    public void setDay(int day);
+    public void setMonth(int month);
+    public void setYear(int year);
 
     public IProfile getAdvertiser();
     public String getLocation();
     public String getTitle();
     public String getDescription();
     public Category getCategory();
+    public int getDay();
+    public int getMonth();
+    public int getYear();
 }

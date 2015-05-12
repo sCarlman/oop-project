@@ -13,6 +13,7 @@ import com.example.filips.dat367_grupp10.R;
 import edu.ctl.pinjobs.Services.EventBus;
 import edu.ctl.pinjobs.Services.IProfileService;
 import edu.ctl.pinjobs.Services.ProfileService;
+import edu.ctl.pinjobs.User.LoginActivity;
 
 public class CreateProfileActivity extends ActionBarActivity implements View.OnClickListener,
         EventBus.IEventHandler{
@@ -30,7 +31,8 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                 (EditText) findViewById(R.id.phoneEditText),
                 (EditText) findViewById(R.id.passwordEditText),
                 (EditText) findViewById(R.id.addressEditText),
-                (Button) findViewById(R.id.createProfileButton), this);
+                (Button) findViewById(R.id.createProfileButton), this,
+                (EditText) findViewById(R.id.cityEditText));
         EventBus.INSTANCE.addListener(this);
     }
 
@@ -59,7 +61,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
     @Override
     public void onClick(View v) {
         if (v == findViewById(R.id.createProfileButton)) {
-            view.createProfileButtonClicked();
+            view.attemptCreateProfile();
         }
     }
 
@@ -67,7 +69,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
     public void onEvent(EventBus.Event evt, Object o) {
         if(evt == EventBus.Event.SAVE_PROFILE){
             service = new ProfileService();
-            service.saveProfile((Profile) o);
+            service.saveProfile((IProfile) o);
             view.profileCreated(CreateProfileActivity.this);
             finish();
         }

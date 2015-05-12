@@ -36,7 +36,10 @@ public class Search {
                         parseAd.getString("Title"),
                         parseAd.getString("Description"),
                         parseAd.getString("Location"),
-                        Category.valueOf(parseAd.getString("Category"))));
+                        Category.valueOf(parseAd.getString("Category")),
+                        (int) parseAd.getNumber("Day"),
+                        (int) parseAd.getNumber("Month"),
+                        (int) parseAd.getNumber("Year")));
             }
         }
         return searchedAds;

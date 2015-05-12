@@ -3,6 +3,7 @@ package edu.ctl.pinjobs.Advertisement;
 import android.content.Context;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -22,6 +23,8 @@ public class CreateAdView {
     private RadioButton gardenRadioButton;
     private RadioButton labourRadioButton;
     private RadioButton otherRadioButton;
+    private DatePicker adEndDatePicker;
+    private Button chooseDateButton;
 
     private Advertisement newAd;
     private String location;
@@ -30,10 +33,16 @@ public class CreateAdView {
     private Category category;
     private IProfile newProfile;
 
+    private int day;
+    private int month;
+    private int year;
+
+
     public CreateAdView(EditText addressEditText, EditText descriptionEditText,
                         EditText titleEditText,RadioButton gardenRadioButton,
                         RadioButton labourRadioButton, RadioButton otherRadioButton,
-                        Button createAdButton, View.OnClickListener v){
+                        Button createAdButton, Button chooseDateButton, View.OnClickListener v,
+                        DatePicker adEndDatePicker){
         this.locationEditText = addressEditText;
         this.descriptionEditText = descriptionEditText;
         this.titleEditText = titleEditText;
@@ -41,6 +50,9 @@ public class CreateAdView {
         this.labourRadioButton = labourRadioButton;
         this.otherRadioButton = otherRadioButton;
         createAdButton.setOnClickListener(v);
+        chooseDateButton.setOnClickListener(v);
+        this.chooseDateButton = chooseDateButton;
+        this.adEndDatePicker = adEndDatePicker;
     }
 
     public void setNewProfile(IProfile newProfile){
@@ -51,21 +63,34 @@ public class CreateAdView {
     }
 
     public void createAd(){
-        location = locationEditText.getText().toString().trim();
-        description = descriptionEditText.getText().toString().trim();
-        title = titleEditText.getText().toString().trim();
-        setSelectedCategory();
+        copyTextFieldData();
+        copySelectedCategory();
+        copyEndDate();
 
-        newAd = new Advertisement(newProfile, title, description, location, category);
+        newAd = new Advertisement(newProfile, title, description, location, category,
+                day, month, year);
         EventBus.INSTANCE.publish(EventBus.Event.POST_AD, newAd);
     }
 
-    private void setSelectedCategory() {
+    private void copyEndDate() {
+        day = adEndDatePicker.getDayOfMonth();
+        month = adEndDatePicker.getMonth();
+        year = adEndDatePicker.getYear();
+
+    }
+
+    private void copyTextFieldData() {
+        location = locationEditText.getText().toString().trim();
+        description = descriptionEditText.getText().toString().trim();
+        title = titleEditText.getText().toString().trim();
+    }
+
+    private void copySelectedCategory() {
         if(gardenRadioButton.isChecked()){
             category = Category.GARDEN;
         }else if(labourRadioButton.isChecked()){
             category = Category.LABOUR;
-        }else{
+        }else if(otherRadioButton.isChecked()){
             category = Category.OTHER;
         }
     }
@@ -76,13 +101,16 @@ public class CreateAdView {
 
     public void AdPosted(Context c){
         Toast.makeText(c, "Ad posted!", Toast.LENGTH_LONG).show();
-        clearFields();
     }
 
-    private void clearFields() {
-        titleEditText.setText("");
-        descriptionEditText.setText("");
-        locationEditText.setText("");
-        newProfile = null;
+    public void showDatePicker() {
+
+        if(!(adEndDatePicker.getVisibility() == View.VISIBLE)) {
+            adEndDatePicker.setVisibility(View.VISIBLE);
+            chooseDateButton.setText("Dölj datum");
+        }else {
+            adEndDatePicker.setVisibility(View.GONE);
+            chooseDateButton.setText("Välj slutdatum för annons");
+        }
     }
 }

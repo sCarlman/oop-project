@@ -1,6 +1,8 @@
 package edu.ctl.pinjobs.profile;
 
 
+import java.io.Serializable;
+
 import edu.ctl.pinjobs.Services.EventBus;
 
 /**
@@ -8,7 +10,7 @@ import edu.ctl.pinjobs.Services.EventBus;
  * A profile is needed to post ads
  *
  */
-public class Profile implements IProfile {
+public class Profile implements IProfile, Serializable {
 
     private String firstName;
     private String lastName;

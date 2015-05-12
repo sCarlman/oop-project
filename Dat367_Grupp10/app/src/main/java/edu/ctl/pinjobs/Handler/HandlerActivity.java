@@ -1,10 +1,15 @@
 package edu.ctl.pinjobs.Handler;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import edu.ctl.pinjobs.Advertisement.Advertisement;
+import edu.ctl.pinjobs.Advertisement.DetailedAdActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.Services.EventBus;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
@@ -19,7 +24,7 @@ import java.util.logging.Handler;
 
 
 public class HandlerActivity extends ActionBarActivity implements EventBus.IEventHandler {
-
+    private static Context cont;
     IListModel listModel;
     edu.ctl.pinjobs.Handler.ListView listView;
 
@@ -27,6 +32,8 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        cont = this.getApplicationContext();
 
         EventBus.INSTANCE.addListener(this);
         IAdvertisementService adService = new AdvertisementService();
@@ -70,4 +77,16 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
         this.listView = new ListView(this,(android.widget.ListView)findViewById(R.id.adListView));
         this.listModel = new ListModel(adList);
     }
+
+    public void openDetailedAdView(View view, Advertisement ad){
+
+        //Bundle bundle = new Bundle();
+
+        Intent intent = new Intent(cont.getApplicationContext(), DetailedAdActivity.class);
+        intent.putExtra("Advertisement", ad);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        cont.getApplicationContext().startActivity(intent);
+
+    }
+
 }
