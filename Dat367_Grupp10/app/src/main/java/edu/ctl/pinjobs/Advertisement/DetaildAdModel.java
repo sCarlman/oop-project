@@ -13,7 +13,10 @@ public class DetaildAdModel implements IDetaildAdModel {
             hej.getTitle(),
             hej.getDescription(),
             hej.getLocation(),
-            hej.getCategory());
+            hej.getCategory(),
+            hej.getDay(),
+            hej.getMonth(),
+            hej.getYear());
 
     public String getClickedAdTitle(){
         return clickedAd.getTitle().toString().trim();

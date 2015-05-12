@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
@@ -35,7 +36,8 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
                 (RadioButton) findViewById(R.id.gardenRadioButton),
                 (RadioButton) findViewById(R.id.labourRadioButton),
                 (RadioButton) findViewById(R.id.otherRadioButton),
-                (Button) findViewById(R.id.createAdButton), this);
+                (Button) findViewById(R.id.createAdButton), this,
+                (DatePicker) findViewById(R.id.adEndDateDatePicker));
 
         if (user.getIsLoggedIn()){
             view.setNewProfile(user.getProfile());

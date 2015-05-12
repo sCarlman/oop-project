@@ -37,6 +37,9 @@ public class AdvertisementService implements IAdvertisementService {
         parseAd.put("Title", ad.getTitle());
         parseAd.put("Description", ad.getDescription());
         parseAd.put("Category", ad.getCategory().toString());
+        parseAd.put("Day", ad.getDay());
+        parseAd.put("Month", ad.getMonth());
+        parseAd.put("Year", ad.getYear());
     }
 
     @Override
@@ -59,7 +62,10 @@ public class AdvertisementService implements IAdvertisementService {
                     parseAd.getString("Title"),
                     parseAd.getString("Description"),
                     parseAd.getString("Location"),
-                    Category.valueOf(parseAd.getString("Category"))));
+                    Category.valueOf(parseAd.getString("Category")),
+                    (int) parseAd.getNumber("Day"),
+                    (int) parseAd.getNumber("Month"),
+                    (int) parseAd.getNumber("Year")));
         }
         return fetchedAds;
     }

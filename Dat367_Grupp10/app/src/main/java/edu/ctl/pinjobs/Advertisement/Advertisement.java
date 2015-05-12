@@ -14,14 +14,20 @@ public class Advertisement implements IAdvertisement {
     private String title;
     private String description;
     private Category category;
+    private int day;
+    private int month;
+    private int year;
 
     public Advertisement(IProfile advertiser, String title, String description, String location,
-                         Category category) {
+                         Category category, int day, int month, int year) {
         setAdvertiser(advertiser);
         setLocation(location);
         setTitle(title);
         setDescription(description);
         setCategory(category);
+        setDay(day);
+        setMonth(month);
+        setYear(year);
     }
 
     public void setAdvertiser(IProfile advertiser) {
@@ -64,4 +70,27 @@ public class Advertisement implements IAdvertisement {
         return description;
     }
 
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
 }

@@ -81,9 +81,15 @@
                 android:layout_alignParentEnd="true"
                 android:text=""
                 android:visibility="visible"
-                android:hint="Telefon"
+                android:hint="ytterligare tel."
                 android:layout_column="0"
                 android:inputType="phone" />
+
+            <DatePicker
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/adEndDateDatePicker"
+                android:calendarViewShown="false" />
 
             <RadioGroup
                 android:layout_width="wrap_content"
