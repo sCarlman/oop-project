@@ -1,6 +1,7 @@
 package edu.ctl.pinjobs.profile;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -66,19 +67,18 @@ public class CreateProfileView {
 
     public void attemptCreateProfile(){
 
-        //Sets all textfields error to null
-        firstNameEditText.setError(null);
-        lastNameEditText.setError(null);
-        emailEditText.setError(null);
-        phoneEditText.setError(null);
-        passwordEditText.setError(null);
-        locationEditText.setError(null);
-        cityEditText.setError(null);
-
         //reset cancel and focusView
         this.cancel = false;
         this.focusView = null;
 
+        //resets colors for EditText and sets all textfields error to null
+        resetTextFields(firstNameEditText);
+        resetTextFields(lastNameEditText);
+        resetTextFields(emailEditText);
+        resetTextFields(phoneEditText);
+        resetTextFields(passwordEditText);
+        resetTextFields(locationEditText);
+        resetTextFields(cityEditText);
 
         firstName = firstNameEditText.getText().toString().trim();
         lastName = lastNameEditText.getText().toString().trim();
@@ -100,6 +100,7 @@ public class CreateProfileView {
         if(!isEmailCorrect(email)){
 
             emailEditText.setError("E-mail ej korrekt ifyllt");
+            emailEditText.setTextColor(Color.RED);
 
             this.cancel = true;
             this.focusView = emailEditText;
@@ -109,6 +110,7 @@ public class CreateProfileView {
         if(!validatePhoneNumber(phone)){
 
             phoneEditText.setError("Ej korrekt telefonnummer! tips: format XXX-XXXXXXX");
+            phoneEditText.setTextColor(Color.RED);
 
             this.cancel = true;
             this.focusView = phoneEditText;
@@ -128,6 +130,7 @@ public class CreateProfileView {
     private void checkFields(String s, EditText e, String error){
         if(TextUtils.isEmpty(s)){
             e.setError(error);
+            e.setHintTextColor(Color.RED);
 
             this.cancel = true;
             this.focusView = e;
@@ -153,5 +156,12 @@ public class CreateProfileView {
         Matcher matcher = pattern.matcher(phone);
 
         return matcher.matches();
+    }
+
+    //Resets colors to black and error to null
+    public static void resetTextFields(EditText e){
+        e.setTextColor(Color.BLACK);
+        e.setHintTextColor(Color.BLACK);
+        e.setError(null);
     }
 }
