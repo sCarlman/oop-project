@@ -85,11 +85,19 @@
                 android:layout_column="0"
                 android:inputType="phone" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/textView" />
+
             <DatePicker
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/adEndDateDatePicker"
-                android:calendarViewShown="false" />
+                android:calendarViewShown="true"
+                android:datePickerMode="spinner" />
 
             <RadioGroup
                 android:layout_width="wrap_content"
