@@ -1,6 +1,7 @@
 package edu.ctl.pinjobs.User;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
@@ -49,6 +50,10 @@ public class LoginView{
         // Reset errors.
         eMail.setError(null);
         pwd.setError(null);
+        eMail.setTextColor(Color.BLACK);
+        pwd.setTextColor(Color.BLACK);
+        eMail.setHintTextColor(Color.BLACK);
+        pwd.setHintTextColor(Color.BLACK);
 
         // Store values at the time of the login attempt.
         String email = eMail.getText().toString();
@@ -61,6 +66,7 @@ public class LoginView{
         // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password)) {
             pwd.setError("Du måste fylla i ett lösenord!");
+            pwd.setHintTextColor(Color.RED);
 
             cancel = true;
             focusView = pwd;
@@ -69,12 +75,14 @@ public class LoginView{
         // Check for a valid email address.
         if (TextUtils.isEmpty(email)) {
             eMail.setError("Du måste fylla i en e-mail!");
+            eMail.setHintTextColor(Color.RED);
 
             cancel = true;
             focusView = eMail;
 
         } else if (!isEmailCorrect(email)) {
             eMail.setError("Fel struktur på e-mail!");
+            eMail.setTextColor(Color.RED);
 
             cancel = true;
             focusView = eMail;

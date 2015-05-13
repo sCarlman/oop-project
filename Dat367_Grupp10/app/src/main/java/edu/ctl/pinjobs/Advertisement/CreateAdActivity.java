@@ -76,7 +76,7 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
 
     public void onClick(View v){
         if (v == findViewById(R.id.createAdButton)){
-            view.createAd();
+            view.attemptCreateAd();
         }else if(v == findViewById(R.id.chooseDateButton)){
             view.showDatePicker();
         }

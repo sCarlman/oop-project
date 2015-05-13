@@ -16,12 +16,12 @@ public class MainView {
     private Button createNewAdButton;
     private Button loginButton;
     private Button logOfButton;
-    private Boolean loginSuccess;
+    private boolean loginSuccess;
     private TextView loggedInTextView;
 
     private MainActivity mainActivity = new MainActivity();
 
-    public MainView(Button map, Button list, Button newAd, Button login, Button logOf, Boolean loginSuccess, TextView loggedInText){
+    public MainView(Button map, Button list, Button newAd, Button login, Button logOf, boolean loginSuccess, TextView loggedInText){
 
         this.mapButton = map;
         this.listButton = list;

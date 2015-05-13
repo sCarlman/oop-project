@@ -1,6 +1,8 @@
 package edu.ctl.pinjobs.controller;
 
+import android.content.Context;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +15,7 @@ import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.Handler.MapActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.User.LoginActivity;
+import edu.ctl.pinjobs.Utils.LocationUtils;
 import edu.ctl.pinjobs.profile.CreateProfileActivity;
 import edu.ctl.pinjobs.Advertisement.CreateAdActivity;
 import edu.ctl.pinjobs.profile.Profile;
@@ -34,6 +37,10 @@ public class MainActivity extends ActionBarActivity {
 
         //Gets boolean true if login success
         boolean login = getIntent().getBooleanExtra("LoginSuccess", false);
+
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,60000,100, new LocationUtils());
+
 
         this.mainView = new MainView((Button)findViewById(R.id.mapButton), (Button)findViewById(R.id.listButton),(Button)findViewById(R.id.postAdButton),
                 (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton), login, (TextView)findViewById(R.id.loggedInTextView));

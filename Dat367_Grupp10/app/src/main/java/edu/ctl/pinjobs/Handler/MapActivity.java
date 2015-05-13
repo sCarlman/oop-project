@@ -27,7 +27,7 @@ public class MapActivity extends ActionBarActivity {
         IAdvertisementService adService = new AdvertisementService();
         List<IAdvertisement> adList = adService.fetchAllAds();
 
-        mapView = new MapView(this,adList,mapFragment);
+        mapView = new MapView(this.getApplicationContext(),adList,mapFragment);
     }
 
     public void setNewPin(IAdvertisement ad){
@@ -56,4 +56,6 @@ public class MapActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
 }

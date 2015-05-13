@@ -1,13 +1,15 @@
 package edu.ctl.pinjobs.Advertisement;
 
 
+import java.io.Serializable;
+
 import edu.ctl.pinjobs.Advertisement.Category;
 import edu.ctl.pinjobs.profile.IProfile;
 
 /**
  * Created by Isaac on 2015-04-27.
  */
-public interface IAdvertisement {
+public interface IAdvertisement extends Serializable {
 
     public void setAdvertiser(IProfile advertiser);
     public void setLocation(String location);

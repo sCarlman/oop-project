@@ -47,9 +47,9 @@ public class ListView{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HandlerActivity hej = new HandlerActivity();
-                Advertisement ad = (Advertisement) adList.get(position);
+                IAdvertisement ad = (Advertisement) adList.get(position);
                 AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
-                hej.openDetailedAdView(listView, androidAD);
+                hej.openDetailedAdView(context,androidAD);
 
 
             }
@@ -57,8 +57,7 @@ public class ListView{
     }
     private String setMessage(IAdvertisement ad){
         String message =ad.getTitle();
-        //String distance = ""+locationUtils.calculateDistanceFromCurrentPosition(ad,context);
-        String distance ="4";
+        String distance = ""+locationUtils.calculateDistanceFromCurrentPosition(ad,context);
         int index = distance.indexOf('.');
         distance = distance.substring(0,index+2);
 
