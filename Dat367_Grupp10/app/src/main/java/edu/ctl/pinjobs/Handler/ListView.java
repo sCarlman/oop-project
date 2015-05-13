@@ -57,8 +57,8 @@ public class ListView{
     }
     private String setMessage(IAdvertisement ad){
         String message =ad.getTitle();
-        //String distance = ""+locationUtils.calculateDistanceFromCurrentPosition(ad,context);
-        String distance ="4";
+        String distance = ""+locationUtils.calculateDistanceFromCurrentPosition(ad,context);
+        
         int index = distance.indexOf('.');
         distance = distance.substring(0,index+2);
 
