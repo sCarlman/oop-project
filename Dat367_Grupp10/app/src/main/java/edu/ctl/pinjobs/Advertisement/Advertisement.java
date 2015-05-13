@@ -1,5 +1,7 @@
 package edu.ctl.pinjobs.Advertisement;
 
+import java.io.Serializable;
+
 import edu.ctl.pinjobs.profile.IProfile;
 /**
  * Created by Albertsson on 15-04-01.
@@ -91,12 +93,5 @@ public class Advertisement implements IAdvertisement, Serializable {
     public void setYear(int year) {
         this.year = year;
     }
-<<<<<<< Updated upstream
-=======
-
-
-
-
->>>>>>> Stashed changes
 }
 

@@ -5,6 +5,8 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import edu.ctl.pinjobs.profile.IProfile;
@@ -81,6 +83,37 @@ public class AdvertisementService implements IAdvertisementService {
             //TODO: Handle error.
             return null;
         }
+    }
+
+    public void removeOutDatedAds(){
+        Calendar today = new GregorianCalendar();
+        int thisYear = today.get(Calendar.YEAR);
+        int thisMonth = today.get(Calendar.MONTH);
+        int thisDay = today.get(Calendar.DAY_OF_MONTH);
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Advertisement");
+        try {
+            for(ParseObject parseAd: query.find()){
+
+                int endDay = (int)parseAd.getNumber("Day");
+                int endMonth = (int)parseAd.getNumber("Month");
+                int endYear = (int)parseAd.getNumber("Year");
+
+                if(endYear < thisYear){
+                    deleteParseAd(parseAd);
+                }else if((endYear == thisYear) && (endMonth < thisMonth)){
+                    deleteParseAd(parseAd);
+                }else if((endYear == thisYear) && (endMonth == thisMonth) && (endDay < thisDay)){
+                    deleteParseAd(parseAd);
+                }
+            }
+        } catch (ParseException e) {
+            //TODO: Handle error
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteParseAd(ParseObject parseAd) {
+        parseAd.deleteInBackground();
     }
 
 }
