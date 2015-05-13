@@ -79,12 +79,13 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
         this.listModel = new ListModel(adList);
     }
 
-    public void openDetailedAdView(View view, AndroidAdvertisement ad){
+    public void openDetailedAdView(View view, AndroidAdvertisement ad, String distance){
 
         //Bundle bundle = new Bundle();
 
         Intent intent = new Intent(cont.getApplicationContext(), DetailedAdActivity.class);
         intent.putExtra("Advertisement", ad);
+        intent.putExtra("Distance", distance);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         cont.getApplicationContext().startActivity(intent);
 

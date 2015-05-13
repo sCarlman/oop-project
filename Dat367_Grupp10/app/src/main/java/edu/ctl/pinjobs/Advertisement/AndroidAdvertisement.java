@@ -10,17 +10,17 @@ import edu.ctl.pinjobs.profile.IProfile;
  */
 public class AndroidAdvertisement implements Parcelable{
 
-    private Advertisement ad;
+    private IAdvertisement ad;
     private IProfile advertiser;
     private Category category;
 
-    public AndroidAdvertisement(Advertisement ad) {
+    public AndroidAdvertisement(IAdvertisement ad) {
         this.ad = ad;
         this.advertiser = ad.getAdvertiser();
         this.category = ad.getCategory();
     }
 
-    public Advertisement getAd(){
+    public IAdvertisement getAd(){
         return this.ad;
     }
 
