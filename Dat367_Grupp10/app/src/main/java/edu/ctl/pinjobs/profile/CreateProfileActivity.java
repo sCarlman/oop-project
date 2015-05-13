@@ -25,6 +25,9 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createprofile);
+
+        boolean modify = getIntent().getBooleanExtra("modify", false);
+
         view = new CreateProfileView((EditText) findViewById(R.id.firstNameEditText),
                 (EditText) findViewById(R.id.lastNameEditText),
                 (EditText) findViewById(R.id.emailEditText),
@@ -32,7 +35,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                 (EditText) findViewById(R.id.passwordEditText),
                 (EditText) findViewById(R.id.addressEditText),
                 (Button) findViewById(R.id.createProfileButton), this,
-                (EditText) findViewById(R.id.cityEditText));
+                (EditText) findViewById(R.id.cityEditText), modify);
         EventBus.INSTANCE.addListener(this);
     }
 

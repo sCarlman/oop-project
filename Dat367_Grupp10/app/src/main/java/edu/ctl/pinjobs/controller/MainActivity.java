@@ -26,7 +26,7 @@ import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements View.OnClickListener{
 
     private MainView mainView;
     private LoginActivity loginActivity = new LoginActivity();
@@ -49,7 +49,8 @@ public class MainActivity extends ActionBarActivity {
 
 
         this.mainView = new MainView((Button)findViewById(R.id.mapButton), (Button)findViewById(R.id.listButton),(Button)findViewById(R.id.postAdButton),
-                (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton), login, (TextView)findViewById(R.id.loggedInTextView));
+                (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton), login, (TextView)findViewById(R.id.loggedInTextView),
+                (Button)findViewById(R.id.modifyProfileButton), this);
 
         IAdvertisementService service = new AdvertisementService();
         service.removeOutDatedAds();
@@ -77,6 +78,15 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view == findViewById(R.id.modifyProfileButton)){
+            Intent intent = new Intent(this, CreateProfileActivity.class);
+            intent.putExtra("modify", true);
+            startActivity(intent);
+        }
     }
 
     public void openMapView(View view){
@@ -112,5 +122,6 @@ public class MainActivity extends ActionBarActivity {
     public String getProfileName() {
         return profileName;
     }
+
 }
 

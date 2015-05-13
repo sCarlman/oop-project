@@ -24,6 +24,7 @@ public class CreateProfileView {
     private EditText passwordEditText;
     private EditText locationEditText;
     private EditText cityEditText;
+    private Button createProfileButton;
 
     private String firstName;
     private String lastName;
@@ -41,7 +42,7 @@ public class CreateProfileView {
     CreateProfileView(EditText firstNameEditText, EditText lastNameEditText,
                       EditText emailEditText, EditText phoneEditText, EditText passwordEditText,
                       EditText locationEditText, Button createProfileButton, View.OnClickListener v,
-                      EditText city) {
+                      EditText city, boolean modify) {
 
         this.firstNameEditText = firstNameEditText;
         this.lastNameEditText = lastNameEditText;
@@ -50,7 +51,17 @@ public class CreateProfileView {
         this.passwordEditText = passwordEditText;
         this.locationEditText = locationEditText;
         this.cityEditText = city;
-        createProfileButton.setOnClickListener(v);
+        this.createProfileButton = createProfileButton;
+        this.createProfileButton.setOnClickListener(v);
+
+        modifyEnabled(modify);
+    }
+
+    private void modifyEnabled(boolean modify) {
+        if (modify){
+            createProfileButton.setText("Save Changes");
+            //TODO:wank wank wank...
+        }
     }
 
     public void createProfileButtonClicked() {
