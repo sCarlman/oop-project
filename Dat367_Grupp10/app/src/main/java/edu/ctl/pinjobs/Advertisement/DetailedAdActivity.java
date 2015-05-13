@@ -20,7 +20,8 @@ public class DetailedAdActivity extends ActionBarActivity {
         Bundle bundle = getIntent().getExtras();
 
         AndroidAdvertisement androidAd = (AndroidAdvertisement)bundle.getParcelable("Advertisement");
-        Advertisement ad = androidAd.getAd();
+        IAdvertisement ad = androidAd.getAd();
+        String distance = getIntent().getStringExtra("Distance");
         DetailedAdView view = new DetailedAdView((TextView)findViewById(R.id.titleTextView),
                 (TextView)findViewById(R.id.categoryTextView),
                         (TextView)findViewById(R.id.distanceTextView),
@@ -29,7 +30,7 @@ public class DetailedAdActivity extends ActionBarActivity {
                 (TextView)findViewById(R.id.addressTextView),
                 (TextView)findViewById(R.id.phoneTextView),
                 (TextView)findViewById(R.id.emailTextView),
-                ad);
+                ad, distance);
         this.view = view;
 
     }

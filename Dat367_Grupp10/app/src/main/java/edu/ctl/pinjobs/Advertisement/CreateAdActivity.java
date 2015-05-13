@@ -1,5 +1,6 @@
 package edu.ctl.pinjobs.Advertisement;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +13,7 @@ import android.widget.RadioButton;
 
 import com.example.filips.dat367_grupp10.R;
 
+import edu.ctl.pinjobs.Handler.MapActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.Services.EventBus;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
@@ -86,9 +88,10 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
     public void onEvent(EventBus.Event evt, Object o) {
         if(evt == EventBus.Event.POST_AD){
             service = new AdvertisementService();
-            service.saveAd((IAdvertisement)o);
+            service.saveAd((IAdvertisement) o);
             view.AdPosted(CreateAdActivity.this);
             finish();
+            
         }
     }
 }
