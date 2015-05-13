@@ -10,6 +10,7 @@ import com.google.android.gms.maps.MapFragment;
 
 import java.util.List;
 
+import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
@@ -27,7 +28,16 @@ public class MapActivity extends ActionBarActivity {
         IAdvertisementService adService = new AdvertisementService();
         List<IAdvertisement> adList = adService.fetchAllAds();
 
-        mapView = new MapView(this.getApplicationContext(),adList,mapFragment);
+        Bundle bundle = getIntent().getExtras();
+        if(bundle!=null) {
+            System.out.println("KOMMER HIIIIT");
+            AndroidAdvertisement androidAd = (AndroidAdvertisement) bundle.getParcelable("Advertisement");
+            IAdvertisement ad = androidAd.getAd();
+
+            mapView = new MapView(this.getApplicationContext(),adList,mapFragment,ad);
+        }else {
+            mapView = new MapView(this.getApplicationContext(), adList, mapFragment);
+        }
     }
 
     public void setNewPin(IAdvertisement ad){

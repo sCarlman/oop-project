@@ -49,7 +49,8 @@ public class ListView{
                 HandlerActivity hej = new HandlerActivity();
                 IAdvertisement ad = (Advertisement) adList.get(position);
                 AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
-                hej.openDetailedAdView(context,androidAD);
+                String adDistance = ""+locationUtils.calculateDistanceFromCurrentPosition(ad,context);
+                hej.openDetailedAdView(context,androidAD,adDistance);
 
 
             }

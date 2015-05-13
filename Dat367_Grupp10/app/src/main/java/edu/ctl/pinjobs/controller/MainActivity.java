@@ -11,9 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.Handler.MapActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
+import edu.ctl.pinjobs.Services.IAdvertisementService;
 import edu.ctl.pinjobs.User.LoginActivity;
 import edu.ctl.pinjobs.Utils.LocationUtils;
 import edu.ctl.pinjobs.profile.CreateProfileActivity;
@@ -35,6 +37,10 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Enable Local Datastore.
+        // Parse.enableLocalDatastore(this);
+        Parse.initialize(this, "W4QRsIPB5oFT6F6drmZi0BrxdPYPEYHY2GYSUU4q", "JpXn4VB0Y63wqNIf0qgvRGg7k3QmjfzJjD9qhzqE");
+
         //Gets boolean true if login success
         boolean login = getIntent().getBooleanExtra("LoginSuccess", false);
 
@@ -45,12 +51,8 @@ public class MainActivity extends ActionBarActivity {
         this.mainView = new MainView((Button)findViewById(R.id.mapButton), (Button)findViewById(R.id.listButton),(Button)findViewById(R.id.postAdButton),
                 (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton), login, (TextView)findViewById(R.id.loggedInTextView));
 
-
-
-        // Enable Local Datastore.
-        // Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "W4QRsIPB5oFT6F6drmZi0BrxdPYPEYHY2GYSUU4q", "JpXn4VB0Y63wqNIf0qgvRGg7k3QmjfzJjD9qhzqE");
-
+        IAdvertisementService service = new AdvertisementService();
+        service.removeOutDatedAds();
     }
 
 

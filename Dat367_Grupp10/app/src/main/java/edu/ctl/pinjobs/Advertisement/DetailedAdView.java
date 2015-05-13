@@ -18,7 +18,7 @@ public class DetailedAdView {
 
     public DetailedAdView(TextView titleTextView, TextView categoryTextView, TextView distanceTextView,
                           TextView descriptionTextView, TextView nameTextView, TextView addressTextView,
-                          TextView phoneTextView, TextView mailTextView, IAdvertisement ad){
+                          TextView phoneTextView, TextView mailTextView, IAdvertisement ad, String distance){
 
         this.titleTextView = titleTextView;
         this.categoryTextView = categoryTextView;
@@ -31,12 +31,15 @@ public class DetailedAdView {
 
         this.titleTextView.setText(ad.getTitle());
         this.categoryTextView.setText(ad.getCategory().toString().trim());
-        this.distanceTextView.setText("4");
         this.descriptionTextView.setText(ad.getDescription());
         this.nameTextView.setText(ad.getAdvertiser().getFirstName() + " " + ad.getAdvertiser().getLastName());
         this.addressTextView.setText(ad.getAdvertiser().getAddress());
         this.phoneTextView.setText(ad.getAdvertiser().getPhone());
         this.mailTextView.setText(ad.getAdvertiser().getEmail());
+
+        int index = distance.indexOf('.');
+        distance = distance.substring(0,index+2);
+        this.distanceTextView.setText(distance + " kilometer bort");
 
     }
 }

@@ -35,6 +35,7 @@ public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickLi
     Map<Marker,IAdvertisement> markerAdHashmap = new HashMap<>();
     List<IAdvertisement> adList;
     List<Marker> markers = new ArrayList<Marker>(); //a list of all the markers placed on the map
+    IAdvertisement zoomAd;
 
     public MapView(Context context, List<IAdvertisement> adList,MapFragment mapFragment){
         this.context = context;
@@ -42,6 +43,15 @@ public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickLi
         mapFragment.getMapAsync(this);
         this.locationUtils = new HandlerLocationUtils();
     }
+    //Used when setting up the regular map with zoom on a new pin.
+    public MapView(Context context, List<IAdvertisement> adList,MapFragment mapFragment,IAdvertisement ad){
+        this.context = context;
+        this.adList = adList;
+        mapFragment.getMapAsync(this);
+        this.locationUtils = new HandlerLocationUtils();
+        zoomAd = ad;
+    }
+
 
     public void addMarker(LatLng location,String title){
         map.addMarker(new MarkerOptions().position(location).title(title));
@@ -49,8 +59,8 @@ public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickLi
 
     private void addMarker(IAdvertisement ad){
         LatLng adPosition = locationUtils.getLocationFromAddress(context, ad.getLocation());
-        Marker marker = map.addMarker(new MarkerOptions().position(new LatLng(adPosition.latitude, adPosition.longitude)).title(ad.getDescription()).icon(addCorrectCollorMarker(ad))
-                .snippet("" + locationUtils.calculateDistanceFromCurrentPosition(ad, context)));
+        Marker marker = map.addMarker(new MarkerOptions().position(new LatLng(adPosition.latitude, adPosition.longitude)).title(ad.getTitle()).icon(addCorrectCollorMarker(ad))
+                .snippet(setSnippet(ad)));
 
         markers.add(marker);
         markerAdHashmap.put(marker,ad);
@@ -117,6 +127,10 @@ public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickLi
         this.map = googleMap;
         map.setOnInfoWindowClickListener(this);
         setUpMap(adList);
+        if(zoomAd!=null){
+            addPinAndZoom(zoomAd);
+            zoomAd = null;
+        }
     }
 
     public void addPinAndZoom(IAdvertisement ad){
@@ -126,11 +140,17 @@ public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickLi
 
     @Override
     public void onInfoWindowClick(Marker marker){
-        System.out.println(markerAdHashmap.get(marker).getTitle());
         HandlerActivity handlerController = new HandlerActivity();
         IAdvertisement ad = markerAdHashmap.get(marker);
+        String distance = ""+locationUtils.calculateDistanceFromCurrentPosition(ad,context);
         AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
-        handlerController.openDetailedAdView(context,androidAD);
+        handlerController.openDetailedAdView(context,androidAD,distance);
 
+    }
+    private String setSnippet(IAdvertisement ad){
+        String distance = ""+locationUtils.calculateDistanceFromCurrentPosition(ad,context);
+        int index = distance.indexOf('.');
+        distance = distance.substring(0,index+2);
+        return distance+" km bort";
     }
 }
