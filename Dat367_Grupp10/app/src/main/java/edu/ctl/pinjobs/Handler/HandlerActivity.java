@@ -6,22 +6,16 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-import edu.ctl.pinjobs.Advertisement.Advertisement;
 import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
 import edu.ctl.pinjobs.Advertisement.DetailedAdActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
-import edu.ctl.pinjobs.Services.EventBus;
+import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import com.example.filips.dat367_grupp10.R;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
 
 import java.util.List;
-import java.util.logging.Handler;
 
 
 public class HandlerActivity extends ActionBarActivity implements EventBus.IEventHandler {

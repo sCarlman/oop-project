@@ -11,7 +11,7 @@ import android.widget.Toast;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import edu.ctl.pinjobs.Services.EventBus;
+import edu.ctl.pinjobs.eventbus.EventBus;
 
 /**
  * Created by Isaac on 2015-05-06.

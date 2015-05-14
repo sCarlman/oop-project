@@ -7,17 +7,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.example.filips.dat367_grupp10.R;
-
-import java.util.jar.Attributes;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import edu.ctl.pinjobs.Services.EventBus;
 
 /**
  * Created by Albertsson on 15-05-05.

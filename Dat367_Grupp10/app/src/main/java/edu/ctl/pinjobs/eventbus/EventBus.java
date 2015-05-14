@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.Services;
+package edu.ctl.pinjobs.eventbus;
 
 import java.util.ArrayList;
 import java.util.List;

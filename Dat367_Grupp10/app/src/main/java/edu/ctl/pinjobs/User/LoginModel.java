@@ -2,7 +2,7 @@ package edu.ctl.pinjobs.User;
 
 import java.util.List;
 
-import edu.ctl.pinjobs.Services.EventBus;
+import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.profile.IProfile;
 
 /**

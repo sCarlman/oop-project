@@ -3,8 +3,6 @@ package edu.ctl.pinjobs.profile;
 
 import java.io.Serializable;
 
-import edu.ctl.pinjobs.Services.EventBus;
-
 /**
  * Created by Isaac on 2015-04-01.
  * A profile is needed to post ads

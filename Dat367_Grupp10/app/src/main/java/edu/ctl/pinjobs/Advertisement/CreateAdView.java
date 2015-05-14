@@ -10,7 +10,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import edu.ctl.pinjobs.Services.EventBus;
+import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.profile.IProfile;
 
 
