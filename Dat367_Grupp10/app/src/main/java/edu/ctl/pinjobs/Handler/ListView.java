@@ -1,12 +1,15 @@
 package edu.ctl.pinjobs.Handler;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,8 +52,12 @@ public class ListView{
                 HandlerActivity hej = new HandlerActivity();
                 IAdvertisement ad = (Advertisement) adList.get(position);
                 AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
-                String adDistance = ""+locationUtils.calculateDistanceFromCurrentPosition(ad,context);
-                hej.openDetailedAdView(context,androidAD,adDistance);
+                try {
+                    String adDistance = "" + locationUtils.calculateDistanceFromCurrentPosition(ad, context);
+                    hej.openDetailedAdView(context,androidAD,adDistance);
+                }catch(AdressNotFoundException e){
+                    e.printStackTrace();
+                }
 
 
             }
@@ -58,11 +65,15 @@ public class ListView{
     }
     private String setMessage(IAdvertisement ad){
         String message =ad.getTitle();
-        String distance = ""+locationUtils.calculateDistanceFromCurrentPosition(ad,context);
-        int index = distance.indexOf('.');
-        distance = distance.substring(0,index+2);
-
-        return message +"      "+ distance +" km bort";
+        String distance ="";
+        try {
+            distance = "" + locationUtils.calculateDistanceFromCurrentPosition(ad, context);
+            int index = distance.indexOf('.');
+            distance = distance.substring(0, index + 2);
+        }catch(AdressNotFoundException e){
+            e.printStackTrace();
+        }
+        return message + "      " + distance + " km bort";
     }
 
 }

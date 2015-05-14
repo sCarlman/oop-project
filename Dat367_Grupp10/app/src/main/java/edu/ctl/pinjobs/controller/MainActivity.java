@@ -40,11 +40,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Enable Local Datastore.
-        // Parse.enableLocalDatastore(this);
         Parse.initialize(this, "W4QRsIPB5oFT6F6drmZi0BrxdPYPEYHY2GYSUU4q", "JpXn4VB0Y63wqNIf0qgvRGg7k3QmjfzJjD9qhzqE");
-
-        EventBus.INSTANCE.addListener(this);
 
         //Gets boolean true if login success
         boolean login = getIntent().getBooleanExtra("LoginSuccess", false);
@@ -52,7 +48,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,60000,100, new LocationUtils());
-
 
         this.mainView = new MainView((Button)findViewById(R.id.mapButton), (Button)findViewById(R.id.listButton),(Button)findViewById(R.id.postAdButton),
                 (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton), login, (TextView)findViewById(R.id.loggedInTextView),
@@ -142,7 +137,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         }
         if(evt == EventBus.Event.SET_BOOLEAN_LOGGED_IN){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra("LoginSuccess", (boolean)o);
+            intent.putExtra("LoginSuccess",(boolean) o);
             startActivity(intent);
         }
     }

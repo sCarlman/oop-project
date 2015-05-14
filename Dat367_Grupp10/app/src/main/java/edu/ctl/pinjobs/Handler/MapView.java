@@ -58,12 +58,16 @@ public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickLi
     }
 
     private void addMarker(IAdvertisement ad){
-        LatLng adPosition = locationUtils.getLocationFromAddress(context, ad.getLocation());
-        Marker marker = map.addMarker(new MarkerOptions().position(new LatLng(adPosition.latitude, adPosition.longitude)).title(ad.getTitle()).icon(addCorrectCollorMarker(ad))
-                .snippet(setSnippet(ad)));
+        try {
+            LatLng adPosition = locationUtils.getLocationFromAddress(context, ad.getLocation());
+            Marker marker = map.addMarker(new MarkerOptions().position(new LatLng(adPosition.latitude, adPosition.longitude)).title(ad.getTitle()).icon(addCorrectCollorMarker(ad))
+                    .snippet(setSnippet(ad)));
 
-        markers.add(marker);
-        markerAdHashmap.put(marker,ad);
+            markers.add(marker);
+            markerAdHashmap.put(marker, ad);
+        }catch(AdressNotFoundException e){
+            e.printStackTrace();
+        }
     }
 
     private LatLngBounds.Builder setMapBounds(){
@@ -135,22 +139,35 @@ public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickLi
 
     public void addPinAndZoom(IAdvertisement ad){
         addMarker(ad);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(locationUtils.getLocationFromAddress(context,ad.getLocation()), 15));
+        try {
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(locationUtils.getLocationFromAddress(context, ad.getLocation()), 15));
+        }catch(AdressNotFoundException e){
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onInfoWindowClick(Marker marker){
         HandlerActivity handlerController = new HandlerActivity();
         IAdvertisement ad = markerAdHashmap.get(marker);
-        String distance = ""+locationUtils.calculateDistanceFromCurrentPosition(ad,context);
-        AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
-        handlerController.openDetailedAdView(context,androidAD,distance);
+        try {
+            String distance = "" + locationUtils.calculateDistanceFromCurrentPosition(ad, context);
+            AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
+            handlerController.openDetailedAdView(context, androidAD, distance);
+        }catch(AdressNotFoundException e){
+            e.printStackTrace();
+        }
 
     }
     private String setSnippet(IAdvertisement ad){
-        String distance = ""+locationUtils.calculateDistanceFromCurrentPosition(ad,context);
-        int index = distance.indexOf('.');
-        distance = distance.substring(0,index+2);
+        String distance = "";
+        try {
+            distance = "" + locationUtils.calculateDistanceFromCurrentPosition(ad, context);
+            int index = distance.indexOf('.');
+            distance = distance.substring(0, index + 2);
+        }catch(AdressNotFoundException e){
+            e.printStackTrace();
+        }
         return distance+" km bort";
     }
 }

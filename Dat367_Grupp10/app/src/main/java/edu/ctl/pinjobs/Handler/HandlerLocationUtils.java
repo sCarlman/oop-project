@@ -1,6 +1,8 @@
 package edu.ctl.pinjobs.Handler;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Criteria;
@@ -12,6 +14,7 @@ import android.provider.Settings;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import java.io.IOException;
 import java.util.List;
 
 import edu.ctl.pinjobs.Advertisement.Advertisement;
@@ -24,7 +27,7 @@ import edu.ctl.pinjobs.Utils.LocationUtils;
  */
 public class HandlerLocationUtils {
 
-    public LatLng getLocationFromAddress(Context context,String strAddress) {
+    public LatLng getLocationFromAddress(Context context,String strAddress) throws AdressNotFoundException  {
 
         Geocoder coder = new Geocoder(context);
         List<Address> address; //A list witch holds the adresses that match the adress input.
@@ -38,9 +41,20 @@ public class HandlerLocationUtils {
             Address location = address.get(0);
             position = new LatLng(location.getLatitude(), location.getLongitude());
 
-        } catch (Exception e) { //the method throws both IOexception and illegalargumentexcpetion, Ioexception if there is no
+        } catch (IllegalArgumentException e) { //the method throws both IOexception and illegalargumentexcpetion, Ioexception if there is no
             //internet connection and illegalargument if input is null
-            System.out.println("EXCEPTION");
+            throw new AdressNotFoundException();
+        }catch (IOException e){
+            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+
+            alertDialog.setTitle("Info");
+            alertDialog.setMessage("Internet not available, Cross check your internet connectivity and try again");
+            alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+            alertDialog.setButton( DialogInterface.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
         }
         return position;
     }
@@ -59,7 +73,7 @@ public class HandlerLocationUtils {
         return distance;
     }
 
-    public double calculateDistanceFromCurrentPosition(IAdvertisement add, Context context){
+    public double calculateDistanceFromCurrentPosition(IAdvertisement add, Context context) throws AdressNotFoundException {
         LatLng addLocation = getLocationFromAddress(context,add.getLocation());
         return calculateDistanceFromPosition(addLocation.latitude, LocationUtils.getCurrentLocation(context).latitude,
                 addLocation.longitude, LocationUtils.getCurrentLocation(context).longitude);

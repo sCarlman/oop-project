@@ -39,7 +39,7 @@ public class ListModel implements IListModel {
         }
         adList.addAll(addList);
         System.out.println(adList);
-        sortForDistance(context);
+        //sortForDistance(context);
         EventBus.INSTANCE.publish(EventBus.Event.ADLIST_UPDATED, adList);
     }
 
@@ -59,7 +59,7 @@ public class ListModel implements IListModel {
             System.out.println(j);
 
             for (int i = 0; i < tempAdList.size(); i++) {
-                double adDistance = locationUtils.calculateDistanceFromCurrentPosition(tempAdList.get(i), context);
+                double adDistance = 0;//locationUtils.calculateDistanceFromCurrentPosition(tempAdList.get(i), context);
                 if (i == 0) {
                     closestDistance = adDistance;
                     closestAd = tempAdList.get(i);
