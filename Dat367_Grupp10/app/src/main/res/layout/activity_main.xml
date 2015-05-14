@@ -52,6 +52,16 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Min Profil"
+        android:id="@+id/modifyProfileButton"
+        android:visibility="gone"
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/loginButton"
+        android:layout_alignEnd="@+id/loginButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Logga Ut"
         android:id="@+id/logOfButton"
         android:layout_alignParentBottom="true"

@@ -10,13 +10,10 @@ import android.widget.EditText;
 
 import com.example.filips.dat367_grupp10.R;
 
-import edu.ctl.pinjobs.Services.EventBus;
 import edu.ctl.pinjobs.Services.IProfileService;
-import edu.ctl.pinjobs.Services.ProfileService;
-import edu.ctl.pinjobs.User.LoginActivity;
 
-public class CreateProfileActivity extends ActionBarActivity implements View.OnClickListener,
-        EventBus.IEventHandler{
+
+public class CreateProfileActivity extends ActionBarActivity implements View.OnClickListener {
 
     private CreateProfileView view;
     private IProfileService service;
@@ -25,6 +22,9 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createprofile);
+
+        boolean modify = getIntent().getBooleanExtra("modify", false);
+
         view = new CreateProfileView((EditText) findViewById(R.id.firstNameEditText),
                 (EditText) findViewById(R.id.lastNameEditText),
                 (EditText) findViewById(R.id.emailEditText),
@@ -32,8 +32,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                 (EditText) findViewById(R.id.passwordEditText),
                 (EditText) findViewById(R.id.addressEditText),
                 (Button) findViewById(R.id.createProfileButton), this,
-                (EditText) findViewById(R.id.cityEditText));
-        EventBus.INSTANCE.addListener(this);
+                (EditText) findViewById(R.id.cityEditText), modify);
     }
 
     @Override
@@ -65,13 +64,4 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
         }
     }
 
-    @Override
-    public void onEvent(EventBus.Event evt, Object o) {
-        if(evt == EventBus.Event.SAVE_PROFILE){
-            service = new ProfileService();
-            service.saveProfile((IProfile) o);
-            view.profileCreated(CreateProfileActivity.this);
-            finish();
-        }
-    }
 }

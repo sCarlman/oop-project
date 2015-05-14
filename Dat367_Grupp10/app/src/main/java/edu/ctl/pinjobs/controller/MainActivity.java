@@ -16,10 +16,10 @@ import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.Handler.MapActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
-import edu.ctl.pinjobs.Services.EventBus;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
 import edu.ctl.pinjobs.User.LoginActivity;
 import edu.ctl.pinjobs.Utils.LocationUtils;
+import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.profile.CreateProfileActivity;
 import edu.ctl.pinjobs.Advertisement.CreateAdActivity;
 import edu.ctl.pinjobs.profile.Profile;
@@ -28,7 +28,7 @@ import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
 
 
-public class MainActivity extends ActionBarActivity implements EventBus.IEventHandler {
+public class MainActivity extends ActionBarActivity implements View.OnClickListener, EventBus.IEventHandler{
 
     private MainView mainView;
     private LoginActivity loginActivity = new LoginActivity();
@@ -44,6 +44,8 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
         // Parse.enableLocalDatastore(this);
         Parse.initialize(this, "W4QRsIPB5oFT6F6drmZi0BrxdPYPEYHY2GYSUU4q", "JpXn4VB0Y63wqNIf0qgvRGg7k3QmjfzJjD9qhzqE");
 
+        EventBus.INSTANCE.addListener(this);
+
         //Gets boolean true if login success
         boolean login = getIntent().getBooleanExtra("LoginSuccess", false);
         EventBus.INSTANCE.addListener(this);
@@ -53,7 +55,8 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
 
 
         this.mainView = new MainView((Button)findViewById(R.id.mapButton), (Button)findViewById(R.id.listButton),(Button)findViewById(R.id.postAdButton),
-                (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton), login, (TextView)findViewById(R.id.loggedInTextView));
+                (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton), login, (TextView)findViewById(R.id.loggedInTextView),
+                (Button)findViewById(R.id.modifyProfileButton), this);
 
         this.service = new AdvertisementService();
         service.removeOutDatedAds();
@@ -81,6 +84,15 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view == findViewById(R.id.modifyProfileButton)){
+            Intent intent = new Intent(this, CreateProfileActivity.class);
+            intent.putExtra("modify", true);
+            startActivity(intent);
+        }
     }
 
     public void openMapView(View view){
@@ -119,16 +131,19 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
 
     @Override
     public void onEvent(EventBus.Event evt, Object o) {
-        System.out.println("HÄR ÄR JAG1");
-        if(evt == EventBus.Event.POST_AD){
-            System.out.println("HÄR ÄR JAG2");
+        if(evt == EventBus.Event.POST_AD) {
             service = new AdvertisementService();
             service.saveAd((IAdvertisement) o);
             Intent intent = new Intent(this.getApplicationContext(), MapActivity.class);
-            AndroidAdvertisement androidAD = new AndroidAdvertisement((IAdvertisement)o);
-            intent.putExtra("Advertisement",androidAD);
+            AndroidAdvertisement androidAD = new AndroidAdvertisement((IAdvertisement) o);
+            intent.putExtra("Advertisement", androidAD);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             this.getApplicationContext().startActivity(intent);
+        }
+        if(evt == EventBus.Event.SET_BOOLEAN_LOGGED_IN){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.putExtra("LoginSuccess", (boolean)o);
+            startActivity(intent);
         }
     }
 }

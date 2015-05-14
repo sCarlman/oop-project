@@ -5,9 +5,8 @@ import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ctl.pinjobs.Services.EventBus;
+import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
-import edu.ctl.pinjobs.Utils.LocationUtils;
 
 /**
  * Created by Filips on 4/28/2015.

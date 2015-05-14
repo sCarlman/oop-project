@@ -1,5 +1,6 @@
 package edu.ctl.pinjobs.profile;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
@@ -11,7 +12,7 @@ import android.widget.Toast;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import edu.ctl.pinjobs.Services.EventBus;
+import edu.ctl.pinjobs.eventbus.EventBus;
 
 /**
  * Created by Isaac on 2015-05-06.
@@ -24,6 +25,7 @@ public class CreateProfileView {
     private EditText passwordEditText;
     private EditText locationEditText;
     private EditText cityEditText;
+    private Button createProfileButton;
 
     private String firstName;
     private String lastName;
@@ -41,7 +43,7 @@ public class CreateProfileView {
     CreateProfileView(EditText firstNameEditText, EditText lastNameEditText,
                       EditText emailEditText, EditText phoneEditText, EditText passwordEditText,
                       EditText locationEditText, Button createProfileButton, View.OnClickListener v,
-                      EditText city) {
+                      EditText city, boolean modify) {
 
         this.firstNameEditText = firstNameEditText;
         this.lastNameEditText = lastNameEditText;
@@ -50,7 +52,18 @@ public class CreateProfileView {
         this.passwordEditText = passwordEditText;
         this.locationEditText = locationEditText;
         this.cityEditText = city;
-        createProfileButton.setOnClickListener(v);
+        this.createProfileButton = createProfileButton;
+        this.createProfileButton.setOnClickListener(v);
+        
+
+        modifyEnabled(modify);
+    }
+
+    private void modifyEnabled(boolean modify) {
+        if (modify){
+            createProfileButton.setText("Save Changes");
+            //TODO:wank wank wank...
+        }
     }
 
     public void createProfileButtonClicked() {

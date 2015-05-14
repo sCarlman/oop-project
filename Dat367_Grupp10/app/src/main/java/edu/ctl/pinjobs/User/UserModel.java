@@ -1,5 +1,6 @@
 package edu.ctl.pinjobs.User;
 
+import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.profile.IProfile;
 
 /**
@@ -28,6 +29,7 @@ public class UserModel {
 
     public void setLoggedIn(boolean b){
         this.isLoggedIn = b;
+        EventBus.INSTANCE.publish(EventBus.Event.SET_BOOLEAN_LOGGED_IN, b);
     }
 
     protected void setProfile(IProfile p){

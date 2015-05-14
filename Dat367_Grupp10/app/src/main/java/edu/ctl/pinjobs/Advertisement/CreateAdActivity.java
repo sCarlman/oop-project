@@ -13,13 +13,11 @@ import android.widget.RadioButton;
 
 import com.example.filips.dat367_grupp10.R;
 
-import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.Handler.MapActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
-import edu.ctl.pinjobs.Services.EventBus;
+import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
 import edu.ctl.pinjobs.User.UserModel;
-import edu.ctl.pinjobs.controller.MainActivity;
 
 
 public class CreateAdActivity extends ActionBarActivity implements View.OnClickListener,

@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.Services;
+package edu.ctl.pinjobs.eventbus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,8 @@ public enum EventBus {
         LOGIN_FAILED_WRONG_EMAIL,
         LOGIN_FAILED_WRONG_PASSWORD,
         SAVE_PROFILE,
-        POST_AD
+        POST_AD,
+        SET_BOOLEAN_LOGGED_IN,
 
     };
     private boolean trace = true;
