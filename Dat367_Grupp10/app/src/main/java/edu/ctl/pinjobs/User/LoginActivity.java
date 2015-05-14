@@ -16,7 +16,6 @@ import java.util.List;
 import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.Services.IProfileService;
 import edu.ctl.pinjobs.Services.ProfileService;
-import edu.ctl.pinjobs.controller.MainActivity;
 import edu.ctl.pinjobs.profile.CreateProfileActivity;
 import edu.ctl.pinjobs.profile.IProfile;
 
@@ -24,8 +23,8 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
 
     private LoginView view;
     private IProfileService service = new ProfileService();
-    private UserModel userModel = UserModel.getInstance();
-
+    private String firstName;
+    private String lastName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,15 +69,6 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
         view.postInvalidate();
     }
 
-    public void changeValueOfLoggedOfUser(){
-        userModel.setProfile(null);
-        userModel.setLoggedIn(false);
-    }
-
-    public String getProfileNameForMainView(){
-        return userModel.getProfile().getFirstName() + " " + userModel.getProfile().getLastName();
-    }
-
     @Override
     public void onEvent(EventBus.Event evt, Object o) {
 
@@ -96,15 +86,15 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
 
         if(evt == EventBus.Event.LOGIN_SUCCESS){
             if(o instanceof LoginModel){
-                loginSuccess(((LoginModel) o).getProfile());
+                firstName = ((LoginModel) o).getProfile().getFirstName();
+                lastName = ((LoginModel) o).getProfile().getLastName();
+                finish();
             }
 
         }
 
         if(evt == EventBus.Event.SAVE_PROFILE){
-            if(o instanceof IProfile){
-                loginSuccess((IProfile)o);
-            }
+            finish();
         }
 
         if(evt == EventBus.Event.LOGIN_FAILED_WRONG_EMAIL){
@@ -114,12 +104,6 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
         if(evt == EventBus.Event.LOGIN_FAILED_WRONG_PASSWORD){
             this.view.failedMatchPasswordWithDatabase();
         }
-    }
-
-    public void loginSuccess(IProfile profile){
-        userModel.setProfile(profile);
-        userModel.setLoggedIn(true);
-        finish();
     }
 
 }

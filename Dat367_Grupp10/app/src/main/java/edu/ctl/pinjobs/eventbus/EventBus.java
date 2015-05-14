@@ -24,7 +24,8 @@ public enum EventBus {
         LOGIN_FAILED_WRONG_PASSWORD,
         SAVE_PROFILE,
         POST_AD,
-        SET_BOOLEAN_LOGGED_IN,
+        CREATE_AD,
+        CREATE_AD_SETUP
 
     };
     private boolean trace = true;

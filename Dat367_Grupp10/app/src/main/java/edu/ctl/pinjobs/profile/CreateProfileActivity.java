@@ -10,13 +10,9 @@ import android.widget.EditText;
 
 import com.example.filips.dat367_grupp10.R;
 
-import edu.ctl.pinjobs.Services.IProfileService;
-
-
 public class CreateProfileActivity extends ActionBarActivity implements View.OnClickListener {
 
     private CreateProfileView view;
-    private IProfileService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

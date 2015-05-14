@@ -1,6 +1,5 @@
 package edu.ctl.pinjobs.Advertisement;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,25 +12,19 @@ import android.widget.RadioButton;
 
 import com.example.filips.dat367_grupp10.R;
 
-import edu.ctl.pinjobs.Handler.MapActivity;
-import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.eventbus.EventBus;
-import edu.ctl.pinjobs.Services.IAdvertisementService;
-import edu.ctl.pinjobs.User.UserModel;
-
+import edu.ctl.pinjobs.profile.IProfile;
 
 public class CreateAdActivity extends ActionBarActivity implements View.OnClickListener,
-        EventBus.IEventHandler{
+        EventBus.IEventHandler {
 
-    private IAdvertisementService service;
     private CreateAdView view;
-    private UserModel user = UserModel.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_ad);
-
+        EventBus.INSTANCE.addListener(this);
         view = new CreateAdView((EditText) findViewById(R.id.adLocationEditText),
                 (EditText) findViewById(R.id.adDescriptionEditText),
                 (EditText) findViewById(R.id.adTitleEditText),
@@ -41,16 +34,7 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
                 (Button) findViewById(R.id.createAdButton),
                 (Button) findViewById(R.id.chooseDateButton), this,
                 (DatePicker) findViewById(R.id.adEndDateDatePicker));
-
-        if (user.getIsLoggedIn()){
-            view.setNewProfile(user.getProfile());
-            EventBus.INSTANCE.addListener(this);
-        }else{
-            view.notLoggedIn(this);
-            finish();
-        }
-
-        
+        EventBus.INSTANCE.publish(EventBus.Event.CREATE_AD_SETUP, null);
     }
 
 
@@ -86,10 +70,8 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
 
     @Override
     public void onEvent(EventBus.Event evt, Object o) {
-        if(evt == EventBus.Event.POST_AD){
-            view.AdPosted(this);
-            finish();
-            
+        if(evt == EventBus.Event.CREATE_AD){
+            view.setNewProfile((IProfile) o);
         }
     }
 }
