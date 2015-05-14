@@ -150,6 +150,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         }else if(evt == EventBus.Event.SAVE_PROFILE){
             profileService = new ProfileService();
             profileService.saveProfile((IProfile) o);
+        }else if(evt == EventBus.Event.POST_AD){
+            adService = new AdvertisementService();
+            adService.saveAd((IAdvertisement)o);
         }
     }
 }

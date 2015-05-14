@@ -72,7 +72,8 @@ public class CreateProfileView {
         this.address = address + ";" + city;
 
         newProfile = new Profile(firstName, lastName, password, email, phone, address);
-        activity.profileCreated();
+        activity.finish();
+        profileCreated(activity);
         EventBus.INSTANCE.publish(EventBus.Event.SAVE_PROFILE, newProfile);
     }
 

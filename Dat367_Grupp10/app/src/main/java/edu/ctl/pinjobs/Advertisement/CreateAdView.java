@@ -34,7 +34,7 @@ public class CreateAdView {
     private String title;
     private Category category;
     private IProfile newProfile;
-
+    private CreateAdActivity activity;
     private int day;
     private int month;
     private int year;
@@ -46,7 +46,7 @@ public class CreateAdView {
     public CreateAdView(EditText addressEditText, EditText descriptionEditText,
                         EditText titleEditText,RadioButton gardenRadioButton,
                         RadioButton labourRadioButton, RadioButton otherRadioButton,
-                        Button createAdButton, Button chooseDateButton, View.OnClickListener v,
+                        Button createAdButton, Button chooseDateButton, Context v,
                         DatePicker adEndDatePicker){
 
         this.locationEditText = addressEditText;
@@ -55,10 +55,11 @@ public class CreateAdView {
         this.gardenRadioButton = gardenRadioButton;
         this.labourRadioButton = labourRadioButton;
         this.otherRadioButton = otherRadioButton;
-        createAdButton.setOnClickListener(v);
-        chooseDateButton.setOnClickListener(v);
+        createAdButton.setOnClickListener((View.OnClickListener)v);
+        chooseDateButton.setOnClickListener((View.OnClickListener)v);
         this.chooseDateButton = chooseDateButton;
         this.adEndDatePicker = adEndDatePicker;
+        this.activity = (CreateAdActivity)v;
     }
 
     public void setNewProfile(IProfile newProfile){
@@ -98,6 +99,8 @@ public class CreateAdView {
 
         newAd = new Advertisement(newProfile, title, description, location, category,
                 day, month, year);
+        activity.finish();
+        adPosted(activity);
         EventBus.INSTANCE.publish(EventBus.Event.POST_AD, newAd);
     }
 
@@ -128,7 +131,7 @@ public class CreateAdView {
         Toast.makeText(c, "Pls log in to create ad", Toast.LENGTH_LONG).show();
     }
 
-    public void AdPosted(Context c){
+    public void adPosted(Context c){
         Toast.makeText(c, "Ad posted!", Toast.LENGTH_LONG).show();
     }
 

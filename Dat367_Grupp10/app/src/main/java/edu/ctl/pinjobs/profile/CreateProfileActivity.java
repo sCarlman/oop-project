@@ -1,6 +1,5 @@
 package edu.ctl.pinjobs.profile;
 
-import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -59,11 +58,6 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
         if (v == findViewById(R.id.createProfileButton)) {
             view.attemptCreateProfile();
         }
-    }
-
-    public void profileCreated(){
-        view.profileCreated(this);
-        finish();
     }
 
 }
