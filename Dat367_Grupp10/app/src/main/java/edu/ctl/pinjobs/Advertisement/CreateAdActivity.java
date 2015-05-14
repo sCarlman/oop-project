@@ -87,14 +87,7 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
     @Override
     public void onEvent(EventBus.Event evt, Object o) {
         if(evt == EventBus.Event.POST_AD){
-            service = new AdvertisementService();
-            service.saveAd((IAdvertisement) o);
-            view.AdPosted(CreateAdActivity.this);
-            Intent intent = new Intent(this.getApplicationContext(), MapActivity.class);
-            AndroidAdvertisement androidAD = new AndroidAdvertisement((IAdvertisement)o);
-            intent.putExtra("Advertisement",androidAD);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            this.getApplicationContext().startActivity(intent);
+            view.AdPosted(this);
             finish();
             
         }

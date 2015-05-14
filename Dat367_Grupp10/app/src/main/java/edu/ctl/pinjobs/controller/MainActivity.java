@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
+import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.Handler.MapActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
@@ -34,6 +36,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private LoginActivity loginActivity = new LoginActivity();
     private String profileName;
     private IProfileService profileService;
+    private IAdvertisementService adService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         //Gets boolean true if login success
         boolean login = getIntent().getBooleanExtra("LoginSuccess", false);
+        EventBus.INSTANCE.addListener(this);
 
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,60000,100, new LocationUtils());
@@ -57,8 +61,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton), login, (TextView)findViewById(R.id.loggedInTextView),
                 (Button)findViewById(R.id.modifyProfileButton), this);
 
-        IAdvertisementService service = new AdvertisementService();
-        service.removeOutDatedAds();
+        this.adService = new AdvertisementService();
+        adService.removeOutDatedAds();
     }
 
 
@@ -130,8 +134,16 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onEvent(EventBus.Event evt, Object o) {
+        if(evt == EventBus.Event.POST_AD) {
+            adService = new AdvertisementService();
+            adService.saveAd((IAdvertisement) o);
+            Intent intent = new Intent(this.getApplicationContext(), MapActivity.class);
+            AndroidAdvertisement androidAD = new AndroidAdvertisement((IAdvertisement) o);
+            intent.putExtra("Advertisement", androidAD);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            this.getApplicationContext().startActivity(intent);
+        }
         if(evt == EventBus.Event.SET_BOOLEAN_LOGGED_IN){
-            System.out.println("***************** ON EVENT *************");
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             intent.putExtra("LoginSuccess", (boolean) o);
             startActivity(intent);
