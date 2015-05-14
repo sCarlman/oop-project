@@ -18,6 +18,7 @@ import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
 import edu.ctl.pinjobs.User.LoginActivity;
 import edu.ctl.pinjobs.Utils.LocationUtils;
+import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.profile.CreateProfileActivity;
 import edu.ctl.pinjobs.Advertisement.CreateAdActivity;
 import edu.ctl.pinjobs.profile.Profile;
@@ -26,7 +27,7 @@ import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener{
+public class MainActivity extends ActionBarActivity implements View.OnClickListener, EventBus.IEventHandler{
 
     private MainView mainView;
     private LoginActivity loginActivity = new LoginActivity();
@@ -40,6 +41,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         // Enable Local Datastore.
         // Parse.enableLocalDatastore(this);
         Parse.initialize(this, "W4QRsIPB5oFT6F6drmZi0BrxdPYPEYHY2GYSUU4q", "JpXn4VB0Y63wqNIf0qgvRGg7k3QmjfzJjD9qhzqE");
+
+        EventBus.INSTANCE.addListener(this);
 
         //Gets boolean true if login success
         boolean login = getIntent().getBooleanExtra("LoginSuccess", false);
@@ -123,5 +126,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         return profileName;
     }
 
+    @Override
+    public void onEvent(EventBus.Event evt, Object o) {
+        if(evt == EventBus.Event.SET_BOOLEAN_LOGGED_IN){
+            System.out.println("***************** ON EVENT *************");
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            intent.putExtra("LoginSuccess", (boolean)o);
+            startActivity(intent);
+        }
+    }
 }
 

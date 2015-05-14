@@ -23,7 +23,6 @@ import edu.ctl.pinjobs.profile.IProfile;
 public class LoginActivity extends ActionBarActivity implements EventBus.IEventHandler {
 
     private LoginView view;
-    private LoginModel loginModel = new LoginModel();
     private IProfileService service = new ProfileService();
     private UserModel userModel = UserModel.getInstance();
 
@@ -118,13 +117,9 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
     }
 
     public void loginSuccess(IProfile profile){
-        userModel.setLoggedIn(true);
         userModel.setProfile(profile);
-
-        //open mainWindow
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        intent.putExtra("LoginSuccess", true);
-        startActivity(intent);
+        userModel.setLoggedIn(true);
+        finish();
     }
 
 }
