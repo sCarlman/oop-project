@@ -43,6 +43,7 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
     public void onEvent(EventBus.Event evt, Object o){
         if(evt == EventBus.Event.ADLIST_UPDATED) {
             //Starts the view with the list from model
+            System.out.println((List<IAdvertisement>) o);
             listView.setupView((List<IAdvertisement>) o, android.R.layout.simple_list_item_1);
         }
     }
@@ -73,7 +74,7 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
     private void setListView(List<IAdvertisement> adList){
         setContentView(R.layout.activity_ad_list);
         this.listView = new ListView(this.getApplicationContext(),(android.widget.ListView)findViewById(R.id.adListView));
-        this.listModel = new ListModel(adList);
+        this.listModel = new ListModel(adList,this);
     }
 
     public void openDetailedAdView(Context context, AndroidAdvertisement ad,String distance){

@@ -11,10 +11,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.Handler.MapActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
+import edu.ctl.pinjobs.Services.EventBus;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
 import edu.ctl.pinjobs.User.LoginActivity;
 import edu.ctl.pinjobs.Utils.LocationUtils;
@@ -26,11 +28,12 @@ import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements EventBus.IEventHandler {
 
     private MainView mainView;
     private LoginActivity loginActivity = new LoginActivity();
     private String profileName;
+    IAdvertisementService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class MainActivity extends ActionBarActivity {
 
         //Gets boolean true if login success
         boolean login = getIntent().getBooleanExtra("LoginSuccess", false);
+        EventBus.INSTANCE.addListener(this);
 
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,60000,100, new LocationUtils());
@@ -51,7 +55,7 @@ public class MainActivity extends ActionBarActivity {
         this.mainView = new MainView((Button)findViewById(R.id.mapButton), (Button)findViewById(R.id.listButton),(Button)findViewById(R.id.postAdButton),
                 (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton), login, (TextView)findViewById(R.id.loggedInTextView));
 
-        IAdvertisementService service = new AdvertisementService();
+        this.service = new AdvertisementService();
         service.removeOutDatedAds();
     }
 
@@ -111,6 +115,21 @@ public class MainActivity extends ActionBarActivity {
 
     public String getProfileName() {
         return profileName;
+    }
+
+    @Override
+    public void onEvent(EventBus.Event evt, Object o) {
+        System.out.println("HÄR ÄR JAG1");
+        if(evt == EventBus.Event.POST_AD){
+            System.out.println("HÄR ÄR JAG2");
+            service = new AdvertisementService();
+            service.saveAd((IAdvertisement) o);
+            Intent intent = new Intent(this.getApplicationContext(), MapActivity.class);
+            AndroidAdvertisement androidAD = new AndroidAdvertisement((IAdvertisement)o);
+            intent.putExtra("Advertisement",androidAD);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            this.getApplicationContext().startActivity(intent);
+        }
     }
 }
 

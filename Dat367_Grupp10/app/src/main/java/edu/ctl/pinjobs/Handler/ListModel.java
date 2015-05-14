@@ -16,8 +16,10 @@ public class ListModel implements IListModel {
 
     private List<IAdvertisement> adList = new ArrayList<>();
     HandlerLocationUtils locationUtils = new HandlerLocationUtils();
+    Context context;
 
-    public ListModel(List<IAdvertisement> adList) {
+    public ListModel(List<IAdvertisement> adList,Context context) {
+        this.context=context;
         setList(adList);
     }
 
@@ -37,6 +39,8 @@ public class ListModel implements IListModel {
             this.adList.clear();
         }
         adList.addAll(addList);
+        System.out.println(adList);
+        sortForDistance(context);
         EventBus.INSTANCE.publish(EventBus.Event.ADLIST_UPDATED, adList);
     }
 
@@ -51,7 +55,9 @@ public class ListModel implements IListModel {
         int index=-1;
         IAdvertisement closestAd=null;
         double closestDistance = 10000000;
-        for(int j=0;tempAdList.size()<j;j++) {
+        int loop = tempAdList.size();
+        for(int j=0;j<loop;j++) {
+            System.out.println(j);
 
             for (int i = 0; i < tempAdList.size(); i++) {
                 double adDistance = locationUtils.calculateDistanceFromCurrentPosition(tempAdList.get(i), context);
@@ -68,6 +74,7 @@ public class ListModel implements IListModel {
                 }
             }
             adList.add(closestAd);
+            tempAdList.remove(closestAd);
         }
     }
 }
