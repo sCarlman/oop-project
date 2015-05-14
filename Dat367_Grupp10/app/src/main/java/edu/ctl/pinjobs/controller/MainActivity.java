@@ -11,17 +11,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.Handler.MapActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
+import edu.ctl.pinjobs.Services.IProfileService;
+import edu.ctl.pinjobs.Services.ProfileService;
 import edu.ctl.pinjobs.User.LoginActivity;
 import edu.ctl.pinjobs.Utils.LocationUtils;
 import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.profile.CreateProfileActivity;
 import edu.ctl.pinjobs.Advertisement.CreateAdActivity;
-import edu.ctl.pinjobs.profile.Profile;
+import edu.ctl.pinjobs.profile.IProfile;
 
 import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
@@ -32,6 +33,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private MainView mainView;
     private LoginActivity loginActivity = new LoginActivity();
     private String profileName;
+    private IProfileService profileService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,8 +133,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         if(evt == EventBus.Event.SET_BOOLEAN_LOGGED_IN){
             System.out.println("***************** ON EVENT *************");
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra("LoginSuccess", (boolean)o);
+            intent.putExtra("LoginSuccess", (boolean) o);
             startActivity(intent);
+        }else if(evt == EventBus.Event.SAVE_PROFILE){
+            profileService = new ProfileService();
+            profileService.saveProfile((IProfile) o);
         }
     }
 }

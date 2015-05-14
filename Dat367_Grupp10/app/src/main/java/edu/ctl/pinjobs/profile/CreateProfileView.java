@@ -35,6 +35,7 @@ public class CreateProfileView {
     private String address;
     private String city;
 
+    private CreateProfileActivity activity;
     private boolean cancel = false;
     private View focusView = null;
 
@@ -42,7 +43,7 @@ public class CreateProfileView {
 
     CreateProfileView(EditText firstNameEditText, EditText lastNameEditText,
                       EditText emailEditText, EditText phoneEditText, EditText passwordEditText,
-                      EditText locationEditText, Button createProfileButton, View.OnClickListener v,
+                      EditText locationEditText, Button createProfileButton, Context v,
                       EditText city, boolean modify) {
 
         this.firstNameEditText = firstNameEditText;
@@ -53,8 +54,8 @@ public class CreateProfileView {
         this.locationEditText = locationEditText;
         this.cityEditText = city;
         this.createProfileButton = createProfileButton;
-        this.createProfileButton.setOnClickListener(v);
-        
+        this.createProfileButton.setOnClickListener((View.OnClickListener)v);
+        this.activity = (CreateProfileActivity)v;
 
         modifyEnabled(modify);
     }
@@ -71,6 +72,7 @@ public class CreateProfileView {
         this.address = address + ";" + city;
 
         newProfile = new Profile(firstName, lastName, password, email, phone, address);
+        activity.profileCreated();
         EventBus.INSTANCE.publish(EventBus.Event.SAVE_PROFILE, newProfile);
     }
 

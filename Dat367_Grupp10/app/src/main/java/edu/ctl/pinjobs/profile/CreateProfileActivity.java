@@ -1,5 +1,6 @@
 package edu.ctl.pinjobs.profile;
 
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,13 +11,9 @@ import android.widget.EditText;
 
 import com.example.filips.dat367_grupp10.R;
 
-import edu.ctl.pinjobs.Services.IProfileService;
-
-
 public class CreateProfileActivity extends ActionBarActivity implements View.OnClickListener {
 
     private CreateProfileView view;
-    private IProfileService service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +59,11 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
         if (v == findViewById(R.id.createProfileButton)) {
             view.attemptCreateProfile();
         }
+    }
+
+    public void profileCreated(){
+        view.profileCreated(this);
+        finish();
     }
 
 }
