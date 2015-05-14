@@ -1,5 +1,6 @@
 package edu.ctl.pinjobs.profile;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
@@ -53,6 +54,7 @@ public class CreateProfileView {
         this.cityEditText = city;
         this.createProfileButton = createProfileButton;
         this.createProfileButton.setOnClickListener(v);
+        
 
         modifyEnabled(modify);
     }

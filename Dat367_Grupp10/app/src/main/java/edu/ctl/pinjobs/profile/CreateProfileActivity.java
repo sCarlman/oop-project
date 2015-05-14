@@ -10,12 +10,10 @@ import android.widget.EditText;
 
 import com.example.filips.dat367_grupp10.R;
 
-import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.Services.IProfileService;
-import edu.ctl.pinjobs.Services.ProfileService;
 
-public class CreateProfileActivity extends ActionBarActivity implements View.OnClickListener,
-        EventBus.IEventHandler{
+
+public class CreateProfileActivity extends ActionBarActivity implements View.OnClickListener {
 
     private CreateProfileView view;
     private IProfileService service;
@@ -35,7 +33,6 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                 (EditText) findViewById(R.id.addressEditText),
                 (Button) findViewById(R.id.createProfileButton), this,
                 (EditText) findViewById(R.id.cityEditText), modify);
-        EventBus.INSTANCE.addListener(this);
     }
 
     @Override
@@ -67,13 +64,4 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
         }
     }
 
-    @Override
-    public void onEvent(EventBus.Event evt, Object o) {
-        if(evt == EventBus.Event.SAVE_PROFILE){
-            service = new ProfileService();
-            service.saveProfile((IProfile) o);
-            view.profileCreated(CreateProfileActivity.this);
-            finish();
-        }
-    }
 }
