@@ -7,46 +7,40 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
-import edu.ctl.pinjobs.Advertisement.DetailedAdActivity;
-import edu.ctl.pinjobs.Services.AdvertisementService;
-import edu.ctl.pinjobs.eventbus.EventBus;
-import edu.ctl.pinjobs.Services.IAdvertisementService;
-import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import com.example.filips.dat367_grupp10.R;
 
 import java.util.List;
 
+import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
+import edu.ctl.pinjobs.Advertisement.DetailedAdActivity;
+import edu.ctl.pinjobs.Advertisement.IAdvertisement;
+import edu.ctl.pinjobs.Services.AdvertisementService;
+import edu.ctl.pinjobs.Services.IAdvertisementService;
+import edu.ctl.pinjobs.controller.UserModel;
+import edu.ctl.pinjobs.profile.IProfile;
 
-public class HandlerActivity extends ActionBarActivity implements EventBus.IEventHandler {
+public class UserListActivity extends ActionBarActivity {
+
     IListModel listModel;
     edu.ctl.pinjobs.Handler.ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_ad_list);
 
-        EventBus.INSTANCE.addListener(this);
         IAdvertisementService adService = new AdvertisementService();
-        List<IAdvertisement> adList = adService.fetchAllAds();
+        UserModel um = UserModel.getInstance();
+        IProfile loggedInProfile = um.getProfile();
+        List<IAdvertisement> adList = adService.fetchAdsOfAdvertiser(loggedInProfile);
+
         setListView(adList);
     }
 
     @Override
-    public void onEvent(EventBus.Event evt, Object o){
-        if(evt == EventBus.Event.ADLIST_UPDATED) {
-            //Starts the view with the list from model
-            System.out.println((List<IAdvertisement>) o);
-            listView.setupView((List<IAdvertisement>) o, android.R.layout.simple_list_item_1);
-        }
-    }
-
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_ad_list, menu);
+        getMenuInflater().inflate(R.menu.menu_user_list, menu);
         return true;
     }
 
@@ -71,16 +65,7 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
         this.listModel = new ListModel(adList,this);
     }
 
-    public void openDetailedAdView(Context context, AndroidAdvertisement ad,String distance){
-
-        Intent intent = new Intent(context, DetailedAdActivity.class);
-        intent.putExtra("Advertisement", ad);
-        intent.putExtra("Distance", distance);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.getApplicationContext().startActivity(intent);
+    public void openModifyAdView(Context context, AndroidAdvertisement ad, String distance){
 
     }
-
-
-
 }

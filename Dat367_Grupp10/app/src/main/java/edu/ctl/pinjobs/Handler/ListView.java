@@ -18,6 +18,7 @@ import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
 import edu.ctl.pinjobs.Advertisement.DetailedAdActivity;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import edu.ctl.pinjobs.controller.MainActivity;
+import edu.ctl.pinjobs.controller.UserModel;
 
 /**
  * Created by Filips on 4/28/2015.
@@ -49,16 +50,24 @@ public class ListView{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                UserModel um = UserModel.getInstance();
                 HandlerActivity hej = new HandlerActivity();
                 IAdvertisement ad = (Advertisement) adList.get(position);
-                AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
+                String adDistance="";
                 try {
-                    String adDistance = "" + locationUtils.calculateDistanceFromCurrentPosition(ad, context);
-                    hej.openDetailedAdView(context,androidAD,adDistance);
+                    adDistance = "" + locationUtils.calculateDistanceFromCurrentPosition(ad, context);
+
                 }catch(AdressNotFoundException e){
                     e.printStackTrace();
                 }
-
+                AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
+                if(um.getProfile().equals(ad.getAdvertiser())){
+                    UserListActivity usListAct = new UserListActivity();
+                    usListAct.openModifyAdView(context, androidAD, adDistance);
+                }else{
+                    hej.openDetailedAdView(context,androidAD,adDistance);
+                }
 
             }
         });
