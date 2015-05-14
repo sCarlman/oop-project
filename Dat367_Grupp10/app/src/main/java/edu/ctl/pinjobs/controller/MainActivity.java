@@ -20,6 +20,7 @@ import edu.ctl.pinjobs.Services.IAdvertisementService;
 import edu.ctl.pinjobs.Services.IProfileService;
 import edu.ctl.pinjobs.Services.ProfileService;
 import edu.ctl.pinjobs.User.LoginActivity;
+import edu.ctl.pinjobs.User.LoginModel;
 import edu.ctl.pinjobs.Utils.LocationUtils;
 import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.profile.CreateProfileActivity;
@@ -33,10 +34,9 @@ import com.parse.Parse;
 public class MainActivity extends ActionBarActivity implements View.OnClickListener, EventBus.IEventHandler{
 
     private MainView mainView;
-    private LoginActivity loginActivity = new LoginActivity();
-    private String profileName;
     private IProfileService profileService;
     private IAdvertisementService adService;
+    private UserModel user = UserModel.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +49,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         EventBus.INSTANCE.addListener(this);
 
-        //Gets boolean true if login success
-        boolean login = getIntent().getBooleanExtra("LoginSuccess", false);
-        EventBus.INSTANCE.addListener(this);
-
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,60000,100, new LocationUtils());
 
 
-        this.mainView = new MainView((Button)findViewById(R.id.mapButton), (Button)findViewById(R.id.listButton),(Button)findViewById(R.id.postAdButton),
-                (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton), login, (TextView)findViewById(R.id.loggedInTextView),
+        this.mainView = new MainView((Button)findViewById(R.id.mapButton),
+                (Button)findViewById(R.id.listButton),(Button)findViewById(R.id.postAdButton),
+                (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton),
+                (TextView)findViewById(R.id.loggedInTextView),
                 (Button)findViewById(R.id.modifyProfileButton), this);
 
         this.adService = new AdvertisementService();
@@ -91,7 +89,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if(view == findViewById(R.id.modifyProfileButton)){
+        if(view == findViewById(R.id.modifyProfileButton)) {
             Intent intent = new Intent(this, CreateProfileActivity.class);
             intent.putExtra("modify", true);
             startActivity(intent);
@@ -106,6 +104,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public void openCreateAdView(View view) {
         Intent intent = new Intent(getApplicationContext(), CreateAdActivity.class);
         startActivity(intent);
+        System.out.println(user.getProfile().getAddress());
+    }
+
+    private void callCreateAd() {
+        EventBus.INSTANCE.publish(EventBus.Event.CREATE_AD, user.getProfile());
     }
 
     public void openListView(View view) {
@@ -119,17 +122,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     public void logOfUser(View view){
-        loginActivity.changeValueOfLoggedOfUser();
-        mainView.repaintForLogOf();
-    }
-
-    public void setProfileNameForView(){
-        String profileName = loginActivity.getProfileNameForMainView();
-        this.profileName = profileName;
+        user.logOff();
+        mainView.repaintLogInView(false);
     }
 
     public String getProfileName() {
-        return profileName;
+        return (user.getProfile().getFirstName() + " " + user.getProfile().getLastName());
     }
 
     @Override
@@ -143,17 +141,32 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             this.getApplicationContext().startActivity(intent);
         }
-        if(evt == EventBus.Event.SET_BOOLEAN_LOGGED_IN){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.putExtra("LoginSuccess", (boolean) o);
-            startActivity(intent);
-        }else if(evt == EventBus.Event.SAVE_PROFILE){
+        if(evt == EventBus.Event.SAVE_PROFILE){
             profileService = new ProfileService();
             profileService.saveProfile((IProfile) o);
         }else if(evt == EventBus.Event.POST_AD){
             adService = new AdvertisementService();
             adService.saveAd((IAdvertisement)o);
         }
+
+        if(evt == EventBus.Event.SAVE_PROFILE){
+            loginUser((IProfile) o);
+            profileService.saveProfile((IProfile) o);
+        }
+
+        if(evt == EventBus.Event.LOGIN_SUCCESS){
+            loginUser(((LoginModel) o).getProfile());
+        }
+
+        if(evt == EventBus.Event.CREATE_AD_SETUP){
+            callCreateAd();
+        }
+
+    }
+
+    private void loginUser(IProfile profile) {
+        user.logIn(profile);
+        mainView.repaintLogInView(true);
     }
 }
 

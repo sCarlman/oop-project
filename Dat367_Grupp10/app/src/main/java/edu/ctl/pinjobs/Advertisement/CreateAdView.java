@@ -64,7 +64,7 @@ public class CreateAdView {
 
     public void setNewProfile(IProfile newProfile){
         this.newProfile = newProfile;
-
+        System.out.println("HOLA " + newProfile.getAddress());
         //sets location to default address of the advertiser
         locationEditText.setText(newProfile.getAddress());
     }

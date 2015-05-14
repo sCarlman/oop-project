@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.User;
+package edu.ctl.pinjobs.controller;
 
 import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.profile.IProfile;
@@ -23,17 +23,18 @@ public class UserModel {
         return instance;
     }
 
+    public void logIn(IProfile logInProfile){
+        this.isLoggedIn = true;
+        this.profile = logInProfile;
+    }
+
+    public void logOff(){
+        this.isLoggedIn = false;
+        this.profile = null;
+    }
+
     public boolean getIsLoggedIn(){
         return isLoggedIn;
-    }
-
-    public void setLoggedIn(boolean b){
-        this.isLoggedIn = b;
-        EventBus.INSTANCE.publish(EventBus.Event.SET_BOOLEAN_LOGGED_IN, b);
-    }
-
-    protected void setProfile(IProfile p){
-        this.profile = p;
     }
 
     public IProfile getProfile(){
