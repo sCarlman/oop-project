@@ -4,4 +4,10 @@
     tools:context="edu.ctl.pinjobs.profile.MyProfileActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/action_edit"
+        android:icon="@drawable/ic_action_edit"
+        android:title="@string/action_edit"
+        app:showAsAction="ifRoom" />
+
 </menu>

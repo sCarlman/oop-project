@@ -4,6 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="action_person">Min profil</string>
+    <string name="action_edit">Min profil</string>
 
     <string name="title_activity_maps">Map</string>
 

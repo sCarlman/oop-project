@@ -12,113 +12,217 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Namn:"
-        android:id="@+id/NameTextView"
+        android:id="@+id/myProfileNameTextView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Carl Albertsson"
-        android:id="@+id/ProfileNameTextView"
-        android:layout_alignTop="@+id/NameTextView"
-        android:layout_toRightOf="@+id/NameTextView"
+        android:id="@+id/myProfileProfileNameTextView"
+        android:layout_alignTop="@+id/myProfileNameTextView"
+        android:layout_toRightOf="@+id/myProfileNameTextView"
         android:layout_marginLeft="25dp"
         android:layout_marginStart="25dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="E-mail:"
-        android:id="@+id/mailTextView"
-        android:layout_below="@+id/NameTextView"
+        android:id="@+id/myProfileMailTextView"
+        android:layout_below="@+id/myProfileNameTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="12dp"/>
+        android:layout_marginTop="12dp"
+        android:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="carl.albertsson@gmail.com"
-        android:id="@+id/profileMailTextView"
-        android:layout_alignTop="@+id/mailTextView"
-        android:layout_alignLeft="@+id/ProfileNameTextView"
-        android:layout_alignStart="@+id/ProfileNameTextView"
+        android:id="@+id/myProfileProfileMailTextView"
+        android:layout_alignTop="@+id/myProfileMailTextView"
+        android:layout_alignLeft="@+id/myProfileProfileNameTextView"
+        android:layout_alignStart="@+id/myProfileProfileNameTextView"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Telefon:"
-        android:id="@+id/phoneTextView"
-        android:layout_below="@+id/mailTextView"
+        android:id="@+id/myProfilePhoneTextView"
+        android:layout_below="@+id/myProfileMailTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="12dp"
+        android:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="0706145301"
-        android:id="@+id/profilePhoneTextView"
-        android:layout_alignTop="@+id/phoneTextView"
-        android:layout_alignLeft="@+id/profileMailTextView"
-        android:layout_alignStart="@+id/profileMailTextView"
-        android:layout_alignRight="@+id/profileMailTextView"
-        android:layout_alignEnd="@+id/profileMailTextView" />
+        android:id="@+id/myProfileProfilePhoneTextView"
+        android:layout_alignTop="@+id/myProfilePhoneTextView"
+        android:layout_alignLeft="@+id/myProfileProfileMailTextView"
+        android:layout_alignStart="@+id/myProfileProfileMailTextView"
+        android:layout_alignRight="@+id/myProfileProfileMailTextView"
+        android:layout_alignEnd="@+id/myProfileProfileMailTextView"
+        android:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Adress:"
-        android:id="@+id/addressTextView"
-        android:layout_below="@+id/phoneTextView"
+        android:id="@+id/myProfileAddressTextView"
+        android:layout_below="@+id/myProfilePhoneTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="12dp"
+        android:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Grenegård 684"
-        android:id="@+id/profileAdressTextView"
-        android:layout_alignTop="@+id/addressTextView"
-        android:layout_alignLeft="@+id/profilePhoneTextView"
-        android:layout_alignStart="@+id/profilePhoneTextView"
-        android:layout_alignRight="@+id/profilePhoneTextView"
-        android:layout_alignEnd="@+id/profilePhoneTextView" />
+        android:id="@+id/myProfileProfileAdressTextView"
+        android:layout_alignTop="@+id/myProfileAddressTextView"
+        android:layout_alignLeft="@+id/myProfileProfilePhoneTextView"
+        android:layout_alignStart="@+id/myProfileProfilePhoneTextView"
+        android:layout_alignRight="@+id/myProfileProfilePhoneTextView"
+        android:layout_alignEnd="@+id/myProfileProfilePhoneTextView"
+        android:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Stad:"
-        android:id="@+id/cityTextEdit"
-        android:layout_below="@+id/addressTextView"
+        android:id="@+id/myProfileCityTextEdit"
+        android:layout_below="@+id/myProfileAddressTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="12dp" />
+        android:layout_marginTop="12dp"
+        android:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="SVANESUND"
-        android:id="@+id/cityTextView"
-        android:layout_alignTop="@+id/cityTextEdit"
-        android:layout_alignLeft="@+id/profileAdressTextView"
-        android:layout_alignStart="@+id/profileAdressTextView"
-        android:layout_alignRight="@+id/profileAdressTextView"
-        android:layout_alignEnd="@+id/profileAdressTextView" />
+        android:id="@+id/myProfileProfileCityTextView"
+        android:layout_alignTop="@+id/myProfileCityTextEdit"
+        android:layout_alignLeft="@+id/myProfileProfileAdressTextView"
+        android:layout_alignStart="@+id/myProfileProfileAdressTextView"
+        android:layout_alignRight="@+id/myProfileProfileAdressTextView"
+        android:layout_alignEnd="@+id/myProfileProfileAdressTextView"
+        android:visibility="visible" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Visa mina annonser"
+        android:id="@+id/myProfileMyAdsButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/myProfileProfileCityTextView"
+        android:layout_alignEnd="@+id/myProfileProfileCityTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="visible" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Fnamn"
+        android:ems="10"
+        android:id="@+id/myProfileFirstNameEditText"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Lnamn"
+        android:ems="10"
+        android:id="@+id/myProfileLastNameEditText"
+        android:layout_below="@+id/myProfileFirstNameEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/myProfileFirstNameEditText"
+        android:layout_alignEnd="@+id/myProfileFirstNameEditText"
+        android:visibility="gone" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="phone"
+        android:ems="10"
+        android:id="@+id/myProfilePhoneEditText"
+        android:layout_below="@+id/myProfileLastNameEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/myProfileLastNameEditText"
+        android:layout_alignEnd="@+id/myProfileLastNameEditText"
+        android:text="tele"
+        android:visibility="gone" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:ems="10"
+        android:id="@+id/myProfileAddressEditText"
+        android:layout_below="@+id/myProfilePhoneEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/myProfilePhoneEditText"
+        android:layout_alignEnd="@+id/myProfilePhoneEditText"
+        android:text="Gata"
+        android:visibility="gone" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPostalAddress"
+        android:ems="10"
+        android:id="@+id/myProfileCityEditText"
+        android:layout_below="@+id/myProfileAddressEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/myProfileAddressEditText"
+        android:layout_alignEnd="@+id/myProfileAddressEditText"
+        android:text="Stad"
+        android:visibility="gone" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Spara Ändringar"
+        android:id="@+id/myProfileSaveEditProfileButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/myProfileCityEditText"
+        android:layout_alignEnd="@+id/myProfileCityEditText"
+        android:visibility="gone" />
 </RelativeLayout>
