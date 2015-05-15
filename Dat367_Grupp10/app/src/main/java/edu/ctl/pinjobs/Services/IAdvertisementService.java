@@ -1,5 +1,7 @@
 package edu.ctl.pinjobs.Services;
 
+import android.content.Context;
+
 import com.parse.ParseObject;
 
 import java.util.List;
@@ -14,7 +16,7 @@ public interface IAdvertisementService {
 
     public void saveAd(IAdvertisement Ad);
     public void deleteParseAd(ParseObject parseAd);
-    public void removeOutDatedAds();
+    public void removeOutDatedAds(Context context);
 
     public List<IAdvertisement> fetchAllAds();
     public List<IAdvertisement> fetchAdsOfAdvertiser(IProfile advertiser);

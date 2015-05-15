@@ -45,16 +45,14 @@ public class HandlerLocationUtils {
             //internet connection and illegalargument if input is null
             throw new AdressNotFoundException();
         }catch (IOException e){
-            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-
-            alertDialog.setTitle("Info");
-            alertDialog.setMessage("Internet not available, Cross check your internet connectivity and try again");
-            alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
-            alertDialog.setButton( DialogInterface.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            });
+            new AlertDialog.Builder(context)
+                    .setTitle("Info")
+                    .setMessage("Internet not available, Cross check your internet connectivity and try again")
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // continue with delete
+                        }
+                    }).show();
         }
         return position;
     }

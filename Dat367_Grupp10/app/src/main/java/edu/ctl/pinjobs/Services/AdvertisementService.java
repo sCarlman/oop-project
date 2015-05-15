@@ -1,5 +1,9 @@
 package edu.ctl.pinjobs.Services;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -18,6 +22,7 @@ import edu.ctl.pinjobs.Advertisement.IAdvertisement;
  * Created by Isaac on 2015-04-27.
  */
 public class AdvertisementService implements IAdvertisementService {
+
 
     @Override
     public void saveAd(IAdvertisement Ad) {
@@ -85,7 +90,7 @@ public class AdvertisementService implements IAdvertisementService {
         }
     }
 
-    public void removeOutDatedAds(){
+    public void removeOutDatedAds(Context context){
         Calendar today = new GregorianCalendar();
         int thisYear = today.get(Calendar.YEAR);
         int thisMonth = today.get(Calendar.MONTH);
@@ -107,7 +112,17 @@ public class AdvertisementService implements IAdvertisementService {
                 }
             }
         } catch (ParseException e) {
-            //TODO: Handle error
+            System.out.println("EXCEPTION DELETE ADS");
+            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+
+            alertDialog.setTitle("Info");
+            alertDialog.setMessage("Internet not available, Cross check your internet connectivity and try again");
+            alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+            alertDialog.setButton( DialogInterface.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
             e.printStackTrace();
         }
     }

@@ -1,6 +1,8 @@
 package edu.ctl.pinjobs.controller;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
@@ -57,7 +59,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 (Button)findViewById(R.id.modifyProfileButton), this);
 
         this.adService = new AdvertisementService();
-        adService.removeOutDatedAds();
+        adService.removeOutDatedAds(this);
     }
 
 
@@ -130,7 +132,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onEvent(EventBus.Event evt, Object o) {
         if(evt == EventBus.Event.POST_AD) {
-            adService = new AdvertisementService();
             adService.saveAd((IAdvertisement) o);
             Intent intent = new Intent(this.getApplicationContext(), MapActivity.class);
             AndroidAdvertisement androidAD = new AndroidAdvertisement((IAdvertisement) o);
@@ -143,7 +144,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             profileService = new ProfileService();
             profileService.saveProfile((IProfile) o);
         }else if(evt == EventBus.Event.POST_AD){
-            adService = new AdvertisementService();
             adService.saveAd((IAdvertisement)o);
         }
 
