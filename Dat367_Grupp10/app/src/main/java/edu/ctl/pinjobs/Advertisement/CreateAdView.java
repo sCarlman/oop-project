@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import edu.ctl.pinjobs.Handler.AdressNotFoundException;
 import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.profile.IProfile;
 
@@ -38,9 +39,13 @@ public class CreateAdView {
     private int day;
     private int month;
     private int year;
+    private double lat;
+    private double lng;
 
     private boolean cancel;
     private View focusView;
+    private Context activityContext;
+    private LocationUtils locationHelper;
 
 
     public CreateAdView(EditText addressEditText, EditText descriptionEditText,
@@ -57,6 +62,7 @@ public class CreateAdView {
         this.otherRadioButton = otherRadioButton;
         createAdButton.setOnClickListener((View.OnClickListener)v);
         chooseDateButton.setOnClickListener((View.OnClickListener)v);
+        activityContext = v;
         this.chooseDateButton = chooseDateButton;
         this.adEndDatePicker = adEndDatePicker;
         this.activity = (CreateAdActivity)v;
@@ -96,9 +102,23 @@ public class CreateAdView {
         copyTextFieldData();
         copySelectedCategory();
         copyEndDate();
+        System.out.println("Location is: " + location);
+        if(activityContext == null){
+            System.out.println("Im motherfucking null!!!");
+        }else{
+            System.out.println(activityContext);
+        }
+        locationHelper = new LocationUtils();
+        try {
+            lat = locationHelper.getLocationFromAddress(activityContext,location).latitude;
+            lng = locationHelper.getLocationFromAddress(activityContext,location).longitude;
+        } catch (AdressNotFoundException e) {
+            e.printStackTrace();
+            //TODO: exception.
+        }
 
         newAd = new Advertisement(newProfile, title, description, location, category,
-                day, month, year);
+                day, month, year, lat, lng);
         activity.finish();
         adPosted(activity);
         EventBus.INSTANCE.publish(EventBus.Event.POST_AD, newAd);
