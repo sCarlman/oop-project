@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.filips.dat367_grupp10.R;
@@ -17,7 +18,7 @@ import edu.ctl.pinjobs.Handler.UserListActivity;
 public class MyProfileActivity extends ActionBarActivity implements View.OnClickListener{
 
     private MyProfileView myProfileView;
-    public IProfile myProfile;
+    private IProfile myProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,10 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
                 (TextView)findViewById(R.id.myProfilePhoneTextView), (TextView)findViewById(R.id.myProfileProfilePhoneTextView),
                 (TextView)findViewById(R.id.myProfileAddressTextView), (TextView)findViewById(R.id.myProfileProfileAdressTextView),
                 (TextView)findViewById(R.id.myProfileCityTextEdit), (TextView)findViewById(R.id.myProfileProfileCityTextView),
-                (Button)findViewById(R.id.myProfileMyAdsButton), myProfile, this);
+                (Button)findViewById(R.id.myProfileMyAdsButton), myProfile, this, (EditText)findViewById(R.id.myProfileFirstNameEditText),
+                (EditText)findViewById(R.id.myProfileLastNameEditText), (EditText)findViewById(R.id.myProfilePhoneEditText),
+                (EditText)findViewById(R.id.myProfileAddressEditText), (EditText)findViewById(R.id.myProfileCityEditText),
+                (Button)findViewById(R.id.myProfileSaveEditProfileButton));
     }
 
 
@@ -55,7 +59,7 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
 
         switch (item.getItemId()) {
             case R.id.action_edit:
-                //Method open profile
+                myProfileView.setupEditProfilePage();
                 return true;
             case R.id.action_settings:
                 //open setings method
