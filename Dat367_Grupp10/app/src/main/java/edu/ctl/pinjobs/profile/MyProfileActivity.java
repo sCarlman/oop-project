@@ -14,12 +14,13 @@ import android.widget.TextView;
 import com.example.filips.dat367_grupp10.R;
 
 import edu.ctl.pinjobs.Handler.UserListActivity;
+import edu.ctl.pinjobs.eventbus.EventBus;
 
 public class MyProfileActivity extends ActionBarActivity implements View.OnClickListener{
 
     private MyProfileView myProfileView;
     private IProfile myProfile;
-
+    private String email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +30,7 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
         Bundle bundle=intent.getExtras();
 
         myProfile = (IProfile)bundle.getSerializable("sendProfile");
+        email = myProfile.getEmail();
 
         myProfileView = new MyProfileView((TextView)findViewById(R.id.myProfileNameTextView), (TextView)findViewById(R.id.myProfileProfileNameTextView),
                 (TextView)findViewById(R.id.myProfileMailTextView), (TextView)findViewById(R.id.myProfileProfileMailTextView),
@@ -71,10 +73,9 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this, UserListActivity.class);
-        System.out.println(myProfile.getEmail());
-        //String email = myProfile.getEmail();
-        //intent.putExtra("Email", email);
-        startActivity(intent);
+        EventBus.INSTANCE.publish(EventBus.Event.SHOW_MY_ADS, email);
+
     }
+
+
 }

@@ -18,6 +18,7 @@ import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.Handler.MapActivity;
+import edu.ctl.pinjobs.Handler.UserListActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
 import edu.ctl.pinjobs.Services.IProfileService;
@@ -186,6 +187,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         if(evt == EventBus.Event.CREATE_AD_SETUP){
             callCreateAd();
+        }
+        if(evt == EventBus.Event.SHOW_MY_ADS){
+            Intent intent = new Intent(this.getApplicationContext(), UserListActivity.class);
+            intent.putExtra("Email", (String) o);
+            startActivity(intent);
         }
 
     }

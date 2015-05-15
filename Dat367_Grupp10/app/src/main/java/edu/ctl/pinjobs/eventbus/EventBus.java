@@ -25,7 +25,8 @@ public enum EventBus {
         SAVE_PROFILE,
         POST_AD,
         CREATE_AD,
-        CREATE_AD_SETUP
+        CREATE_AD_SETUP,
+        SHOW_MY_ADS
 
     };
     private boolean trace = true;
