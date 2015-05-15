@@ -131,8 +131,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public void openListView(View view) {
         Intent intent = new Intent(getApplicationContext(), HandlerActivity.class);
         UserModel um = UserModel.getInstance();
-        if (um==null){
-            Boolean loggedIn = false;
+        if (um.getIsLoggedIn()==false){
             String email = null;
             intent.putExtra("Email", email);
             startActivity(intent);

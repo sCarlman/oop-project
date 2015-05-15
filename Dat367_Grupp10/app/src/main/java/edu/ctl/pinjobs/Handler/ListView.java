@@ -62,7 +62,12 @@ public class ListView{
                     adDistance = "" + locationUtils.calculateDistanceFromPosition(currentPosition.latitude,
                             ad.getLatitude(),currentPosition.longitude,ad.getLongitude());
                 AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
-                if(email.equals(ad.getAdvertiser().getEmail())){
+
+
+                if(email==null){
+                    HandlerActivity hej = new HandlerActivity();
+                    hej.openDetailedAdView(context,androidAD,adDistance);
+                }else if(email.equals(ad.getAdvertiser().getEmail())){
                     UserListActivity usListAct = new UserListActivity();
                     usListAct.openModifyAdView(context, androidAD, adDistance);
                 }else{
