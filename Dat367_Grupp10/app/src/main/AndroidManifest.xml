@@ -82,6 +82,10 @@
             android:name="edu.ctl.pinjobs.Handler.UserListActivity"
             android:label="@string/title_activity_user_list" >
         </activity>
+        <activity
+            android:name="edu.ctl.pinjobs.Advertisement.ModifyAdActivity"
+            android:label="@string/title_activity_modify_ad" >
+        </activity>
     </application>
 
 </manifest>

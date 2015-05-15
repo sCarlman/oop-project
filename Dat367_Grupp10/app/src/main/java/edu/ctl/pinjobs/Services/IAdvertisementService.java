@@ -17,6 +17,6 @@ public interface IAdvertisementService {
     public void removeOutDatedAds();
 
     public List<IAdvertisement> fetchAllAds();
-    public List<IAdvertisement> fetchAdsOfAdvertiser(IProfile advertiser);
+    public List<IAdvertisement> fetchAdsOfAdvertiser(String email);
 
 }
