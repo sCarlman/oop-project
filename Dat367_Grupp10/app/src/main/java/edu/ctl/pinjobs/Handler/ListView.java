@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,7 @@ import edu.ctl.pinjobs.Advertisement.Advertisement;
 import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
 import edu.ctl.pinjobs.Advertisement.DetailedAdActivity;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
+import edu.ctl.pinjobs.Utils.LocationUtils;
 import edu.ctl.pinjobs.controller.MainActivity;
 import edu.ctl.pinjobs.controller.UserModel;
 
@@ -40,8 +43,9 @@ public class ListView{
 
     public void setupView(final List<IAdvertisement> adList, int id){
         List<String> titleList = new ArrayList<String>();
+        final LatLng currentPosition = LocationUtils.getCurrentLocation(context);
         for(IAdvertisement ad : adList){
-            titleList.add(setMessage(ad));
+            titleList.add(setMessage(ad,currentPosition));
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context,
                 id, titleList);
@@ -55,12 +59,7 @@ public class ListView{
                 HandlerActivity hej = new HandlerActivity();
                 IAdvertisement ad = (Advertisement) adList.get(position);
                 String adDistance="";
-                try {
-                    adDistance = "" + locationUtils.calculateDistanceFromCurrentPosition(ad, context);
-
-                }catch(AdressNotFoundException e){
-                    e.printStackTrace();
-                }
+                    adDistance = "" + locationUtils.calculateDistanceFromPosition(currentPosition.latitude,ad.getLatitude(),currentPosition.longitude,ad.getLongitude());
                 AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
                 if(um.getProfile().equals(ad.getAdvertiser())){
                     UserListActivity usListAct = new UserListActivity();
@@ -72,16 +71,11 @@ public class ListView{
             }
         });
     }
-    private String setMessage(IAdvertisement ad){
+    private String setMessage(IAdvertisement ad,LatLng currentPos){
         String message =ad.getTitle();
-        String distance ="";
-        try {
-            distance = "" + locationUtils.calculateDistanceFromCurrentPosition(ad, context);
-            int index = distance.indexOf('.');
-            distance = distance.substring(0, index + 2);
-        }catch(AdressNotFoundException e){
-            e.printStackTrace();
-        }
+        String distance = "" + locationUtils.calculateDistanceFromPosition(currentPos.latitude,ad.getLatitude(),currentPos.longitude,ad.getLongitude());
+        int index = distance.indexOf('.');
+        distance = distance.substring(0, index + 2);
         return message + "      " + distance + " km bort";
     }
 

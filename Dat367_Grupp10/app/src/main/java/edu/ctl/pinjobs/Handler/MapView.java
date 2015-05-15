@@ -57,17 +57,11 @@ public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickLi
         map.addMarker(new MarkerOptions().position(location).title(title));
     }
 
-    private void addMarker(IAdvertisement ad){
-        try {
-            LatLng adPosition = locationUtils.getLocationFromAddress(context, ad.getLocation());
-            Marker marker = map.addMarker(new MarkerOptions().position(new LatLng(adPosition.latitude, adPosition.longitude)).title(ad.getTitle()).icon(addCorrectCollorMarker(ad))
-                    .snippet(setSnippet(ad)));
-
+    private void addMarker(IAdvertisement ad,LatLng currentPosition){
+        Marker marker = map.addMarker(new MarkerOptions().position(new LatLng(ad.getLatitude(), ad.getLongitude()))
+                .title(ad.getTitle()).icon(addCorrectCollorMarker(ad)).snippet(setSnippet(ad,currentPosition)));
             markers.add(marker);
             markerAdHashmap.put(marker, ad);
-        }catch(AdressNotFoundException e){
-            e.printStackTrace();
-        }
     }
 
     private LatLngBounds.Builder setMapBounds(){
@@ -96,9 +90,9 @@ public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickLi
     }
 
     private void addAllStartMarkers(List<IAdvertisement> list){
-
+        LatLng currentPos = LocationUtils.getCurrentLocation(context);
         for(IAdvertisement ad : list){
-            addMarker(ad);
+            addMarker(ad,currentPos);
         }
     }
 
@@ -138,36 +132,25 @@ public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickLi
     }
 
     public void addPinAndZoom(IAdvertisement ad){
-        addMarker(ad);
-        try {
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(locationUtils.getLocationFromAddress(context, ad.getLocation()), 15));
-        }catch(AdressNotFoundException e){
-            e.printStackTrace();
-        }
+        addMarker(ad,LocationUtils.getCurrentLocation(context));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom((new LatLng(ad.getLatitude(),ad.getLongitude())), 15));
     }
 
     @Override
     public void onInfoWindowClick(Marker marker){
         HandlerActivity handlerController = new HandlerActivity();
         IAdvertisement ad = markerAdHashmap.get(marker);
-        try {
-            String distance = "" + locationUtils.calculateDistanceFromCurrentPosition(ad, context);
-            AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
-            handlerController.openDetailedAdView(context, androidAD, distance);
-        }catch(AdressNotFoundException e){
-            e.printStackTrace();
-        }
-
+        LatLng currentPosition = LocationUtils.getCurrentLocation(context);
+        String distance = "" + locationUtils.calculateDistanceFromPosition(currentPosition.latitude,
+                ad.getLatitude(),currentPosition.longitude,ad.getLongitude());
+        AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
+        handlerController.openDetailedAdView(context, androidAD, distance);
     }
-    private String setSnippet(IAdvertisement ad){
-        String distance = "";
-        try {
-            distance = "" + locationUtils.calculateDistanceFromCurrentPosition(ad, context);
-            int index = distance.indexOf('.');
-            distance = distance.substring(0, index + 2);
-        }catch(AdressNotFoundException e){
-            e.printStackTrace();
-        }
+    private String setSnippet(IAdvertisement ad,LatLng currentPos){
+        String distance = "" + locationUtils.calculateDistanceFromPosition(currentPos.latitude,
+                ad.getLatitude(),currentPos.longitude,ad.getLongitude());
+        int index = distance.indexOf('.');
+        distance = distance.substring(0, index + 2);
         return distance+" km bort";
     }
 }

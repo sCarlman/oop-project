@@ -47,6 +47,8 @@ public class AdvertisementService implements IAdvertisementService {
         parseAd.put("Day", ad.getDay());
         parseAd.put("Month", ad.getMonth());
         parseAd.put("Year", ad.getYear());
+        parseAd.put("Lat", ad.getLatitude());
+        parseAd.put("Lng", ad.getLongitude());
     }
 
     @Override
@@ -70,9 +72,11 @@ public class AdvertisementService implements IAdvertisementService {
                     parseAd.getString("Description"),
                     parseAd.getString("Location"),
                     Category.valueOf(parseAd.getString("Category")),
-                    (int) parseAd.getNumber("Day"),
-                    (int) parseAd.getNumber("Month"),
-                    (int) parseAd.getNumber("Year")));
+                    parseAd.getInt("Day"),
+                    parseAd.getInt("Month"),
+                    parseAd.getInt("Year"),
+                    parseAd.getDouble("Lat"),
+                    parseAd.getDouble("Lng")));
         }
         return fetchedAds;
     }
@@ -99,9 +103,9 @@ public class AdvertisementService implements IAdvertisementService {
         try {
             for(ParseObject parseAd: query.find()){
 
-                int endDay = (int)parseAd.getNumber("Day");
-                int endMonth = (int)parseAd.getNumber("Month");
-                int endYear = (int)parseAd.getNumber("Year");
+                int endDay = parseAd.getInt("Day");
+                int endMonth = parseAd.getInt("Month");
+                int endYear = parseAd.getInt("Year");
 
                 if(endYear < thisYear){
                     deleteParseAd(parseAd);

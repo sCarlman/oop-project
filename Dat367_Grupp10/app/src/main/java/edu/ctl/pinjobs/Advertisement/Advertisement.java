@@ -17,9 +17,12 @@ public class Advertisement implements IAdvertisement, Serializable {
     private int day;
     private int month;
     private int year;
+    private double latitude;
+    private double longitude;
 
     public Advertisement(IProfile advertiser, String title, String description, String location,
-                         Category category, int day, int month, int year) {
+                         Category category, int day, int month, int year, double latitude,
+                         double longitude) {
         setAdvertiser(advertiser);
         setLocation(location);
         setTitle(title);
@@ -28,6 +31,8 @@ public class Advertisement implements IAdvertisement, Serializable {
         setDay(day);
         setMonth(month);
         setYear(year);
+        setLatitude(latitude);
+        setLongitude(longitude);
     }
 
     public void setAdvertiser(IProfile advertiser) {
@@ -92,6 +97,22 @@ public class Advertisement implements IAdvertisement, Serializable {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }
 

@@ -27,35 +27,7 @@ import edu.ctl.pinjobs.Utils.LocationUtils;
  */
 public class HandlerLocationUtils {
 
-    public LatLng getLocationFromAddress(Context context,String strAddress) throws AdressNotFoundException  {
 
-        Geocoder coder = new Geocoder(context);
-        List<Address> address; //A list witch holds the adresses that match the adress input.
-        LatLng position = null; //the coordinates in latitude and longitude
-
-        try {
-            address = coder.getFromLocationName(strAddress, 5); //saves the 5 best matches from the input
-            if (address == null) {
-                throw new AdressNotFoundException();
-            }
-            Address location = address.get(0);
-            position = new LatLng(location.getLatitude(), location.getLongitude());
-
-        } catch (IllegalArgumentException e) { //the method throws both IOexception and illegalargumentexcpetion, Ioexception if there is no
-            //internet connection and illegalargument if input is null
-            throw new AdressNotFoundException();
-        }catch (IOException e){
-            new AlertDialog.Builder(context)
-                    .setTitle("Info")
-                    .setMessage("Internet not available, Cross check your internet connectivity and try again")
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            // continue with delete
-                        }
-                    }).show();
-        }
-        return position;
-    }
 
     //Calculates the distance from the users current location to the given coordinates using haversine formula
     public double calculateDistanceFromPosition(double lat1, double lat2, double long1, double long2){
@@ -71,12 +43,14 @@ public class HandlerLocationUtils {
         return distance;
     }
 
+    /*
     public double calculateDistanceFromCurrentPosition(IAdvertisement add, Context context) throws AdressNotFoundException {
         LatLng addLocation = getLocationFromAddress(context,add.getLocation());
         return calculateDistanceFromPosition(addLocation.latitude, LocationUtils.getCurrentLocation(context).latitude,
                 addLocation.longitude, LocationUtils.getCurrentLocation(context).longitude);
     }
 
+*/
 
 
 }

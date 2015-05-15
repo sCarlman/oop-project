@@ -19,6 +19,8 @@ public interface IAdvertisement extends Serializable {
     public void setDay(int day);
     public void setMonth(int month);
     public void setYear(int year);
+    public void setLongitude(double longitude);
+    public void setLatitude(double latitude);
 
     public IProfile getAdvertiser();
     public String getLocation();
@@ -28,4 +30,7 @@ public interface IAdvertisement extends Serializable {
     public int getDay();
     public int getMonth();
     public int getYear();
+    public double getLatitude();
+    public double getLongitude();
+
 }
