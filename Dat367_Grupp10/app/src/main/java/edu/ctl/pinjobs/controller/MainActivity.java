@@ -29,6 +29,7 @@ import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.profile.CreateProfileActivity;
 import edu.ctl.pinjobs.Advertisement.CreateAdActivity;
 import edu.ctl.pinjobs.profile.IProfile;
+import edu.ctl.pinjobs.profile.MyProfileActivity;
 
 import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
@@ -81,7 +82,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         switch (item.getItemId()) {
             case R.id.action_person:
-                //Method open profile
+                if(user.getIsLoggedIn() == true) {
+                    openMyProfileView();
+                }
                 return true;
             case R.id.action_settings:
                 //open setings method
@@ -105,6 +108,16 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         startActivity(intent);
     }
 
+    public void openMyProfileView(){
+        Intent intent = new Intent(this, MyProfileActivity.class);
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("sendProfile", user.getProfile());
+        intent.putExtras(bundle);
+
+        startActivity(intent);
+    }
+
     public void openCreateAdView(View view) {
         Intent intent = new Intent(getApplicationContext(), CreateAdActivity.class);
         startActivity(intent);
@@ -117,7 +130,18 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     public void openListView(View view) {
         Intent intent = new Intent(getApplicationContext(), HandlerActivity.class);
-        startActivity(intent);
+        UserModel um = UserModel.getInstance();
+        if (um==null){
+            Boolean loggedIn = false;
+            String email = null;
+            intent.putExtra("Email", email);
+            startActivity(intent);
+        }else{
+            String email = um.getProfile().getEmail();
+            intent.putExtra("Email", email);
+            startActivity(intent);
+        }
+
     }
 
     public void openLoginView(View view) {

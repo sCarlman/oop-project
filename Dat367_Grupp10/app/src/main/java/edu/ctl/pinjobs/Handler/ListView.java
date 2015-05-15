@@ -22,6 +22,7 @@ import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import edu.ctl.pinjobs.Utils.LocationUtils;
 import edu.ctl.pinjobs.controller.MainActivity;
 import edu.ctl.pinjobs.controller.UserModel;
+import edu.ctl.pinjobs.profile.IProfile;
 
 /**
  * Created by Filips on 4/28/2015.
@@ -30,13 +31,14 @@ public class ListView{
 
     private android.widget.ListView listView;
     private Context context;
+    private String email;
     HandlerLocationUtils locationUtils = new HandlerLocationUtils();
 
 
 
-    public ListView(Context context,android.widget.ListView listView){
+    public ListView(Context context,android.widget.ListView listView, String email){
 
-
+        this.email = email;
         this.listView = listView;
         this.context = context;
     }
@@ -55,16 +57,16 @@ public class ListView{
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                UserModel um = UserModel.getInstance();
-                HandlerActivity hej = new HandlerActivity();
                 IAdvertisement ad = (Advertisement) adList.get(position);
                 String adDistance="";
-                    adDistance = "" + locationUtils.calculateDistanceFromPosition(currentPosition.latitude,ad.getLatitude(),currentPosition.longitude,ad.getLongitude());
+                    adDistance = "" + locationUtils.calculateDistanceFromPosition(currentPosition.latitude,
+                            ad.getLatitude(),currentPosition.longitude,ad.getLongitude());
                 AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
-                if(um.getProfile().equals(ad.getAdvertiser())){
+                if(email.equals(ad.getAdvertiser().getEmail())){
                     UserListActivity usListAct = new UserListActivity();
                     usListAct.openModifyAdView(context, androidAD, adDistance);
                 }else{
+                    HandlerActivity hej = new HandlerActivity();
                     hej.openDetailedAdView(context,androidAD,adDistance);
                 }
 

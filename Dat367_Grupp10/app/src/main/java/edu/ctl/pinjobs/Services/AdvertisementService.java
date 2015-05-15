@@ -82,9 +82,9 @@ public class AdvertisementService implements IAdvertisementService {
     }
 
     @Override
-    public List<IAdvertisement> fetchAdsOfAdvertiser(IProfile advertiser) {
+    public List<IAdvertisement> fetchAdsOfAdvertiser(String email) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Advertisement");
-        query.whereEqualTo("Email", advertiser.getEmail());
+        query.whereEqualTo("Email", email);
         try {
             return copyToAdvertisements(query.find());
         } catch (ParseException e) {

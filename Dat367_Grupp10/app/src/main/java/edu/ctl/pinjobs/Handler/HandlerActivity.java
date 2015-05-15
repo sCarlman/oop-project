@@ -21,16 +21,19 @@ import java.util.List;
 public class HandlerActivity extends ActionBarActivity implements EventBus.IEventHandler {
     IListModel listModel;
     edu.ctl.pinjobs.Handler.ListView listView;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
 
+        email = getIntent().getStringExtra("Email");
+
         EventBus.INSTANCE.addListener(this);
         IAdvertisementService adService = new AdvertisementService();
         List<IAdvertisement> adList = adService.fetchAllAds();
-        setListView(adList);
+        setListView(adList, email);
     }
 
     @Override
@@ -65,10 +68,11 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
         return super.onOptionsItemSelected(item);
     }
 
-    private void setListView(List<IAdvertisement> adList){
+    private void setListView(List<IAdvertisement> adList, String email){
         setContentView(R.layout.activity_ad_list);
-        this.listView = new ListView(this.getApplicationContext(),(android.widget.ListView)findViewById(R.id.adListView));
+        this.listView = new ListView(this.getApplicationContext(),(android.widget.ListView)findViewById(R.id.adListView), email);
         this.listModel = new ListModel(adList,this);
+
     }
 
     public void openDetailedAdView(Context context, AndroidAdvertisement ad,String distance){

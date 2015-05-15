@@ -27,8 +27,8 @@ public class DetailedAdActivity extends ActionBarActivity {
                         (TextView)findViewById(R.id.distanceTextView),
                 (TextView)findViewById(R.id.descriptionTextView),
                 (TextView)findViewById(R.id.nameTextView),
-                (TextView)findViewById(R.id.addressTextView),
-                (TextView)findViewById(R.id.phoneTextView),
+                (TextView)findViewById(R.id.myProfileAddressTextView),
+                (TextView)findViewById(R.id.myProfilePhoneTextView),
                 (TextView)findViewById(R.id.emailTextView),
                 ad, distance);
         this.view = view;

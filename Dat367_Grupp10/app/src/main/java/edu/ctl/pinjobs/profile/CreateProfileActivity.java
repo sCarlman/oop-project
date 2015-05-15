@@ -21,14 +21,14 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
 
         boolean modify = getIntent().getBooleanExtra("modify", false);
 
-        view = new CreateProfileView((EditText) findViewById(R.id.firstNameEditText),
-                (EditText) findViewById(R.id.lastNameEditText),
+        view = new CreateProfileView((EditText) findViewById(R.id.myProfileFirstNameEditText),
+                (EditText) findViewById(R.id.myProfileLastNameEditText),
                 (EditText) findViewById(R.id.emailEditText),
-                (EditText) findViewById(R.id.phoneEditText),
+                (EditText) findViewById(R.id.myProfilePhoneEditText),
                 (EditText) findViewById(R.id.passwordEditText),
-                (EditText) findViewById(R.id.addressEditText),
+                (EditText) findViewById(R.id.myProfileAddressEditText),
                 (Button) findViewById(R.id.createProfileButton), this,
-                (EditText) findViewById(R.id.cityEditText), modify);
+                (EditText) findViewById(R.id.myProfileCityEditText), modify);
     }
 
     @Override

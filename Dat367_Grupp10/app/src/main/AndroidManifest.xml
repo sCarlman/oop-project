@@ -44,6 +44,12 @@
             android:name="edu.ctl.pinjobs.profile.CreateProfileActivity"
             android:label="@string/title_activity_create_profile" >
         </activity>
+
+        <activity
+            android:name="edu.ctl.pinjobs.profile.MyProfileActivity"
+            android:label="@string/title_activity_my_profile" >
+        </activity>
+
         <activity
             android:name="edu.ctl.pinjobs.Advertisement.CreateAdActivity"
             android:label="@string/title_activity_create_ad" >
@@ -75,6 +81,10 @@
         <activity
             android:name="edu.ctl.pinjobs.Handler.UserListActivity"
             android:label="@string/title_activity_user_list" >
+        </activity>
+        <activity
+            android:name="edu.ctl.pinjobs.Advertisement.ModifyAdActivity"
+            android:label="@string/title_activity_modify_ad" >
         </activity>
     </application>
 

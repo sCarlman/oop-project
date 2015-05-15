@@ -1,10 +1,12 @@
 package edu.ctl.pinjobs.profile;
 
 
+import java.io.Serializable;
+
 /**
  * Created by Isaac on 2015-04-27.
  */
-public interface IProfile {
+public interface IProfile extends Serializable {
 
     public void setFirstName(String firstName);
     public void setLastName(String lastName);

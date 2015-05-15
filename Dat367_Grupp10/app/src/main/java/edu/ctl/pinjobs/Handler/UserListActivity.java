@@ -28,13 +28,13 @@ public class UserListActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ad_list);
-
+        String email = getIntent().getStringExtra("Email");
         IAdvertisementService adService = new AdvertisementService();
-        UserModel um = UserModel.getInstance();
-        IProfile loggedInProfile = um.getProfile();
-        List<IAdvertisement> adList = adService.fetchAdsOfAdvertiser(loggedInProfile);
 
-        setListView(adList);
+
+        List<IAdvertisement> adList = adService.fetchAdsOfAdvertiser(email);
+
+        setListView(adList, email);
     }
 
     @Override
@@ -59,9 +59,9 @@ public class UserListActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setListView(List<IAdvertisement> adList){
+    private void setListView(List<IAdvertisement> adList, String email){
         setContentView(R.layout.activity_ad_list);
-        this.listView = new ListView(this.getApplicationContext(),(android.widget.ListView)findViewById(R.id.adListView));
+        this.listView = new ListView(this.getApplicationContext(),(android.widget.ListView)findViewById(R.id.adListView), email);
         this.listModel = new ListModel(adList,this);
     }
 
