@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.filips.dat367_grupp10.R;
 
-public class MyProfileActivity extends ActionBarActivity {
+import edu.ctl.pinjobs.Handler.UserListActivity;
+
+public class MyProfileActivity extends ActionBarActivity implements View.OnClickListener{
 
     private MyProfileView myProfileView;
     public IProfile myProfile;
@@ -24,14 +27,14 @@ public class MyProfileActivity extends ActionBarActivity {
         Intent intent=this.getIntent();
         Bundle bundle=intent.getExtras();
 
-        IProfile myProfile = (IProfile)bundle.getSerializable("sendProfile");
+        myProfile = (IProfile)bundle.getSerializable("sendProfile");
 
         myProfileView = new MyProfileView((TextView)findViewById(R.id.myProfileNameTextView), (TextView)findViewById(R.id.myProfileProfileNameTextView),
                 (TextView)findViewById(R.id.myProfileMailTextView), (TextView)findViewById(R.id.myProfileProfileMailTextView),
                 (TextView)findViewById(R.id.myProfilePhoneTextView), (TextView)findViewById(R.id.myProfileProfilePhoneTextView),
                 (TextView)findViewById(R.id.myProfileAddressTextView), (TextView)findViewById(R.id.myProfileProfileAdressTextView),
                 (TextView)findViewById(R.id.myProfileCityTextEdit), (TextView)findViewById(R.id.myProfileProfileCityTextView),
-                (Button)findViewById(R.id.myProfileMyAdsButton), myProfile);
+                (Button)findViewById(R.id.myProfileMyAdsButton), myProfile, this);
     }
 
 
@@ -60,5 +63,14 @@ public class MyProfileActivity extends ActionBarActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(this, UserListActivity.class);
+        System.out.println(myProfile.getEmail());
+        //String email = myProfile.getEmail();
+        //intent.putExtra("Email", email);
+        startActivity(intent);
     }
 }

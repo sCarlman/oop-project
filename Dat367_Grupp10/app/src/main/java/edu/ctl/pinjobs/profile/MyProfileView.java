@@ -1,5 +1,6 @@
 package edu.ctl.pinjobs.profile;
 
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -25,7 +26,8 @@ public class MyProfileView {
 
     public MyProfileView(TextView name, TextView profileName, TextView mail, TextView profileMail,
                          TextView phone, TextView profilePhone, TextView address, TextView profileAddress,
-                         TextView city, TextView profileCity, Button showMyAds, IProfile myProfile){
+                         TextView city, TextView profileCity, Button showMyAds, IProfile myProfile,
+                         View.OnClickListener activity){
 
         this.name = name;
         this.profileName = profileName;
@@ -39,7 +41,7 @@ public class MyProfileView {
         this.profileCity = profileCity;
         this.showMyAds = showMyAds;
         this.myProfile = myProfile;
-
+        showMyAds.setOnClickListener(activity);
         setProfileInfoOnCreate();
 
     }
