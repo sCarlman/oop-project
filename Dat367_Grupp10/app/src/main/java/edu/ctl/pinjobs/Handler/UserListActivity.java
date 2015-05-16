@@ -62,7 +62,7 @@ public class UserListActivity extends ActionBarActivity {
     private void setListView(List<IAdvertisement> adList, String email){
         setContentView(R.layout.activity_ad_list);
         this.listView = new ListView(this.getApplicationContext(),(android.widget.ListView)findViewById(R.id.adListView), email);
-        this.listModel = new ListModel(adList,this);
+        this.listModel = new ListModel(adList);
     }
 
     public void openModifyAdView(Context context, AndroidAdvertisement ad, String distance){

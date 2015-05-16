@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
 import edu.ctl.pinjobs.Advertisement.DetailedAdActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
+import edu.ctl.pinjobs.Utils.LocationUtils;
 import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
@@ -18,7 +19,7 @@ import com.example.filips.dat367_grupp10.R;
 import java.util.List;
 
 
-public class HandlerActivity extends ActionBarActivity implements EventBus.IEventHandler {
+public class HandlerActivity extends ActionBarActivity  {
     IListModel listModel;
     edu.ctl.pinjobs.Handler.ListView listView;
     String email;
@@ -29,21 +30,8 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
         super.onCreate(savedInstanceState);
 
         email = getIntent().getStringExtra("Email");
-
-        EventBus.INSTANCE.addListener(this);
-        IAdvertisementService adService = new AdvertisementService();
         setListView(AdvertisementListHolder.getInstance().getList(), email);
     }
-
-    @Override
-    public void onEvent(EventBus.Event evt, Object o){
-        if(evt == EventBus.Event.ADLIST_UPDATED) {
-            //Starts the view with the list from model
-            System.out.println((List<IAdvertisement>) o);
-            //listView.setupView((List<IAdvertisement>) o, android.R.layout.simple_list_item_1);
-        }
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -70,8 +58,9 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
     private void setListView(List<IAdvertisement> adList, String email){
         setContentView(R.layout.activity_ad_list);
         this.listView = new ListView(this.getApplicationContext(),(android.widget.ListView)findViewById(R.id.adListView), email);
-        this.listModel = new ListModel(adList,this);
-        listView.setupView(adList, android.R.layout.simple_list_item_1);
+        this.listModel = new ListModel(adList);
+        listModel.sortForDistance(LocationUtils.getCurrentLocation(this));
+        listView.setupView(listModel.getList(), android.R.layout.simple_list_item_1);
 
     }
 

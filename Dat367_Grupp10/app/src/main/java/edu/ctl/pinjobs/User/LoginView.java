@@ -71,13 +71,6 @@ public class LoginView{
 
             cancel = true;
             focusView = eMail;
-
-        } else if (!isEmailCorrect(email)) {
-            eMail.setError("Fel struktur på e-mail!");
-            eMail.setTextColor(Color.RED);
-
-            cancel = true;
-            focusView = eMail;
         }
 
         if (cancel) {
@@ -92,17 +85,6 @@ public class LoginView{
         }
     }
 
-    //Makes check if e-maill is typed correct
-    public static boolean isEmailCorrect(String email) {
-        if (email != null || email != "") {
-            Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
-            Matcher m = p.matcher(email);
-            boolean emailValid = m.matches();
-            return emailValid;
-        }else {
-            return false;
-        }
-    }
 
     public void failedMatchEmailWithDatabase(){
         eMail.setError("Fel lösenord!");

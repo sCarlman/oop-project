@@ -19,6 +19,7 @@ import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import edu.ctl.pinjobs.Handler.AdvertisementListHolder;
 import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.Handler.MapActivity;
+import edu.ctl.pinjobs.Handler.UserListActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
 import edu.ctl.pinjobs.Services.IProfileService;
@@ -42,6 +43,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     private IProfileService profileService;
     private IAdvertisementService adService;
     private UserModel user = UserModel.getInstance();
+    private BackgroundThread backgroundThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +65,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 (Button)findViewById(R.id.modifyProfileButton), this);
 
         this.adService = new AdvertisementService();
-        adService.removeOutDatedAds(this);
-        BackgroundThread thread= new BackgroundThread(adService);
-        thread.start();
+        this.backgroundThread = new BackgroundThread(adService);
+        backgroundThread.start();
     }
 
 
@@ -136,7 +137,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         Intent intent = new Intent(getApplicationContext(), HandlerActivity.class);
         UserModel um = UserModel.getInstance();
         if (um.getIsLoggedIn()==false){
-            Boolean loggedIn = false;
             String email = null;
             intent.putExtra("Email", email);
             startActivity(intent);
@@ -163,9 +163,18 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        BackgroundThread thread = new BackgroundThread(adService);
+        thread.start();
+    }
+
+    @Override
     public void onEvent(EventBus.Event evt, Object o) {
         if(evt == EventBus.Event.POST_AD) {
             adService.saveAd((IAdvertisement) o);
+            BackgroundThread thread = new BackgroundThread(adService);
+            thread.start();
             Intent intent = new Intent(this.getApplicationContext(), MapActivity.class);
             AndroidAdvertisement androidAD = new AndroidAdvertisement((IAdvertisement) o);
             intent.putExtra("Advertisement", androidAD);
@@ -191,6 +200,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         if(evt == EventBus.Event.CREATE_AD_SETUP){
             callCreateAd();
+        }
+        if(evt == EventBus.Event.SHOW_MY_ADS){
+            Intent intent = new Intent(this.getApplicationContext(), UserListActivity.class);
+            intent.putExtra("Email", (String) o);
+            startActivity(intent);
         }
 
     }

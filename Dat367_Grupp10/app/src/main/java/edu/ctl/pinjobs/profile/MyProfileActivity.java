@@ -6,16 +6,21 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.filips.dat367_grupp10.R;
 
-public class MyProfileActivity extends ActionBarActivity {
+import edu.ctl.pinjobs.Handler.UserListActivity;
+import edu.ctl.pinjobs.eventbus.EventBus;
+
+public class MyProfileActivity extends ActionBarActivity implements View.OnClickListener{
 
     private MyProfileView myProfileView;
-    public IProfile myProfile;
-
+    private IProfile myProfile;
+    private String email;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,14 +29,18 @@ public class MyProfileActivity extends ActionBarActivity {
         Intent intent=this.getIntent();
         Bundle bundle=intent.getExtras();
 
-        IProfile myProfile = (IProfile)bundle.getSerializable("sendProfile");
+        myProfile = (IProfile)bundle.getSerializable("sendProfile");
+        email = myProfile.getEmail();
 
         myProfileView = new MyProfileView((TextView)findViewById(R.id.myProfileNameTextView), (TextView)findViewById(R.id.myProfileProfileNameTextView),
                 (TextView)findViewById(R.id.myProfileMailTextView), (TextView)findViewById(R.id.myProfileProfileMailTextView),
                 (TextView)findViewById(R.id.myProfilePhoneTextView), (TextView)findViewById(R.id.myProfileProfilePhoneTextView),
                 (TextView)findViewById(R.id.myProfileAddressTextView), (TextView)findViewById(R.id.myProfileProfileAdressTextView),
                 (TextView)findViewById(R.id.myProfileCityTextEdit), (TextView)findViewById(R.id.myProfileProfileCityTextView),
-                (Button)findViewById(R.id.myProfileMyAdsButton), myProfile);
+                (Button)findViewById(R.id.myProfileMyAdsButton), myProfile, this, (EditText)findViewById(R.id.myProfileFirstNameEditText),
+                (EditText)findViewById(R.id.myProfileLastNameEditText), (EditText)findViewById(R.id.myProfilePhoneEditText),
+                (EditText)findViewById(R.id.myProfileAddressEditText), (EditText)findViewById(R.id.myProfileCityEditText),
+                (Button)findViewById(R.id.myProfileSaveEditProfileButton));
     }
 
 
@@ -52,7 +61,7 @@ public class MyProfileActivity extends ActionBarActivity {
 
         switch (item.getItemId()) {
             case R.id.action_edit:
-                //Method open profile
+                myProfileView.setupEditProfilePage();
                 return true;
             case R.id.action_settings:
                 //open setings method
@@ -61,4 +70,12 @@ public class MyProfileActivity extends ActionBarActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    public void onClick(View v) {
+        EventBus.INSTANCE.publish(EventBus.Event.SHOW_MY_ADS, email);
+
+    }
+
+
 }

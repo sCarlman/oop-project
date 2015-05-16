@@ -53,13 +53,10 @@ public class AdvertisementService implements IAdvertisementService {
 
     @Override
     public List<IAdvertisement> fetchAllAds() {
-        System.out.println("I FETCH ADS 1");
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Advertisement");
         try {
             List<IAdvertisement> adList = copyToAdvertisements(query.find());
-                    System.out.println("I FETCH ADS 2");
             return adList;
-
         } catch (ParseException e) {
             e.printStackTrace();
             //TODO: Handle error.
@@ -98,7 +95,7 @@ public class AdvertisementService implements IAdvertisementService {
         }
     }
 
-    public void removeOutDatedAds(Context context){
+    public void removeOutDatedAds(){
         Calendar today = new GregorianCalendar();
         int thisYear = today.get(Calendar.YEAR);
         int thisMonth = today.get(Calendar.MONTH);
@@ -120,18 +117,7 @@ public class AdvertisementService implements IAdvertisementService {
                 }
             }
         } catch (ParseException e) {
-            System.out.println("EXCEPTION DELETE ADS");
-            AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-
-            alertDialog.setTitle("Info");
-            alertDialog.setMessage("Internet not available, Cross check your internet connectivity and try again");
-            alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
-            alertDialog.setButton( DialogInterface.BUTTON_POSITIVE,"OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            });
-            e.printStackTrace();
+            //DO SOMETHING
         }
     }
 

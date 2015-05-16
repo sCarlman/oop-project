@@ -16,7 +16,7 @@ public interface IAdvertisementService {
 
     public void saveAd(IAdvertisement Ad);
     public void deleteParseAd(ParseObject parseAd);
-    public void removeOutDatedAds(Context context);
+    public void removeOutDatedAds();
 
     public List<IAdvertisement> fetchAllAds();
     public List<IAdvertisement> fetchAdsOfAdvertiser(String email);

@@ -45,8 +45,8 @@ public class CreateAdView {
     private boolean cancel;
     private View focusView;
     private Context activityContext;
-    private AdvertisementUtils adUtils;
 
+    private AdvertisementUtils adUtils;
 
     public CreateAdView(EditText addressEditText, EditText descriptionEditText,
                         EditText titleEditText,RadioButton gardenRadioButton,
@@ -108,7 +108,10 @@ public class CreateAdView {
         }else{
             System.out.println(activityContext);
         }
+
         adUtils = new AdvertisementUtils();
+
+        
         try {
             lat = adUtils.getLocationFromAddress(activityContext,location).latitude;
             lng = adUtils.getLocationFromAddress(activityContext,location).longitude;

@@ -2,6 +2,8 @@ package edu.ctl.pinjobs.Handler;
 
 import android.content.Context;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,10 +17,8 @@ public class ListModel implements IListModel {
 
     private List<IAdvertisement> adList = new ArrayList<>();
     HandlerLocationUtils locationUtils = new HandlerLocationUtils();
-    Context context;
 
-    public ListModel(List<IAdvertisement> adList,Context context) {
-        this.context=context;
+    public ListModel(List<IAdvertisement> adList) {
         setList(adList);
     }
 
@@ -39,8 +39,6 @@ public class ListModel implements IListModel {
         }
         adList.addAll(addList);
         System.out.println(adList);
-        //sortForDistance(context);
-        //EventBus.INSTANCE.publish(EventBus.Event.ADLIST_UPDATED, adList);
     }
 
     @Override
@@ -48,7 +46,7 @@ public class ListModel implements IListModel {
         this.adList.remove(add);
     }
 
-    public void sortForDistance(Context context){
+    public void sortForDistance(LatLng currentPosition){
         List<IAdvertisement> tempAdList = new ArrayList<IAdvertisement>(adList);
         adList.clear();
         int index=-1;
@@ -59,7 +57,8 @@ public class ListModel implements IListModel {
             System.out.println(j);
 
             for (int i = 0; i < tempAdList.size(); i++) {
-                double adDistance = 0;//locationUtils.calculateDistanceFromCurrentPosition(tempAdList.get(i), context);
+                double adDistance = locationUtils.calculateDistanceFromPosition(currentPosition.latitude,tempAdList.get(i).getLatitude()
+                        ,currentPosition.longitude,tempAdList.get(i).getLongitude());
                 if (i == 0) {
                     closestDistance = adDistance;
                     closestAd = tempAdList.get(i);

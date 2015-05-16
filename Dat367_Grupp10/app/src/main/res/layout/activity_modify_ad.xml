@@ -28,6 +28,71 @@ tools:context="edu.ctl.pinjobs.Advertisement.ModifyAdActivity">
             android:editable="false"
             android:focusable="false"
             android:id="@+id/titleEditText" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Beskrivning"
+            android:visibility="visible"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:hint="Titel"
+            android:editable="false"
+            android:focusable="false"
+            android:id="@+id/desctriptionEditText" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Namn"
+            android:ems="10"
+            android:visibility="visible"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:hint="Namn"
+            android:editable="false"
+            android:focusable="false"
+            android:id="@+id/nameEditText" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPostalAddress"
+            android:text="Adress"
+            android:ems="10"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:hint="Adress"
+            android:editable="false"
+            android:focusable="false"
+            android:id="@+id/addressEditText" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:text="Telefonnummer"
+            android:ems="10"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:hint="Telefonnummer"
+            android:editable="false"
+            android:focusable="false"
+            android:id="@+id/phoneEditText" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:text="Email"
+            android:ems="10"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:hint="Email"
+            android:editable="false"
+            android:focusable="false"
+            android:id="@+id/emailEditText" />
     </TableLayout>
 </ScrollView>
 

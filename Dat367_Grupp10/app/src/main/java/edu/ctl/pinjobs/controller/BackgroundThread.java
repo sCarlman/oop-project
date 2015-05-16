@@ -1,5 +1,7 @@
 package edu.ctl.pinjobs.controller;
 
+import android.content.Context;
+
 import java.util.List;
 
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
@@ -20,5 +22,6 @@ public class BackgroundThread extends Thread {
     public void run(){
         List<IAdvertisement> adList = adService.fetchAllAds();
         EventBus.INSTANCE.publish(EventBus.Event.ADLIST_UPDATED,adList);
+        adService.removeOutDatedAds();
     }
 }
