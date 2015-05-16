@@ -43,14 +43,5 @@ public class HandlerLocationUtils {
         return distance;
     }
 
-    /*
-    public double calculateDistanceFromCurrentPosition(IAdvertisement add, Context context) throws AdressNotFoundException {
-        LatLng addLocation = getLocationFromAddress(context,add.getLocation());
-        return calculateDistanceFromPosition(addLocation.latitude, LocationUtils.getCurrentLocation(context).latitude,
-                addLocation.longitude, LocationUtils.getCurrentLocation(context).longitude);
-    }
-
-*/
-
 
 }

@@ -32,8 +32,7 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
 
         EventBus.INSTANCE.addListener(this);
         IAdvertisementService adService = new AdvertisementService();
-        List<IAdvertisement> adList = adService.fetchAllAds();
-        setListView(adList, email);
+        setListView(AdvertisementListHolder.getInstance().getList(), email);
     }
 
     @Override
@@ -41,7 +40,7 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
         if(evt == EventBus.Event.ADLIST_UPDATED) {
             //Starts the view with the list from model
             System.out.println((List<IAdvertisement>) o);
-            listView.setupView((List<IAdvertisement>) o, android.R.layout.simple_list_item_1);
+            //listView.setupView((List<IAdvertisement>) o, android.R.layout.simple_list_item_1);
         }
     }
 
@@ -72,6 +71,7 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
         setContentView(R.layout.activity_ad_list);
         this.listView = new ListView(this.getApplicationContext(),(android.widget.ListView)findViewById(R.id.adListView), email);
         this.listModel = new ListModel(adList,this);
+        listView.setupView(adList, android.R.layout.simple_list_item_1);
 
     }
 

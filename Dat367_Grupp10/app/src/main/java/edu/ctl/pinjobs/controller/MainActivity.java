@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
+import edu.ctl.pinjobs.Handler.AdvertisementListHolder;
 import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.Handler.MapActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
@@ -50,6 +51,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         Parse.initialize(this, "W4QRsIPB5oFT6F6drmZi0BrxdPYPEYHY2GYSUU4q", "JpXn4VB0Y63wqNIf0qgvRGg7k3QmjfzJjD9qhzqE");
 
         EventBus.INSTANCE.addListener(this);
+        EventBus.INSTANCE.addListener(AdvertisementListHolder.getInstance());
 
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,60000,100, new LocationUtils());
@@ -62,6 +64,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
         this.adService = new AdvertisementService();
         adService.removeOutDatedAds(this);
+        BackgroundThread thread= new BackgroundThread(adService);
+        thread.start();
     }
 
 
@@ -131,7 +135,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     public void openListView(View view) {
         Intent intent = new Intent(getApplicationContext(), HandlerActivity.class);
         UserModel um = UserModel.getInstance();
-        if (um==null){
+        if (um.getIsLoggedIn()==false){
             Boolean loggedIn = false;
             String email = null;
             intent.putExtra("Email", email);

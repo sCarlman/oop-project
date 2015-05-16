@@ -40,7 +40,7 @@ public class ListModel implements IListModel {
         adList.addAll(addList);
         System.out.println(adList);
         //sortForDistance(context);
-        EventBus.INSTANCE.publish(EventBus.Event.ADLIST_UPDATED, adList);
+        //EventBus.INSTANCE.publish(EventBus.Event.ADLIST_UPDATED, adList);
     }
 
     @Override

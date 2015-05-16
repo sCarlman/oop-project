@@ -53,9 +53,13 @@ public class AdvertisementService implements IAdvertisementService {
 
     @Override
     public List<IAdvertisement> fetchAllAds() {
+        System.out.println("I FETCH ADS 1");
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Advertisement");
         try {
-            return copyToAdvertisements(query.find());
+            List<IAdvertisement> adList = copyToAdvertisements(query.find());
+                    System.out.println("I FETCH ADS 2");
+            return adList;
+
         } catch (ParseException e) {
             e.printStackTrace();
             //TODO: Handle error.

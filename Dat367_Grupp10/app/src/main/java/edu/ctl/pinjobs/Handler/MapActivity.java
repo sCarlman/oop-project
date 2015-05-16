@@ -20,30 +20,26 @@ public class MapActivity extends ActionBarActivity {
     MapView mapView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Saves the mapfragment(the view object) from .xml
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
 
-        IAdvertisementService adService = new AdvertisementService();
-        List<IAdvertisement> adList = adService.fetchAllAds();
+        //fecthes the adList
+        List<IAdvertisement> adList = AdvertisementListHolder.getInstance().getList();
 
+        //uses different constructors depending on coming from create ad or mainwindow
         Bundle bundle = getIntent().getExtras();
         if(bundle!=null) {
-            System.out.println("KOMMER HIIIIT");
+            //from create ad window
             AndroidAdvertisement androidAd = (AndroidAdvertisement) bundle.getParcelable("Advertisement");
             IAdvertisement ad = androidAd.getAd();
-
             mapView = new MapView(this.getApplicationContext(),adList,mapFragment,ad);
-        }else {
+        }else { //from mainwindow
             mapView = new MapView(this.getApplicationContext(), adList, mapFragment);
         }
     }
-
-    public void setNewPin(IAdvertisement ad){
-        mapView.addPinAndZoom(ad);
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
