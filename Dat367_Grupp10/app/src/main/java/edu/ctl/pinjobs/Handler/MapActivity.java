@@ -1,5 +1,6 @@
 package edu.ctl.pinjobs.Handler;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,31 +15,25 @@ import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
+import edu.ctl.pinjobs.eventbus.EventBus;
 
 public class MapActivity extends ActionBarActivity {
 
-    MapView mapView;
+    private MapView mapView;
+    private boolean isActive = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Saves the mapfragment(the view object) from .xml
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
-        MapFragment mapFragment = (MapFragment) getFragmentManager()
-                .findFragmentById(R.id.map);
 
-        //fecthes the adList
-        List<IAdvertisement> adList = AdvertisementListHolder.getInstance().getList();
-
-        //uses different constructors depending on coming from create ad or mainwindow
-        Bundle bundle = getIntent().getExtras();
-        if(bundle!=null) {
-            //from create ad window
-            AndroidAdvertisement androidAd = (AndroidAdvertisement) bundle.getParcelable("Advertisement");
-            IAdvertisement ad = androidAd.getAd();
-            mapView = new MapView(this.getApplicationContext(),adList,mapFragment,ad);
-        }else { //from mainwindow
-            mapView = new MapView(this.getApplicationContext(), adList, mapFragment);
+        if(AdvertisementListHolder.getInstance().getList().size()==0) {
+            //Starts a loading screen if AdList is not loaded
+            Intent intent = new Intent(getApplicationContext(), LoadingScreen.class);
+            startActivityForResult(intent,1);
+        }else{
+            setUpMapView();
         }
+
     }
 
     @Override
@@ -63,5 +58,26 @@ public class MapActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        setUpMapView();
+    }
 
+    private void setUpMapView(){
+        setContentView(R.layout.activity_maps);
+        MapFragment mapFragment = (MapFragment) getFragmentManager()
+                .findFragmentById(R.id.map);
+        List<IAdvertisement> adList = AdvertisementListHolder.getInstance().getList();
+
+        //uses different constructors depending on coming from create ad or mainwindow
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            //from create ad window
+            AndroidAdvertisement androidAd = (AndroidAdvertisement) bundle.getParcelable("Advertisement");
+            IAdvertisement ad = androidAd.getAd();
+            mapView = new MapView(this.getApplicationContext(), adList, mapFragment, ad);
+        } else { //from mainwindow
+            mapView = new MapView(this.getApplicationContext(), adList, mapFragment);
+        }
+    }
 }

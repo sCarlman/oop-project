@@ -9,7 +9,7 @@ import edu.ctl.pinjobs.eventbus.EventBus;
 /**
  * Created by Filips on 5/15/2015.
  */
-public class AdvertisementListHolder implements EventBus.IEventHandler {
+public class AdvertisementListHolder {
     private static AdvertisementListHolder ourInstance = new AdvertisementListHolder();
     List<IAdvertisement> adList = new ArrayList<>();
 
@@ -25,18 +25,13 @@ public class AdvertisementListHolder implements EventBus.IEventHandler {
     }
     public void setList(List<IAdvertisement> list){
         if(list!=null) {
-            if(adList.size()==0)
-            adList.addAll(list);
-        }else{
-            adList.clear();
-            adList.addAll(list);
-        }
-    }
-
-    @Override
-    public void onEvent(EventBus.Event evt, Object o) {
-        if(evt== EventBus.Event.ADLIST_UPDATED){
-            setList((List<IAdvertisement>)o);
+            if(adList.size()==0) {
+                adList.addAll(list);
+                EventBus.INSTANCE.publish(EventBus.Event.ADLIST_NOT_EMPTY, null);
+            }else {
+                adList.clear();
+                adList.addAll(list);
+            }
         }
     }
 }

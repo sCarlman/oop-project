@@ -53,7 +53,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         Parse.initialize(this, "W4QRsIPB5oFT6F6drmZi0BrxdPYPEYHY2GYSUU4q", "JpXn4VB0Y63wqNIf0qgvRGg7k3QmjfzJjD9qhzqE");
 
         EventBus.INSTANCE.addListener(this);
-        EventBus.INSTANCE.addListener(AdvertisementListHolder.getInstance());
+        EventBus.INSTANCE.addListener(new HandlerActivity());
 
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,60000,100, new LocationUtils());

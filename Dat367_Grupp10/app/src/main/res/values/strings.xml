@@ -18,5 +18,6 @@
     <string name="title_activity_modify_ad">ModifyAdActivity</string>
 
     <string name="title_activity_my_profile">MyProfile</string>
+    <string name="title_activity_loading_screen">LoadingScreen</string>
 
 </resources>

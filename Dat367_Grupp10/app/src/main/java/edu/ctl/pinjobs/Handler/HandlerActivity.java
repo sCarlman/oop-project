@@ -19,18 +19,27 @@ import com.example.filips.dat367_grupp10.R;
 import java.util.List;
 
 
-public class HandlerActivity extends ActionBarActivity  {
+public class HandlerActivity extends ActionBarActivity implements EventBus.IEventHandler {
     IListModel listModel;
     edu.ctl.pinjobs.Handler.ListView listView;
     String email;
+    boolean isActive = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
+        EventBus.INSTANCE.addListener(this);
+        isActive = true;
         email = getIntent().getStringExtra("Email");
-        setListView(AdvertisementListHolder.getInstance().getList(), email);
+
+        if(AdvertisementListHolder.getInstance().getList().size()==0) {
+            //starts progressbarView
+            Intent intent = new Intent(getApplicationContext(), LoadingScreen.class);
+            startActivityForResult(intent,1);
+        }else {
+            setListView(AdvertisementListHolder.getInstance().getList(), email);
+        }
     }
 
     @Override
@@ -54,6 +63,10 @@ public class HandlerActivity extends ActionBarActivity  {
 
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        setListView(AdvertisementListHolder.getInstance().getList(),email);
+    }
 
     private void setListView(List<IAdvertisement> adList, String email){
         setContentView(R.layout.activity_ad_list);
@@ -71,9 +84,13 @@ public class HandlerActivity extends ActionBarActivity  {
         intent.putExtra("Distance", distance);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.getApplicationContext().startActivity(intent);
-
     }
 
 
-
+    @Override
+    public void onEvent(EventBus.Event evt, Object o) {
+        if(evt == EventBus.Event.ADLIST_UPDATED){
+            AdvertisementListHolder.getInstance().setList((List<IAdvertisement>)o);
+        }
+    }
 }
