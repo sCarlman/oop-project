@@ -69,7 +69,7 @@ public class ListView{
                     hej.openDetailedAdView(context,androidAD,adDistance);
                 }else if(email.equals(ad.getAdvertiser().getEmail())){
                     UserListActivity usListAct = new UserListActivity();
-                    usListAct.openModifyAdView(context, androidAD, adDistance);
+                    usListAct.openModifyAdView(context, androidAD);
                 }else{
                     HandlerActivity hej = new HandlerActivity();
                     hej.openDetailedAdView(context,androidAD,adDistance);

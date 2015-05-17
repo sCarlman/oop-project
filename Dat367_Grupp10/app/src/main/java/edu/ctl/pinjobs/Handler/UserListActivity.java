@@ -14,6 +14,7 @@ import java.util.List;
 import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
 import edu.ctl.pinjobs.Advertisement.DetailedAdActivity;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
+import edu.ctl.pinjobs.Advertisement.ModifyAdActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
 import edu.ctl.pinjobs.controller.UserModel;
@@ -65,7 +66,9 @@ public class UserListActivity extends ActionBarActivity {
         this.listModel = new ListModel(adList);
     }
 
-    public void openModifyAdView(Context context, AndroidAdvertisement ad, String distance){
-
+    public void openModifyAdView(Context context, AndroidAdvertisement ad){
+        Intent intent = new Intent(this.getApplicationContext(), ModifyAdActivity.class);
+        intent.putExtra("Advertisement", ad);
+        startActivity(intent);
     }
 }
