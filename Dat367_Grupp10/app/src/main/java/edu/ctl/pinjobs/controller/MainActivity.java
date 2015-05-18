@@ -64,6 +64,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 (TextView)findViewById(R.id.loggedInTextView));
 
         this.adService = new AdvertisementService();
+        profileService = new ProfileService();
         this.backgroundThread = new BackgroundThread(adService);
         backgroundThread.start();
     }
@@ -176,7 +177,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             this.getApplicationContext().startActivity(intent);
         }else if(evt == EventBus.Event.SAVE_PROFILE) {
-            profileService = new ProfileService();
             profileService.saveProfile((IProfile) o);
             loginUser((IProfile) o);
         }else if(evt == EventBus.Event.LOGIN_SUCCESS){
@@ -187,6 +187,10 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             Intent intent = new Intent(this.getApplicationContext(), UserListActivity.class);
             intent.putExtra("Email", (String) o);
             startActivity(intent);
+        }else if(evt == EventBus.Event.UPDATE_PROFILE){
+            profileService.updateProfile((IProfile) o);
+            adService.updateAdvertiser((IProfile) o);
+            loginUser((IProfile) o);
         }
 
     }

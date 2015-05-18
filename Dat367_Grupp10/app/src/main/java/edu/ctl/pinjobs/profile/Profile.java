@@ -4,6 +4,7 @@ package edu.ctl.pinjobs.profile;
 import java.io.Serializable;
 
 import edu.ctl.pinjobs.Utils.InfoCheck;
+import edu.ctl.pinjobs.eventbus.EventBus;
 
 /**
  * Created by Isaac on 2015-04-01.
@@ -31,7 +32,7 @@ public class Profile implements IProfile, Serializable {
     }
 
     public void setFirstName(String firstName) {
-        if(infoCheck.isAlphabetic(firstName) == true){
+        if(infoCheck.isAlphabetic(firstName)){
             this.firstName = firstName;
         }
 

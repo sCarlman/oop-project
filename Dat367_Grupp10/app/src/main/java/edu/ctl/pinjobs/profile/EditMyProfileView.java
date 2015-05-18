@@ -2,6 +2,8 @@ package edu.ctl.pinjobs.profile;
 
 import android.widget.EditText;
 
+import edu.ctl.pinjobs.eventbus.EventBus;
+
 /**
  * Created by Albertsson on 15-05-18.
  */
@@ -46,5 +48,6 @@ public class EditMyProfileView {
         profile.setLastName(editLastName.getText().toString());
         profile.setPhone(editPhone.getText().toString());
         profile.setAddress(editAddress.getText().toString() + "," + editCity.getText().toString());
+        EventBus.INSTANCE.publish(EventBus.Event.UPDATE_PROFILE, profile);
     }
 }
