@@ -180,28 +180,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             intent.putExtra("Advertisement", androidAD);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             this.getApplicationContext().startActivity(intent);
-        }
-
-        if(evt == EventBus.Event.SAVE_PROFILE){
+        }else if(evt == EventBus.Event.SAVE_PROFILE) {
             profileService = new ProfileService();
             profileService.saveProfile((IProfile) o);
-        }else if(evt == EventBus.Event.POST_AD){
-            adService.saveAd((IAdvertisement)o);
-        }
-
-        if(evt == EventBus.Event.SAVE_PROFILE) {
             loginUser((IProfile) o);
-            profileService.saveProfile((IProfile) o);
-        }
-
-        if(evt == EventBus.Event.LOGIN_SUCCESS){
+        }else if(evt == EventBus.Event.LOGIN_SUCCESS){
             loginUser(((LoginModel) o).getProfile());
-        }
-
-        if(evt == EventBus.Event.CREATE_AD_SETUP){
+        }else if(evt == EventBus.Event.CREATE_AD_SETUP){
             callCreateAd();
-        }
-        if(evt == EventBus.Event.SHOW_MY_ADS){
+        }else if(evt == EventBus.Event.SHOW_MY_ADS){
             Intent intent = new Intent(this.getApplicationContext(), UserListActivity.class);
             intent.putExtra("Email", (String) o);
             startActivity(intent);
