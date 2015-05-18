@@ -12,15 +12,15 @@ import edu.ctl.pinjobs.profile.IProfile;
 public interface IAdvertisement extends Serializable {
 
     public void setAdvertiser(IProfile advertiser);
-    public void setLocation(String location);
-    public void setTitle(String title);
-    public void setDescription(String description);
+    public void setLocation(String location) throws WrongAdInputException;
+    public void setTitle(String title) throws WrongAdInputException;
+    public void setDescription (String description)throws WrongAdInputException;
     public void setCategory(Category category);
     public void setDay(int day);
     public void setMonth(int month);
     public void setYear(int year);
-    public void setLongitude(double longitude);
-    public void setLatitude(double latitude);
+    public void setLongitude(double longitude)throws WrongAdInputException;
+    public void setLatitude(double latitude)throws WrongAdInputException;
 
     public IProfile getAdvertiser();
     public String getLocation();

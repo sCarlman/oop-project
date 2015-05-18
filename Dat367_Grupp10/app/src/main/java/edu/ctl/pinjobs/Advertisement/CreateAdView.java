@@ -102,21 +102,21 @@ public class CreateAdView {
         copyTextFieldData();
         copySelectedCategory();
         copyEndDate();
-        System.out.println("Location is: " + location);
-        if(activityContext == null){
-            System.out.println("Im motherfucking null!!!");
-        }else{
-            System.out.println(activityContext);
-        }
 
         adUtils = new AdvertisementUtils();
 
         lat = adUtils.getLocationFromAddress(activityContext,location).latitude;
         lng = adUtils.getLocationFromAddress(activityContext,location).longitude;
         //TODO: Check if adress ==null.
+        try {
+            newAd = new Advertisement(newProfile, title, description, location, category,
+                    day, month, year, lat, lng);
+        }catch(WrongAdInputException e){
+            if(e.getName().equals("title")){
+                checkFields(title, titleEditText, "Fel i Titel");
+            }
 
-        newAd = new Advertisement(newProfile, title, description, location, category,
-                day, month, year, lat, lng);
+        }
         activity.finish();
         adPosted(activity);
         EventBus.INSTANCE.publish(EventBus.Event.POST_AD, newAd);

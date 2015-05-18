@@ -22,7 +22,7 @@ public class Advertisement implements IAdvertisement, Serializable {
 
     public Advertisement(IProfile advertiser, String title, String description, String location,
                          Category category, int day, int month, int year, double latitude,
-                         double longitude) {
+                         double longitude) throws WrongAdInputException {
         setAdvertiser(advertiser);
         setLocation(location);
         setTitle(title);
@@ -39,20 +39,32 @@ public class Advertisement implements IAdvertisement, Serializable {
         this.advertiser = advertiser;
     }
 
-    public void setLocation(String location){
-        this.location = location;
+    public void setLocation(String location) throws WrongAdInputException{
+        if(false) {
+            throw new WrongAdInputException("location");
+        }else {
+            this.location = location;
+        }
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitle(String title)throws WrongAdInputException {
+        if(false) {
+            throw new WrongAdInputException("title");
+        }else {
+            this.title = title;
+        }
     }
 
-    public void setDescription(String description){
-        this.description = description;
+    public void setDescription(String description) throws WrongAdInputException {
+        if(false) {
+            throw new WrongAdInputException("description");
+        }else {
+            this.description = description;
+        }
     }
 
     public void setCategory(Category category){
-        this.category = category;
+            this.category = category;
     }
 
     public IProfile getAdvertiser() {
@@ -103,16 +115,25 @@ public class Advertisement implements IAdvertisement, Serializable {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public void setLatitude(double latitude) throws WrongAdInputException {
+        if(false) {
+            throw new WrongAdInputException("latitude");
+        }else {
+            this.latitude = latitude;
+        }
     }
 
     public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public void setLongitude(double longitude) throws WrongAdInputException {
+        if(false) {
+            throw new WrongAdInputException("longitude");
+        }else {
+            this.longitude = longitude;
+        }
     }
+
 }
 
