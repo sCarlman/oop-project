@@ -111,14 +111,9 @@ public class CreateAdView {
 
         adUtils = new AdvertisementUtils();
 
-        
-        try {
-            lat = adUtils.getLocationFromAddress(activityContext,location).latitude;
-            lng = adUtils.getLocationFromAddress(activityContext,location).longitude;
-        } catch (AdressNotFoundException e) {
-            e.printStackTrace();
-            //TODO: exception.
-        }
+        lat = adUtils.getLocationFromAddress(activityContext,location).latitude;
+        lng = adUtils.getLocationFromAddress(activityContext,location).longitude;
+        //TODO: Check if adress ==null.
 
         newAd = new Advertisement(newProfile, title, description, location, category,
                 day, month, year, lat, lng);

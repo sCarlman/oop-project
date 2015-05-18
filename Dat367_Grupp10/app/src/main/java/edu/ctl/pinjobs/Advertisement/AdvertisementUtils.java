@@ -18,7 +18,7 @@ import edu.ctl.pinjobs.Handler.AdressNotFoundException;
  */
 public class AdvertisementUtils {
 
-    public LatLng getLocationFromAddress(Context context,String strAddress) throws AdressNotFoundException {
+    public LatLng getLocationFromAddress(Context context,String strAddress) {
 
         Geocoder coder = new Geocoder(context);
         List<Address> address; //A list witch holds the adresses that match the adress input.
@@ -27,21 +27,19 @@ public class AdvertisementUtils {
         try {
             address = coder.getFromLocationName(strAddress, 5); //saves the 5 best matches from the input
             if (address == null) {
-                throw new AdressNotFoundException();
+                return null;
             }
             Address location = address.get(0);
             position = new LatLng(location.getLatitude(), location.getLongitude());
 
         } catch (IllegalArgumentException e) { //the method throws both IOexception and illegalargumentexcpetion, Ioexception if there is no
             //internet connection and illegalargument if input is null
-            throw new AdressNotFoundException();
         }catch (IOException e){
             new AlertDialog.Builder(context)
                     .setTitle("Info")
                     .setMessage("Internet not available, Cross check your internet connectivity and try again")
                     .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            // continue with delete
                         }
                     }).show();
         }
