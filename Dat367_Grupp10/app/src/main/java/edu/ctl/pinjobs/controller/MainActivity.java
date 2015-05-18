@@ -61,8 +61,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         this.mainView = new MainView((Button)findViewById(R.id.mapButton),
                 (Button)findViewById(R.id.listButton),(Button)findViewById(R.id.postAdButton),
                 (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton),
-                (TextView)findViewById(R.id.loggedInTextView),
-                (Button)findViewById(R.id.modifyProfileButton), this);
+                (TextView)findViewById(R.id.loggedInTextView));
 
         this.adService = new AdvertisementService();
         this.backgroundThread = new BackgroundThread(adService);
@@ -101,11 +100,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if(view == findViewById(R.id.modifyProfileButton)) {
-            Intent intent = new Intent(this, CreateProfileActivity.class);
-            intent.putExtra("modify", true);
-            startActivity(intent);
-        }
+
     }
 
     public void openMapView(View view){
@@ -135,13 +130,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     public void openListView(View view) {
         Intent intent = new Intent(getApplicationContext(), HandlerActivity.class);
-        UserModel um = UserModel.getInstance();
-        if (um.getIsLoggedIn()==false){
+        //UserModel um = UserModel.getInstance();
+        if (user.getIsLoggedIn()==false){
             String email = null;
             intent.putExtra("Email", email);
             startActivity(intent);
         }else{
-            String email = um.getProfile().getEmail();
+            String email = user.getProfile().getEmail();
             intent.putExtra("Email", email);
             startActivity(intent);
         }

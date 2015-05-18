@@ -3,6 +3,8 @@ package edu.ctl.pinjobs.profile;
 
 import java.io.Serializable;
 
+import edu.ctl.pinjobs.Utils.InfoCheck;
+
 /**
  * Created by Isaac on 2015-04-01.
  * A profile is needed to post ads
@@ -16,9 +18,10 @@ public class Profile implements IProfile, Serializable {
     private String email;
     private String phone;
     private String address;
+    InfoCheck infoCheck = new InfoCheck();
 
     public Profile(String firstName, String lastName, String password, String email, String phone,
-                           String address) {
+                           String address){
         setFirstName(firstName);
         setLastName(lastName);
         setPassword(password);
@@ -28,7 +31,10 @@ public class Profile implements IProfile, Serializable {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        if(infoCheck.isAlphabetic(firstName) == true){
+            this.firstName = firstName;
+        }
+
     }
 
     public void setLastName(String lastName) {
