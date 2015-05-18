@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import edu.ctl.pinjobs.Advertisement.WrongAdInputException;
 import edu.ctl.pinjobs.profile.IProfile;
 import edu.ctl.pinjobs.Advertisement.Advertisement;
 import edu.ctl.pinjobs.Advertisement.Category;
@@ -70,16 +71,20 @@ public class AdvertisementService implements IAdvertisementService {
         List<IAdvertisement> fetchedAds = new ArrayList<IAdvertisement>();
         ProfileService pService = new ProfileService();
         for (ParseObject parseAd: parseAds) {
-            fetchedAds.add(new Advertisement(pService.fetchProfile(parseAd.getString("Email")),
-                    parseAd.getString("Title"),
-                    parseAd.getString("Description"),
-                    parseAd.getString("Location"),
-                    Category.valueOf(parseAd.getString("Category")),
-                    parseAd.getInt("Day"),
-                    parseAd.getInt("Month"),
-                    parseAd.getInt("Year"),
-                    parseAd.getDouble("Lat"),
-                    parseAd.getDouble("Lng")));
+            try {
+                fetchedAds.add(new Advertisement(pService.fetchProfile(parseAd.getString("Email")),
+                        parseAd.getString("Title"),
+                        parseAd.getString("Description"),
+                        parseAd.getString("Location"),
+                        Category.valueOf(parseAd.getString("Category")),
+                        parseAd.getInt("Day"),
+                        parseAd.getInt("Month"),
+                        parseAd.getInt("Year"),
+                        parseAd.getDouble("Lat"),
+                        parseAd.getDouble("Lng")));
+            }catch(WrongAdInputException e){
+                deleteParseAd(parseAd);
+            }
         }
         return fetchedAds;
     }

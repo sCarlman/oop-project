@@ -20,7 +20,7 @@ import edu.ctl.pinjobs.profile.Profile;
  */
 
 public class Search {
-    List<IAdvertisement> searchedAds;
+  /*  List<IAdvertisement> searchedAds;
     public List<IAdvertisement> doSearch(String s, List<ParseObject> parseAds){
 
         searchedAds = new ArrayList<IAdvertisement>();
@@ -47,6 +47,7 @@ public class Search {
         }
         return searchedAds;
     }
+    */
 
 }
 
