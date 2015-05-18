@@ -61,8 +61,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         this.mainView = new MainView((Button)findViewById(R.id.mapButton),
                 (Button)findViewById(R.id.listButton),(Button)findViewById(R.id.postAdButton),
                 (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton),
-                (TextView)findViewById(R.id.loggedInTextView),
-                (Button)findViewById(R.id.modifyProfileButton), this);
+                (TextView)findViewById(R.id.loggedInTextView));
 
         this.adService = new AdvertisementService();
         this.backgroundThread = new BackgroundThread(adService);
@@ -101,11 +100,7 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if(view == findViewById(R.id.modifyProfileButton)) {
-            Intent intent = new Intent(this, CreateProfileActivity.class);
-            intent.putExtra("modify", true);
-            startActivity(intent);
-        }
+
     }
 
     public void openMapView(View view){
@@ -135,13 +130,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     public void openListView(View view) {
         Intent intent = new Intent(getApplicationContext(), HandlerActivity.class);
-        UserModel um = UserModel.getInstance();
-        if (um.getIsLoggedIn()==false){
+        //UserModel um = UserModel.getInstance();
+        if (user.getIsLoggedIn()==false){
             String email = null;
             intent.putExtra("Email", email);
             startActivity(intent);
         }else{
-            String email = um.getProfile().getEmail();
+            String email = user.getProfile().getEmail();
             intent.putExtra("Email", email);
             startActivity(intent);
         }
@@ -180,28 +175,15 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             intent.putExtra("Advertisement", androidAD);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             this.getApplicationContext().startActivity(intent);
-        }
-
-        if(evt == EventBus.Event.SAVE_PROFILE){
+        }else if(evt == EventBus.Event.SAVE_PROFILE) {
             profileService = new ProfileService();
             profileService.saveProfile((IProfile) o);
-        }else if(evt == EventBus.Event.POST_AD){
-            adService.saveAd((IAdvertisement)o);
-        }
-
-        if(evt == EventBus.Event.SAVE_PROFILE) {
             loginUser((IProfile) o);
-            profileService.saveProfile((IProfile) o);
-        }
-
-        if(evt == EventBus.Event.LOGIN_SUCCESS){
+        }else if(evt == EventBus.Event.LOGIN_SUCCESS){
             loginUser(((LoginModel) o).getProfile());
-        }
-
-        if(evt == EventBus.Event.CREATE_AD_SETUP){
+        }else if(evt == EventBus.Event.CREATE_AD_SETUP){
             callCreateAd();
-        }
-        if(evt == EventBus.Event.SHOW_MY_ADS){
+        }else if(evt == EventBus.Event.SHOW_MY_ADS){
             Intent intent = new Intent(this.getApplicationContext(), UserListActivity.class);
             intent.putExtra("Email", (String) o);
             startActivity(intent);

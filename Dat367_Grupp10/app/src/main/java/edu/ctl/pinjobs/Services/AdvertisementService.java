@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -119,6 +121,47 @@ public class AdvertisementService implements IAdvertisementService {
         } catch (ParseException e) {
             //DO SOMETHING
         }
+    }
+
+    @Override
+    public void updateAd(final IAdvertisement ad) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Advertisement");
+        query.whereEqualTo("Email", ad.getAdvertiser().getEmail());
+        query.whereEqualTo("Title", ad.getTitle());
+        query.whereEqualTo("Description", ad.getDescription());
+        query.whereEqualTo("Location", ad.getLocation());
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseAd, ParseException e) {
+                if (e == null) {
+                    setParseAdvertisement(ad, parseAd);
+                    uploadToParse(parseAd);
+                } else {
+                    //TODO: error walla!
+                }
+            }
+        });
+    }
+
+    public void updateAdvertiser(final IProfile profile) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Advertisement");
+        query.whereEqualTo("Email", profile.getEmail());
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> parseObjects, ParseException e) {
+                if(e == null) {
+                    for (ParseObject parseAd : parseObjects) {
+                        parseAd.put("FirstName", profile.getFirstName());
+                        parseAd.put("LastName", profile.getLastName());
+                        parseAd.put("Email", profile.getEmail());
+                        parseAd.put("Phone", profile.getPhone());
+                        uploadToParse(parseAd);
+                    }
+                }else {
+                    //TODO: error walla!
+                }
+            }
+        });
     }
 
     public void deleteParseAd(ParseObject parseAd) {

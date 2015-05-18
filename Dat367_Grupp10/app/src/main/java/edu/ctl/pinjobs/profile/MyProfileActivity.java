@@ -37,10 +37,7 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
                 (TextView)findViewById(R.id.myProfilePhoneTextView), (TextView)findViewById(R.id.myProfileProfilePhoneTextView),
                 (TextView)findViewById(R.id.myProfileAddressTextView), (TextView)findViewById(R.id.myProfileProfileAdressTextView),
                 (TextView)findViewById(R.id.myProfileCityTextEdit), (TextView)findViewById(R.id.myProfileProfileCityTextView),
-                (Button)findViewById(R.id.myProfileMyAdsButton), myProfile, this, (EditText)findViewById(R.id.myProfileFirstNameEditText),
-                (EditText)findViewById(R.id.myProfileLastNameEditText), (EditText)findViewById(R.id.myProfilePhoneEditText),
-                (EditText)findViewById(R.id.myProfileAddressEditText), (EditText)findViewById(R.id.myProfileCityEditText),
-                (Button)findViewById(R.id.myProfileSaveEditProfileButton));
+                (Button)findViewById(R.id.myProfileMyAdsButton), myProfile, this);
     }
 
 
@@ -61,7 +58,13 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
 
         switch (item.getItemId()) {
             case R.id.action_edit:
-                myProfileView.setupEditProfilePage();
+                Intent intent = new Intent(getApplicationContext(), EditMyProfileActivity.class);
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("sendProfile", myProfile);
+                intent.putExtras(bundle);
+
+                startActivityForResult(intent, 1);
                 return true;
             case R.id.action_settings:
                 //open setings method
@@ -75,6 +78,12 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
     public void onClick(View v) {
         EventBus.INSTANCE.publish(EventBus.Event.SHOW_MY_ADS, email);
 
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        this.myProfile = (IProfile) data.getSerializableExtra("sendProfile");
+        myProfileView.setProfileInfoOnCreate(myProfile);
     }
 
 

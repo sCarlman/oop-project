@@ -1,7 +1,7 @@
 package com.test;
 import org.junit.Test;
 
-import edu.ctl.pinjobs.model.InfoCheck;
+import edu.ctl.pinjobs.Utils.InfoCheck;
 
 import static org.junit.Assert.*;
 

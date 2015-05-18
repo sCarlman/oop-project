@@ -70,7 +70,6 @@ public class CreateAdView {
 
     public void setNewProfile(IProfile newProfile){
         this.newProfile = newProfile;
-        System.out.println("HOLA " + newProfile.getAddress());
         //sets location to default address of the advertiser
         locationEditText.setText(newProfile.getAddress());
     }
@@ -143,10 +142,6 @@ public class CreateAdView {
         }else if(otherRadioButton.isChecked()){
             category = Category.OTHER;
         }
-    }
-
-    public void notLoggedIn(Context c){
-        Toast.makeText(c, "Pls log in to create ad", Toast.LENGTH_LONG).show();
     }
 
     public void adPosted(Context c){

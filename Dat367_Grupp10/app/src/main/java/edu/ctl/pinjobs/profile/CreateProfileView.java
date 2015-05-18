@@ -69,7 +69,7 @@ public class CreateProfileView {
 
     public void createProfileButtonClicked() {
 
-        this.address = address + ";" + city;
+        this.address = address + "," + city;
 
         newProfile = new Profile(firstName, lastName, password, email, phone, address);
         activity.finish();

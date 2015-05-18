@@ -23,8 +23,7 @@ public class MainView {
     private MainActivity mainActivity = new MainActivity();
 
     public MainView(Button map, Button list, Button newAd, Button login, Button logOf,
-                    TextView loggedInText, Button modifyProfileButton,
-                    View.OnClickListener controller){
+                    TextView loggedInText){
 
         this.mapButton = map;
         this.listButton = list;
@@ -32,8 +31,6 @@ public class MainView {
         this.loginButton = login;
         this.logOfButton = logOf;
         this.loggedInTextView = loggedInText;
-        this.modifyProfileButton = modifyProfileButton;
-        this.modifyProfileButton.setOnClickListener(controller);
     }
 
     public void repaintForLogOf(){
@@ -52,7 +49,6 @@ public class MainView {
             logOfButton.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.GONE);
             loggedInTextView.setVisibility(View.VISIBLE);
-            modifyProfileButton.setVisibility(View.VISIBLE);
         } else {
             repaintForLogOf();
         }
