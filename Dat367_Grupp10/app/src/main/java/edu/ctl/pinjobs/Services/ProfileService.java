@@ -1,5 +1,7 @@
 package edu.ctl.pinjobs.Services;
 
+import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -79,6 +81,24 @@ public class ProfileService implements IProfileService{
                 parseProfile.getString("Phone"),
                 parseProfile.getString("PreferredLocation"));
         return fetchedProfile;
+    }
+
+    public void updateProfile(final IProfile profile){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Profile");
+        query.whereEqualTo("Email", profile.getEmail());
+        query.getFirstInBackground(new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                parseObject.put("FirstName", profile.getFirstName());
+                parseObject.put("LastName", profile.getLastName());
+                parseObject.put("Email", profile.getEmail());
+                parseObject.put("Phone", profile.getPhone());
+                parseObject.put("FirstName", profile.getFirstName());
+                parseObject.put("FirstName", profile.getFirstName());
+
+            }
+        });
+
     }
 
 }

@@ -10,6 +10,7 @@ import edu.ctl.pinjobs.profile.IProfile;
 public interface IProfileService {
 
     public void saveProfile(IProfile profile);
+    public void updateProfile(IProfile profile);
 
     public List<IProfile> fetchAllProfiles();
     public IProfile fetchProfile(String email);

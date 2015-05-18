@@ -4,15 +4,28 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 import com.example.filips.dat367_grupp10.R;
 
 public class ModifyAdActivity extends ActionBarActivity {
 
+    private ModifyAdView view;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_ad);
+
+        Bundle bundle = getIntent().getExtras();
+        AndroidAdvertisement androidAd = (AndroidAdvertisement)bundle.getParcelable("Advertisement");
+        IAdvertisement ad = androidAd.getAd();
+
+        ModifyAdView view = new ModifyAdView((EditText)findViewById(R.id.titleEditText),
+                (EditText)findViewById(R.id.descriptionEditText),(EditText)findViewById(R.id.nameEditText),
+                (EditText)findViewById(R.id.addressEditText),(EditText)findViewById(R.id.phoneEditText),
+                (EditText)findViewById(R.id.emailEditText),ad);
+        this.view = view;
     }
 
     @Override
