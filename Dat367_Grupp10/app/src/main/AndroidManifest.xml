@@ -88,6 +88,10 @@
             android:name="edu.ctl.pinjobs.Handler.LoadingScreen"
             android:label="@string/title_activity_loading_screen" >
         </activity>
+        <activity
+            android:name="edu.ctl.pinjobs.profile.EditMyProfileActivity"
+            android:label="@string/title_activity_edit_my_profile" >
+        </activity>
     </application>
 
 </manifest>
