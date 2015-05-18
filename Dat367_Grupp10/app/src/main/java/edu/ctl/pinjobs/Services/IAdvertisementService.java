@@ -14,9 +14,10 @@ import edu.ctl.pinjobs.Advertisement.IAdvertisement;
  */
 public interface IAdvertisementService {
 
-    public void saveAd(IAdvertisement Ad);
+    public void saveAd(IAdvertisement ad);
     public void deleteParseAd(ParseObject parseAd);
     public void removeOutDatedAds();
+    public void updateAd(IAdvertisement ad);
 
     public List<IAdvertisement> fetchAllAds();
     public List<IAdvertisement> fetchAdsOfAdvertiser(String email);

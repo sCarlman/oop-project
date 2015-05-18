@@ -102,12 +102,6 @@ public class CreateAdView {
         copyTextFieldData();
         copySelectedCategory();
         copyEndDate();
-        System.out.println("Location is: " + location);
-        if(activityContext == null){
-            System.out.println("Im motherfucking null!!!");
-        }else{
-            System.out.println(activityContext);
-        }
 
         adUtils = new AdvertisementUtils();
 

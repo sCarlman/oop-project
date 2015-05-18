@@ -93,9 +93,8 @@ public class ProfileService implements IProfileService{
                 parseObject.put("LastName", profile.getLastName());
                 parseObject.put("Email", profile.getEmail());
                 parseObject.put("Phone", profile.getPhone());
-                parseObject.put("FirstName", profile.getFirstName());
-                parseObject.put("FirstName", profile.getFirstName());
-
+                parseObject.put("PreferredLocation", profile.getAddress());
+                uploadToParse(parseObject);
             }
         });
 
