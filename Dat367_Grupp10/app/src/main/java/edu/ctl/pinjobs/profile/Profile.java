@@ -36,17 +36,15 @@ public class Profile implements IProfile, Serializable {
 
 
     public void setFirstName(String firstName) throws WrongInputExeption{
-
-        if(infoCheck.isAlphabetic(firstName)){
+        if(firstName != null && !firstName.isEmpty() && infoCheck.isAlphabetic(firstName)){
             this.firstName = firstName;
         }else{
             throw new WrongInputExeption("FirstName");
         }
-
     }
 
     public void setLastName(String lastName) throws WrongInputExeption{
-        if(infoCheck.isAlphabetic(firstName)){
+        if(lastName != null && !lastName.isEmpty() && infoCheck.isAlphabetic(firstName)){
             this.lastName = lastName;
         }else{
             throw new WrongInputExeption("LastName");
@@ -54,7 +52,7 @@ public class Profile implements IProfile, Serializable {
     }
 
     public void setPassword(String password) throws WrongInputExeption{
-        if(password.length() >= 2){
+        if(password != null && !password.isEmpty() && password.length() >= 2){
             this.password = password;
         }else{
             throw new WrongInputExeption("Password");
@@ -62,7 +60,7 @@ public class Profile implements IProfile, Serializable {
     }
 
     public void setEmail(String email) throws WrongInputExeption{
-        if(isEmailCorrect(email)){
+        if(email != null && !email.isEmpty() && isEmailCorrect(email)){
             this.email = email;
         }else{
             throw new WrongInputExeption("Email");
@@ -70,7 +68,7 @@ public class Profile implements IProfile, Serializable {
     }
 
     public void setPhone(String phone) throws WrongInputExeption{
-        if(isNumeric(phone)){
+        if(phone != null && !phone.isEmpty() && isNumeric(phone)){
             this.phone = phone;
         }else{
             throw new WrongInputExeption("Phone");
@@ -78,7 +76,7 @@ public class Profile implements IProfile, Serializable {
     }
 
     public void setAddress(String preferredLocation) throws WrongInputExeption{
-        if(preferredLocation.contains(",")){
+        if(preferredLocation != null && !preferredLocation.isEmpty()){
             this.address = preferredLocation;
         }else{
             throw new WrongInputExeption("Location");

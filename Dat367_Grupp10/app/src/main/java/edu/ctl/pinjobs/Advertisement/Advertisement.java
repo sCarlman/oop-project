@@ -144,16 +144,19 @@ public class Advertisement implements IAdvertisement, Serializable {
         char[] chars = name.toCharArray();
         boolean firstIsAlphabetic = false;
         boolean numberExists = false;
-        if(Character.isLetter(0)){
+        if(Character.isLetter(chars[0])){
             firstIsAlphabetic = true;
         }
         for (char c : chars) {
             if(Character.isLetter(c) && numberExists){
+                System.out.println("SKA INTE KOMMA HIT");
                 //returns false if number has occurred followed by a letter.
                 return false;
             } else if(!(Character.isLetter(c))) {
                 numberExists = true;
+                System.out.println("is character is letter");
                 if(!Character.isDigit(c)){
+                    System.out.println("is character is digit");
                     //if character is neither letter or number return false.
                     return false;
                 }
