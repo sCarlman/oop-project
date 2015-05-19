@@ -73,18 +73,33 @@ public class CreateProfileView {
             newProfile = new Profile(firstName, lastName, password, email, phone, address);
         }catch (WrongInputExeption e){
             if(e.getError().equals("FirstName")){
-                checkFields(firstName, firstNameEditText, "Förnamn ej Gilltligt");
-                focusView.requestFocus();
+                System.out.println("*!*!*!*!*!*!*!*!*!*! SÄTTER ERROR PÅ FIRSTNAME");
+                firstNameEditText.setError("Förnamn ej Gilltligt");
+                firstNameEditText.requestFocus();
             }
             if(e.getError().equals("LastName")){
-                checkFields(lastName, lastNameEditText, "Efternamn ej Gilltligt");
+                lastNameEditText.setError("Efternamn ej Gilltligt");
+                lastNameEditText.requestFocus();
             }
             if(e.getError().equals("Password")){
-                checkFields(password, passwordEditText, "Lösenord ej Gilltligt");
+                passwordEditText.setError("Lösenord ej Gilltligt");
+                passwordEditText.requestFocus();
             }
-            //*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!
-            //*!*! Make this for all errors !*!*!
-            //*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!
+            if(e.getError().equals("Email")){
+                emailEditText.setError("Email ej Gilltligt");
+                emailEditText.requestFocus();
+            }
+            if(e.getError().equals("Phone")){
+                phoneEditText.setError("Telefon ej Gilltligt");
+                phoneEditText.requestFocus();
+            }
+            //SKALL DELAS UPP I ADRESS OCH STAD !*!*!*!*!*!*!
+            if(e.getError().equals("Location")){
+                cityEditText.setError("Stad ej Gilltligt");
+                cityEditText.requestFocus();
+                locationEditText.setError("Adress ej Gilltligt");
+                locationEditText.requestFocus();
+            }
         }
 
         activity.finish();

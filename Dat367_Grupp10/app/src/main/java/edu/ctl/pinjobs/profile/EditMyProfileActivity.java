@@ -16,6 +16,8 @@ public class EditMyProfileActivity extends ActionBarActivity {
 
     private EditMyProfileView editMyProfileView;
 
+    private boolean canceledByError;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +31,8 @@ public class EditMyProfileActivity extends ActionBarActivity {
 
          editMyProfileView = new EditMyProfileView( profile, (EditText)findViewById(R.id.myProfileFirstNameEditText),
                 (EditText)findViewById(R.id.myProfileLastNameEditText), (EditText)findViewById(R.id.myProfilePhoneEditText),
-                (EditText)findViewById(R.id.myProfileAddressEditText), (EditText)findViewById(R.id.myProfileCityEditText));
+                (EditText)findViewById(R.id.myProfileAddressEditText), (EditText)findViewById(R.id.myProfileCityEditText),
+                 this);
 
     }
 
@@ -57,12 +60,22 @@ public class EditMyProfileActivity extends ActionBarActivity {
 
     public void saveNewInputToProfile(View view){
         editMyProfileView.saveTextFieldsToProfile(myProfile);
+        if(!canceledByError){
+            System.out.println("*!*!*!*!*!*!*!*!*! SKAPAR NY INTENT");
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("sendProfile", myProfile);
+            intent.putExtras(bundle);
+            setResult(2, intent);
+            finish();
+        }
+    }
 
-        Intent intent = new Intent();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("sendProfile", myProfile);
-        intent.putExtras(bundle);
-        setResult(2, intent);
-        finish();
+    public void setCanceledByError(boolean cancel){
+        this.canceledByError = cancel;
+    }
+
+    public boolean getCanceledByError(){
+        return canceledByError;
     }
 }
