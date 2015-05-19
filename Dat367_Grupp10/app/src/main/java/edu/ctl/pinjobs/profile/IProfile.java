@@ -8,12 +8,12 @@ import java.io.Serializable;
  */
 public interface IProfile extends Serializable {
 
-    public void setFirstName(String firstName);
-    public void setLastName(String lastName);
-    public void setPassword(String password);
-    public void setEmail(String email);
-    public void setPhone(String phone);
-    public void setAddress(String preferredLocation);
+    public void setFirstName(String firstName) throws WrongInputExeption;
+    public void setLastName(String lastName) throws WrongInputExeption ;
+    public void setPassword(String password) throws WrongInputExeption;
+    public void setEmail(String email) throws WrongInputExeption;
+    public void setPhone(String phone) throws WrongInputExeption;
+    public void setAddress(String preferredLocation) throws WrongInputExeption;
 
     public String getFirstName();
     public String getLastName();

@@ -37,6 +37,7 @@ public class Advertisement implements IAdvertisement, Serializable {
     }
 
     public void setAdvertiser(IProfile advertiser) {
+        System.out.println(advertiser);
         this.advertiser = advertiser;
     }
 
@@ -159,6 +160,7 @@ public class Advertisement implements IAdvertisement, Serializable {
             }
         }
         //returns true if previous false returns haven't occurred and first character is a letter
+        System.out.println( true && firstIsAlphabetic);
         return true && firstIsAlphabetic;
 
     }

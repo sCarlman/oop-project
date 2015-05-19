@@ -110,20 +110,20 @@ public class CreateAdView {
         try {
             newAd = new Advertisement(newProfile, title, description, location, category,
                     day, month, year, lat, lng);
+            EventBus.INSTANCE.publish(EventBus.Event.POST_AD, newAd);
+            activity.finish();
+            adPosted(activity);
         }catch(WrongAdInputException e){
             if(e.getName().equals("title")){
-                checkFields(title, titleEditText, "Måste vara mellan 1 och 30 bokstäver");
+                titleEditText.setError("Måste vara mellan 1 och 30 bokstäver");
             }
             if(e.getName().equals("description")){
-                checkFields(title, titleEditText, "Max 300 tecken, min 1");
+                 descriptionEditText.setError("Max 300 tecken, min 1");
             }
             if(e.getName().equals("location")){
-                checkFields(title, titleEditText, "Ej giltig adress");
+                locationEditText.setError("Ej giltig adress");
             }
         }
-        activity.finish();
-        adPosted(activity);
-        EventBus.INSTANCE.publish(EventBus.Event.POST_AD, newAd);
     }
 
     private void copyEndDate() {

@@ -17,7 +17,6 @@ public class MainView {
     private Button createNewAdButton;
     private Button loginButton;
     private Button logOfButton;
-    private Button modifyProfileButton;
     private TextView loggedInTextView;
 
     private MainActivity mainActivity = new MainActivity();
@@ -38,7 +37,6 @@ public class MainView {
         logOfButton.setVisibility(View.GONE);
         loginButton.setVisibility(View.VISIBLE);
         loggedInTextView.setVisibility(View.GONE);
-        modifyProfileButton.setVisibility(View.GONE);
     }
 
     public void repaintLogInView(boolean loggedIn) {
