@@ -34,4 +34,17 @@ public class AdvertisementListHolder {
             }
         }
     }
+    public List<IAdvertisement> getAdvertiserAdsList(String email){
+        List<IAdvertisement> advertiserAdList = new ArrayList<>();
+        if(adList.size() != 0){
+
+            for(IAdvertisement ad : adList){
+                if(ad.getAdvertiser().getEmail().equals(email)){
+                    advertiserAdList.add(ad);
+                }
+            }
+
+        }
+        return advertiserAdList;
+    }
 }

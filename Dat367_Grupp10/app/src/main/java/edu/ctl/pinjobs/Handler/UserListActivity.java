@@ -17,25 +17,33 @@ import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 import edu.ctl.pinjobs.Advertisement.ModifyAdActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.Services.IAdvertisementService;
+import edu.ctl.pinjobs.Utils.LocationUtils;
 import edu.ctl.pinjobs.controller.UserModel;
+import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.profile.IProfile;
 
-public class UserListActivity extends ActionBarActivity {
+public class UserListActivity extends ActionBarActivity implements EventBus.IEventHandler {
 
     IListModel listModel;
     edu.ctl.pinjobs.Handler.ListView listView;
+    String email;
+    boolean isActive = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ad_list);
-        String email = getIntent().getStringExtra("Email");
-        IAdvertisementService adService = new AdvertisementService();
+        EventBus.INSTANCE.addListener(this);
+        isActive = true;
+        email = getIntent().getStringExtra("Email");
 
+        if(AdvertisementListHolder.getInstance().getList().size()==0) {
+            //starts progressbarView
+            Intent intent = new Intent(getApplicationContext(), LoadingScreen.class);
+            startActivityForResult(intent,1);
+        }else {
+            setListView(AdvertisementListHolder.getInstance().getAdvertiserAdsList(email), email);
+        }
 
-        List<IAdvertisement> adList = adService.fetchAdsOfAdvertiser(email);
-
-        setListView(adList, email);
     }
 
     @Override
@@ -62,13 +70,25 @@ public class UserListActivity extends ActionBarActivity {
 
     private void setListView(List<IAdvertisement> adList, String email){
         setContentView(R.layout.activity_ad_list);
-        this.listView = new ListView(this.getApplicationContext(),(android.widget.ListView)findViewById(R.id.adListView), email);
+        this.listView = new ListView(getApplicationContext(),(android.widget.ListView)findViewById(R.id.adListView), email);
         this.listModel = new ListModel(adList);
+        listModel.sortForDistance(LocationUtils.getCurrentLocation(this));
+        listView.setupView(listModel.getList(), android.R.layout.simple_list_item_1);
     }
 
+    //Fixa context skiten! samma problem som med handlerActivity
     public void openModifyAdView(Context context, AndroidAdvertisement ad){
-        Intent intent = new Intent(this.getApplicationContext(), ModifyAdActivity.class);
+
+        Intent intent = new Intent(context, ModifyAdActivity.class);
         intent.putExtra("Advertisement", ad);
-        startActivity(intent);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    @Override
+    public void onEvent(EventBus.Event evt, Object o) {
+        if(evt == EventBus.Event.ADLIST_UPDATED){
+            AdvertisementListHolder.getInstance().setList((List<IAdvertisement>)o);
+        }
     }
 }

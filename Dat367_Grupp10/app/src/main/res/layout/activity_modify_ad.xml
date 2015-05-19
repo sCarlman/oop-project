@@ -33,9 +33,8 @@ tools:context="edu.ctl.pinjobs.Advertisement.ModifyAdActivity">
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:hint="Titel"
-            android:editable="false"
-            android:focusable="false"
-            android:id="@+id/titleEditText" />
+
+            android:id="@+id/modifyTitleEditText" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -45,23 +44,8 @@ tools:context="edu.ctl.pinjobs.Advertisement.ModifyAdActivity">
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:hint="Titel"
-            android:editable="false"
-            android:focusable="false"
-            android:id="@+id/desctriptionEditText" />
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:text="Namn"
-            android:ems="10"
-            android:visibility="visible"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:hint="Namn"
-            android:editable="false"
-            android:focusable="false"
-            android:id="@+id/nameEditText" />
+            android:id="@+id/modifyDesctriptionEditText" />
 
         <EditText
             android:layout_width="wrap_content"
@@ -72,35 +56,28 @@ tools:context="edu.ctl.pinjobs.Advertisement.ModifyAdActivity">
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
             android:hint="Adress"
-            android:editable="false"
-            android:focusable="false"
-            android:id="@+id/addressEditText" />
 
-        <EditText
+            android:id="@+id/modifyAddressEditText" />
+
+        <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="phone"
-            android:text="Telefonnummer"
-            android:ems="10"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:hint="Telefonnummer"
-            android:editable="false"
-            android:focusable="false"
-            android:id="@+id/phoneEditText" />
+            android:text="Trädgårdsarbete"
+            android:checked="true"
+            android:visibility="visible"
+            android:id="@+id/modifyGardenRadioButton" />
 
-        <EditText
+        <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:text="Email"
-            android:ems="10"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:hint="Email"
-            android:editable="false"
-            android:focusable="false"
-            android:id="@+id/emailEditText" />
+            android:text="New RadioButton"
+            android:id="@+id/modifyLabourRadioButton" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New RadioButton"
+            android:id="@+id/modifyOtherRadioButton" />
 
         <Button
             android:layout_width="wrap_content"
