@@ -52,22 +52,18 @@ public class ListModel implements IListModel {
         int index=-1;
         IAdvertisement closestAd=null;
         double closestDistance = 10000000;
-        int loop = tempAdList.size();
-        for(int j=0;j<loop;j++) {
-            System.out.println(j);
-
+        int loopSize = tempAdList.size();
+        for(int j=0;j<loopSize;j++) {
             for (int i = 0; i < tempAdList.size(); i++) {
                 double adDistance = locationUtils.calculateDistanceFromPosition(currentPosition.latitude,tempAdList.get(i).getLatitude()
                         ,currentPosition.longitude,tempAdList.get(i).getLongitude());
                 if (i == 0) {
                     closestDistance = adDistance;
                     closestAd = tempAdList.get(i);
-                    index = i;
                 } else {
                     if (closestDistance > adDistance) {
                         closestDistance = adDistance;
                         closestAd = tempAdList.get(i);
-                        index = i;
                     }
                 }
             }

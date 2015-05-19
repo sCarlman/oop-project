@@ -27,7 +27,7 @@ public class AdvertisementUtils {
         try {
             address = coder.getFromLocationName(strAddress, 5); //saves the 5 best matches from the input
             if (address == null) {
-                return null;
+                return new LatLng(200,200);
             }
             Address location = address.get(0);
             position = new LatLng(location.getLatitude(), location.getLongitude());

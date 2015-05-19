@@ -112,9 +112,14 @@ public class CreateAdView {
                     day, month, year, lat, lng);
         }catch(WrongAdInputException e){
             if(e.getName().equals("title")){
-                checkFields(title, titleEditText, "Fel i Titel");
+                checkFields(title, titleEditText, "Måste vara mellan 1 och 30 bokstäver");
             }
-
+            if(e.getName().equals("description")){
+                checkFields(title, titleEditText, "Max 300 tecken, min 1");
+            }
+            if(e.getName().equals("location")){
+                checkFields(title, titleEditText, "Ej giltig adress");
+            }
         }
         activity.finish();
         adPosted(activity);

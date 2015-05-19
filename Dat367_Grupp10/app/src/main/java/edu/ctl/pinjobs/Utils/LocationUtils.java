@@ -37,7 +37,12 @@ public class LocationUtils implements LocationListener{
         LatLng lastKnowLocation = new LatLng(location.getLatitude(),location.getLongitude());
 
         if(currentLocation==null) {
-            return lastKnowLocation;
+            if(lastKnowLocation!=null) {
+                return lastKnowLocation;
+            }else{
+                //Should never occur.
+                return new LatLng(57.686843, 11.921514);
+            }
         }else{
             return currentLocation;
         }

@@ -2,6 +2,7 @@ package edu.ctl.pinjobs.Advertisement;
 
 import java.io.Serializable;
 
+import edu.ctl.pinjobs.Utils.InfoCheck;
 import edu.ctl.pinjobs.profile.IProfile;
 /**
  * Created by Albertsson on 15-04-01.
@@ -24,6 +25,8 @@ public class Advertisement implements IAdvertisement, Serializable {
                          Category category, int day, int month, int year, double latitude,
                          double longitude) throws WrongAdInputException {
         setAdvertiser(advertiser);
+        setLatitude(latitude);
+        setLongitude(longitude);
         setLocation(location);
         setTitle(title);
         setDescription(description);
@@ -31,8 +34,6 @@ public class Advertisement implements IAdvertisement, Serializable {
         setDay(day);
         setMonth(month);
         setYear(year);
-        setLatitude(latitude);
-        setLongitude(longitude);
     }
 
     public void setAdvertiser(IProfile advertiser) {
@@ -40,26 +41,27 @@ public class Advertisement implements IAdvertisement, Serializable {
     }
 
     public void setLocation(String location) throws WrongAdInputException{
-        if(false) {
-            throw new WrongAdInputException("location");
-        }else {
+        if(location != null && location.length()!=0 && checkLocationFormat(location) ) {
             this.location = location;
+        }else {
+            throw new WrongAdInputException("location");
         }
     }
 
     public void setTitle(String title)throws WrongAdInputException {
-        if(false) {
-            throw new WrongAdInputException("title");
-        }else {
+        InfoCheck infoCheck = new InfoCheck();
+        if(title.length()<=30 && title.length()>0 && title !=null && infoCheck.isAlphabetic(title) ) {
             this.title = title;
+        }else {
+            throw new WrongAdInputException("title");
         }
     }
 
     public void setDescription(String description) throws WrongAdInputException {
-        if(false) {
-            throw new WrongAdInputException("description");
-        }else {
+        if(title.length()<=300 && title.length()>0 && title !=null) {
             this.description = description;
+        }else {
+            throw new WrongAdInputException("description");
         }
     }
 
@@ -116,10 +118,10 @@ public class Advertisement implements IAdvertisement, Serializable {
     }
 
     public void setLatitude(double latitude) throws WrongAdInputException {
-        if(false) {
-            throw new WrongAdInputException("latitude");
-        }else {
+        if(latitude<180 && latitude>-180) {
             this.latitude = latitude;
+        }else {
+            throw new WrongAdInputException("location");
         }
     }
 
@@ -128,12 +130,37 @@ public class Advertisement implements IAdvertisement, Serializable {
     }
 
     public void setLongitude(double longitude) throws WrongAdInputException {
-        if(false) {
-            throw new WrongAdInputException("longitude");
-        }else {
+        if(longitude<180 && longitude>-180) {
             this.longitude = longitude;
+        }else {
+            throw new WrongAdInputException("location");
         }
     }
 
+    private boolean checkLocationFormat(String name) {
+        //Chcks if first character is a letter and if the rest is either number or letter.
+        //if one number has occurred a following letter returns false. else returns true.
+        char[] chars = name.toCharArray();
+        boolean firstIsAlphabetic = false;
+        boolean numberExists = false;
+        if(Character.isLetter(0)){
+            firstIsAlphabetic = true;
+        }
+        for (char c : chars) {
+            if(Character.isLetter(c) && numberExists){
+                //returns false if number has occurred followed by a letter.
+                return false;
+            } else if(!(Character.isLetter(c))) {
+                numberExists = true;
+                if(!Character.isDigit(c)){
+                    //if character is neither letter or number return false.
+                    return false;
+                }
+            }
+        }
+        //returns true if previous false returns haven't occurred and first character is a letter
+        return true && firstIsAlphabetic;
+
+    }
 }
 
