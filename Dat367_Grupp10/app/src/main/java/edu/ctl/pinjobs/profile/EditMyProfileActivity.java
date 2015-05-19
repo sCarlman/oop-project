@@ -61,7 +61,6 @@ public class EditMyProfileActivity extends ActionBarActivity {
     public void saveNewInputToProfile(View view){
         editMyProfileView.saveTextFieldsToProfile(myProfile);
         if(!canceledByError){
-            System.out.println("*!*!*!*!*!*!*!*!*! SKAPAR NY INTENT");
             Intent intent = new Intent();
             Bundle bundle = new Bundle();
             bundle.putSerializable("sendProfile", myProfile);

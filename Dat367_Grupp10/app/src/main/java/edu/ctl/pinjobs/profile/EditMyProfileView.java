@@ -75,7 +75,6 @@ public class EditMyProfileView {
             myProfileActivity.setCanceledByError(true);
         }
         if(!myProfileActivity.getCanceledByError()){
-            System.out.println("*!*!*!*!*!*!*!*!*! EVENTBUSS UPDATEPROFILE??");
             EventBus.INSTANCE.publish(EventBus.Event.UPDATE_PROFILE, profile);
         }
     }

@@ -71,9 +71,11 @@ public class CreateProfileView {
         this.address = address + "," + city;
         try{
             newProfile = new Profile(firstName, lastName, password, email, phone, address);
+            activity.finish();
+            profileCreated(activity);
+            EventBus.INSTANCE.publish(EventBus.Event.SAVE_PROFILE, newProfile);
         }catch (WrongInputExeption e){
             if(e.getError().equals("FirstName")){
-                System.out.println("*!*!*!*!*!*!*!*!*!*! SÄTTER ERROR PÅ FIRSTNAME");
                 firstNameEditText.setError("Förnamn ej Gilltligt");
                 firstNameEditText.requestFocus();
             }
@@ -101,10 +103,6 @@ public class CreateProfileView {
                 locationEditText.requestFocus();
             }
         }
-
-        activity.finish();
-        profileCreated(activity);
-        EventBus.INSTANCE.publish(EventBus.Event.SAVE_PROFILE, newProfile);
     }
 
     public void profileCreated(Context c) {
