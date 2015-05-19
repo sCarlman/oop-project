@@ -28,11 +28,13 @@ public class CreateAdView {
     private RadioButton otherRadioButton;
     private DatePicker adEndDatePicker;
     private Button chooseDateButton;
+    private EditText city;
 
     private Advertisement newAd;
     private String location;
     private String description;
     private String title;
+    private String cityString;
     private Category category;
     private IProfile newProfile;
     private CreateAdActivity activity;
@@ -52,7 +54,7 @@ public class CreateAdView {
                         EditText titleEditText,RadioButton gardenRadioButton,
                         RadioButton labourRadioButton, RadioButton otherRadioButton,
                         Button createAdButton, Button chooseDateButton, Context v,
-                        DatePicker adEndDatePicker){
+                        DatePicker adEndDatePicker, EditText city){
 
         this.locationEditText = addressEditText;
         this.descriptionEditText = descriptionEditText;
@@ -60,6 +62,7 @@ public class CreateAdView {
         this.gardenRadioButton = gardenRadioButton;
         this.labourRadioButton = labourRadioButton;
         this.otherRadioButton = otherRadioButton;
+        this.city = city;
         createAdButton.setOnClickListener((View.OnClickListener)v);
         chooseDateButton.setOnClickListener((View.OnClickListener)v);
         activityContext = v;
@@ -71,7 +74,8 @@ public class CreateAdView {
     public void setNewProfile(IProfile newProfile){
         this.newProfile = newProfile;
         //sets location to default address of the advertiser
-        locationEditText.setText(newProfile.getAddress());
+        locationEditText.setText(newProfile.getAddress().split(",")[0]);
+        city.setText(newProfile.getAddress().split(",")[1]);
     }
 
     //Attempt to create ad by validate if textfields contains a string
@@ -80,12 +84,14 @@ public class CreateAdView {
         resetTextFields(locationEditText);
         resetTextFields(descriptionEditText);
         resetTextFields(titleEditText);
+        resetTextFields(city);
 
         this.cancel = false;
         this.focusView = null;
 
         copyTextFieldData();
 
+        checkFields(cityString, city, "Stad ej ifylld");
         checkFields(location, locationEditText, "Address ej ifylld");
         checkFields(description, descriptionEditText, "Beskrivning ej ifylld");
         checkFields(title, titleEditText, "Titel ej ifylld");
@@ -101,6 +107,8 @@ public class CreateAdView {
         copyTextFieldData();
         copySelectedCategory();
         copyEndDate();
+
+        location = location + "," + cityString;
 
         adUtils = new AdvertisementUtils();
 
@@ -137,6 +145,7 @@ public class CreateAdView {
         location = locationEditText.getText().toString().trim();
         description = descriptionEditText.getText().toString().trim();
         title = titleEditText.getText().toString().trim();
+        cityString = city.getText().toString().trim();
     }
 
     private void copySelectedCategory() {

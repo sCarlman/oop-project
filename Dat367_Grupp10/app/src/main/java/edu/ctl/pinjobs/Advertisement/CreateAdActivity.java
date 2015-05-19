@@ -33,7 +33,8 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
                 (RadioButton) findViewById(R.id.otherRadioButton),
                 (Button) findViewById(R.id.createAdButton),
                 (Button) findViewById(R.id.chooseDateButton), this,
-                (DatePicker) findViewById(R.id.adEndDateDatePicker));
+                (DatePicker) findViewById(R.id.adEndDateDatePicker),
+                (EditText) findViewById(R.id.createAdCityEditText));
         EventBus.INSTANCE.publish(EventBus.Event.CREATE_AD_SETUP, null);
     }
 
