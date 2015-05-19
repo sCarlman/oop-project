@@ -11,6 +11,7 @@ import java.util.List;
 
 import edu.ctl.pinjobs.profile.IProfile;
 import edu.ctl.pinjobs.profile.Profile;
+import edu.ctl.pinjobs.profile.WrongInputExeption;
 
 /**
  * Created by Isaac on 2015-04-23.
@@ -51,12 +52,17 @@ public class ProfileService implements IProfileService{
     private List<IProfile> copyToProfiles(List<ParseObject> profileList) {
         List<IProfile> fetchedProfiles = new ArrayList<IProfile>();
         for (ParseObject parseProfile: profileList) {
-            fetchedProfiles.add(new Profile(parseProfile.getString("FirstName"),
-                    parseProfile.getString("LastName"),
-                    parseProfile.getString("Password"),
-                    parseProfile.getString("Email"),
-                    parseProfile.getString("Phone"),
-                    parseProfile.getString("PreferredLocation")));
+            try{
+                fetchedProfiles.add(new Profile(parseProfile.getString("FirstName"),
+                        parseProfile.getString("LastName"),
+                        parseProfile.getString("Password"),
+                        parseProfile.getString("Email"),
+                        parseProfile.getString("Phone"),
+                        parseProfile.getString("PreferredLocation")));
+            }catch (WrongInputExeption e){
+                //ERROROROROROROROR *!*!*!*!*!*!*!*!*!*!
+            }
+
         }
         return fetchedProfiles;
     }
@@ -74,13 +80,19 @@ public class ProfileService implements IProfileService{
     }
 
     private IProfile copyToProfile(ParseObject parseProfile) {
-        Profile fetchedProfile = new Profile(parseProfile.getString("FirstName"),
-                parseProfile.getString("LastName"),
-                parseProfile.getString("Password"),
-                parseProfile.getString("Email"),
-                parseProfile.getString("Phone"),
-                parseProfile.getString("PreferredLocation"));
-        return fetchedProfile;
+        try{
+            Profile fetchedProfile = new Profile(parseProfile.getString("FirstName"),
+                    parseProfile.getString("LastName"),
+                    parseProfile.getString("Password"),
+                    parseProfile.getString("Email"),
+                    parseProfile.getString("Phone"),
+                    parseProfile.getString("PreferredLocation"));
+
+            return fetchedProfile;
+        }catch (WrongInputExeption e){
+            //ERRORORROROROR *!*!*!*!*!*!*!*!*!*!
+        }
+        return null;
     }
 
     public void updateProfile(final IProfile profile){

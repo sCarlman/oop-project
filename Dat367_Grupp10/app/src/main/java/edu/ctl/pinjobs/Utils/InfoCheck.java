@@ -21,25 +21,4 @@ public class InfoCheck implements Serializable {
         return true;
     }
 
-    public boolean isEmailCorrect(String email) {
-        if (email != null || email != "") {
-            Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
-            Matcher m = p.matcher(email);
-            boolean emailValid = m.matches();
-            return emailValid;
-        }else {
-            return false;
-        }
-    }
-
-    public boolean isNumeric(String phone) {
-        char[] chars = phone.toCharArray();
-        //method requires symbols like "-" to be consumed
-        for (char c : chars) {
-            if(!Character.isDigit(c)) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

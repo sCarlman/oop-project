@@ -2,6 +2,8 @@ package edu.ctl.pinjobs.profile;
 
 
 import java.io.Serializable;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import edu.ctl.pinjobs.Utils.InfoCheck;
 import edu.ctl.pinjobs.eventbus.EventBus;
@@ -22,40 +24,66 @@ public class Profile implements IProfile, Serializable {
     InfoCheck infoCheck = new InfoCheck();
 
     public Profile(String firstName, String lastName, String password, String email, String phone,
-                           String address){
+                           String address)throws WrongInputExeption{
         setFirstName(firstName);
         setLastName(lastName);
         setPassword(password);
         setEmail(email);
         setPhone(phone);
         setAddress(address);
+
     }
 
-    public void setFirstName(String firstName) {
+
+    public void setFirstName(String firstName) throws WrongInputExeption{
+
         if(infoCheck.isAlphabetic(firstName)){
             this.firstName = firstName;
+        }else{
+            throw new WrongInputExeption("FirstName");
         }
 
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastName(String lastName) throws WrongInputExeption{
+        if(infoCheck.isAlphabetic(firstName)){
+            this.lastName = lastName;
+        }else{
+            throw new WrongInputExeption("LastName");
+        }
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(String password) throws WrongInputExeption{
+        if(password.length() >= 2){
+            this.password = password;
+        }else{
+            throw new WrongInputExeption("Password");
+        }
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setEmail(String email) throws WrongInputExeption{
+        if(isEmailCorrect(email)){
+            this.email = email;
+        }else{
+            throw new WrongInputExeption("Email");
+        }
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhone(String phone) throws WrongInputExeption{
+        if(isNumeric(phone)){
+            this.phone = phone;
+        }else{
+            throw new WrongInputExeption("Phone");
+        }
     }
 
-    public void setAddress(String preferredLocation) {
-        this.address = preferredLocation;
+    public void setAddress(String preferredLocation) throws WrongInputExeption{
+        if(preferredLocation.contains(",")){
+            this.address = preferredLocation;
+        }else{
+            throw new WrongInputExeption("Location");
+        }
+
     }
 
     public String getFirstName() {
@@ -80,6 +108,28 @@ public class Profile implements IProfile, Serializable {
 
     public String getAddress() {
         return address;
+    }
+
+    private boolean isEmailCorrect(String email) {
+        if (email != null || email != "") {
+            Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
+            Matcher m = p.matcher(email);
+            boolean emailValid = m.matches();
+            return emailValid;
+        }else {
+            return false;
+        }
+    }
+
+    private boolean isNumeric(String phone) {
+        char[] chars = phone.toCharArray();
+        //method requires symbols like "-" to be consumed
+        for (char c : chars) {
+            if(!Character.isDigit(c)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
 

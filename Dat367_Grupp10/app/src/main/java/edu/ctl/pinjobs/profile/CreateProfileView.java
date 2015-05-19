@@ -68,10 +68,25 @@ public class CreateProfileView {
     }
 
     public void createProfileButtonClicked() {
-
         this.address = address + "," + city;
+        try{
+            newProfile = new Profile(firstName, lastName, password, email, phone, address);
+        }catch (WrongInputExeption e){
+            if(e.getError().equals("FirstName")){
+                checkFields(firstName, firstNameEditText, "Förnamn ej Gilltligt");
+                focusView.requestFocus();
+            }
+            if(e.getError().equals("LastName")){
+                checkFields(lastName, lastNameEditText, "Efternamn ej Gilltligt");
+            }
+            if(e.getError().equals("Password")){
+                checkFields(password, passwordEditText, "Lösenord ej Gilltligt");
+            }
+            //*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!
+            //*!*! Make this for all errors !*!*!
+            //*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!*!
+        }
 
-        newProfile = new Profile(firstName, lastName, password, email, phone, address);
         activity.finish();
         profileCreated(activity);
         EventBus.INSTANCE.publish(EventBus.Event.SAVE_PROFILE, newProfile);
@@ -112,25 +127,6 @@ public class CreateProfileView {
         checkFields(address, locationEditText, "Gatuadress ej ifyllt");
         checkFields(city, cityEditText, "Stad ej ifyllt");
 
-        //Check if e-mail is correct
-        if(!isEmailCorrect(email)){
-
-            emailEditText.setError("E-mail ej korrekt ifyllt");
-            emailEditText.setTextColor(Color.RED);
-
-            this.cancel = true;
-            this.focusView = emailEditText;
-        }
-
-        //Check if phonenumber is correct
-        if(!validatePhoneNumber(phone)){
-
-            phoneEditText.setError("Ej korrekt telefonnummer! tips: format XXX-XXXXXXX");
-            phoneEditText.setTextColor(Color.RED);
-
-            this.cancel = true;
-            this.focusView = phoneEditText;
-        }
 
         if (cancel) {
             // There was an error; don't attempt createProfile and focus the first
@@ -153,29 +149,9 @@ public class CreateProfileView {
         }
     }
 
-    //Makes check if e-maill is typed correct
-    public static boolean isEmailCorrect(String email) {
-        if (email != null || email != "") {
-            Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
-            Matcher m = p.matcher(email);
-            boolean emailValid = m.matches();
-            return emailValid;
-        }else {
-            return false;
-        }
-    }
-
-    //Validate phone, must be in the form XXX-XXXXXXX
-    public static boolean validatePhoneNumber(String phone){
-
-        Pattern pattern = Pattern.compile("\\d{3}-\\d{7}");
-        Matcher matcher = pattern.matcher(phone);
-
-        return matcher.matches();
-    }
 
     //Resets colors to black and error to null
-    public static void resetTextFields(EditText e){
+    public void resetTextFields(EditText e){
         e.setTextColor(Color.BLACK);
         e.setHintTextColor(Color.BLACK);
         e.setError(null);

@@ -87,11 +87,11 @@ public class LoginView{
 
 
     public void failedMatchEmailWithDatabase(){
-        eMail.setError("Fel lösenord!");
+        eMail.setError("Fel E-mail!!");
     }
 
     public void failedMatchPasswordWithDatabase(){
-        pwd.setError("Fel E-mail!");
+        pwd.setError("Fel Lösenord!");
     }
 
 }
