@@ -14,11 +14,12 @@ public class EditMyProfileView {
     private EditText editPhone;
     private EditText editAddress;
     private EditText editCity;
+    private EditMyProfileActivity myProfileActivity;
 
     private IProfile myProfile;
 
     public EditMyProfileView(IProfile myProfile, EditText firstName, EditText lastName, EditText phone,
-                             EditText Address, EditText city){
+                             EditText Address, EditText city, EditMyProfileActivity editMyProfileActivity){
 
         this.myProfile = myProfile;
 
@@ -27,6 +28,8 @@ public class EditMyProfileView {
         this.editPhone = phone;
         this.editAddress = Address;
         this.editCity = city;
+
+        this.myProfileActivity = editMyProfileActivity;
 
         insertProfileInfoOnEditPage();
 
@@ -44,31 +47,35 @@ public class EditMyProfileView {
     //On click saveEditButton
     //The profile gets inputs from text fields.
     public void saveTextFieldsToProfile(IProfile profile){
-
+        myProfileActivity.setCanceledByError(false);
         try{
             profile.setFirstName(editFirstName.getText().toString());
         }catch (WrongInputExeption e){
             editFirstName.setError("Ogiltligt Namn!");
+            myProfileActivity.setCanceledByError(true);
         }
         try{
             profile.setLastName(editLastName.getText().toString());
         }catch (WrongInputExeption e){
             editLastName.setError("Ogiltligt Efternamn!");
+            myProfileActivity.setCanceledByError(true);
         }
         try{
             profile.setPhone(editPhone.getText().toString());
         }catch (WrongInputExeption e){
             editPhone.setError("Ogiltligt Tele!");
+            myProfileActivity.setCanceledByError(true);
         }
         try{
             profile.setAddress(editAddress.getText().toString() + "," + editCity.getText().toString());
         }catch (WrongInputExeption e){
+            //SKALL FIXAS!!!!!!
             editAddress.setError("Ogiltligt!");
             editCity.setError("Ogiltligt!");
+            myProfileActivity.setCanceledByError(true);
         }
-
-        EventBus.INSTANCE.publish(EventBus.Event.UPDATE_PROFILE, profile);
-
-
+        if(!myProfileActivity.getCanceledByError()){
+            EventBus.INSTANCE.publish(EventBus.Event.UPDATE_PROFILE, profile);
+        }
     }
 }

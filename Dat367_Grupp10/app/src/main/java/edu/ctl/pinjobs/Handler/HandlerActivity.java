@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
 import edu.ctl.pinjobs.Advertisement.DetailedAdActivity;
+import edu.ctl.pinjobs.Advertisement.ModifyAdActivity;
 import edu.ctl.pinjobs.Services.AdvertisementService;
 import edu.ctl.pinjobs.Utils.LocationUtils;
 import edu.ctl.pinjobs.eventbus.EventBus;

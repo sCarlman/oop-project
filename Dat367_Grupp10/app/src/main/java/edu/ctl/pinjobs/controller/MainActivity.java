@@ -196,11 +196,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         }else if(evt == EventBus.Event.SHOW_MY_ADS){
             Intent intent = new Intent(this.getApplicationContext(), UserListActivity.class);
             intent.putExtra("Email", (String) o);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }else if(evt == EventBus.Event.UPDATE_PROFILE){
             profileService.updateProfile((IProfile) o);
             adService.updateAdvertiser((IProfile) o);
             loginUser((IProfile) o);
+        }else if(evt == EventBus.Event.UPDATE_AD){
+            adService.updateAd((IAdvertisement) o);
         }
 
     }

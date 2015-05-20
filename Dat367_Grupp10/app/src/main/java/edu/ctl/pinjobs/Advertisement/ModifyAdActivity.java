@@ -4,9 +4,16 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 
 import com.example.filips.dat367_grupp10.R;
+
+import java.util.List;
+
+import edu.ctl.pinjobs.Handler.AdvertisementListHolder;
+import edu.ctl.pinjobs.eventbus.EventBus;
 
 public class ModifyAdActivity extends ActionBarActivity {
 
@@ -15,16 +22,19 @@ public class ModifyAdActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_modify_ad);
 
         Bundle bundle = getIntent().getExtras();
-        AndroidAdvertisement androidAd = (AndroidAdvertisement)bundle.getParcelable("Advertisement");
+        AndroidAdvertisement androidAd = bundle.getParcelable("Advertisement");
         IAdvertisement ad = androidAd.getAd();
 
-        ModifyAdView view = new ModifyAdView((EditText)findViewById(R.id.titleEditText),
-                (EditText)findViewById(R.id.descriptionEditText),(EditText)findViewById(R.id.nameEditText),
-                (EditText)findViewById(R.id.addressEditText),(EditText)findViewById(R.id.phoneEditText),
-                (EditText)findViewById(R.id.emailEditText),ad);
+        ModifyAdView view = new ModifyAdView((EditText)findViewById(R.id.modifyTitleEditText),
+                (EditText)findViewById(R.id.modifyDesctriptionEditText),
+                (EditText)findViewById(R.id.modifyAddressEditText),
+                (Button)findViewById(R.id.modifyButton),(RadioButton)findViewById(R.id.modifyGardenRadioButton),
+                (RadioButton)findViewById(R.id.modifyLabourRadioButton),
+                (RadioButton)findViewById(R.id.modifyOtherRadioButton),ad);
         this.view = view;
     }
 
@@ -49,4 +59,8 @@ public class ModifyAdActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+    public void saveNewModifiedAd(IAdvertisement ad){
+        EventBus.INSTANCE.publish(EventBus.Event.SHOW_MY_ADS, ad);
+    }
+
 }

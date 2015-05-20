@@ -28,7 +28,8 @@ public enum EventBus {
         CREATE_AD_SETUP,
         SHOW_MY_ADS,
         ADLIST_NOT_EMPTY,
-        UPDATE_PROFILE
+        UPDATE_PROFILE,
+        UPDATE_AD
 
     };
     private boolean trace = true;
