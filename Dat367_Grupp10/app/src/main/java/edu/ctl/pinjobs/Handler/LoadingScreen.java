@@ -10,10 +10,15 @@ import android.widget.ProgressBar;
 
 import com.example.filips.dat367_grupp10.R;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import edu.ctl.pinjobs.eventbus.EventBus;
 
 public class LoadingScreen extends Activity implements EventBus.IEventHandler {
 
+    private Timer timer= new Timer();
+    Activity activity = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +27,16 @@ public class LoadingScreen extends Activity implements EventBus.IEventHandler {
         ProgressBar spinner;
         spinner = (ProgressBar)findViewById(R.id.progressBar1);
         spinner.setVisibility(View.VISIBLE);
+        timer.schedule(task,5000);
     }
+    TimerTask task = new TimerTask() {
+
+        @Override
+        public void run() {
+            activity.setResult(2);
+            activity.finish();
+        }
+    };
 
 
     @Override

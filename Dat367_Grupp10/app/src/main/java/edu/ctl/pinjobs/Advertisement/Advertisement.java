@@ -154,7 +154,6 @@ public class Advertisement implements IAdvertisement, Serializable {
         return advertiser.equals(advertisement.getAdvertiser()) && location.equals(advertisement.getLocation()) &&
                 title.equals(advertisement.getTitle()) && day==advertisement.getDay() && month ==advertisement.getMonth()
                 && year==advertisement.getYear() && category == advertisement.getCategory();
-        //TODO:KOLLA OM FÄRDIG
     }
 
 }

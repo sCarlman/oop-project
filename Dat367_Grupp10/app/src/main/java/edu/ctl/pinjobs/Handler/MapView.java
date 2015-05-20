@@ -65,28 +65,30 @@ public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickLi
     }
 
     private LatLngBounds.Builder setMapBounds(){
-        LatLngBounds.Builder builder = new LatLngBounds.Builder();
-        Marker closestMarker = null; //keeps track of the closest marker
-        double closestDistance = -1; //Keeps track of the closest distance
-        LatLng currentposition = LocationUtils.getCurrentLocation(context); //keeps track of current position
+        if(adList.size()!=0) {
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            Marker closestMarker = null; //keeps track of the closest marker
+            double closestDistance = -1; //Keeps track of the closest distance
+            LatLng currentposition = LocationUtils.getCurrentLocation(context); //keeps track of current position
 
-        for (Marker marker : markers){
-            double markerDistance = locationUtils.calculateDistanceFromPosition(currentposition.latitude, marker.getPosition().latitude,
-                    currentposition.longitude, marker.getPosition().longitude); //calulates the distance from your current position to the marker
-            if(closestMarker==null){ //Sets the first marker as the closest marker
-                closestMarker = marker;
-                closestDistance = markerDistance;
+            for (Marker marker : markers) {
+                double markerDistance = locationUtils.calculateDistanceFromPosition(currentposition.latitude, marker.getPosition().latitude,
+                        currentposition.longitude, marker.getPosition().longitude); //calulates the distance from your current position to the marker
+                if (closestMarker == null) { //Sets the first marker as the closest marker
+                    closestMarker = marker;
+                    closestDistance = markerDistance;
+                } else if (closestDistance > markerDistance) { //chooses the closest marker
+                    closestDistance = markerDistance;
+                    closestMarker = marker;
+                }
             }
-            else if(closestDistance > markerDistance){ //chooses the closest marker
-                closestDistance = markerDistance;
-                closestMarker = marker;
-            }
+
+            //sets the build to the closestmarker and your current position
+            builder.include(currentposition);
+            builder.include(closestMarker.getPosition());
+            return builder;
         }
-
-        //sets the build to the closestmarker and your current position
-        builder.include(currentposition);
-        builder.include(closestMarker.getPosition());
-        return builder;
+        return new LatLngBounds.Builder().include(new LatLng(57.686746, 11.921653));
     }
 
     private void addAllStartMarkers(List<IAdvertisement> list){

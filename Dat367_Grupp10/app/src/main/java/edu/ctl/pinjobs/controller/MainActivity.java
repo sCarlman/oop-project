@@ -171,21 +171,16 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onEvent(EventBus.Event evt, Object o) {
         if(evt == EventBus.Event.POST_AD) {
-            if(!checkIfAdExists(AdvertisementListHolder.getInstance().getList(),(IAdvertisement)o)) {
-                IAdvertisementService adService = new AdvertisementService();
-                adService.saveAd((IAdvertisement)o);
-                BackgroundThread thread = new BackgroundThread(adService);
-                thread.start();
-                Intent intent = new Intent(this.getApplicationContext(), MapActivity.class);
-                AndroidAdvertisement androidAD = new AndroidAdvertisement((IAdvertisement) o);
-                intent.putExtra("Advertisement", androidAD);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                this.getApplicationContext().startActivity(intent);
-                Toast.makeText(this, "Anons skapad!", Toast.LENGTH_LONG).show();
-            }else{
-                Toast.makeText(getApplicationContext(), "Anonsen finns redan",
-                        Toast.LENGTH_LONG).show();
-            }
+            IAdvertisementService adService = new AdvertisementService();
+            adService.saveAd((IAdvertisement)o);
+            BackgroundThread thread = new BackgroundThread(adService);
+            thread.start();
+            Intent intent = new Intent(this.getApplicationContext(), MapActivity.class);
+            AndroidAdvertisement androidAD = new AndroidAdvertisement((IAdvertisement) o);
+            intent.putExtra("Advertisement", androidAD);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            this.getApplicationContext().startActivity(intent);
+            Toast.makeText(this, "Anons skapad!", Toast.LENGTH_LONG).show();
         }else if(evt == EventBus.Event.SAVE_PROFILE) {
             profileService.saveProfile((IProfile) o);
             loginUser((IProfile) o);
@@ -206,18 +201,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             adService.updateAd((IAdvertisement) o);
         }
 
-    }
-
-    private boolean checkIfAdExists(List<IAdvertisement> adList,IAdvertisement ad){
-        for(IAdvertisement loopAd: adList){
-            System.out.println(loopAd.getAdvertiser().equals(ad.getAdvertiser()));
-            if(loopAd.getAdvertiser().equals(ad.getAdvertiser()) && loopAd.getTitle().equals(ad.getTitle())
-                    && ad.getLocation().equals(loopAd.getLocation())){
-                return true;
-            }
-            //TODO: ÄNDRA TILL AD EQUALS
-        }
-        return false;
     }
 
     private void loginUser(IProfile profile) {

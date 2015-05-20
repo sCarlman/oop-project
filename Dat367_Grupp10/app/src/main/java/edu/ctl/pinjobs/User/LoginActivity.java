@@ -73,6 +73,7 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
     public void onEvent(EventBus.Event evt, Object o) {
 
         if(evt == EventBus.Event.LOGIN_MATCH){
+            //TODO: Lägg till progressBar
             List<IProfile> profileList = service.fetchAllProfiles();
             if(profileList == null){
                 Toast.makeText(this, "Finns inga registrerade profiler", Toast.LENGTH_LONG).show();

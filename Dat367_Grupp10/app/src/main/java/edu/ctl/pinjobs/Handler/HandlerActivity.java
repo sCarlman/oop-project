@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
 import edu.ctl.pinjobs.Advertisement.DetailedAdActivity;
@@ -66,7 +67,15 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        setListView(AdvertisementListHolder.getInstance().getList(),email);
+        //Happends when returned from progressBarView
+        if(resultCode == 2) {
+            setListView(AdvertisementListHolder.getInstance().getList(), email);
+            Toast.makeText(getApplicationContext(), "Finns inga anonser uppe för tillfället",
+                    Toast.LENGTH_LONG).show();
+        }else {
+            setListView(AdvertisementListHolder.getInstance().getList(), email);
+        }
+
     }
 
     private void setListView(List<IAdvertisement> adList, String email){

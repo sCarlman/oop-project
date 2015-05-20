@@ -9,9 +9,13 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.example.filips.dat367_grupp10.R;
 
+import java.util.List;
+
+import edu.ctl.pinjobs.Handler.AdvertisementListHolder;
 import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.profile.IProfile;
 
@@ -67,6 +71,26 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
         }else if(v == findViewById(R.id.chooseDateButton)){
             view.showDatePicker();
         }
+    }
+
+    public void checkIfAdExistsAndSendEvent(IAdvertisement newAd){
+        List<IAdvertisement> adList = AdvertisementListHolder.getInstance().getList();
+        if(checkIfAdExists(newAd, adList)) {
+            Toast.makeText(getApplicationContext(), "Anonsen finns redan",
+                    Toast.LENGTH_LONG).show();
+        }else {
+            EventBus.INSTANCE.publish(EventBus.Event.POST_AD, newAd);
+            finish();
+        }
+    }
+
+    private boolean checkIfAdExists(IAdvertisement newAd,List<IAdvertisement> adList){
+        for(IAdvertisement loopAd: adList){
+            if(loopAd.equals(newAd)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
