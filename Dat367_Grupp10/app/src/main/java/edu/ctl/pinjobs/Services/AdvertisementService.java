@@ -129,23 +129,35 @@ public class AdvertisementService implements IAdvertisementService {
     }
 
     @Override
-    public void updateAd(final IAdvertisement ad) {
+    public void updateAd(String id, final IAdvertisement ad) {
+        final ParseQuery<ParseObject> query = ParseQuery.getQuery("Advertisement");
+        query.getInBackground(id, new GetCallback<ParseObject>() {
+            @Override
+            public void done(ParseObject parseObject, ParseException e) {
+                if (e == null) {
+                    setParseAdvertisement(ad, parseObject);
+                    uploadToParse(parseObject);
+                }else{
+                    //oh no!
+                }
+            }
+        });
+    }
+
+    public String getAdID(IAdvertisement ad) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Advertisement");
         query.whereEqualTo("Email", ad.getAdvertiser().getEmail());
         query.whereEqualTo("Title", ad.getTitle());
         query.whereEqualTo("Description", ad.getDescription());
         query.whereEqualTo("Location", ad.getLocation());
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
-            @Override
-            public void done(ParseObject parseAd, ParseException e) {
-                if (e == null) {
-                    setParseAdvertisement(ad, parseAd);
-                    uploadToParse(parseAd);
-                } else {
-                    //TODO: error walla!
-                }
-            }
-        });
+        try {
+            return query.getFirst().getObjectId();
+        } catch (ParseException e) {
+            e.printStackTrace();
+            //oh no
+            return null;
+        }
+
     }
 
     public void updateAdvertiser(final IProfile profile) {

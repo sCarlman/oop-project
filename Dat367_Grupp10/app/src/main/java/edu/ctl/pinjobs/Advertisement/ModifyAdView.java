@@ -54,6 +54,7 @@ public class ModifyAdView {
         });
         setTexts(ad);
         disableEditTextFields();
+        disableRadioButtons();
     }
 
     private void changeButtonText(){
@@ -95,13 +96,16 @@ public class ModifyAdView {
     }
 
     private void enableEditTextFields(){
-        titleEditText.setEnabled(true);
+        /*titleEditText.setEnabled(true);
         descriptionEditText.setEnabled(true);
         addressEditText.setEnabled(true);
 
         titleEditText.setFocusable(true);
         descriptionEditText.setFocusable(true);
-        addressEditText.setFocusable(true);
+        addressEditText.setFocusable(true);*/
+        titleEditText.setFocusableInTouchMode(true);
+        descriptionEditText.setFocusableInTouchMode(true);
+        addressEditText.setFocusableInTouchMode(true);
 
     }
     private void enableRadioButtons(){
@@ -111,14 +115,13 @@ public class ModifyAdView {
     }
 
     private void disableEditTextFields(){
-        titleEditText.setEnabled(false);
-        descriptionEditText.setEnabled(false);
-        addressEditText.setEnabled(false);
 
         titleEditText.setFocusable(false);
         descriptionEditText.setFocusable(false);
         addressEditText.setFocusable(false);
-
+        //titleEditText.setEnabled(false);
+        //descriptionEditText.setEnabled(false);
+        //addressEditText.setEnabled(false);
     }
 
     private void disableRadioButtons(){

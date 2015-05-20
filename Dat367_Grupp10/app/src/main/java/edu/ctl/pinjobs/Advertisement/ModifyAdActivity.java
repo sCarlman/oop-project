@@ -60,7 +60,7 @@ public class ModifyAdActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
     public void saveNewModifiedAd(IAdvertisement ad){
-        EventBus.INSTANCE.publish(EventBus.Event.SHOW_MY_ADS, ad);
+        EventBus.INSTANCE.publish(EventBus.Event.UPDATE_AD, ad);
     }
 
 }
