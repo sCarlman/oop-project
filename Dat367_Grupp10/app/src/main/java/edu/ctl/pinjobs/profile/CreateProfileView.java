@@ -44,7 +44,7 @@ public class CreateProfileView {
     CreateProfileView(EditText firstNameEditText, EditText lastNameEditText,
                       EditText emailEditText, EditText phoneEditText, EditText passwordEditText,
                       EditText locationEditText, Button createProfileButton, Context v,
-                      EditText city, boolean modify) {
+                      EditText city) {
 
         this.firstNameEditText = firstNameEditText;
         this.lastNameEditText = lastNameEditText;
@@ -56,15 +56,6 @@ public class CreateProfileView {
         this.createProfileButton = createProfileButton;
         this.createProfileButton.setOnClickListener((View.OnClickListener)v);
         this.activity = (CreateProfileActivity)v;
-
-        modifyEnabled(modify);
-    }
-
-    private void modifyEnabled(boolean modify) {
-        if (modify){
-            createProfileButton.setText("Save Changes");
-            //TODO:wank wank wank...
-        }
     }
 
     public void createProfileButtonClicked() {
