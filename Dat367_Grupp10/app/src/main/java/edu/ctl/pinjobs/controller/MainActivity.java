@@ -204,6 +204,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             loginUser((IProfile) o);
         }else if(evt == EventBus.Event.UPDATE_AD){
             adService.updateAd((IAdvertisement) o);
+            BackgroundThread thread = new BackgroundThread(adService);
+            thread.start();
+            Intent intent = new Intent(this.getApplicationContext(), MapActivity.class);
+            AndroidAdvertisement androidAD = new AndroidAdvertisement((IAdvertisement) o);
+            intent.putExtra("Advertisement", androidAD);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            this.getApplicationContext().startActivity(intent);
+            Toast.makeText(this, "Anons ändrad!", Toast.LENGTH_LONG).show();
         }
 
     }
