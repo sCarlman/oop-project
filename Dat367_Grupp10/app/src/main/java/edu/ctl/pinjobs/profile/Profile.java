@@ -129,5 +129,21 @@ public class Profile implements IProfile, Serializable {
         }
         return true;
     }
+
+    @Override
+    public boolean equals(Object other){
+        if(other ==null){
+            return false;
+        }
+        if(this== other){
+            return true;
+        }
+        if(this.getClass() != other.getClass()){
+            return false;
+        }
+        Profile profile=(Profile)other;
+        return firstName.equals(profile.getFirstName()) && lastName.equals(profile.getLastName()) &&
+                email.equals(profile.getEmail());
+    }
 }
 

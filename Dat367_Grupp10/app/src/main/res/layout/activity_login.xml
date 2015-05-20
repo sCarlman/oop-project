@@ -43,7 +43,7 @@
         android:layout_marginTop="40dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:hint="Type your e-mail here"
+        android:hint="e-mail"
         android:visibility="visible"/>
 
     <EditText
@@ -57,7 +57,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/editText"
         android:layout_alignEnd="@+id/editText"
-        android:hint="Type your password here"
+        android:hint="lösenord"
         android:visibility="visible"/>
 
     <TextView

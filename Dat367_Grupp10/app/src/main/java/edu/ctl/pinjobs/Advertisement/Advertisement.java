@@ -42,7 +42,7 @@ public class Advertisement implements IAdvertisement, Serializable {
     }
 
     public void setLocation(String location) throws WrongAdInputException{
-        if(location != null && location.length()!=0 && checkLocationFormat(location) ) {
+        if(location != null && location.length()!=0 ) {
             this.location = location;
         }else {
             throw new WrongAdInputException("location");
@@ -51,7 +51,7 @@ public class Advertisement implements IAdvertisement, Serializable {
 
     public void setTitle(String title)throws WrongAdInputException {
         InfoCheck infoCheck = new InfoCheck();
-        if(title.length()<=30 && title.length()>0 && title !=null && infoCheck.isAlphabetic(title) ) {
+        if(title.length()<=30 && title.length()>0 && title !=null && infoCheck.isAlphabetic(title.replace(" ","")) ) {
             this.title = title;
         }else {
             throw new WrongAdInputException("title");
@@ -119,7 +119,7 @@ public class Advertisement implements IAdvertisement, Serializable {
     }
 
     public void setLatitude(double latitude) throws WrongAdInputException {
-        if(latitude<180 && latitude>-180) {
+        if(latitude<90 && latitude>= -90) {
             this.latitude = latitude;
         }else {
             throw new WrongAdInputException("location");
@@ -131,41 +131,31 @@ public class Advertisement implements IAdvertisement, Serializable {
     }
 
     public void setLongitude(double longitude) throws WrongAdInputException {
-        if(longitude<180 && longitude>-180) {
+        if(longitude<180 && longitude> -180) {
             this.longitude = longitude;
         }else {
             throw new WrongAdInputException("location");
         }
     }
 
-    private boolean checkLocationFormat(String name) {
-        //Chcks if first character is a letter and if the rest is either number or letter.
-        //if one number has occurred a following letter returns false. else returns true.
-        char[] chars = name.toCharArray();
-        boolean firstIsAlphabetic = false;
-        boolean numberExists = false;
-        if(Character.isLetter(chars[0])){
-            firstIsAlphabetic = true;
+    @Override
+    public boolean equals(Object other){
+        //equals if it has the same
+        if(other ==null){
+            return false;
         }
-        for (char c : chars) {
-            if(Character.isLetter(c) && numberExists){
-                System.out.println("SKA INTE KOMMA HIT");
-                //returns false if number has occurred followed by a letter.
-                return false;
-            } else if(!(Character.isLetter(c))) {
-                numberExists = true;
-                System.out.println("is character is letter");
-                if(!Character.isDigit(c)){
-                    System.out.println("is character is digit");
-                    //if character is neither letter or number return false.
-                    return false;
-                }
-            }
+        if(this== other){
+            return true;
         }
-        //returns true if previous false returns haven't occurred and first character is a letter
-        System.out.println( true && firstIsAlphabetic);
-        return true && firstIsAlphabetic;
-
+        if(this.getClass() != other.getClass()){
+            return false;
+        }
+        Advertisement advertisement=(Advertisement)other;
+        return advertiser.equals(advertisement.getAdvertiser()) && location.equals(advertisement.getLocation()) &&
+                title.equals(advertisement.getTitle()) && day==advertisement.getDay() && month ==advertisement.getMonth()
+                && year==advertisement.getYear() && category == advertisement.getCategory();
+        //TODO:KOLLA OM FÄRDIG
     }
+
 }
 

@@ -106,22 +106,23 @@ public class CreateAdView {
 
         lat = adUtils.getLocationFromAddress(activityContext,location).latitude;
         lng = adUtils.getLocationFromAddress(activityContext,location).longitude;
-        //TODO: Check if adress ==null.
         try {
             newAd = new Advertisement(newProfile, title, description, location, category,
                     day, month, year, lat, lng);
             EventBus.INSTANCE.publish(EventBus.Event.POST_AD, newAd);
             activity.finish();
-            adPosted(activity);
         }catch(WrongAdInputException e){
             if(e.getName().equals("title")){
                 titleEditText.setError("Måste vara mellan 1 och 30 bokstäver");
+                titleEditText.requestFocus();
             }
             if(e.getName().equals("description")){
-                 descriptionEditText.setError("Max 300 tecken, min 1");
+                descriptionEditText.setError("Max 300 tecken, min 1");
+                descriptionEditText.requestFocus();
             }
             if(e.getName().equals("location")){
                 locationEditText.setError("Ej giltig adress");
+                locationEditText.requestFocus();
             }
         }
     }
@@ -147,10 +148,6 @@ public class CreateAdView {
         }else if(otherRadioButton.isChecked()){
             category = Category.OTHER;
         }
-    }
-
-    public void adPosted(Context c){
-        Toast.makeText(c, "Ad posted!", Toast.LENGTH_LONG).show();
     }
 
     public void showDatePicker() {

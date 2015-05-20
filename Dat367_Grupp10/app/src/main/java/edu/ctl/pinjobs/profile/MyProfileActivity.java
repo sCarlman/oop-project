@@ -82,8 +82,10 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        this.myProfile = (IProfile) data.getSerializableExtra("sendProfile");
-        myProfileView.setProfileInfoOnCreate(myProfile);
+        if(data !=null) {
+            this.myProfile = (IProfile) data.getSerializableExtra("sendProfile");
+            myProfileView.setProfileInfoOnCreate(myProfile);
+        }
     }
 
 
