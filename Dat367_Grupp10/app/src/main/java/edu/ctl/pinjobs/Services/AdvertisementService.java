@@ -3,6 +3,8 @@ package edu.ctl.pinjobs.Services;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -26,6 +28,11 @@ import edu.ctl.pinjobs.Advertisement.IAdvertisement;
  */
 public class AdvertisementService implements IAdvertisementService {
 
+    private Context context;
+
+    public AdvertisementService(Context context){
+        this.context = context;
+    }
 
     @Override
     public void saveAd(IAdvertisement Ad) {
@@ -61,8 +68,7 @@ public class AdvertisementService implements IAdvertisementService {
             List<IAdvertisement> adList = copyToAdvertisements(query.find());
             return adList;
         } catch (ParseException e) {
-            e.printStackTrace();
-            //TODO: Handle error.
+            connectionError();
             return null;
         }
     }
@@ -96,8 +102,7 @@ public class AdvertisementService implements IAdvertisementService {
         try {
             return copyToAdvertisements(query.find());
         } catch (ParseException e) {
-            e.printStackTrace();
-            //TODO: Handle error.
+            //connectionError();
             return null;
         }
     }
@@ -124,7 +129,7 @@ public class AdvertisementService implements IAdvertisementService {
                 }
             }
         } catch (ParseException e) {
-            //DO SOMETHING
+            connectionError();
         }
     }
 
@@ -138,7 +143,7 @@ public class AdvertisementService implements IAdvertisementService {
                     setParseAdvertisement(ad, parseObject);
                     uploadToParse(parseObject);
                 }else{
-                    //oh no!
+                    connectionError();
                 }
             }
         });
@@ -153,8 +158,7 @@ public class AdvertisementService implements IAdvertisementService {
         try {
             return query.getFirst().getObjectId();
         } catch (ParseException e) {
-            e.printStackTrace();
-            //oh no
+            connectionError();
             return null;
         }
 
@@ -175,7 +179,7 @@ public class AdvertisementService implements IAdvertisementService {
                         uploadToParse(parseAd);
                     }
                 }else {
-                    //TODO: error walla!
+                    connectionError();
                 }
             }
         });
@@ -183,6 +187,28 @@ public class AdvertisementService implements IAdvertisementService {
 
     public void deleteParseAd(ParseObject parseAd) {
         parseAd.deleteInBackground();
+    }
+
+    public void connectionError() {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
+                alertDialog.setTitle("Nätverksproblem!");
+                alertDialog.setMessage("Kunde inte upprätthålla kontakt med PinJobs databas. Se till" +
+                        " att du har internetåtkomst och försök igen.");
+                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Aight",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                alertDialog.dismiss();
+                            }
+                        });
+                alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
+                alertDialog.show();
+            }
+        });
+
     }
 
 }

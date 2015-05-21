@@ -1,8 +1,6 @@
 package edu.ctl.pinjobs.controller;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.support.v7.app.ActionBarActivity;
@@ -17,7 +15,6 @@ import android.widget.Toast;
 
 import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
-import edu.ctl.pinjobs.Handler.AdvertisementListHolder;
 import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.Handler.MapActivity;
 import edu.ctl.pinjobs.Handler.UserListActivity;
@@ -29,7 +26,6 @@ import edu.ctl.pinjobs.User.LoginActivity;
 import edu.ctl.pinjobs.User.LoginModel;
 import edu.ctl.pinjobs.Utils.LocationUtils;
 import edu.ctl.pinjobs.eventbus.EventBus;
-import edu.ctl.pinjobs.profile.CreateProfileActivity;
 import edu.ctl.pinjobs.Advertisement.CreateAdActivity;
 import edu.ctl.pinjobs.profile.IProfile;
 import edu.ctl.pinjobs.profile.MyProfileActivity;
@@ -37,10 +33,11 @@ import edu.ctl.pinjobs.profile.MyProfileActivity;
 import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity implements View.OnClickListener, EventBus.IEventHandler{
+public class MainActivity extends ActionBarActivity implements EventBus.IEventHandler{
 
     private MainView mainView;
     private IProfileService profileService;
@@ -66,10 +63,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                 (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton),
                 (TextView)findViewById(R.id.loggedInTextView));
 
-        this.adService = new AdvertisementService();
+        this.adService = new AdvertisementService(MainActivity.this);
         profileService = new ProfileService();
         this.backgroundThread = new BackgroundThread(adService);
         backgroundThread.start();
+
     }
 
 
@@ -100,11 +98,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    @Override
-    public void onClick(View view) {
-
     }
 
     public void openMapView(View view){
@@ -171,7 +164,6 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     @Override
     public void onEvent(EventBus.Event evt, Object o) {
         if(evt == EventBus.Event.POST_AD) {
-            IAdvertisementService adService = new AdvertisementService();
             adService.saveAd((IAdvertisement)o);
             BackgroundThread thread = new BackgroundThread(adService);
             thread.start();
@@ -198,11 +190,14 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             adService.updateAdvertiser((IProfile) o);
             loginUser((IProfile) o);
         }else if(evt == EventBus.Event.UPDATE_AD){
-            //adService.updateAd((IAdvertisement) o);
+            List<IAdvertisement> oldAndNewAd = ((List<IAdvertisement>) o);
+            //oldAndNewAd.add(((List<IAdvertisement>) o).get(0));
+            //oldAndNewAd.add(((List<IAdvertisement>) o).get(1));
+            adService.updateAd(adService.getAdID(oldAndNewAd.get(0)), oldAndNewAd.get(1));
             BackgroundThread thread = new BackgroundThread(adService);
             thread.start();
             Intent intent = new Intent(this.getApplicationContext(), MapActivity.class);
-            AndroidAdvertisement androidAD = new AndroidAdvertisement((IAdvertisement) o);
+            AndroidAdvertisement androidAD = new AndroidAdvertisement(oldAndNewAd.get(1));
             intent.putExtra("Advertisement", androidAD);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             this.getApplicationContext().startActivity(intent);
