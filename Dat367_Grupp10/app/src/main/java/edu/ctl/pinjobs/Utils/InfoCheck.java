@@ -1,8 +1,6 @@
-package edu.ctl.pinjobs.Utils;
+package edu.ctl.pinjobs.utils;
 
 import java.io.Serializable;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *

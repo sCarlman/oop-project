@@ -1,8 +1,8 @@
-package edu.ctl.pinjobs.Services;
+package edu.ctl.pinjobs.services;
 
 import java.util.List;
 
-import edu.ctl.pinjobs.profile.IProfile;
+import edu.ctl.pinjobs.profile.model.IProfile;
 
 /**
  * Created by Isaac on 2015-05-06.

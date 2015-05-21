@@ -1,6 +1,5 @@
-package edu.ctl.pinjobs.Services;
+package edu.ctl.pinjobs.services;
 
-import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -9,9 +8,9 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ctl.pinjobs.profile.IProfile;
-import edu.ctl.pinjobs.profile.Profile;
-import edu.ctl.pinjobs.profile.WrongInputExeption;
+import edu.ctl.pinjobs.profile.model.IProfile;
+import edu.ctl.pinjobs.profile.model.Profile;
+import edu.ctl.pinjobs.profile.model.WrongInputExeption;
 
 /**
  * Created by Isaac on 2015-04-23.

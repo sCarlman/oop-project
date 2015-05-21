@@ -13,28 +13,24 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
-import edu.ctl.pinjobs.Advertisement.IAdvertisement;
-import edu.ctl.pinjobs.Handler.AdvertisementListHolder;
-import edu.ctl.pinjobs.Handler.HandlerActivity;
-import edu.ctl.pinjobs.Handler.MapActivity;
-import edu.ctl.pinjobs.Handler.UserListActivity;
-import edu.ctl.pinjobs.Services.AdvertisementService;
-import edu.ctl.pinjobs.Services.IAdvertisementService;
-import edu.ctl.pinjobs.Services.IProfileService;
-import edu.ctl.pinjobs.Services.ProfileService;
-import edu.ctl.pinjobs.User.LoginActivity;
-import edu.ctl.pinjobs.User.LoginModel;
-import edu.ctl.pinjobs.Utils.LocationUtils;
+import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
+import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
+import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
+import edu.ctl.pinjobs.main.BackgroundThread;
+import edu.ctl.pinjobs.main.MainView;
+import edu.ctl.pinjobs.main.UserModel;
+import edu.ctl.pinjobs.services.AdvertisementService;
+import edu.ctl.pinjobs.services.IAdvertisementService;
+import edu.ctl.pinjobs.services.IProfileService;
+import edu.ctl.pinjobs.services.ProfileService;
+import edu.ctl.pinjobs.user.model.LoginModel;
+import edu.ctl.pinjobs.utils.LocationUtils;
 import edu.ctl.pinjobs.eventbus.EventBus;
-import edu.ctl.pinjobs.Advertisement.CreateAdActivity;
-import edu.ctl.pinjobs.profile.IProfile;
-import edu.ctl.pinjobs.profile.MyProfileActivity;
+import edu.ctl.pinjobs.profile.model.IProfile;
 
 import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

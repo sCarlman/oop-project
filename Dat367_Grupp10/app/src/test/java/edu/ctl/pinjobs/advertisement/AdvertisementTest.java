@@ -1,14 +1,11 @@
 package edu.ctl.pinjobs.advertisement;
 
 import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.ExpectedException;
 import org.junit.Test;
 
-import edu.ctl.pinjobs.Advertisement.Advertisement;
-import edu.ctl.pinjobs.Advertisement.Category;
-import edu.ctl.pinjobs.Advertisement.IAdvertisement;
-import edu.ctl.pinjobs.Advertisement.WrongAdInputException;
+import edu.ctl.pinjobs.advertisement.model.Advertisement;
+import edu.ctl.pinjobs.advertisement.model.Category;
+import edu.ctl.pinjobs.advertisement.model.WrongAdInputException;
 
 /**
  * Created by Filips on 5/20/2015.

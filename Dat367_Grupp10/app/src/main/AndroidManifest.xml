@@ -41,27 +41,27 @@
         <uses-library android:name="com.google.android.maps" />
 
         <activity
-            android:name="edu.ctl.pinjobs.profile.CreateProfileActivity"
+            android:name="edu.ctl.pinjobs.controller.CreateProfileActivity"
             android:label="@string/title_activity_create_profile" >
         </activity>
         <activity
-            android:name="edu.ctl.pinjobs.profile.MyProfileActivity"
+            android:name="edu.ctl.pinjobs.controller.MyProfileActivity"
             android:label="@string/title_activity_my_profile" >
         </activity>
         <activity
-            android:name="edu.ctl.pinjobs.Advertisement.CreateAdActivity"
+            android:name="edu.ctl.pinjobs.controller.CreateAdActivity"
             android:label="@string/title_activity_create_ad" >
         </activity>
         <activity
-            android:name="edu.ctl.pinjobs.Handler.HandlerActivity"
+            android:name="edu.ctl.pinjobs.controller.HandlerActivity"
             android:label="@string/title_activity_ad_list" >
         </activity>
         <activity
-            android:name="edu.ctl.pinjobs.User.LoginActivity"
+            android:name="edu.ctl.pinjobs.controller.LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name="edu.ctl.pinjobs.Handler.MapActivity"
+            android:name="edu.ctl.pinjobs.controller.MapActivity"
             android:label="@string/title_activity_map" >
         </activity>
 
@@ -73,23 +73,23 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="edu.ctl.pinjobs.Advertisement.DetailedAdActivity"
+            android:name="edu.ctl.pinjobs.controller.DetailedAdActivity"
             android:label="@string/title_activity_detailed_ad" >
         </activity>
         <activity
-            android:name="edu.ctl.pinjobs.Handler.UserListActivity"
+            android:name="edu.ctl.pinjobs.controller.UserListActivity"
             android:label="@string/title_activity_user_list" >
         </activity>
         <activity
-            android:name="edu.ctl.pinjobs.Advertisement.ModifyAdActivity"
+            android:name="edu.ctl.pinjobs.controller.ModifyAdActivity"
             android:label="@string/title_activity_modify_ad" >
         </activity>
         <activity
-            android:name="edu.ctl.pinjobs.Handler.LoadingScreen"
+            android:name="edu.ctl.pinjobs.controller.LoadingScreen"
             android:label="@string/title_activity_loading_screen" >
         </activity>
         <activity
-            android:name="edu.ctl.pinjobs.profile.EditMyProfileActivity"
+            android:name="edu.ctl.pinjobs.controller.EditMyProfileActivity"
             android:label="@string/title_activity_edit_my_profile" >
         </activity>
     </application>

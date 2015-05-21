@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.Services;
+package edu.ctl.pinjobs.services;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,11 +17,11 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import edu.ctl.pinjobs.Advertisement.WrongAdInputException;
-import edu.ctl.pinjobs.profile.IProfile;
-import edu.ctl.pinjobs.Advertisement.Advertisement;
-import edu.ctl.pinjobs.Advertisement.Category;
-import edu.ctl.pinjobs.Advertisement.IAdvertisement;
+import edu.ctl.pinjobs.advertisement.model.WrongAdInputException;
+import edu.ctl.pinjobs.profile.model.IProfile;
+import edu.ctl.pinjobs.advertisement.model.Advertisement;
+import edu.ctl.pinjobs.advertisement.model.Category;
+import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 
 /**
  * Created by Isaac on 2015-04-27.
@@ -175,7 +175,7 @@ public class AdvertisementService implements IAdvertisementService {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> parseObjects, ParseException e) {
-                if(e == null) {
+                if (e == null) {
                     for (ParseObject parseAd : parseObjects) {
                         parseAd.put("FirstName", profile.getFirstName());
                         parseAd.put("LastName", profile.getLastName());
@@ -183,7 +183,7 @@ public class AdvertisementService implements IAdvertisementService {
                         parseAd.put("Phone", profile.getPhone());
                         uploadToParse(parseAd);
                     }
-                }else {
+                } else {
                     e.printStackTrace();
                     connectionError();
                 }

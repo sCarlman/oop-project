@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.Utils;
+package edu.ctl.pinjobs.utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +10,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 
 import com.google.android.gms.maps.model.LatLng;
-
-import edu.ctl.pinjobs.Advertisement.IAdvertisement;
 
 /**
  * Created by Filips on 5/11/2015.
