@@ -1,7 +1,7 @@
 package edu.ctl.pinjobs.advertisement;
 
-import edu.ctl.pinjobs.profile.IProfile;
-import edu.ctl.pinjobs.profile.WrongInputExeption;
+import edu.ctl.pinjobs.profile.model.IProfile;
+import edu.ctl.pinjobs.profile.model.WrongInputExeption;
 
 /**
  * Created by Filips on 5/20/2015.

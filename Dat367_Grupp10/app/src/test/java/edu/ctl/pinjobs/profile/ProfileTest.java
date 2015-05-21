@@ -3,6 +3,9 @@ package edu.ctl.pinjobs.profile;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.ctl.pinjobs.profile.model.Profile;
+import edu.ctl.pinjobs.profile.model.WrongInputExeption;
+
 /**
  * Created by Albertsson on 15-05-20.
  */

@@ -1,12 +1,10 @@
 package edu.ctl.pinjobs.profile;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
-import org.junit.Assert.*;
 
 import edu.ctl.pinjobs.advertisement.MockProfile;
-import edu.ctl.pinjobs.controller.UserModel;
+import edu.ctl.pinjobs.main.UserModel;
+import edu.ctl.pinjobs.profile.model.IProfile;
 
 /**
  * Created by filiplarsson on 15-05-21.
