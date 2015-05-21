@@ -73,9 +73,14 @@ public class MapActivity extends ActionBarActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             //from create ad window
-            AndroidAdvertisement androidAd = (AndroidAdvertisement) bundle.getParcelable("Advertisement");
-            IAdvertisement ad = androidAd.getAd();
-            mapView = new MapView(this.getApplicationContext(), adList, mapFragment, ad);
+            if(bundle.getParcelable("Advertisement")!=null) {
+                System.out.println("I CREATE AD");
+                AndroidAdvertisement androidAd = (AndroidAdvertisement) bundle.getParcelable("Advertisement");
+                IAdvertisement ad = androidAd.getAd();
+                mapView = new MapView(this.getApplicationContext(), adList, mapFragment, ad);
+            }else if(bundle.getParcelable("UpdateAdvertisement")!=null){
+                System.out.println("I UPDATE AD");
+            }
         } else { //from mainwindow
             mapView = new MapView(this.getApplicationContext(), adList, mapFragment);
         }

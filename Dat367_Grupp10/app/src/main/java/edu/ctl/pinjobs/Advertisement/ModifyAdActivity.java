@@ -60,6 +60,7 @@ public class ModifyAdActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
     public void saveNewModifiedAd(IAdvertisement ad){
+        System.out.println(ad.getLocation());
         EventBus.INSTANCE.publish(EventBus.Event.UPDATE_AD, ad);
     }
 

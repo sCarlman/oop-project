@@ -32,7 +32,7 @@ public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickLi
     Context context;
     GoogleMap map;
     HandlerLocationUtils locationUtils;
-    Map<Marker,IAdvertisement> markerAdHashmap = new HashMap<>();
+    Map<Marker,IAdvertisement> markerAdHashmap = new HashMap<>(); //keeps track of which ad the marker represents
     List<IAdvertisement> adList;
     List<Marker> markers = new ArrayList<Marker>(); //a list of all the markers placed on the map
     IAdvertisement zoomAd;
@@ -140,8 +140,9 @@ public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickLi
 
     @Override
     public void onInfoWindowClick(Marker marker){
+        //this is done when clicked on a markers info window
         HandlerActivity handlerController = new HandlerActivity();
-        IAdvertisement ad = markerAdHashmap.get(marker);
+        IAdvertisement ad = markerAdHashmap.get(marker); //gets the correct ad that represents the marker
         LatLng currentPosition = LocationUtils.getCurrentLocation(context);
         String distance = "" + locationUtils.calculateDistanceFromPosition(currentPosition.latitude,
                 ad.getLatitude(),currentPosition.longitude,ad.getLongitude());
@@ -149,10 +150,11 @@ public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickLi
         handlerController.openDetailedAdView(context, androidAD, distance);
     }
     private String setSnippet(IAdvertisement ad,LatLng currentPos){
+        //Sets the text of the info window that isn't the title.
         String distance = "" + locationUtils.calculateDistanceFromPosition(currentPos.latitude,
                 ad.getLatitude(),currentPos.longitude,ad.getLongitude());
         int index = distance.indexOf('.');
         distance = distance.substring(0, index + 2);
-        return distance+" km bort";
+        return distance+" km bort"; //sets the text to amount of km from current position with one decimal
     }
 }

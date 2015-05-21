@@ -45,9 +45,6 @@ public class LoginModel {
             }else{
                 EventBus.INSTANCE.publish(EventBus.Event.LOGIN_FAILED_WRONG_PASSWORD, null);
             }
-
-        }else{
-            System.out.println("Databas null!!!!!");
         }
     }
 
