@@ -68,6 +68,7 @@ public class AdvertisementService implements IAdvertisementService {
             List<IAdvertisement> adList = copyToAdvertisements(query.find());
             return adList;
         } catch (ParseException e) {
+            e.printStackTrace();
             connectionError();
             return null;
         }
@@ -102,7 +103,8 @@ public class AdvertisementService implements IAdvertisementService {
         try {
             return copyToAdvertisements(query.find());
         } catch (ParseException e) {
-            //connectionError();
+            e.printStackTrace();
+            connectionError();
             return null;
         }
     }
@@ -129,6 +131,7 @@ public class AdvertisementService implements IAdvertisementService {
                 }
             }
         } catch (ParseException e) {
+            e.printStackTrace();
             connectionError();
         }
     }
@@ -143,6 +146,7 @@ public class AdvertisementService implements IAdvertisementService {
                     setParseAdvertisement(ad, parseObject);
                     uploadToParse(parseObject);
                 }else{
+                    e.printStackTrace();
                     connectionError();
                 }
             }
@@ -158,6 +162,7 @@ public class AdvertisementService implements IAdvertisementService {
         try {
             return query.getFirst().getObjectId();
         } catch (ParseException e) {
+            e.printStackTrace();
             connectionError();
             return null;
         }
@@ -179,6 +184,7 @@ public class AdvertisementService implements IAdvertisementService {
                         uploadToParse(parseAd);
                     }
                 }else {
+                    e.printStackTrace();
                     connectionError();
                 }
             }

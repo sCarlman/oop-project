@@ -192,14 +192,14 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
             loginUser((IProfile) o);
         } else if (evt == EventBus.Event.UPDATE_AD) {
             //TODO: fixa loading screen under omladdning av fetch ads
-            List<IAdvertisement> oldAndNewAd = ((List<IAdvertisement>) o);
-            //oldAndNewAd.add(((List<IAdvertisement>) o).get(0));
-            //oldAndNewAd.add(((List<IAdvertisement>) o).get(1));
-            adService.updateAd(adService.getAdID(oldAndNewAd.get(0)), oldAndNewAd.get(1));
+
+            IAdvertisement oldAd = ((List<IAdvertisement>) o).get(0);
+            IAdvertisement newAd = ((List<IAdvertisement>) o).get(1);
+            adService.updateAd(adService.getAdID(oldAd), newAd);
             BackgroundThread thread = new BackgroundThread(adService);
             thread.start();
             Intent intent = new Intent(this.getApplicationContext(), MapActivity.class);
-            AndroidAdvertisement androidAD = new AndroidAdvertisement(oldAndNewAd.get(1));
+            AndroidAdvertisement androidAD = new AndroidAdvertisement(newAd);
             intent.putExtra("Advertisement", androidAD);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             this.getApplicationContext().startActivity(intent);
