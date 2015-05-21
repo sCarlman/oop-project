@@ -125,6 +125,11 @@ public class ProfileTest {
         profile.setPassword("673829346327849");
     }
 
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetPassword7ExceptionExpected() throws WrongInputExeption{
+        profile.setPassword("!!!!!!!!!");
+    }
+
     //less than 5 chars should fail but our test profile
     //has only two chars so use this later
     //profile.setPassword("3bgD");
@@ -139,5 +144,145 @@ public class ProfileTest {
             assert false;
         }
     }
+
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetEmail1ExceptionExpected() throws WrongInputExeption{
+        profile.setEmail(null);
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetEmail2ExceptionExpected() throws WrongInputExeption{
+        profile.setEmail("dasdasdfe");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetEmail3ExceptionExpected() throws WrongInputExeption{
+        profile.setEmail("1234564");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetEmail4ExceptionExpected() throws WrongInputExeption{
+        profile.setEmail("oabjs.d!?!?!?!@mail.com");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetEmail5ExceptionExpected() throws WrongInputExeption{
+        profile.setEmail("@");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetEmail6ExceptionExpected() throws WrongInputExeption{
+        profile.setEmail("hej@");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetEmail7ExceptionExpected() throws WrongInputExeption{
+        profile.setEmail("@mail.com");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetEmail8ExceptionExpected() throws WrongInputExeption{
+        profile.setEmail("asdasd@asfd.com!");
+    }
+    @Test
+    public void testProfileSetEmailCorrect() {
+        try {
+            profile.setPassword("carl@albertsson.com");
+            profile.setPassword("larssón@test.com");
+            assert true;
+        } catch (WrongInputExeption e) {
+            assert false;
+        }
+    }
+
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetPhone1ExceptionExpected() throws WrongInputExeption{
+        profile.setPhone(null);
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetPhone2ExceptionExpected() throws WrongInputExeption{
+        profile.setPhone("");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetPhone3ExceptionExpected() throws WrongInputExeption{
+        profile.setPhone("01234");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetPhone4ExceptionExpected() throws WrongInputExeption{
+        profile.setPhone("asflfkj");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetPhone5ExceptionExpected() throws WrongInputExeption{
+        profile.setPhone("!?!?!?????");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetPhone6ExceptionExpected() throws WrongInputExeption{
+        profile.setPhone("01010101010101010101010");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetPhone7ExceptionExpected() throws WrongInputExeption{
+        profile.setPhone("070654312q");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetPhone8ExceptionExpected() throws WrongInputExeption{
+        profile.setPhone("070654312!");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetPhone9ExceptionExpected() throws WrongInputExeption{
+        profile.setPhone("0000000000");
+    }
+    @Test
+    public void testProfileSetPhoneCorrect() {
+        try {
+            profile.setPhone("0708654322");
+
+            assert true;
+        } catch (WrongInputExeption e) {
+            assert false;
+        }
+    }
+
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetAddress1ExceptionExpected() throws WrongInputExeption{
+        profile.setAddress(null);
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetAddress2ExceptionExpected() throws WrongInputExeption{
+        profile.setAddress("");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetAddress3ExceptionExpected() throws WrongInputExeption{
+        profile.setAddress("123234567");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetAddress4ExceptionExpected() throws WrongInputExeption{
+        profile.setAddress("123 testavenue 123");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetAddress5ExceptionExpected() throws WrongInputExeption{
+        profile.setAddress("!#%€&€/");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetAddress6ExceptionExpected() throws WrongInputExeption{
+        profile.setAddress("road! 23");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetAddress7ExceptionExpected() throws WrongInputExeption{
+        profile.setAddress("23 testväg");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetAddress8ExceptionExpected() throws WrongInputExeption{
+        profile.setAddress("testvägen");
+    }
+    @Test(expected = WrongInputExeption.class)
+    public void testProfileSetAddress9ExceptionExpected() throws WrongInputExeption{
+        profile.setAddress("aaaaaaaaa 4");
+    }
+    @Test
+    public void testProfileSetAddressCorrect() {
+        try {
+            profile.setAddress("Alvgatan 1, Varberg");
+            profile.setAddress("ócsa, hungary");
+            assert true;
+        } catch (WrongInputExeption e) {
+            assert false;
+        }
+    }
+
+
+
 
 }
