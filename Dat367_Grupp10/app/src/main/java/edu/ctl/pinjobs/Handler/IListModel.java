@@ -18,7 +18,7 @@ public interface IListModel {
     public void addToList(IAdvertisement add);
     public void setList(List<IAdvertisement> addList);
     public void removeFromList(IAdvertisement add);
-    public void sortForDistance(LatLng currentPosition);
+    public void sortForDistance(double currentLatitidue, double currentLongitude);
 
 
 }

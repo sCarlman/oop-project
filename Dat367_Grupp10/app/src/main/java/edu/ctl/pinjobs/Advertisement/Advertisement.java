@@ -131,7 +131,7 @@ public class Advertisement implements IAdvertisement, Serializable {
     }
 
     public void setLongitude(double longitude) throws WrongAdInputException {
-        if(longitude<180 && longitude> -180) {
+        if(longitude<=180 && longitude>= -180) {
             this.longitude = longitude;
         }else {
             throw new WrongAdInputException("location");

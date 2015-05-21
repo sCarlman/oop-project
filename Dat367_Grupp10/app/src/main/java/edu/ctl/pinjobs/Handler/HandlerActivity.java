@@ -82,7 +82,7 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
         setContentView(R.layout.activity_ad_list);
         this.listView = new ListView(this.getApplicationContext(),(android.widget.ListView)findViewById(R.id.adListView), email);
         this.listModel = new ListModel(adList);
-        listModel.sortForDistance(LocationUtils.getCurrentLocation(this));
+        listModel.sortForDistance(LocationUtils.getCurrentLocation(this).latitude,LocationUtils.getCurrentLocation(this).longitude);
         listView.setupView(listModel.getList(), android.R.layout.simple_list_item_1);
 
     }

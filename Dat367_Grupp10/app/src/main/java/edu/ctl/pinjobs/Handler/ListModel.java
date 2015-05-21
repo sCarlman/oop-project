@@ -46,7 +46,7 @@ public class ListModel implements IListModel {
         this.adList.remove(add);
     }
 
-    public void sortForDistance(LatLng currentPosition){
+    public void sortForDistance(double currentLangitude, double currentLongitude){
         List<IAdvertisement> tempAdList = new ArrayList<IAdvertisement>(adList);
         adList.clear();
         int index=-1;
@@ -55,8 +55,8 @@ public class ListModel implements IListModel {
         int loopSize = tempAdList.size();
         for(int j=0;j<loopSize;j++) {
             for (int i = 0; i < tempAdList.size(); i++) {
-                double adDistance = locationUtils.calculateDistanceFromPosition(currentPosition.latitude,tempAdList.get(i).getLatitude()
-                        ,currentPosition.longitude,tempAdList.get(i).getLongitude());
+                double adDistance = locationUtils.calculateDistanceFromPosition(currentLangitude,tempAdList.get(i).getLatitude()
+                        ,currentLongitude,tempAdList.get(i).getLongitude());
                 if (i == 0) {
                     closestDistance = adDistance;
                     closestAd = tempAdList.get(i);

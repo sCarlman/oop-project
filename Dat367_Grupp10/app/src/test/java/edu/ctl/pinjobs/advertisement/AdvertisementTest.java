@@ -35,9 +35,10 @@ public class AdvertisementTest {
     public void testAdvertisementSetLongitudeExceptionShouldNotBeCasted(){
         try {
             ad.setLongitude(180);
-            //fail("InvalidIPAddressException not thrown.");
+            ad.setLongitude(-180);
+            assert true;
         } catch(WrongAdInputException e) {
-            //assertNotNull(e.getMessage());
+            assert false;
         }
     }
 
