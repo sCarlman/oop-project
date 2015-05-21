@@ -1,11 +1,12 @@
 package edu.ctl.pinjobs.Advertisement;
 
-import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by filiplarsson on 15-05-15.
@@ -21,10 +22,15 @@ public class ModifyAdView {
     private Button modifyButton;
     Boolean editable=false;
 
+    private IAdvertisement ad;
+    private List<IAdvertisement> oldAndModdedAd;
+    private ModifyAdActivity modifyAdActivity;
+
     public ModifyAdView(EditText titleEditText, EditText descriptionEditText,
                           EditText addressEditText,  Button modifyButton,
                         RadioButton modifyGardenRadioButton, RadioButton modifyLabourRadioButton,
-                        RadioButton modifyOtherRadioButton, final IAdvertisement ad){
+                        RadioButton modifyOtherRadioButton, final IAdvertisement ad,
+                        View.OnClickListener controller, ModifyAdActivity activity){
 
         this.titleEditText = titleEditText;
         this.descriptionEditText = descriptionEditText;
@@ -34,25 +40,10 @@ public class ModifyAdView {
         this.modifyLabourRadioButton = modifyLabourRadioButton;
         this.modifyOtherRadioButton = modifyOtherRadioButton;
         this.modifyButton = modifyButton;
-        modifyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(editable == false){
-                    enableEditTextFields();
-                    enableRadioButtons();
-                    editable = true;
-                    changeButtonText();
-                }else{
-                    modifyAd(ad);
-                    disableEditTextFields();
-                    disableRadioButtons();
-                    editable = false;
-                    ModifyAdActivity tempActivity = new ModifyAdActivity();
-                    tempActivity.saveNewModifiedAd(ad);
-                }
-            }
-        });
-        setTexts(ad);
+        this.ad = ad;
+        this.modifyAdActivity = activity;
+        modifyButton.setOnClickListener(controller);
+        setTexts();
         disableEditTextFields();
         disableRadioButtons();
     }
@@ -65,8 +56,23 @@ public class ModifyAdView {
         }
     }
 
-    private void modifyAd(IAdvertisement ad){
+    public void modifyButtonClicked(){
+        if(!editable){
+            enableEditTextFields();
+            enableRadioButtons();
+            changeButtonText();
+        }else{
+            modifyAd();
+            disableEditTextFields();
+            disableRadioButtons();
+            modifyAdActivity.saveNewModifiedAd(oldAndModdedAd);
+        }
+        editable = !editable;
+    }
 
+    private void modifyAd(){
+        oldAndModdedAd = new ArrayList<>();
+        oldAndModdedAd.add(ad);
         try{
             ad.setTitle(titleEditText.getText().toString().trim());
         }catch (WrongAdInputException e){
@@ -91,7 +97,7 @@ public class ModifyAdView {
         }else{
             ad.setCategory(Category.OTHER);
         }
-
+        oldAndModdedAd.add(ad);
 
     }
 
@@ -130,7 +136,7 @@ public class ModifyAdView {
         modifyOtherRadioButton.setEnabled(false);
     }
 
-    private void setTexts(IAdvertisement ad){
+    private void setTexts(){
         titleEditText.setText(ad.getTitle().toString());
         descriptionEditText.setText(ad.getDescription().toString());
         addressEditText.setText(ad.getLocation().toString());

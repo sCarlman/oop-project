@@ -19,8 +19,10 @@ public interface IAdvertisementService {
     public void removeOutDatedAds();
     public void updateAd(String id, IAdvertisement ad);
     public void updateAdvertiser(IProfile profile);
+    public void connectionError();
 
     public List<IAdvertisement> fetchAllAds();
     public List<IAdvertisement> fetchAdsOfAdvertiser(String email);
+    public String getAdID(IAdvertisement ad);
 
 }
