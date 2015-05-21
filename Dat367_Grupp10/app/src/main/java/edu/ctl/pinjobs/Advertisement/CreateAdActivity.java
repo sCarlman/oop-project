@@ -73,25 +73,10 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
         }
     }
 
-    public void checkIfAdExistsAndSendEvent(IAdvertisement newAd){
-        List<IAdvertisement> adList = AdvertisementListHolder.getInstance().getList();
-        if(checkIfAdExists(newAd, adList)) {
-            Toast.makeText(getApplicationContext(), "Anonsen finns redan",
-                    Toast.LENGTH_LONG).show();
-        }else {
-            EventBus.INSTANCE.publish(EventBus.Event.POST_AD, newAd);
-            finish();
-        }
+    public void checkIfAdExists(IAdvertisement newAd){
+            EventBus.INSTANCE.publish(EventBus.Event.CHECK_IF_AD_EXISTS, newAd);
     }
 
-    private boolean checkIfAdExists(IAdvertisement newAd,List<IAdvertisement> adList){
-        for(IAdvertisement loopAd: adList){
-            if(loopAd.equals(newAd)) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     @Override
     public void onEvent(EventBus.Event evt, Object o) {

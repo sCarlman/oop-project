@@ -117,7 +117,7 @@ public class CreateAdView {
         try {
             newAd = new Advertisement(newProfile, title, description, location, category,
                     day, month, year, lat, lng);
-            activity.checkIfAdExistsAndSendEvent(newAd);
+            activity.checkIfAdExists(newAd);
         }catch(WrongAdInputException e){
             if(e.getName().equals("title")){
                 titleEditText.setError("Måste vara mellan 1 och 30 bokstäver");

@@ -99,8 +99,9 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
 
     @Override
     public void onEvent(EventBus.Event evt, Object o) {
-        if(evt == EventBus.Event.ADLIST_UPDATED){
-            AdvertisementListHolder.getInstance().setList((List<IAdvertisement>)o);
+        if (evt == EventBus.Event.ADLIST_UPDATED) {
+            AdvertisementListHolder.getInstance().setList((List<IAdvertisement>) o);
         }
     }
+
 }

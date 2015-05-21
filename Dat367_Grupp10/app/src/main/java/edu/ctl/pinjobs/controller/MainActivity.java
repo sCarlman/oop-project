@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import edu.ctl.pinjobs.Advertisement.AndroidAdvertisement;
 import edu.ctl.pinjobs.Advertisement.IAdvertisement;
+import edu.ctl.pinjobs.Handler.AdvertisementListHolder;
 import edu.ctl.pinjobs.Handler.HandlerActivity;
 import edu.ctl.pinjobs.Handler.MapActivity;
 import edu.ctl.pinjobs.Handler.UserListActivity;
@@ -163,8 +164,8 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
 
     @Override
     public void onEvent(EventBus.Event evt, Object o) {
-        if(evt == EventBus.Event.POST_AD) {
-            adService.saveAd((IAdvertisement)o);
+        if (evt == EventBus.Event.POST_AD) {
+            adService.saveAd((IAdvertisement) o);
             BackgroundThread thread = new BackgroundThread(adService);
             thread.start();
             Intent intent = new Intent(this.getApplicationContext(), MapActivity.class);
@@ -173,23 +174,23 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             this.getApplicationContext().startActivity(intent);
             Toast.makeText(this, "Anons skapad!", Toast.LENGTH_LONG).show();
-        }else if(evt == EventBus.Event.SAVE_PROFILE) {
+        } else if (evt == EventBus.Event.SAVE_PROFILE) {
             profileService.saveProfile((IProfile) o);
             loginUser((IProfile) o);
-        }else if(evt == EventBus.Event.LOGIN_SUCCESS){
+        } else if (evt == EventBus.Event.LOGIN_SUCCESS) {
             loginUser(((LoginModel) o).getProfile());
-        }else if(evt == EventBus.Event.CREATE_AD_SETUP){
+        } else if (evt == EventBus.Event.CREATE_AD_SETUP) {
             callCreateAd();
-        }else if(evt == EventBus.Event.SHOW_MY_ADS){
+        } else if (evt == EventBus.Event.SHOW_MY_ADS) {
             Intent intent = new Intent(this.getApplicationContext(), UserListActivity.class);
             intent.putExtra("Email", (String) o);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-        }else if(evt == EventBus.Event.UPDATE_PROFILE){
+        } else if (evt == EventBus.Event.UPDATE_PROFILE) {
             profileService.updateProfile((IProfile) o);
             adService.updateAdvertiser((IProfile) o);
             loginUser((IProfile) o);
-        }else if(evt == EventBus.Event.UPDATE_AD){
+        } else if (evt == EventBus.Event.UPDATE_AD) {
             //TODO: fixa loading screen under omladdning av fetch ads
             List<IAdvertisement> oldAndNewAd = ((List<IAdvertisement>) o);
             //oldAndNewAd.add(((List<IAdvertisement>) o).get(0));
@@ -203,8 +204,24 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             this.getApplicationContext().startActivity(intent);
             Toast.makeText(this, "Annons ändrad!", Toast.LENGTH_LONG).show();
+        } else if (evt == EventBus.Event.CHECK_IF_AD_EXISTS) {
+            List<IAdvertisement> adList = AdvertisementListHolder.getInstance().getList();
+            if (checkIfAdExists((IAdvertisement) o, adList)) {
+                Toast.makeText(this, "Anonsen finns redan",
+                        Toast.LENGTH_LONG).show();
+            } else {
+                EventBus.INSTANCE.publish(EventBus.Event.POST_AD, (IAdvertisement) o);
+            }
         }
+    }
 
+    private boolean checkIfAdExists(IAdvertisement newAd,List<IAdvertisement> adList){
+        for(IAdvertisement loopAd: adList){
+            if(loopAd.equals(newAd)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void loginUser(IProfile profile) {
