@@ -180,8 +180,6 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
         }
     }
 
-
-
     private void loginUser(IProfile profile) {
 
         user.logIn(profile);

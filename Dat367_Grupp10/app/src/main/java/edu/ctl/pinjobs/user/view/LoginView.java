@@ -23,10 +23,6 @@ public class LoginView{
     Context context;
     Activity activity;
 
-    public LoginView(Context context, AttributeSet attrs) {
-        this.context = context;
-}
-
     public LoginView(Activity activity){
 
         this.activity = activity;
@@ -96,18 +92,19 @@ public class LoginView{
         pwd.setHintTextColor(Color.BLACK);
     }
 
-    public void setError(EditText editText, String error){
+    private void setError(EditText editText, String error){
         editText.setError(error);
         editText.setHintTextColor(Color.RED);
     }
-
-
-    public void failedMatchEmailWithDatabase(){
-        eMail.setError("Fel E-mail!!");
-    }
-
-    public void failedMatchPasswordWithDatabase(){
-        pwd.setError("Fel Lösenord!");
+    public void setInputError(String error){
+        switch (error){
+            case "email": eMail.setError("Ogiltig E-mail");
+                eMail.requestFocus();
+                break;
+            case "password": pwd.setError("Ogiltigt lösenord");
+                pwd.requestFocus();
+                break;
+        }
     }
 
 }

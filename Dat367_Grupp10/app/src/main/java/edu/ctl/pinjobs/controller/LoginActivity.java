@@ -73,13 +73,11 @@ public class LoginActivity extends ActionBarActivity {
                 UserModel.getInstance().logIn(loginModel.getProfile());
                 setResult(5);
                 finish();
-
             }else{
-                if(loginModel.doesMailExistInList(list)!=null) {
-                    //TODO: ÄNDRA TILL SWITCH ERRORS
-                    System.out.println("ERROR I EMAIL");
+                if(loginModel.doesMailExistInList(list)==null) {
+                    loginView.setInputError("email");
                 }else {
-                    System.out.println("ERROR I PASSWORD");
+                    loginView.setInputError("password");
                 }
             }
         }

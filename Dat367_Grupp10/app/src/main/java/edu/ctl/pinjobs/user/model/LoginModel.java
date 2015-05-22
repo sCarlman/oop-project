@@ -24,7 +24,6 @@ public class LoginModel {
     }
 
     public IProfile doesMailExistInList(List<IProfile> profiles){
-
         for (IProfile profile : profiles){
             if (profile.getEmail().equals(eMail)){
                 return profile;
@@ -49,12 +48,10 @@ public class LoginModel {
     }
 
     public void setEmail(String eMail) {
-        //TODO: Set ERROR
         this.eMail = eMail;
     }
 
     public void setPassword(String password) {
-        //TODO: SET ERROR
         this.password = password;
     }
 
