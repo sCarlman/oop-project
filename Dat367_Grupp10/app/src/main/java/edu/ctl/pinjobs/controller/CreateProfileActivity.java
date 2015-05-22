@@ -5,16 +5,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.filips.dat367_grupp10.R;
 
-import edu.ctl.pinjobs.eventbus.EventBus;
+import edu.ctl.pinjobs.main.UserModel;
 import edu.ctl.pinjobs.profile.model.Profile;
 import edu.ctl.pinjobs.profile.model.WrongInputExeption;
 import edu.ctl.pinjobs.profile.view.CreateProfileView;
+import edu.ctl.pinjobs.services.IProfileService;
+import edu.ctl.pinjobs.services.ProfileService;
 
 public class CreateProfileActivity extends ActionBarActivity implements View.OnClickListener {
 
@@ -62,8 +62,12 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                     finish();
                     Toast.makeText( this, "Profile created!", Toast.LENGTH_LONG).show();
 
-                    //*!*!*! DENNA SKALL BORT!!! *!*!*!*!*!*!
-                    EventBus.INSTANCE.publish(EventBus.Event.SAVE_PROFILE, newProfile);
+                    IProfileService iProfileService = new ProfileService();
+                    iProfileService.saveProfile(newProfile);
+                    UserModel.getInstance().logIn(newProfile);
+                    setResult(5);
+                    finish();
+
                 }catch (WrongInputExeption e){
                     if(e.getError().equals("FirstName")){
                         view.firstnameExceptionCought();
@@ -80,7 +84,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                     if(e.getError().equals("Phone")){
                         view.phoneExceptionCought();
                     }
-                    //SKALL DELAS UPP I ADRESS OCH STAD !*!*!*!*!*!*!
+                    //TODO: SKALL DELAS UPP I ADRESS OCH STAD !*!*!*!*!*!*!
                     if(e.getError().equals("Location")){
                         view.locationExceptionCought();
                     }

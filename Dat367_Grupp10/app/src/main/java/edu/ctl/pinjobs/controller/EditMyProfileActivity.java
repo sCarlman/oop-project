@@ -11,9 +11,14 @@ import android.widget.EditText;
 import com.example.filips.dat367_grupp10.R;
 
 import edu.ctl.pinjobs.eventbus.EventBus;
+import edu.ctl.pinjobs.main.UserModel;
 import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.profile.model.WrongInputExeption;
 import edu.ctl.pinjobs.profile.view.EditMyProfileView;
+import edu.ctl.pinjobs.services.AdvertisementService;
+import edu.ctl.pinjobs.services.IAdvertisementService;
+import edu.ctl.pinjobs.services.IProfileService;
+import edu.ctl.pinjobs.services.ProfileService;
 
 public class EditMyProfileActivity extends ActionBarActivity {
 
@@ -88,7 +93,14 @@ public class EditMyProfileActivity extends ActionBarActivity {
             setCanceledByError(true);
         }
         if(!getCanceledByError()){
-            EventBus.INSTANCE.publish(EventBus.Event.UPDATE_PROFILE, myProfile);
+
+            IProfileService iProfileService = new ProfileService();
+            IAdvertisementService iAdvertisementService = new AdvertisementService();
+
+            iProfileService.updateProfile(myProfile);
+            iAdvertisementService.updateAdvertiser(myProfile);
+            UserModel.getInstance().logIn(myProfile);
+            //TODO: Check if MainView updates whit new profile
         }
 
         if(!canceledByError){

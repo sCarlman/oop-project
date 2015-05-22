@@ -168,9 +168,6 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             this.getApplicationContext().startActivity(intent);
             Toast.makeText(this, "Anons skapad!", Toast.LENGTH_LONG).show();
-        } else if (evt == EventBus.Event.SAVE_PROFILE) {
-            profileService.saveProfile((IProfile) o);
-            loginUser((IProfile) o);
         } else if (evt == EventBus.Event.CREATE_AD_SETUP) {
             callCreateAd();
         } else if (evt == EventBus.Event.UPDATE_PROFILE) {
