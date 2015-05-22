@@ -1,13 +1,12 @@
 package edu.ctl.pinjobs.profile.view;
 
+import android.app.Activity;
 import android.widget.EditText;
 
 import com.example.filips.dat367_grupp10.R;
 
-import edu.ctl.pinjobs.eventbus.EventBus;
-import edu.ctl.pinjobs.controller.EditMyProfileActivity;
 import edu.ctl.pinjobs.profile.model.IProfile;
-import edu.ctl.pinjobs.profile.model.WrongInputExeption;
+
 
 /**
  * Created by Albertsson on 15-05-18.
@@ -22,7 +21,7 @@ public class EditMyProfileView {
 
     private IProfile myProfile;
 
-    public EditMyProfileView(IProfile myProfile, EditMyProfileActivity editMyProfileActivity){
+    public EditMyProfileView(IProfile myProfile, Activity editMyProfileActivity){
 
         this.myProfile = myProfile;
 
@@ -64,23 +63,24 @@ public class EditMyProfileView {
         return editCity.getText().toString().trim();
     }
 
-    public void setErrorEditFirstName(String s) {
-        editFirstName.setError(s);
-    }
 
-    public void setErrorEditLastName(String s) {
-        editLastName.setError(s);
-    }
-
-    public void setErrorEditPhone(String s) {
-        editPhone.setError(s);
-    }
-
-    public void setErrorEditAddress(String s) {
-        editAddress.setError(s);
-    }
-
-    public void setErrorEditCity(String s) {
-        editCity.setError(s);
+    public void setInputError(String error){
+        switch (error){
+            case "firstname": editFirstName.setError("Ej giltigt förnamn");
+                editFirstName.requestFocus();
+                break;
+            case "lastname": editLastName.setError("Ej giltigt efternamn");
+                editLastName.requestFocus();
+                break;
+            case "phone": editPhone.setError("Ej giltigt telefonnummer");
+                editPhone.requestFocus();
+                break;
+            case "address": editAddress.setError("Ej giltig adress");
+                editAddress.requestFocus();
+                break;
+            case "city": editCity.setError("Ej giltig adress");
+                editCity.requestFocus();
+                break;
+        }
     }
 }

@@ -20,7 +20,6 @@ public class LoginView{
 
     private EditText eMail;
     private EditText pwd;
-    Context context;
     Activity activity;
 
     public LoginView(Activity activity){

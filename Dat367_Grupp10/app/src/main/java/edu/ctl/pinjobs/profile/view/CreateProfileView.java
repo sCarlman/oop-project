@@ -101,37 +101,30 @@ public class CreateProfileView {
         e.setError(null);
     }
 
-    public void firstnameExceptionCought(){
-        firstNameEditText.setError("Förnamn ej Gilltligt");
-        firstNameEditText.requestFocus();
-    }
-
-    public void lastnameExceptionCought(){
-        lastNameEditText.setError("Efternamn ej Gilltligt");
-        lastNameEditText.requestFocus();
-    }
-
-    public void passwordExceptionCought(){
-        passwordEditText.setError("Lösenord ej Gilltligt");
-        passwordEditText.requestFocus();
-    }
-
-    public void emailExceptionCought(){
-        emailEditText.setError("Email ej Gilltligt");
-        emailEditText.requestFocus();
-    }
-
-    public void phoneExceptionCought(){
-        phoneEditText.setError("Telefon ej Gilltligt");
-        phoneEditText.requestFocus();
-    }
-
-    //Skall delas upp i två
-    public void locationExceptionCought(){
-        cityEditText.setError("Stad ej Gilltligt");
-        cityEditText.requestFocus();
-        locationEditText.setError("Adress ej Gilltligt");
-        locationEditText.requestFocus();
+    public void exceptionCought(String error){
+        switch (error){
+            case "firstname": firstNameEditText.setError("Ej giltigt förnamn");
+                firstNameEditText.requestFocus();
+                break;
+            case "lastname": lastNameEditText.setError("Ej giltigt efternamn");
+                lastNameEditText.requestFocus();
+                break;
+            case "password": passwordEditText.setError("Ej giltigt lösenord");
+                passwordEditText.requestFocus();
+                break;
+            case "email": emailEditText.setError("Ej giltig E-mail");
+                emailEditText.requestFocus();
+                break;
+            case "phone": phoneEditText.setError("Ej giltigt telefonnummer");
+                phoneEditText.requestFocus();
+                break;
+            case "address": locationEditText.setError("Ej giltig adress");
+                locationEditText.requestFocus();
+                break;
+            case "city": cityEditText.setError("Ej giltig adress");
+                cityEditText.requestFocus();
+                break;
+        }
     }
 
     public String getTextFromFirstNameEditText() {
