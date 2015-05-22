@@ -28,7 +28,6 @@ public class CreateAdView {
     private EditText titleEditText;
     private RadioButton gardenRadioButton;
     private RadioButton labourRadioButton;
-    private RadioButton otherRadioButton;
     private DatePicker adEndDatePicker;
     private Button chooseDateButton;
     private Button createAdButton;
@@ -44,8 +43,7 @@ public class CreateAdView {
         this.titleEditText = (EditText) activity.findViewById(R.id.adTitleEditText);
         this.gardenRadioButton = (RadioButton) activity.findViewById(R.id.adGardenRadioButton);
         this.labourRadioButton = (RadioButton) activity.findViewById(R.id.adLabourRadioButton);
-        this.otherRadioButton = (RadioButton) activity.findViewById(R.id.adOtherRadioButton);
-        this.cityEditText = (EditText) activity.findViewById(R.id.adTitleEditText);
+        this.cityEditText = (EditText) activity.findViewById(R.id.adCityEditText);
         this.createAdButton = (Button) activity.findViewById(R.id.createAdButton);
         this.chooseDateButton = (Button) activity.findViewById(R.id.chooseDateButton);
         this.createAdButton.setOnClickListener(v);
@@ -77,7 +75,6 @@ public class CreateAdView {
         checkField(locationEditText, "Address ej ifylld");
         checkField(descriptionEditText, "Beskrivning ej ifylld");
         checkField(titleEditText, "Titel ej ifylld");
-
 
         if(isEmpty == true){
             focusView.requestFocus();
@@ -135,7 +132,7 @@ public class CreateAdView {
     }
 
     public String getLocation(){
-        return locationEditText.getText().toString().trim() +
+        return locationEditText.getText().toString().trim() + "," +
                 cityEditText.getText().toString().trim();
     }
 
@@ -151,10 +148,13 @@ public class CreateAdView {
         switch (error){
             case "title": titleEditText.setError("Måste vara mellan 1 och 30 bokstäver");
                 titleEditText.requestFocus();
+                break;
             case "description": descriptionEditText.setError("Max 300 tecken, min 1");
                 descriptionEditText.requestFocus();
+                break;
             case "location": locationEditText.setError("Ej giltig adress");
                 locationEditText.requestFocus();
+                break;
         }
     }
 
