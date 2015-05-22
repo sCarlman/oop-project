@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.filips.dat367_grupp10.R;
+
 import edu.ctl.pinjobs.controller.MainActivity;
 import edu.ctl.pinjobs.profile.model.IProfile;
 
@@ -15,24 +17,16 @@ import edu.ctl.pinjobs.profile.model.IProfile;
  */
 public class MainView {
 
-    private Button mapButton;
-    private Button listButton;
     private Button createNewAdButton;
     private Button loginButton;
     private Button logOfButton;
     private TextView loggedInTextView;
 
-    private MainActivity mainActivity = new MainActivity();
-
-    public MainView(Button map, Button list, Button newAd, Button login, Button logOf,
-                    TextView loggedInText){
-
-        this.mapButton = map;
-        this.listButton = list;
-        this.createNewAdButton = newAd;
-        this.loginButton = login;
-        this.logOfButton = logOf;
-        this.loggedInTextView = loggedInText;
+    public MainView(Activity activity){
+        this.createNewAdButton = (Button) activity.findViewById(R.id.createAdButton);
+        this.loginButton = (Button) activity.findViewById(R.id.loginButton);
+        this.logOfButton = (Button) activity.findViewById(R.id.logOfButton);
+        this.loggedInTextView = (TextView) activity.findViewById(R.id.loggedInTextView);
     }
 
     public void repaintForLogOf(){
