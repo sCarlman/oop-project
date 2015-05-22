@@ -19,4 +19,17 @@ public class InfoCheck implements Serializable {
         return true;
     }
 
+    //Checks if a string is empty or only contains " ".
+    public boolean isEmpty(String s){
+        if(s != null){
+            char[] c = s.toCharArray();
+            for(char c1: c){
+                 if(c1 != ' '){
+                     return false;
+                 }
+            }
+            return true;
+        }
+        return false;
+    }
 }

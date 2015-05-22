@@ -20,6 +20,9 @@ public class Profile implements IProfile, Serializable {
     private String email;
     private String phone;
     private String address;
+
+    private String splitStringCity;
+    private String splitStringAddress;
     InfoCheck infoCheck = new InfoCheck();
 
     public Profile(String firstName, String lastName, String password, String email, String phone,
@@ -35,7 +38,7 @@ public class Profile implements IProfile, Serializable {
 
 
     public void setFirstName(String firstName) throws WrongInputExeption{
-        if(firstName != null && !firstName.isEmpty() && infoCheck.isAlphabetic(firstName)){
+        if(infoCheck.isEmpty(firstName) && infoCheck.isAlphabetic(firstName)){
             this.firstName = firstName;
         }else{
             throw new WrongInputExeption("FirstName");
@@ -43,7 +46,7 @@ public class Profile implements IProfile, Serializable {
     }
 
     public void setLastName(String lastName) throws WrongInputExeption{
-        if(lastName != null && !lastName.isEmpty() && infoCheck.isAlphabetic(firstName)){
+        if(infoCheck.isEmpty(lastName) && infoCheck.isAlphabetic(firstName)){
             this.lastName = lastName;
         }else{
             throw new WrongInputExeption("LastName");
@@ -51,7 +54,7 @@ public class Profile implements IProfile, Serializable {
     }
 
     public void setPassword(String password) throws WrongInputExeption{
-        if(password != null && !password.isEmpty() && password.length() >= 2){
+        if(infoCheck.isEmpty(password) && password.length() >= 2){
             this.password = password;
         }else{
             throw new WrongInputExeption("Password");
@@ -59,7 +62,7 @@ public class Profile implements IProfile, Serializable {
     }
 
     public void setEmail(String email) throws WrongInputExeption{
-        if(email != null && !email.isEmpty() && isEmailCorrect(email)){
+        if(infoCheck.isEmpty(email) && isEmailCorrect(email)){
             this.email = email;
         }else{
             throw new WrongInputExeption("Email");
@@ -67,7 +70,7 @@ public class Profile implements IProfile, Serializable {
     }
 
     public void setPhone(String phone) throws WrongInputExeption{
-        if(phone != null && !phone.isEmpty() && isNumeric(phone)){
+        if(infoCheck.isEmpty(phone) && isNumeric(phone)){
             this.phone = phone;
         }else{
             throw new WrongInputExeption("Phone");
@@ -75,8 +78,15 @@ public class Profile implements IProfile, Serializable {
     }
 
     public void setAddress(String preferredLocation) throws WrongInputExeption{
-        if(preferredLocation != null && !preferredLocation.isEmpty()){
-            this.address = preferredLocation;
+        splitStringAddress = preferredLocation.split(",")[0];
+        splitStringCity = preferredLocation.split(",")[1];
+
+        if(infoCheck.isEmpty(splitStringAddress)){
+            if(infoCheck.isEmpty(splitStringCity) && infoCheck.isAlphabetic(splitStringCity)){
+                this.address = splitStringAddress + "," + splitStringCity;
+            }else{
+                throw new WrongInputExeption("City");
+            }
         }else{
             throw new WrongInputExeption("Location");
         }

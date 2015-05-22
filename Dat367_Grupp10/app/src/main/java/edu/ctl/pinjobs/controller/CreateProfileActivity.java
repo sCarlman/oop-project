@@ -87,6 +87,8 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                     //TODO: SKALL DELAS UPP I ADRESS OCH STAD !*!*!*!*!*!*!
                     if(e.getError().equals("Location")){
                         view.exceptionCought("address");
+                    }
+                    if(e.getError().equals("City")){
                         view.exceptionCought("city");
                     }
                 }

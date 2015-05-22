@@ -23,9 +23,7 @@ public class LoginModelTest {
         profiles.add(testProfile);
         profiles.add(testProfile2);
         LoginModel testModel = new LoginModel();
-        testModel.seteMail(testProfile.getEmail());
-        testModel.doesMailExistInUserDatabase(profiles);
-
+        testModel.setEmail(testProfile.getEmail());
     }
 
 }
