@@ -54,10 +54,7 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,60000,100, new LocationUtils());
 
-        this.mainView = new MainView((Button)findViewById(R.id.mapButton),
-                (Button)findViewById(R.id.listButton),(Button)findViewById(R.id.postAdButton),
-                (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton),
-                (TextView)findViewById(R.id.loggedInTextView));
+        this.mainView = new MainView(MainActivity.this);
 
         this.adService = new AdvertisementService();
         profileService = new ProfileService();
