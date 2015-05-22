@@ -1,5 +1,6 @@
 package edu.ctl.pinjobs.profile.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
@@ -33,21 +34,10 @@ public class CreateProfileView {
 
     private Button createProfileButton;
 
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String phone;
-    private String password;
-    private String address;
-    private String city;
-
-    private CreateProfileActivity activity;
-    private Profile newProfile;
-
     private boolean cancel = false;
     private View focusView = null;
 
-    public CreateProfileView(CreateProfileActivity createProfileActivity) {
+    public CreateProfileView(Activity createProfileActivity, View.OnClickListener v) {
 
         this.firstNameEditText = (EditText)createProfileActivity.findViewById(R.id.myProfileFirstNameEditText);
         this.lastNameEditText = (EditText)createProfileActivity.findViewById(R.id.myProfileLastNameEditText);
@@ -57,53 +47,10 @@ public class CreateProfileView {
         this.locationEditText = (EditText)createProfileActivity.findViewById(R.id.myProfileAddressEditText);
         this.cityEditText = (EditText)createProfileActivity.findViewById(R.id.myProfileCityEditText);
         this.createProfileButton = (Button)createProfileActivity.findViewById(R.id.createProfileButton);
-        this.createProfileButton.setOnClickListener(createProfileActivity);
-        this.activity = createProfileActivity;
+        this.createProfileButton.setOnClickListener(v);
     }
 
-    public void createProfileButtonClicked() {
-        this.address = address + "," + city;
-        try{
-            newProfile = new Profile(firstName, lastName, password, email, phone, address);
-            activity.finish();
-            profileCreated(activity);
-            EventBus.INSTANCE.publish(EventBus.Event.SAVE_PROFILE, newProfile);
-        }catch (WrongInputExeption e){
-            if(e.getError().equals("FirstName")){
-                firstNameEditText.setError("Förnamn ej Gilltligt");
-                firstNameEditText.requestFocus();
-            }
-            if(e.getError().equals("LastName")){
-                lastNameEditText.setError("Efternamn ej Gilltligt");
-                lastNameEditText.requestFocus();
-            }
-            if(e.getError().equals("Password")){
-                passwordEditText.setError("Lösenord ej Gilltligt");
-                passwordEditText.requestFocus();
-            }
-            if(e.getError().equals("Email")){
-                emailEditText.setError("Email ej Gilltligt");
-                emailEditText.requestFocus();
-            }
-            if(e.getError().equals("Phone")){
-                phoneEditText.setError("Telefon ej Gilltligt");
-                phoneEditText.requestFocus();
-            }
-            //SKALL DELAS UPP I ADRESS OCH STAD !*!*!*!*!*!*!
-            if(e.getError().equals("Location")){
-                cityEditText.setError("Stad ej Gilltligt");
-                cityEditText.requestFocus();
-                locationEditText.setError("Adress ej Gilltligt");
-                locationEditText.requestFocus();
-            }
-        }
-    }
-
-    public void profileCreated(Context c) {
-        Toast.makeText(c, "Profile created!", Toast.LENGTH_LONG).show();
-    }
-
-    public void attemptCreateProfile(){
+    public boolean attemptCreateProfile(){
 
         //reset cancel and focusView
         this.cancel = false;
@@ -118,36 +65,27 @@ public class CreateProfileView {
         resetTextFields(locationEditText);
         resetTextFields(cityEditText);
 
-        firstName = firstNameEditText.getText().toString().trim();
-        lastName = lastNameEditText.getText().toString().trim();
-        email = emailEditText.getText().toString().trim();
-        phone = phoneEditText.getText().toString().trim();
-        password = passwordEditText.getText().toString().trim();
-        address = locationEditText.getText().toString().trim();
-        city = cityEditText.getText().toString().trim();
-
-        checkFields(firstName, firstNameEditText, "Förnamn ej ifyllt");
-        checkFields(lastName, lastNameEditText, "Efternamn ej ifyllt");
-        checkFields(email, emailEditText, "E-mail ej ifyllt");
-        checkFields(phone, phoneEditText, "Telefonnummer ej ifyllt");
-        checkFields(password, passwordEditText, "Lösenord ej ifyllt");
-        checkFields(address, locationEditText, "Gatuadress ej ifyllt");
-        checkFields(city, cityEditText, "Stad ej ifyllt");
+        //Check if textFields is empty
+        //and if then set error
+        checkFields(firstNameEditText, "Förnamn ej ifyllt");
+        checkFields(lastNameEditText, "Efternamn ej ifyllt");
+        checkFields(emailEditText, "E-mail ej ifyllt");
+        checkFields(phoneEditText, "Telefonnummer ej ifyllt");
+        checkFields(passwordEditText, "Lösenord ej ifyllt");
+        checkFields(locationEditText, "Gatuadress ej ifyllt");
+        checkFields(cityEditText, "Stad ej ifyllt");
 
 
         if (cancel) {
             // There was an error; don't attempt createProfile and focus the first
             // form field with an error.
             focusView.requestFocus();
-        } else {
-            // perform the createProfile attempt.
-            createProfileButtonClicked();
-        }
+        }return cancel;
     }
 
     //Make check if textfields is empty
-    private void checkFields(String s, EditText e, String error){
-        if(TextUtils.isEmpty(s)){
+    private void checkFields(EditText e, String error){
+        if(TextUtils.isEmpty(e.getText().toString().trim())){
             e.setError(error);
             e.setHintTextColor(Color.RED);
 
@@ -156,11 +94,71 @@ public class CreateProfileView {
         }
     }
 
-
     //Resets colors to black and error to null
     public void resetTextFields(EditText e){
         e.setTextColor(Color.BLACK);
         e.setHintTextColor(Color.BLACK);
         e.setError(null);
+    }
+
+    public void firstnameExceptionCought(){
+        firstNameEditText.setError("Förnamn ej Gilltligt");
+        firstNameEditText.requestFocus();
+    }
+
+    public void lastnameExceptionCought(){
+        lastNameEditText.setError("Efternamn ej Gilltligt");
+        lastNameEditText.requestFocus();
+    }
+
+    public void passwordExceptionCought(){
+        passwordEditText.setError("Lösenord ej Gilltligt");
+        passwordEditText.requestFocus();
+    }
+
+    public void emailExceptionCought(){
+        emailEditText.setError("Email ej Gilltligt");
+        emailEditText.requestFocus();
+    }
+
+    public void phoneExceptionCought(){
+        phoneEditText.setError("Telefon ej Gilltligt");
+        phoneEditText.requestFocus();
+    }
+
+    //Skall delas upp i två
+    public void locationExceptionCought(){
+        cityEditText.setError("Stad ej Gilltligt");
+        cityEditText.requestFocus();
+        locationEditText.setError("Adress ej Gilltligt");
+        locationEditText.requestFocus();
+    }
+
+    public String getTextFromFirstNameEditText() {
+        return firstNameEditText.getText().toString().trim();
+    }
+
+    public String getTextFromLastNameEditText() {
+        return lastNameEditText.getText().toString().trim();
+    }
+
+    public String getTextFromEmailEditText() {
+        return emailEditText.getText().toString().trim();
+    }
+
+    public String getTextFromPhoneEditText() {
+        return phoneEditText.getText().toString().trim();
+    }
+
+    public String getTextFromPasswordEditText() {
+        return passwordEditText.getText().toString().trim();
+    }
+
+    public String getTextFromLocationEditText() {
+        return locationEditText.getText().toString().trim();
+    }
+
+    public String getTextFromCityEditText() {
+        return cityEditText.getText().toString().trim();
     }
 }

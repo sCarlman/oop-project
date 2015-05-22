@@ -7,21 +7,26 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.filips.dat367_grupp10.R;
 
+import edu.ctl.pinjobs.eventbus.EventBus;
+import edu.ctl.pinjobs.profile.model.Profile;
+import edu.ctl.pinjobs.profile.model.WrongInputExeption;
 import edu.ctl.pinjobs.profile.view.CreateProfileView;
 
 public class CreateProfileActivity extends ActionBarActivity implements View.OnClickListener {
 
     private CreateProfileView view;
+    private Profile newProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createprofile);
 
-        view = new CreateProfileView(this);
+        view = new CreateProfileView(this, this);
     }
 
     @Override
@@ -49,8 +54,38 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
     @Override
     public void onClick(View v) {
         if (v == findViewById(R.id.createProfileButton)) {
-            view.attemptCreateProfile();
+            if(!view.attemptCreateProfile()){
+                try{
+                    newProfile = new Profile(view.getTextFromFirstNameEditText(), view.getTextFromLastNameEditText(),
+                            view.getTextFromPasswordEditText(), view.getTextFromEmailEditText(), view.getTextFromPhoneEditText(),
+                            view.getTextFromLocationEditText() + "," + view.getTextFromCityEditText());
+                    finish();
+                    Toast.makeText( this, "Profile created!", Toast.LENGTH_LONG).show();
+
+                    //*!*!*! DENNA SKALL BORT!!! *!*!*!*!*!*!
+                    EventBus.INSTANCE.publish(EventBus.Event.SAVE_PROFILE, newProfile);
+                }catch (WrongInputExeption e){
+                    if(e.getError().equals("FirstName")){
+                        view.firstnameExceptionCought();
+                    }
+                    if(e.getError().equals("LastName")){
+                        view.lastnameExceptionCought();
+                    }
+                    if(e.getError().equals("Password")){
+                        view.passwordExceptionCought();
+                    }
+                    if(e.getError().equals("Email")){
+                        view.emailExceptionCought();
+                    }
+                    if(e.getError().equals("Phone")){
+                        view.phoneExceptionCought();
+                    }
+                    //SKALL DELAS UPP I ADRESS OCH STAD !*!*!*!*!*!*!
+                    if(e.getError().equals("Location")){
+                        view.locationExceptionCought();
+                    }
+                }
+            }
         }
     }
-
 }
