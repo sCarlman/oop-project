@@ -10,13 +10,14 @@ import android.widget.EditText;
 
 import com.example.filips.dat367_grupp10.R;
 
+import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.profile.model.IProfile;
+import edu.ctl.pinjobs.profile.model.WrongInputExeption;
 import edu.ctl.pinjobs.profile.view.EditMyProfileView;
 
 public class EditMyProfileActivity extends ActionBarActivity {
 
     private IProfile myProfile;
-
     private EditMyProfileView editMyProfileView;
 
     private boolean canceledByError;
@@ -32,10 +33,7 @@ public class EditMyProfileActivity extends ActionBarActivity {
         IProfile profile = (IProfile)bundle.getSerializable("sendProfile");
         this.myProfile = profile;
 
-         editMyProfileView = new EditMyProfileView( profile, (EditText)findViewById(R.id.myProfileFirstNameEditText),
-                (EditText)findViewById(R.id.myProfileLastNameEditText), (EditText)findViewById(R.id.myProfilePhoneEditText),
-                (EditText)findViewById(R.id.myProfileAddressEditText), (EditText)findViewById(R.id.myProfileCityEditText),
-                 this);
+         editMyProfileView = new EditMyProfileView(profile, this);
 
     }
 
@@ -62,7 +60,37 @@ public class EditMyProfileActivity extends ActionBarActivity {
     }
 
     public void saveNewInputToProfile(View view){
-        editMyProfileView.saveTextFieldsToProfile(myProfile);
+        setCanceledByError(false);
+        try{
+            myProfile.setFirstName(editMyProfileView.getTextFromEditFirstName());
+        }catch (WrongInputExeption e){
+            editMyProfileView.setErrorEditFirstName("Ogiltligt Förnamn!");
+            setCanceledByError(true);
+        }
+        try{
+            myProfile.setLastName(editMyProfileView.getTextFromEditLastName());
+        }catch (WrongInputExeption e){
+            editMyProfileView.setErrorEditLastName("Ogiltligt Efternamn!");
+            setCanceledByError(true);
+        }
+        try{
+            myProfile.setPhone(editMyProfileView.getTextFromEditPhone());
+        }catch (WrongInputExeption e){
+            editMyProfileView.setErrorEditPhone("Ogiltligt Tele!");
+            setCanceledByError(true);
+        }
+        try{
+            myProfile.setAddress(editMyProfileView.getTextFromEditAddress() + "," + editMyProfileView.getTextFromEditCity());
+        }catch (WrongInputExeption e){
+            //SKALL FIXAS!!!!!!
+            editMyProfileView.setErrorEditAddress("Ogiltligt!");
+            editMyProfileView.setErrorEditCity("Ogiltligt!");
+            setCanceledByError(true);
+        }
+        if(!getCanceledByError()){
+            EventBus.INSTANCE.publish(EventBus.Event.UPDATE_PROFILE, myProfile);
+        }
+
         if(!canceledByError){
             Intent intent = new Intent();
             Bundle bundle = new Bundle();

@@ -32,12 +32,7 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
         myProfile = (IProfile)bundle.getSerializable("sendProfile");
         email = myProfile.getEmail();
 
-        myProfileView = new MyProfileView((TextView)findViewById(R.id.myProfileNameTextView), (TextView)findViewById(R.id.myProfileProfileNameTextView),
-                (TextView)findViewById(R.id.myProfileMailTextView), (TextView)findViewById(R.id.myProfileProfileMailTextView),
-                (TextView)findViewById(R.id.myProfilePhoneTextView), (TextView)findViewById(R.id.myProfileProfilePhoneTextView),
-                (TextView)findViewById(R.id.myProfileAddressTextView), (TextView)findViewById(R.id.myProfileProfileAdressTextView),
-                (TextView)findViewById(R.id.myProfileCityTextEdit), (TextView)findViewById(R.id.myProfileProfileCityTextView),
-                (Button)findViewById(R.id.myProfileMyAdsButton), myProfile, this);
+        myProfileView = new MyProfileView(this, myProfile, this);
     }
 
 
@@ -76,8 +71,11 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        EventBus.INSTANCE.publish(EventBus.Event.SHOW_MY_ADS, email);
-
+        //EventBus.INSTANCE.publish(EventBus.Event.SHOW_MY_ADS, email);
+        Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+        intent.putExtra("myList", true);
+        intent.putExtra("Email", email);
+        startActivity(intent);
     }
 
     @Override

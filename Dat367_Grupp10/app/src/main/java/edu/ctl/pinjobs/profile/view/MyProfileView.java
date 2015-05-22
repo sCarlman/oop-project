@@ -4,6 +4,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.filips.dat367_grupp10.R;
+
+import edu.ctl.pinjobs.controller.MyProfileActivity;
 import edu.ctl.pinjobs.profile.model.IProfile;
 
 /**
@@ -11,43 +14,27 @@ import edu.ctl.pinjobs.profile.model.IProfile;
  */
 public class MyProfileView {
 
-    private TextView name;
     private TextView profileName;
-    private TextView mail;
     private TextView profileMail;
-    private TextView phone;
     private TextView profilePhone;
-    private TextView address;
     private TextView profileAddress;
-    private TextView city;
     private TextView profileCity;
 
     private Button showMyAds;
 
-    private IProfile myProfile;
+    public MyProfileView(MyProfileActivity myProfileActivity, IProfile myProfile, View.OnClickListener activity){
 
+        this.profileName = (TextView)myProfileActivity.findViewById(R.id.myProfileProfileNameTextView);
+        this.profileMail = (TextView)myProfileActivity.findViewById(R.id.myProfileProfileMailTextView);
+        this.profilePhone = (TextView)myProfileActivity.findViewById(R.id.myProfileProfilePhoneTextView);
+        this.profileAddress = (TextView)myProfileActivity.findViewById(R.id.myProfileProfileAdressTextView);
+        this.profileCity = (TextView)myProfileActivity.findViewById(R.id.myProfileProfileCityTextView);
 
-    public MyProfileView(TextView name, TextView profileName, TextView mail, TextView profileMail,
-                         TextView phone, TextView profilePhone, TextView address, TextView profileAddress,
-                         TextView city, TextView profileCity, Button showMyAds, IProfile myProfile, View.OnClickListener activity){
-
-        this.name = name;
-        this.profileName = profileName;
-        this.mail = mail;
-        this.profileMail = profileMail;
-        this.phone = phone;
-        this.profilePhone = profilePhone;
-        this.address = address;
-        this.profileAddress = profileAddress;
-        this.city = city;
-        this.profileCity = profileCity;
-        this.showMyAds = showMyAds;
-        this.myProfile = myProfile;
+        this.showMyAds = (Button)myProfileActivity.findViewById(R.id.myProfileMyAdsButton);
 
         showMyAds.setOnClickListener(activity);
 
         setProfileInfoOnCreate(myProfile);
-
     }
 
     public void setProfileInfoOnCreate(IProfile profile){

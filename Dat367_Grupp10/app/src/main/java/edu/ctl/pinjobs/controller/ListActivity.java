@@ -40,12 +40,21 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
         this.locationUtils = new HandlerLocationUtils();
         email = getIntent().getStringExtra("Email");
 
+        Boolean myList = getIntent().getBooleanExtra("myList", false);
+
         if(AdvertisementListHolder.getInstance().getList().size()==0) {
             //starts progressbarView
             Intent intent = new Intent(getApplicationContext(), LoadingScreen.class);
             startActivityForResult(intent,1);
         }else {
-            setListView(AdvertisementListHolder.getInstance().getList());
+            if(myList==true){
+                //Creates a MyAdsView
+                setListView(AdvertisementListHolder.getInstance().getAdvertiserAdsList(email));
+            }else{
+                //Creates a ListView
+                setListView(AdvertisementListHolder.getInstance().getList());
+            }
+
         }
     }
 
@@ -92,10 +101,18 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
 
     }
 
+
     public void openDetailedAdView(Context context, AndroidAdvertisement ad,String distance){
         Intent intent = new Intent(context, DetailedAdActivity.class);
         intent.putExtra("Advertisement", ad);
         intent.putExtra("Distance", distance);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.getApplicationContext().startActivity(intent);
+    }
+
+    public void openModifyAdView(Context context, AndroidAdvertisement ad){
+        Intent intent = new Intent(context, ModifyAdActivity.class);
+        intent.putExtra("Advertisement", ad);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.getApplicationContext().startActivity(intent);
     }
@@ -110,9 +127,7 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
         AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
 
         if (email.equals(ad.getAdvertiser().getEmail())) {
-            //TODO: Start intent instead?
-            UserListActivity usListAct = new UserListActivity();
-            usListAct.openModifyAdView(this, androidAD);
+            openModifyAdView(this, androidAD);
         } else {
             openDetailedAdView(this, androidAD, adDistance);
         }

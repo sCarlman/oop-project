@@ -1,43 +1,42 @@
 package edu.ctl.pinjobs.controller;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.example.filips.dat367_grupp10.R;
 
-import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
-import edu.ctl.pinjobs.advertisement.view.CreateAdView;
-import edu.ctl.pinjobs.eventbus.EventBus;
-import edu.ctl.pinjobs.profile.model.IProfile;
+import java.util.List;
 
-public class CreateAdActivity extends ActionBarActivity implements View.OnClickListener,
-        EventBus.IEventHandler {
+import edu.ctl.pinjobs.advertisement.model.Advertisement;
+import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
+import edu.ctl.pinjobs.advertisement.model.WrongAdInputException;
+import edu.ctl.pinjobs.advertisement.utils.AdvertisementUtils;
+import edu.ctl.pinjobs.advertisement.view.CreateAdView;
+import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
+import edu.ctl.pinjobs.profile.model.IProfile;
+import edu.ctl.pinjobs.services.AdvertisementService;
+import edu.ctl.pinjobs.services.IAdvertisementService;
+
+public class CreateAdActivity extends ActionBarActivity implements View.OnClickListener {
 
     private CreateAdView view;
+    private IProfile myProfile;
+    private IAdvertisementService adService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_ad);
-        EventBus.INSTANCE.addListener(this);
-        view = new CreateAdView((EditText) findViewById(R.id.adLocationEditText),
-                (EditText) findViewById(R.id.adDescriptionEditText),
-                (EditText) findViewById(R.id.adTitleEditText),
-                (RadioButton) findViewById(R.id.gardenRadioButton),
-                (RadioButton) findViewById(R.id.labourRadioButton),
-                (RadioButton) findViewById(R.id.otherRadioButton),
-                (Button) findViewById(R.id.createAdButton),
-                (Button) findViewById(R.id.chooseDateButton), this,
-                (DatePicker) findViewById(R.id.adEndDateDatePicker),
-                (EditText) findViewById(R.id.createAdCityEditText));
-        EventBus.INSTANCE.publish(EventBus.Event.CREATE_AD_SETUP, null);
+
+        Intent intent=this.getIntent();
+        Bundle bundle=intent.getExtras();
+        myProfile = (IProfile)bundle.getSerializable("sendProfile");
+        view = new CreateAdView(this, this, myProfile);
     }
 
 
@@ -65,21 +64,56 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
 
     public void onClick(View v){
         if (v == findViewById(R.id.createAdButton)){
-            view.attemptCreateAd();
+            if(!view.isTextFieldsNull()) {
+
+                AdvertisementUtils adUtils = new AdvertisementUtils();
+                double lat = adUtils.getLocationFromAddress(CreateAdActivity.this, view.getLocation()).latitude;
+                double lng = adUtils.getLocationFromAddress(CreateAdActivity.this, view.getLocation()).longitude;
+                try {
+                    Advertisement newAd = new Advertisement(myProfile, view.getTitle(),
+                            view.getDescription(), view.getLocation(),
+                            view.getSelectedCategory(), view.getDate().get(0),
+                            view.getDate().get(1), view.getDate().get(2),
+                            lat, lng);
+                    postAd(newAd);
+                }catch(WrongAdInputException e){
+                    if(e.getName().equals("title")){
+                        view.setInputError("title");
+                    }else if(e.getName().equals("description")) {
+                        view.setInputError("description");
+                    }else if(e.getName().equals("location")){
+                        view.setInputError("location");
+                    }
+                }
+
+            }
         }else if(v == findViewById(R.id.chooseDateButton)){
-            view.showDatePicker();
+            view.switchDatePickerVisibility();
         }
     }
 
-    public void checkIfAdExists(IAdvertisement newAd){
-            EventBus.INSTANCE.publish(EventBus.Event.CHECK_IF_AD_EXISTS, newAd);
-    }
-
-
-    @Override
-    public void onEvent(EventBus.Event evt, Object o) {
-        if(evt == EventBus.Event.CREATE_AD){
-            view.setNewProfile((IProfile) o);
+    //uploads ad to database if there is no other ad equal to the newAd
+    public void postAd(IAdvertisement newAd){
+        List<IAdvertisement> adList = AdvertisementListHolder.getInstance().getList();
+        if (checkIfAdExists(newAd, adList)) {
+            Toast.makeText(this, "Anonsen finns redan",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            adService = new AdvertisementService();
+            adService.saveAd(newAd);
+            Toast.makeText(this, "Din annons har nu publicerats!", Toast.LENGTH_LONG).show();
+            finish();
         }
     }
+
+    //returns true if there is no ad equal to newAd in the database
+    private boolean checkIfAdExists(IAdvertisement newAd, List<IAdvertisement> adList){
+        for(IAdvertisement loopAd: adList){
+            if(loopAd.equals(newAd)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

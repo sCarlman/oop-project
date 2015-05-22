@@ -1,11 +1,5 @@
 package edu.ctl.pinjobs.services;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.os.Handler;
-import android.os.Looper;
-
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -27,12 +21,6 @@ import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
  * Created by Isaac on 2015-04-27.
  */
 public class AdvertisementService implements IAdvertisementService {
-
-    private Context context;
-
-    public AdvertisementService(Context context){
-        this.context = context;
-    }
 
     @Override
     public void saveAd(IAdvertisement Ad) {
@@ -69,7 +57,6 @@ public class AdvertisementService implements IAdvertisementService {
             return adList;
         } catch (ParseException e) {
             e.printStackTrace();
-            connectionError();
             return null;
         }
     }
@@ -104,7 +91,6 @@ public class AdvertisementService implements IAdvertisementService {
             return copyToAdvertisements(query.find());
         } catch (ParseException e) {
             e.printStackTrace();
-            connectionError();
             return null;
         }
     }
@@ -132,7 +118,6 @@ public class AdvertisementService implements IAdvertisementService {
             }
         } catch (ParseException e) {
             e.printStackTrace();
-            connectionError();
         }
     }
 
@@ -147,7 +132,6 @@ public class AdvertisementService implements IAdvertisementService {
                     uploadToParse(parseObject);
                 }else{
                     e.printStackTrace();
-                    connectionError();
                 }
             }
         });
@@ -163,7 +147,6 @@ public class AdvertisementService implements IAdvertisementService {
             return query.getFirst().getObjectId();
         } catch (ParseException e) {
             e.printStackTrace();
-            connectionError();
             return null;
         }
 
@@ -185,7 +168,6 @@ public class AdvertisementService implements IAdvertisementService {
                     }
                 } else {
                     e.printStackTrace();
-                    connectionError();
                 }
             }
         });
@@ -193,28 +175,6 @@ public class AdvertisementService implements IAdvertisementService {
 
     public void deleteParseAd(ParseObject parseAd) {
         parseAd.deleteInBackground();
-    }
-
-    public void connectionError() {
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-                alertDialog.setTitle("Nätverksproblem!");
-                alertDialog.setMessage("Kunde inte upprätthålla kontakt med PinJobs databas. Se till" +
-                        " att du har internetåtkomst och försök igen.");
-                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Aight",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                alertDialog.dismiss();
-                            }
-                        });
-                alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
-                alertDialog.show();
-            }
-        });
-
     }
 
 }

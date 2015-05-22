@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPostalAddress"
                 android:ems="10"
-                android:id="@+id/createAdCityEditText"
+                android:id="@+id/adCityEditText"
                 android:layout_below="@+id/adLocationEditText"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
@@ -85,22 +85,6 @@
                 android:visibility="visible"
                 android:hint="Stad"
                 android:layout_column="0" />
-
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:id="@+id/adPhoneEditText"
-                android:layout_below="@+id/myProfileLastNameEditText"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:text=""
-                android:visibility="visible"
-                android:hint="ytterligare tele (frivilligt)"
-                android:layout_column="0"
-                android:inputType="phone" />
 
             <Button
                 style="?android:attr/buttonStyleSmall"
@@ -130,7 +114,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Trädgårdsarbete"
-                    android:id="@+id/gardenRadioButton"
+                    android:id="@+id/adGardenRadioButton"
                     android:checked="true"
                     android:visibility="visible" />
 
@@ -138,7 +122,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Städ"
-                    android:id="@+id/labourRadioButton"
+                    android:id="@+id/adLabourRadioButton"
                     android:checked="false"
                     android:visibility="visible" />
 
@@ -146,7 +130,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="övrigt"
-                    android:id="@+id/otherRadioButton"
+                    android:id="@+id/adOtherRadioButton"
                     android:checked="false"
                     android:visibility="visible" />
 

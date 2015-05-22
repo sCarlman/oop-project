@@ -16,7 +16,7 @@ import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import edu.ctl.pinjobs.controller.ListActivity;
 import edu.ctl.pinjobs.handler.utils.HandlerLocationUtils;
-import edu.ctl.pinjobs.controller.UserListActivity;
+
 import edu.ctl.pinjobs.utils.LocationUtils;
 
 /**

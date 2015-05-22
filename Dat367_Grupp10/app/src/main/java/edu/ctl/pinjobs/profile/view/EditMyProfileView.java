@@ -2,6 +2,8 @@ package edu.ctl.pinjobs.profile.view;
 
 import android.widget.EditText;
 
+import com.example.filips.dat367_grupp10.R;
+
 import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.controller.EditMyProfileActivity;
 import edu.ctl.pinjobs.profile.model.IProfile;
@@ -17,25 +19,20 @@ public class EditMyProfileView {
     private EditText editPhone;
     private EditText editAddress;
     private EditText editCity;
-    private EditMyProfileActivity myProfileActivity;
 
     private IProfile myProfile;
 
-    public EditMyProfileView(IProfile myProfile, EditText firstName, EditText lastName, EditText phone,
-                             EditText Address, EditText city, EditMyProfileActivity editMyProfileActivity){
+    public EditMyProfileView(IProfile myProfile, EditMyProfileActivity editMyProfileActivity){
 
         this.myProfile = myProfile;
 
-        this.editFirstName = firstName;
-        this.editLastName = lastName;
-        this.editPhone = phone;
-        this.editAddress = Address;
-        this.editCity = city;
-
-        this.myProfileActivity = editMyProfileActivity;
+        this.editFirstName = (EditText)editMyProfileActivity.findViewById(R.id.myProfileFirstNameEditText);
+        this.editLastName = (EditText)editMyProfileActivity.findViewById(R.id.myProfileLastNameEditText);
+        this.editPhone = (EditText)editMyProfileActivity.findViewById(R.id.myProfilePhoneEditText);
+        this.editAddress = (EditText)editMyProfileActivity.findViewById(R.id.myProfileAddressEditText);
+        this.editCity = (EditText)editMyProfileActivity.findViewById(R.id.myProfileCityEditText);
 
         insertProfileInfoOnEditPage();
-
     }
 
     //Inserts profileInfo to Edit page
@@ -47,38 +44,43 @@ public class EditMyProfileView {
         editCity.setText(myProfile.getAddress().split(",")[1]);
     }
 
-    //On click saveEditButton
-    //The profile gets inputs from text fields.
-    public void saveTextFieldsToProfile(IProfile profile){
-        myProfileActivity.setCanceledByError(false);
-        try{
-            profile.setFirstName(editFirstName.getText().toString());
-        }catch (WrongInputExeption e){
-            editFirstName.setError("Ogiltligt Namn!");
-            myProfileActivity.setCanceledByError(true);
-        }
-        try{
-            profile.setLastName(editLastName.getText().toString());
-        }catch (WrongInputExeption e){
-            editLastName.setError("Ogiltligt Efternamn!");
-            myProfileActivity.setCanceledByError(true);
-        }
-        try{
-            profile.setPhone(editPhone.getText().toString());
-        }catch (WrongInputExeption e){
-            editPhone.setError("Ogiltligt Tele!");
-            myProfileActivity.setCanceledByError(true);
-        }
-        try{
-            profile.setAddress(editAddress.getText().toString() + "," + editCity.getText().toString());
-        }catch (WrongInputExeption e){
-            //SKALL FIXAS!!!!!!
-            editAddress.setError("Ogiltligt!");
-            editCity.setError("Ogiltligt!");
-            myProfileActivity.setCanceledByError(true);
-        }
-        if(!myProfileActivity.getCanceledByError()){
-            EventBus.INSTANCE.publish(EventBus.Event.UPDATE_PROFILE, profile);
-        }
+    public String getTextFromEditFirstName() {
+        return editFirstName.getText().toString().trim();
+    }
+
+    public String getTextFromEditLastName() {
+        return editLastName.getText().toString().trim();
+    }
+
+    public String getTextFromEditPhone() {
+        return editPhone.getText().toString().trim();
+    }
+
+    public String getTextFromEditAddress() {
+        return editAddress.getText().toString().trim();
+    }
+
+    public String getTextFromEditCity() {
+        return editCity.getText().toString().trim();
+    }
+
+    public void setErrorEditFirstName(String s) {
+        editFirstName.setError(s);
+    }
+
+    public void setErrorEditLastName(String s) {
+        editLastName.setError(s);
+    }
+
+    public void setErrorEditPhone(String s) {
+        editPhone.setError(s);
+    }
+
+    public void setErrorEditAddress(String s) {
+        editAddress.setError(s);
+    }
+
+    public void setErrorEditCity(String s) {
+        editCity.setError(s);
     }
 }

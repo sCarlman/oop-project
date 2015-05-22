@@ -59,7 +59,7 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
                 (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton),
                 (TextView)findViewById(R.id.loggedInTextView));
 
-        this.adService = new AdvertisementService(MainActivity.this);
+        this.adService = new AdvertisementService();
         profileService = new ProfileService();
         this.backgroundThread = new BackgroundThread(adService);
         backgroundThread.start();
@@ -113,8 +113,10 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
 
     public void openCreateAdView(View view) {
         Intent intent = new Intent(getApplicationContext(), CreateAdActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("sendProfile", user.getProfile());
+        intent.putExtras(bundle);
         startActivity(intent);
-        System.out.println(user.getProfile().getAddress());
     }
 
     private void callCreateAd() {
@@ -171,11 +173,6 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
             loginUser((IProfile) o);
         } else if (evt == EventBus.Event.CREATE_AD_SETUP) {
             callCreateAd();
-        } else if (evt == EventBus.Event.SHOW_MY_ADS) {
-            Intent intent = new Intent(this.getApplicationContext(), UserListActivity.class);
-            intent.putExtra("Email", (String) o);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
         } else if (evt == EventBus.Event.UPDATE_PROFILE) {
             profileService.updateProfile((IProfile) o);
             adService.updateAdvertiser((IProfile) o);
@@ -194,14 +191,6 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             this.getApplicationContext().startActivity(intent);
             Toast.makeText(this, "Annons ändrad!", Toast.LENGTH_LONG).show();
-        } else if (evt == EventBus.Event.CHECK_IF_AD_EXISTS) {
-            List<IAdvertisement> adList = AdvertisementListHolder.getInstance().getList();
-            if (checkIfAdExists((IAdvertisement) o, adList)) {
-                Toast.makeText(this, "Anonsen finns redan",
-                        Toast.LENGTH_LONG).show();
-            } else {
-                EventBus.INSTANCE.publish(EventBus.Event.POST_AD, (IAdvertisement) o);
-            }
         }
     }
 
@@ -216,15 +205,6 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
             UserModel usermodel = UserModel.getInstance();
             mainView.repaintLogInView(usermodel.isLoggedIn,usermodel.getProfile());
         }
-    }
-
-    private boolean checkIfAdExists(IAdvertisement newAd,List<IAdvertisement> adList){
-        for(IAdvertisement loopAd: adList){
-            if(loopAd.equals(newAd)) {
-                return true;
-            }
-        }
-        return false;
     }
 
 }
