@@ -113,8 +113,10 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
 
     public void openCreateAdView(View view) {
         Intent intent = new Intent(getApplicationContext(), CreateAdActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("sendProfile", user.getProfile());
+        intent.putExtras(bundle);
         startActivity(intent);
-        System.out.println(user.getProfile().getAddress());
     }
 
     private void callCreateAd() {
@@ -194,24 +196,7 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             this.getApplicationContext().startActivity(intent);
             Toast.makeText(this, "Annons ändrad!", Toast.LENGTH_LONG).show();
-        } else if (evt == EventBus.Event.CHECK_IF_AD_EXISTS) {
-            List<IAdvertisement> adList = AdvertisementListHolder.getInstance().getList();
-            if (checkIfAdExists((IAdvertisement) o, adList)) {
-                Toast.makeText(this, "Anonsen finns redan",
-                        Toast.LENGTH_LONG).show();
-            } else {
-                EventBus.INSTANCE.publish(EventBus.Event.POST_AD, (IAdvertisement) o);
-            }
         }
-    }
-
-    private boolean checkIfAdExists(IAdvertisement newAd,List<IAdvertisement> adList){
-        for(IAdvertisement loopAd: adList){
-            if(loopAd.equals(newAd)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private void loginUser(IProfile profile) {

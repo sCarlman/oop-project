@@ -1,6 +1,6 @@
 package edu.ctl.pinjobs.advertisement.view;
 
-import android.content.Context;
+import android.app.Activity;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,11 +9,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
-import edu.ctl.pinjobs.controller.CreateAdActivity;
-import edu.ctl.pinjobs.advertisement.model.WrongAdInputException;
-import edu.ctl.pinjobs.advertisement.model.Advertisement;
+import com.example.filips.dat367_grupp10.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import edu.ctl.pinjobs.advertisement.model.Category;
-import edu.ctl.pinjobs.advertisement.utils.AdvertisementUtils;
 import edu.ctl.pinjobs.profile.model.IProfile;
 
 
@@ -30,138 +31,82 @@ public class CreateAdView {
     private RadioButton otherRadioButton;
     private DatePicker adEndDatePicker;
     private Button chooseDateButton;
-    private EditText city;
+    private Button createAdButton;
+    private EditText cityEditText;
 
-    private Advertisement newAd;
-    private String location;
-    private String description;
-    private String title;
-    private String cityString;
-    private Category category;
-    private IProfile newProfile;
-    private CreateAdActivity activity;
-    private int day;
-    private int month;
-    private int year;
-    private double lat;
-    private double lng;
-
-    private boolean cancel;
+    private boolean isEmpty;
     private View focusView;
-    private Context activityContext;
 
-    private AdvertisementUtils adUtils;
+    public CreateAdView(Activity activity, View.OnClickListener v, IProfile myProfile){
 
-    public CreateAdView(EditText addressEditText, EditText descriptionEditText,
-                        EditText titleEditText,RadioButton gardenRadioButton,
-                        RadioButton labourRadioButton, RadioButton otherRadioButton,
-                        Button createAdButton, Button chooseDateButton, Context v,
-                        DatePicker adEndDatePicker, EditText city){
-
-        this.locationEditText = addressEditText;
-        this.descriptionEditText = descriptionEditText;
-        this.titleEditText = titleEditText;
-        this.gardenRadioButton = gardenRadioButton;
-        this.labourRadioButton = labourRadioButton;
-        this.otherRadioButton = otherRadioButton;
-        this.city = city;
-        createAdButton.setOnClickListener((View.OnClickListener)v);
-        chooseDateButton.setOnClickListener((View.OnClickListener)v);
-        activityContext = v;
-        this.chooseDateButton = chooseDateButton;
-        this.adEndDatePicker = adEndDatePicker;
-        this.activity = (CreateAdActivity)v;
+        this.locationEditText = (EditText) activity.findViewById(R.id.adLocationEditText);
+        this.descriptionEditText = (EditText) activity.findViewById(R.id.adDescriptionEditText);
+        this.titleEditText = (EditText) activity.findViewById(R.id.adTitleEditText);
+        this.gardenRadioButton = (RadioButton) activity.findViewById(R.id.adGardenRadioButton);
+        this.labourRadioButton = (RadioButton) activity.findViewById(R.id.adLabourRadioButton);
+        this.otherRadioButton = (RadioButton) activity.findViewById(R.id.adOtherRadioButton);
+        this.cityEditText = (EditText) activity.findViewById(R.id.adTitleEditText);
+        this.createAdButton = (Button) activity.findViewById(R.id.createAdButton);
+        this.chooseDateButton = (Button) activity.findViewById(R.id.chooseDateButton);
+        this.createAdButton.setOnClickListener(v);
+        chooseDateButton.setOnClickListener(v);
+        this.adEndDatePicker = (DatePicker) activity.findViewById(R.id.adEndDateDatePicker);
+        setDefaultLocation(myProfile);
     }
 
-    public void setNewProfile(IProfile newProfile){
-        this.newProfile = newProfile;
-        //sets location to default address of the advertiser
-        locationEditText.setText(newProfile.getAddress().split(",")[0]);
-        city.setText(newProfile.getAddress().split(",")[1]);
+    //sets location to default address of the advertiser
+    public void setDefaultLocation(IProfile myProfile){
+        String[] addressAndCity = myProfile.getAddress().split(",");
+        locationEditText.setText(addressAndCity[0]);
+        cityEditText.setText(addressAndCity[1]);
     }
 
-    //Attempt to create ad by validate if textfields contains a string
-    public void attemptCreateAd(){
-
+    //returns true if textFields are empty
+    public boolean isTextFieldsNull(){
+        //resets textFields from  previous errorMarks
         resetTextFields(locationEditText);
         resetTextFields(descriptionEditText);
         resetTextFields(titleEditText);
-        resetTextFields(city);
+        resetTextFields(cityEditText);
 
-        this.cancel = false;
-        this.focusView = null;
+        isEmpty = false;
+        focusView = null;
 
-        copyTextFieldData();
+        //checks if textFields contains any input, if so; sets given errorMessage
+        checkField(cityEditText, "Stad ej ifylld");
+        checkField(locationEditText, "Address ej ifylld");
+        checkField(descriptionEditText, "Beskrivning ej ifylld");
+        checkField(titleEditText, "Titel ej ifylld");
 
-        checkFields(cityString, city, "Stad ej ifylld");
-        checkFields(location, locationEditText, "Address ej ifylld");
-        checkFields(description, descriptionEditText, "Beskrivning ej ifylld");
-        checkFields(title, titleEditText, "Titel ej ifylld");
 
-        if(cancel == true){
+        if(isEmpty == true){
             focusView.requestFocus();
-        }else{
-            createAd();
         }
+        return isEmpty;
     }
 
-    public void createAd(){
-        copyTextFieldData();
-        copySelectedCategory();
-        copyEndDate();
-
-        location = location + "," + cityString;
-
-        adUtils = new AdvertisementUtils();
-
-        lat = adUtils.getLocationFromAddress(activityContext,location).latitude;
-        lng = adUtils.getLocationFromAddress(activityContext,location).longitude;
-        try {
-            newAd = new Advertisement(newProfile, title, description, location, category,
-                    day, month, year, lat, lng);
-            activity.checkIfAdExists(newAd);
-        }catch(WrongAdInputException e){
-            if(e.getName().equals("title")){
-                titleEditText.setError("Måste vara mellan 1 och 30 bokstäver");
-                titleEditText.requestFocus();
-            }
-            if(e.getName().equals("description")){
-                descriptionEditText.setError("Max 300 tecken, min 1");
-                descriptionEditText.requestFocus();
-            }
-            if(e.getName().equals("location")){
-                locationEditText.setError("Ej giltig adress");
-                locationEditText.requestFocus();
-            }
-        }
+    //returns chosen date. returns List<Integer> of {day, month, year}
+    public List<Integer> getDate() {
+        List<Integer> dayMonthYear= new ArrayList<>();
+        dayMonthYear.add(adEndDatePicker.getDayOfMonth());
+        dayMonthYear.add(adEndDatePicker.getMonth());
+        dayMonthYear.add(adEndDatePicker.getYear());
+        return dayMonthYear;
     }
 
-    private void copyEndDate() {
-        day = adEndDatePicker.getDayOfMonth();
-        month = adEndDatePicker.getMonth();
-        year = adEndDatePicker.getYear();
-
-    }
-
-    private void copyTextFieldData() {
-        location = locationEditText.getText().toString().trim();
-        description = descriptionEditText.getText().toString().trim();
-        title = titleEditText.getText().toString().trim();
-        cityString = city.getText().toString().trim();
-    }
-
-    private void copySelectedCategory() {
+    //returns chosen Category
+    public Category getSelectedCategory() {
         if(gardenRadioButton.isChecked()){
-            category = Category.GARDEN;
+            return Category.GARDEN;
         }else if(labourRadioButton.isChecked()){
-            category = Category.LABOUR;
-        }else if(otherRadioButton.isChecked()){
-            category = Category.OTHER;
+            return Category.LABOUR;
+        }else{
+            return Category.OTHER;
         }
     }
 
-    public void showDatePicker() {
-
+    //shows or hides the massive datePicker
+    public void switchDatePickerVisibility() {
         if(!(adEndDatePicker.getVisibility() == View.VISIBLE)) {
             adEndDatePicker.setVisibility(View.VISIBLE);
             chooseDateButton.setText("Dölj datum");
@@ -173,19 +118,44 @@ public class CreateAdView {
         }
     }
 
-    //Make check if textfields is empty
-    private void checkFields(String s, EditText e, String error){
-        if(TextUtils.isEmpty(s)){
+    //checks if textField is empty, if so; sets an error at that textField
+    private void checkField(EditText e, String error){
+        if(TextUtils.isEmpty(e.getText().toString().trim())){
             e.setError(error);
             e.setHintTextColor(Color.RED);
 
-            this.cancel = true;
-            this.focusView = e;
+            isEmpty = true;
+            focusView = e;
         }
     }
-
+    //resets textFields from previous errorMessages and red marks
     public static void resetTextFields(EditText e){
         e.setError(null);
         e.setHintTextColor(Color.BLACK);
     }
+
+    public String getLocation(){
+        return locationEditText.getText().toString().trim() +
+                cityEditText.getText().toString().trim();
+    }
+
+    public String getTitle(){
+        return titleEditText.getText().toString().trim();
+    }
+
+    public String getDescription(){
+        return descriptionEditText.getText().toString().trim();
+    }
+
+    public void setInputError(String error){
+        switch (error){
+            case "title": titleEditText.setError("Måste vara mellan 1 och 30 bokstäver");
+                titleEditText.requestFocus();
+            case "description": descriptionEditText.setError("Max 300 tecken, min 1");
+                descriptionEditText.requestFocus();
+            case "location": locationEditText.setError("Ej giltig adress");
+                locationEditText.requestFocus();
+        }
+    }
+
 }
