@@ -1,6 +1,7 @@
 package edu.ctl.pinjobs.controller;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import com.example.filips.dat367_grupp10.R;
 import java.util.List;
 
 import edu.ctl.pinjobs.advertisement.model.Advertisement;
+import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.WrongAdInputException;
 import edu.ctl.pinjobs.advertisement.utils.AdvertisementUtils;
@@ -102,6 +104,11 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
             adService = new AdvertisementService();
             adService.saveAd(newAd);
             Toast.makeText(this, "Din annons har nu publicerats!", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent();
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("Advertisement",new AndroidAdvertisement(newAd));
+            intent.putExtras(bundle);
+            setResult(10,intent);
             finish();
         }
     }

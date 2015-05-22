@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import edu.ctl.pinjobs.advertisement.model.Advertisement;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
@@ -34,7 +35,7 @@ import com.parse.Parse;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity implements EventBus.IEventHandler{
+public class MainActivity extends ActionBarActivity{
 
     private MainView mainView;
     private IProfileService profileService;
@@ -49,12 +50,10 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
 
         Parse.initialize(this, "W4QRsIPB5oFT6F6drmZi0BrxdPYPEYHY2GYSUU4q", "JpXn4VB0Y63wqNIf0qgvRGg7k3QmjfzJjD9qhzqE");
 
-        EventBus.INSTANCE.addListener(this);
-
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,60000,100, new LocationUtils());
 
-        this.mainView = new MainView(this);
+        this.mainView = new MainView(MainActivity.this);
 
         this.adService = new AdvertisementService();
         profileService = new ProfileService();
@@ -94,6 +93,7 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
     }
 
     public void openMapView(View view){
+        //on click on "Karta" button from mainView that opens map view
         Intent intent = new Intent(this, MapActivity.class);
         startActivity(intent);
     }
@@ -113,11 +113,7 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
         Bundle bundle = new Bundle();
         bundle.putSerializable("sendProfile", user.getProfile());
         intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
-    private void callCreateAd() {
-        EventBus.INSTANCE.publish(EventBus.Event.CREATE_AD, user.getProfile());
+        startActivityForResult(intent, 1);
     }
 
     public void openListView(View view) {
@@ -155,23 +151,6 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
         mainView.repaintLogInView(userModel.isLoggedIn, userModel.getProfile());
     }
 
-    @Override
-    public void onEvent(EventBus.Event evt, Object o) {
-        if (evt == EventBus.Event.POST_AD) {
-            adService.saveAd((IAdvertisement) o);
-            BackgroundThread thread = new BackgroundThread(adService);
-            thread.start();
-            Intent intent = new Intent(this.getApplicationContext(), MapActivity.class);
-            AndroidAdvertisement androidAD = new AndroidAdvertisement((IAdvertisement) o);
-            intent.putExtra("Advertisement", androidAD);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            this.getApplicationContext().startActivity(intent);
-            Toast.makeText(this, "Anons skapad!", Toast.LENGTH_LONG).show();
-        } else if (evt == EventBus.Event.CREATE_AD_SETUP) {
-            callCreateAd();
-        }
-    }
-
     private void loginUser(IProfile profile) {
 
         user.logIn(profile);
@@ -181,8 +160,16 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode==5){
+            //when an activity has been finished and the next navigation step is to login the user and repaint loginmodel
             UserModel usermodel = UserModel.getInstance();
             mainView.repaintLogInView(usermodel.isLoggedIn,usermodel.getProfile());
+        }else if(resultCode==10 && data.getExtras().getParcelable("Advertisement").getClass() ==AndroidAdvertisement.class){
+            //Happens after a new ad has been created and the activity is closed which start a new intent for MapActivity
+            Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+            intent.putExtras(data.getExtras());
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            Toast.makeText(this, "Anons skapad!", Toast.LENGTH_LONG).show();
         }
     }
 
