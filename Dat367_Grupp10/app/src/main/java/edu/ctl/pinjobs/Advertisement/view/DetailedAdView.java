@@ -1,6 +1,9 @@
 package edu.ctl.pinjobs.advertisement.view;
 
+import android.app.Activity;
 import android.widget.TextView;
+
+import com.example.filips.dat367_grupp10.R;
 
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 
@@ -18,18 +21,16 @@ public class DetailedAdView {
     private TextView phoneTextView;
     private TextView mailTextView;
 
-    public DetailedAdView(TextView titleTextView, TextView categoryTextView, TextView distanceTextView,
-                          TextView descriptionTextView, TextView nameTextView, TextView addressTextView,
-                          TextView phoneTextView, TextView mailTextView, IAdvertisement ad, String distance){
+    public DetailedAdView(Activity activity, IAdvertisement ad, String distance){
 
-        this.titleTextView = titleTextView;
-        this.categoryTextView = categoryTextView;
-        this.distanceTextView = distanceTextView;
-        this.descriptionTextView = descriptionTextView;
-        this.nameTextView = nameTextView;
-        this.addressTextView = addressTextView;
-        this.phoneTextView = phoneTextView;
-        this.mailTextView = mailTextView;
+        this.titleTextView = (TextView)activity.findViewById(R.id.titleTextView);
+        this.categoryTextView = (TextView)activity.findViewById(R.id.categoryTextView);
+        this.distanceTextView = (TextView)activity.findViewById(R.id.distanceTextView);
+        this.descriptionTextView = (TextView)activity.findViewById(R.id.descriptionTextView);
+        this.nameTextView = (TextView)activity.findViewById(R.id.nameTextView);
+        this.addressTextView = (TextView)activity.findViewById(R.id.myProfileAddressTextView);
+        this.phoneTextView = (TextView)activity.findViewById(R.id.myProfilePhoneTextView);
+        this.mailTextView = (TextView)activity.findViewById(R.id.emailTextView);
 
         this.titleTextView.setText(ad.getTitle());
         this.categoryTextView.setText(ad.getCategory().toString().trim());

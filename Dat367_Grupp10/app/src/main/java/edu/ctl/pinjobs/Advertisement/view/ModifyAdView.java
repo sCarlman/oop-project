@@ -1,9 +1,12 @@
 package edu.ctl.pinjobs.advertisement.view;
 
+import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+
+import com.example.filips.dat367_grupp10.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,31 +32,27 @@ public class ModifyAdView {
 
     private IAdvertisement ad;
     private List<IAdvertisement> oldAndModdedAd;
-    private ModifyAdActivity modifyAdActivity;
 
-    public ModifyAdView(EditText titleEditText, EditText descriptionEditText,
-                          EditText addressEditText,  Button modifyButton,
-                        RadioButton modifyGardenRadioButton, RadioButton modifyLabourRadioButton,
-                        RadioButton modifyOtherRadioButton, final IAdvertisement ad,
-                        View.OnClickListener controller, ModifyAdActivity activity){
+    public ModifyAdView(Activity activity, final IAdvertisement ad,
+                        View.OnClickListener controller){
 
-        this.titleEditText = titleEditText;
-        this.descriptionEditText = descriptionEditText;
-        this.addressEditText = addressEditText;
+        this.titleEditText = (EditText)activity.findViewById(R.id.modifyTitleEditText);
+        this.descriptionEditText = (EditText)activity.findViewById(R.id.modifyDesctriptionEditText);
+        this.addressEditText = (EditText)activity.findViewById(R.id.modifyAddressEditText);;
 
-        this.modifyGardenRadioButton = modifyGardenRadioButton;
-        this.modifyLabourRadioButton = modifyLabourRadioButton;
-        this.modifyOtherRadioButton = modifyOtherRadioButton;
-        this.modifyButton = modifyButton;
+        this.modifyGardenRadioButton = (RadioButton)activity.findViewById(R.id.modifyGardenRadioButton);
+        this.modifyLabourRadioButton = (RadioButton)activity.findViewById(R.id.modifyLabourRadioButton);
+        this.modifyOtherRadioButton = (RadioButton)activity.findViewById(R.id.modifyOtherRadioButton);;
+        this.modifyButton = (Button)activity.findViewById(R.id.modifyButton);
         this.ad = ad;
-        this.modifyAdActivity = activity;
+
         modifyButton.setOnClickListener(controller);
         setTexts();
         disableEditTextFields();
         disableRadioButtons();
     }
 
-    private void changeButtonText(){
+    public void changeButtonText(){
         if(modifyButton.getText().equals("Ändra")){
             modifyButton.setText("Spara");
         }else{
@@ -61,91 +60,77 @@ public class ModifyAdView {
         }
     }
 
-    public void modifyButtonClicked(){
-        if(!editable){
-            enableEditTextFields();
-            enableRadioButtons();
-            changeButtonText();
-        }else{
-            modifyAd();
-            disableEditTextFields();
-            disableRadioButtons();
-            modifyAdActivity.saveNewModifiedAd(oldAndModdedAd);
-        }
+
+    public Boolean getEditable(){
+        return editable;
+    }
+    public Boolean setEditable(){
         editable = !editable;
+        return editable;
     }
-
-    private void modifyAd(){
-        oldAndModdedAd = new ArrayList<>();
-        oldAndModdedAd.add(ad);
-        try{
-            ad.setTitle(titleEditText.getText().toString().trim());
-        }catch (WrongAdInputException e){
-
-        }
-        try{
-            ad.setDescription(descriptionEditText.getText().toString().trim());
-        }catch (WrongAdInputException e){
-
-        }
-
-        try{
-            ad.setLocation(addressEditText.getText().toString().trim());
-        }catch (WrongAdInputException e) {
-
-        }
-
+    public String getTitle(){
+        return titleEditText.getText().toString().trim();
+    }
+    public  String getDescription(){
+        return descriptionEditText.getText().toString().trim();
+    }
+    public  String getLocation(){
+        return addressEditText.getText().toString().trim();
+    }
+    public Category getCategory(){
         if(modifyGardenRadioButton.isChecked()){
-            ad.setCategory(Category.GARDEN);
+            return Category.GARDEN;
         }else if(modifyLabourRadioButton.isChecked()){
-            ad.setCategory(Category.LABOUR);
+            return Category.LABOUR;
         }else{
-            ad.setCategory(Category.OTHER);
+            return Category.OTHER;
         }
-        oldAndModdedAd.add(ad);
-
     }
 
-    private void enableEditTextFields(){
-        /*titleEditText.setEnabled(true);
-        descriptionEditText.setEnabled(true);
-        addressEditText.setEnabled(true);
 
-        titleEditText.setFocusable(true);
-        descriptionEditText.setFocusable(true);
-        addressEditText.setFocusable(true);*/
+
+
+    public void enableEditTextFields(){
         titleEditText.setFocusableInTouchMode(true);
         descriptionEditText.setFocusableInTouchMode(true);
         addressEditText.setFocusableInTouchMode(true);
 
     }
-    private void enableRadioButtons(){
+    public void enableRadioButtons(){
         modifyGardenRadioButton.setEnabled(true);
         modifyLabourRadioButton.setEnabled(true);
         modifyOtherRadioButton.setEnabled(true);
     }
 
-    private void disableEditTextFields(){
+    public void disableEditTextFields(){
 
         titleEditText.setFocusable(false);
         descriptionEditText.setFocusable(false);
         addressEditText.setFocusable(false);
-        //titleEditText.setEnabled(false);
-        //descriptionEditText.setEnabled(false);
-        //addressEditText.setEnabled(false);
+
     }
 
-    private void disableRadioButtons(){
+    public void disableRadioButtons(){
         modifyGardenRadioButton.setEnabled(false);
         modifyLabourRadioButton.setEnabled(false);
         modifyOtherRadioButton.setEnabled(false);
     }
 
-    private void setTexts(){
+    public void setTexts(){
         titleEditText.setText(ad.getTitle().toString());
         descriptionEditText.setText(ad.getDescription().toString());
         addressEditText.setText(ad.getLocation().toString());
 
+    }
+    public void setInputError(String error){
+        switch (error){
+            case "title": titleEditText.setError("Måste vara mellan 1 och 30 bokstäver");
+                titleEditText.requestFocus();
+            case "description": descriptionEditText.setError("Max 300 tecken, min 1");
+                descriptionEditText.requestFocus();
+            case "location": addressEditText.setError("Ej giltig adress");
+                addressEditText.requestFocus();
+        }
     }
 
 

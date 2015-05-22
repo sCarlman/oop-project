@@ -26,10 +26,8 @@ public enum EventBus {
         POST_AD,
         CREATE_AD,
         CREATE_AD_SETUP,
-        SHOW_MY_ADS,
         ADLIST_NOT_EMPTY,
         UPDATE_PROFILE,
-        UPDATE_AD,
         CHECK_IF_AD_EXISTS
 
     };
