@@ -113,7 +113,6 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
             //TODO: Start intent instead?
             UserListActivity usListAct = new UserListActivity();
             usListAct.openModifyAdView(this, androidAD);
-
         } else {
             openDetailedAdView(this, androidAD, adDistance);
         }

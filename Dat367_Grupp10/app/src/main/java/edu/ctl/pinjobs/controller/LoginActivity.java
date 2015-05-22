@@ -14,27 +14,26 @@ import com.example.filips.dat367_grupp10.R;
 import java.util.List;
 
 import edu.ctl.pinjobs.eventbus.EventBus;
+import edu.ctl.pinjobs.main.UserModel;
 import edu.ctl.pinjobs.services.IProfileService;
 import edu.ctl.pinjobs.services.ProfileService;
 import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.user.model.LoginModel;
 import edu.ctl.pinjobs.user.view.LoginView;
 
-public class LoginActivity extends ActionBarActivity implements EventBus.IEventHandler {
+public class LoginActivity extends ActionBarActivity {
 
-    private LoginView view;
-    private IProfileService service = new ProfileService();
-    private String firstName;
-    private String lastName;
+    private LoginView loginView;
+    private LoginModel loginModel;
+    private IProfileService profileService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        LoginView view = new LoginView((EditText)findViewById(R.id.editText), (EditText)findViewById(R.id.pwdEditText));
-        this.view = view;
-        EventBus.INSTANCE.addListener(this);
-
+        this.loginView = new LoginView(this);
+        this.loginModel = new LoginModel();
+        this.profileService = new ProfileService();
     }
 
 
@@ -66,45 +65,23 @@ public class LoginActivity extends ActionBarActivity implements EventBus.IEventH
     }
 
     public void testView(View view){
-        this.view.attemptLogin();
-        view.postInvalidate();
-    }
+        if(loginView.attemptLoginSucces()){
+            List<IProfile> list = profileService.fetchAllProfiles();
+            loginModel.setEmail(loginView.getTextFromEmailField());
+            loginModel.setPassword(loginView.getTextFromPasswordField());
+            if(loginModel.doesMailAndPasswordExistInList(list)){
+                UserModel.getInstance().logIn(loginModel.getProfile());
+                setResult(5);
+                finish();
 
-    @Override
-    public void onEvent(EventBus.Event evt, Object o) {
-
-        if(evt == EventBus.Event.LOGIN_MATCH){
-            //TODO: Lägg till progressBar
-            List<IProfile> profileList = service.fetchAllProfiles();
-            if(profileList == null){
-                Toast.makeText(this, "Finns inga registrerade profiler", Toast.LENGTH_LONG).show();
             }else{
-                if(o instanceof LoginModel){
-                    ((LoginModel) o).doesMailExistInUserDatabase(profileList);
+                if(loginModel.doesMailExistInList(list)!=null) {
+                    //TODO: ÄNDRA TILL SWITCH ERRORS
+                    System.out.println("ERROR I EMAIL");
+                }else {
+                    System.out.println("ERROR I PASSWORD");
                 }
             }
-
-        }
-
-        if(evt == EventBus.Event.LOGIN_SUCCESS){
-            if(o instanceof LoginModel){
-                firstName = ((LoginModel) o).getProfile().getFirstName();
-                lastName = ((LoginModel) o).getProfile().getLastName();
-                finish();
-            }
-
-        }
-
-        if(evt == EventBus.Event.SAVE_PROFILE){
-            finish();
-        }
-
-        if(evt == EventBus.Event.LOGIN_FAILED_WRONG_EMAIL){
-            this.view.failedMatchEmailWithDatabase();
-        }
-
-        if(evt == EventBus.Event.LOGIN_FAILED_WRONG_PASSWORD){
-            this.view.failedMatchPasswordWithDatabase();
         }
     }
 

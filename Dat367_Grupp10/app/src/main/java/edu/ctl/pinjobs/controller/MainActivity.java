@@ -138,17 +138,14 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
 
     public void openLoginView(View view) {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent,1);
     }
 
     public void logOfUser(View view){
         user.logOff();
-        mainView.repaintLogInView(false);
+        mainView.repaintLogInView(false,null);
     }
 
-    public String getProfileName() {
-        return (user.getProfile().getFirstName() + " " + user.getProfile().getLastName());
-    }
 
     @Override
     public void onResume(){
@@ -172,8 +169,6 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
         } else if (evt == EventBus.Event.SAVE_PROFILE) {
             profileService.saveProfile((IProfile) o);
             loginUser((IProfile) o);
-        } else if (evt == EventBus.Event.LOGIN_SUCCESS) {
-            loginUser(((LoginModel) o).getProfile());
         } else if (evt == EventBus.Event.CREATE_AD_SETUP) {
             callCreateAd();
         } else if (evt == EventBus.Event.SHOW_MY_ADS) {
@@ -210,6 +205,19 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
         }
     }
 
+    private void loginUser(IProfile profile){
+        user.logIn(profile);
+        mainView.repaintLogInView(true,UserModel.getInstance().getProfile());
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(resultCode==5){
+            UserModel usermodel = UserModel.getInstance();
+            mainView.repaintLogInView(usermodel.isLoggedIn,usermodel.getProfile());
+        }
+    }
+
     private boolean checkIfAdExists(IAdvertisement newAd,List<IAdvertisement> adList){
         for(IAdvertisement loopAd: adList){
             if(loopAd.equals(newAd)) {
@@ -219,9 +227,5 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
         return false;
     }
 
-    private void loginUser(IProfile profile) {
-        user.logIn(profile);
-        mainView.repaintLogInView(true);
-    }
 }
 

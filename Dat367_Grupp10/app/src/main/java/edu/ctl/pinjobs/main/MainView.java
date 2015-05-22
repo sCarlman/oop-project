@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import edu.ctl.pinjobs.controller.MainActivity;
+import edu.ctl.pinjobs.profile.model.IProfile;
 
 /**
  * Created by Albertsson on 15-05-11.
@@ -41,10 +42,11 @@ public class MainView {
         loggedInTextView.setVisibility(View.GONE);
     }
 
-    public void repaintLogInView(boolean loggedIn) {
+    public void repaintLogInView(boolean loggedIn,IProfile loggedInProfile) {
 
         if (loggedIn) {
-            loggedInTextView.setText("Du är inloggad som: " + mainActivity.getProfileName());
+            loggedInTextView.setText("Du är inloggad som: " + loggedInProfile.getFirstName()
+                    +" "+ loggedInProfile.getLastName());
             createNewAdButton.setVisibility(View.VISIBLE);
             logOfButton.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.GONE);

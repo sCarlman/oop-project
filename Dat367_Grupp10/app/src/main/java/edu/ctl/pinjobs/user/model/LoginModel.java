@@ -14,49 +14,47 @@ public class LoginModel {
     private String password;
     private IProfile profile;
 
-    public LoginModel(){}
-
-    public void matchLoginWithDatabase(){
-        EventBus.INSTANCE.publish(EventBus.Event.LOGIN_MATCH, this);
+    public boolean doesMailAndPasswordExistInList(List<IProfile> profiles){
+        IProfile profile = doesMailExistInList(profiles);
+        if(profile!=null){
+            if(doesPasswordMatchMail(profile)){
+                return true;
+            }
+        }return false;
     }
 
-    public void doesMailExistInUserDatabase(List<IProfile> profiles){
-
-        boolean matchFound = false;
+    public IProfile doesMailExistInList(List<IProfile> profiles){
 
         for (IProfile profile : profiles){
             if (profile.getEmail().equals(eMail)){
-                matchFound = true;
-                matchPasswordWithUserDatabase(profile);
-                break;
+                return profile;
             }
         }
-
-        if(!matchFound){
-            EventBus.INSTANCE.publish(EventBus.Event.LOGIN_FAILED_WRONG_EMAIL, null);
-        }
+        return null;
     }
 
-    public void matchPasswordWithUserDatabase(IProfile profile){
+    public boolean doesPasswordMatchMail(IProfile profile){
         if(profile.getPassword() != null){
             if(profile.getPassword().equals(password)){
                 this.profile = profile;
-                EventBus.INSTANCE.publish(EventBus.Event.LOGIN_SUCCESS, this);
+                return true;
             }else{
-                EventBus.INSTANCE.publish(EventBus.Event.LOGIN_FAILED_WRONG_PASSWORD, null);
+                return false;
             }
-        }
+        }return false;
     }
 
     public IProfile getProfile(){
         return this.profile;
     }
 
-    public void seteMail(String eMail) {
+    public void setEmail(String eMail) {
+        //TODO: Set ERROR
         this.eMail = eMail;
     }
 
     public void setPassword(String password) {
+        //TODO: SET ERROR
         this.password = password;
     }
 
