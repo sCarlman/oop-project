@@ -40,7 +40,7 @@ public class CreateProfileView {
 
     private Profile newProfile;
 
-    CreateProfileView(EditText firstNameEditText, EditText lastNameEditText,
+    public CreateProfileView(EditText firstNameEditText, EditText lastNameEditText,
                       EditText emailEditText, EditText phoneEditText, EditText passwordEditText,
                       EditText locationEditText, Button createProfileButton, Context v,
                       EditText city) {

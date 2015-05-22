@@ -21,7 +21,7 @@ import java.util.Map;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.Category;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
-import edu.ctl.pinjobs.controller.HandlerActivity;
+import edu.ctl.pinjobs.controller.ListActivity;
 import edu.ctl.pinjobs.handler.utils.HandlerLocationUtils;
 import edu.ctl.pinjobs.utils.LocationUtils;
 
@@ -29,28 +29,34 @@ import edu.ctl.pinjobs.utils.LocationUtils;
  * Created by Filips on 5/11/2015.
  */
 
-public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickListener {
+public class MapView implements OnMapReadyCallback {
     Context context;
     GoogleMap map;
     HandlerLocationUtils locationUtils;
     Map<Marker,IAdvertisement> markerAdHashmap = new HashMap<>(); //keeps track of which ad the marker represents
     List<IAdvertisement> adList;
     List<Marker> markers = new ArrayList<Marker>(); //a list of all the markers placed on the map
-    IAdvertisement zoomAd;
+    IAdvertisement zoomAd; //hold a new ad the will be added and camera moved and zoomed too
+    GoogleMap.OnInfoWindowClickListener infoWindowClickListener;
 
-    public MapView(Context context, List<IAdvertisement> adList,MapFragment mapFragment){
+
+    public MapView(Context context, List<IAdvertisement> adList,MapFragment mapFragment,
+                   GoogleMap.OnInfoWindowClickListener infoWindowClickListener){
         this.context = context;
         this.adList = adList;
         mapFragment.getMapAsync(this);
         this.locationUtils = new HandlerLocationUtils();
+        this.infoWindowClickListener = infoWindowClickListener;
     }
     //Used when setting up the regular map with zoom on a new pin.
-    public MapView(Context context, List<IAdvertisement> adList,MapFragment mapFragment,IAdvertisement ad){
+    public MapView(Context context, List<IAdvertisement> adList,MapFragment mapFragment,IAdvertisement ad,
+                   GoogleMap.OnInfoWindowClickListener InfoWindowClickListener){
         this.context = context;
         this.adList = adList;
         mapFragment.getMapAsync(this);
         this.locationUtils = new HandlerLocationUtils();
         zoomAd = ad;
+        this.infoWindowClickListener = InfoWindowClickListener;
     }
 
 
@@ -126,7 +132,7 @@ public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickLi
     @Override
     public void onMapReady(GoogleMap googleMap) {
         this.map = googleMap;
-        map.setOnInfoWindowClickListener(this);
+        map.setOnInfoWindowClickListener(infoWindowClickListener);
         setUpMap(adList);
         if(zoomAd!=null){
             addPinAndZoom(zoomAd);
@@ -139,17 +145,6 @@ public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickLi
         map.moveCamera(CameraUpdateFactory.newLatLngZoom((new LatLng(ad.getLatitude(),ad.getLongitude())), 15));
     }
 
-    @Override
-    public void onInfoWindowClick(Marker marker){
-        //this is done when clicked on a markers info window
-        HandlerActivity handlerController = new HandlerActivity();
-        IAdvertisement ad = markerAdHashmap.get(marker); //gets the correct ad that represents the marker
-        LatLng currentPosition = LocationUtils.getCurrentLocation(context);
-        String distance = "" + locationUtils.calculateDistanceFromPosition(currentPosition.latitude,
-                ad.getLatitude(),currentPosition.longitude,ad.getLongitude());
-        AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
-        handlerController.openDetailedAdView(context, androidAD, distance);
-    }
     private String setSnippet(IAdvertisement ad,LatLng currentPos){
         //Sets the text of the info window that isn't the title.
         String distance = "" + locationUtils.calculateDistanceFromPosition(currentPos.latitude,
@@ -157,5 +152,9 @@ public class MapView implements OnMapReadyCallback,GoogleMap.OnInfoWindowClickLi
         int index = distance.indexOf('.');
         distance = distance.substring(0, index + 2);
         return distance+" km bort"; //sets the text to amount of km from current position with one decimal
+    }
+
+    public IAdvertisement getAdFromMarker(Marker marker){
+        return markerAdHashmap.get(marker);
     }
 }

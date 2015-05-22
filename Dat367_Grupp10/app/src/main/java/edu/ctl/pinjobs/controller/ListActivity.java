@@ -1,38 +1,43 @@
 package edu.ctl.pinjobs.controller;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
+import edu.ctl.pinjobs.advertisement.model.Advertisement;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 import edu.ctl.pinjobs.handler.model.IListModel;
 import edu.ctl.pinjobs.handler.model.ListModel;
+import edu.ctl.pinjobs.handler.utils.HandlerLocationUtils;
 import edu.ctl.pinjobs.handler.view.ListView;
 import edu.ctl.pinjobs.utils.LocationUtils;
 import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import com.example.filips.dat367_grupp10.R;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
 
-public class HandlerActivity extends ActionBarActivity implements EventBus.IEventHandler {
+public class ListActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
     IListModel listModel;
     ListView listView;
     String email;
-    boolean isActive = false;
+    HandlerLocationUtils locationUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        EventBus.INSTANCE.addListener(this);
-        isActive = true;
+        this.locationUtils = new HandlerLocationUtils();
         email = getIntent().getStringExtra("Email");
 
         if(AdvertisementListHolder.getInstance().getList().size()==0) {
@@ -40,7 +45,7 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
             Intent intent = new Intent(getApplicationContext(), LoadingScreen.class);
             startActivityForResult(intent,1);
         }else {
-            setListView(AdvertisementListHolder.getInstance().getList(), email);
+            setListView(AdvertisementListHolder.getInstance().getList());
         }
     }
 
@@ -69,18 +74,18 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         //Happends when returned from progressBarView
         if(resultCode == 2) {
-            setListView(AdvertisementListHolder.getInstance().getList(), email);
+            setListView(AdvertisementListHolder.getInstance().getList());
             Toast.makeText(getApplicationContext(), "Finns inga anonser uppe för tillfället",
                     Toast.LENGTH_LONG).show();
         }else {
-            setListView(AdvertisementListHolder.getInstance().getList(), email);
+            setListView(AdvertisementListHolder.getInstance().getList());
         }
 
     }
 
-    private void setListView(List<IAdvertisement> adList, String email){
+    private void setListView(List<IAdvertisement> adList){
         setContentView(R.layout.activity_ad_list);
-        this.listView = new ListView(this.getApplicationContext(),(android.widget.ListView)findViewById(R.id.adListView), email);
+        this.listView = new ListView(this.getApplicationContext(),(android.widget.ListView)findViewById(R.id.adListView),this);
         this.listModel = new ListModel(adList);
         listModel.sortForDistance(LocationUtils.getCurrentLocation(this).latitude,LocationUtils.getCurrentLocation(this).longitude);
         listView.setupView(listModel.getList(), android.R.layout.simple_list_item_1);
@@ -88,7 +93,6 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
     }
 
     public void openDetailedAdView(Context context, AndroidAdvertisement ad,String distance){
-
         Intent intent = new Intent(context, DetailedAdActivity.class);
         intent.putExtra("Advertisement", ad);
         intent.putExtra("Distance", distance);
@@ -96,12 +100,22 @@ public class HandlerActivity extends ActionBarActivity implements EventBus.IEven
         context.getApplicationContext().startActivity(intent);
     }
 
-
     @Override
-    public void onEvent(EventBus.Event evt, Object o) {
-        if (evt == EventBus.Event.ADLIST_UPDATED) {
-            AdvertisementListHolder.getInstance().setList((List<IAdvertisement>) o);
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //For onclick on the specified item in the list.
+        final LatLng currentPosition = LocationUtils.getCurrentLocation(this);
+        IAdvertisement ad = listModel.getList().get(position);
+        String adDistance = "" + locationUtils.calculateDistanceFromPosition(currentPosition.latitude,
+                ad.getLatitude(), currentPosition.longitude, ad.getLongitude());
+        AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
+
+        if (email.equals(ad.getAdvertiser().getEmail())) {
+            //TODO: Start intent instead?
+            UserListActivity usListAct = new UserListActivity();
+            usListAct.openModifyAdView(this, androidAD);
+
+        } else {
+            openDetailedAdView(this, androidAD, adDistance);
         }
     }
-
 }

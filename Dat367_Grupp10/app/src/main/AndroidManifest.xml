@@ -53,7 +53,7 @@
             android:label="@string/title_activity_create_ad" >
         </activity>
         <activity
-            android:name="edu.ctl.pinjobs.controller.HandlerActivity"
+            android:name="edu.ctl.pinjobs.controller.ListActivity"
             android:label="@string/title_activity_ad_list" >
         </activity>
         <activity

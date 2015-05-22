@@ -11,11 +11,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import edu.ctl.pinjobs.eventbus.EventBus;
+import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 
 public class LoadingScreen extends Activity implements EventBus.IEventHandler {
 
     private Timer timer= new Timer();
-    Activity activity = this;
+    Activity thisActivity = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,13 +26,14 @@ public class LoadingScreen extends Activity implements EventBus.IEventHandler {
         spinner = (ProgressBar)findViewById(R.id.progressBar1);
         spinner.setVisibility(View.VISIBLE);
         timer.schedule(task,5000);
+
     }
     TimerTask task = new TimerTask() {
 
         @Override
         public void run() {
-            activity.setResult(2);
-            activity.finish();
+            thisActivity.setResult(2);
+            thisActivity.finish();
         }
     };
 

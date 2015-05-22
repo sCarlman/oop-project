@@ -1,5 +1,6 @@
 package edu.ctl.pinjobs.handler.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,7 +14,7 @@ import java.util.List;
 import edu.ctl.pinjobs.advertisement.model.Advertisement;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
-import edu.ctl.pinjobs.controller.HandlerActivity;
+import edu.ctl.pinjobs.controller.ListActivity;
 import edu.ctl.pinjobs.handler.utils.HandlerLocationUtils;
 import edu.ctl.pinjobs.controller.UserListActivity;
 import edu.ctl.pinjobs.utils.LocationUtils;
@@ -25,16 +26,17 @@ public class ListView{
 
     private android.widget.ListView listView;
     private Context context;
-    private String email;
-    HandlerLocationUtils locationUtils = new HandlerLocationUtils();
+    AdapterView.OnItemClickListener clickListener;
+    HandlerLocationUtils locationUtils;
 
 
 
-    public ListView(Context context,android.widget.ListView listView, String email){
+    public ListView(Context context,android.widget.ListView listView,AdapterView.OnItemClickListener clickListener){
 
-        this.email = email;
         this.listView = listView;
         this.context = context;
+        this.clickListener = clickListener;
+        this.locationUtils = new HandlerLocationUtils();
     }
 
     public void setupView(final List<IAdvertisement> adList, int id){
@@ -47,31 +49,8 @@ public class ListView{
                 id, titleList);
         listView.setAdapter(adapter);
         listView.invalidate();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        listView.setOnItemClickListener(clickListener);
 
-                IAdvertisement ad = (Advertisement) adList.get(position);
-                String adDistance="";
-                adDistance = "" + locationUtils.calculateDistanceFromPosition(currentPosition.latitude,
-                            ad.getLatitude(),currentPosition.longitude,ad.getLongitude());
-                AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
-
-
-                if(email==null){
-                    HandlerActivity hej = new HandlerActivity();
-                    hej.openDetailedAdView(context,androidAD,adDistance);
-                }else if(email.equals(ad.getAdvertiser().getEmail())){
-                    UserListActivity usListAct = new UserListActivity();
-                    usListAct.openModifyAdView(context, androidAD);
-
-                }else{
-                    HandlerActivity hej = new HandlerActivity();
-                    hej.openDetailedAdView(context,androidAD,adDistance);
-                }
-
-            }
-        });
     }
     private String setMessage(IAdvertisement ad,LatLng currentPos){
         String message =ad.getTitle();

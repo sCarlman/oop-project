@@ -32,15 +32,15 @@ public class LocationUtils implements LocationListener{
         Criteria criteria = new Criteria();
         String provider = locationManager.getBestProvider(criteria,false);
         android.location.Location location = locationManager.getLastKnownLocation(provider);
-        LatLng lastKnowLocation = new LatLng(location.getLatitude(),location.getLongitude());
+        LatLng lastKnownLocation;
+        if(location !=null) {
+            lastKnownLocation = new LatLng(location.getLatitude(), location.getLongitude());
+        }else{
+            lastKnownLocation = new LatLng(57.686843, 11.921514);
+        }
 
         if(currentLocation==null) {
-            if(lastKnowLocation!=null) {
-                return lastKnowLocation;
-            }else{
-                //Should never occur.
-                return new LatLng(57.686843, 11.921514);
-            }
+            return lastKnownLocation;
         }else{
             return currentLocation;
         }

@@ -7,19 +7,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.filips.dat367_grupp10.R;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 
 import java.util.List;
 
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
+import edu.ctl.pinjobs.handler.utils.HandlerLocationUtils;
 import edu.ctl.pinjobs.handler.view.MapView;
+import edu.ctl.pinjobs.utils.LocationUtils;
 
-public class MapActivity extends ActionBarActivity {
+public class MapActivity extends ActionBarActivity implements GoogleMap.OnInfoWindowClickListener {
 
     private MapView mapView;
-    private boolean isActive = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //Saves the mapfragment(the view object) from .xml
@@ -76,12 +80,24 @@ public class MapActivity extends ActionBarActivity {
                 System.out.println("I CREATE AD");
                 AndroidAdvertisement androidAd = (AndroidAdvertisement) bundle.getParcelable("Advertisement");
                 IAdvertisement ad = androidAd.getAd();
-                mapView = new MapView(this.getApplicationContext(), adList, mapFragment, ad);
+                mapView = new MapView(this.getApplicationContext(), adList, mapFragment, ad,this);
             }else if(bundle.getParcelable("UpdateAdvertisement")!=null){
                 System.out.println("I UPDATE AD");
             }
         } else { //from mainwindow
-            mapView = new MapView(this.getApplicationContext(), adList, mapFragment);
+            mapView = new MapView(this.getApplicationContext(), adList, mapFragment,this);
         }
+    }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        //this is done when clicked on a markers info window
+        ListActivity handlerController = new ListActivity();
+        IAdvertisement ad = mapView.getAdFromMarker(marker); //gets the correct ad that represents the marker
+        LatLng currentPosition = LocationUtils.getCurrentLocation(this);
+        String distance = "" + new HandlerLocationUtils().calculateDistanceFromPosition(currentPosition.latitude,
+                ad.getLatitude(),currentPosition.longitude,ad.getLongitude());
+        AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
+        handlerController.openDetailedAdView(this.getApplicationContext(), androidAD, distance);
     }
 }

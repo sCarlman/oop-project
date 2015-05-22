@@ -67,8 +67,9 @@ public class UserListActivity extends ActionBarActivity implements EventBus.IEve
     }
 
     private void setListView(List<IAdvertisement> adList, String email){
+        //TODO: KAN HA FUCKAT UPP
         setContentView(R.layout.activity_ad_list);
-        this.listView = new ListView(getApplicationContext(),(android.widget.ListView)findViewById(R.id.adListView), email);
+        //this.listView = new ListView(getApplicationContext(),(android.widget.ListView)findViewById(R.id.adListView), email);
         this.listModel = new ListModel(adList);
         listModel.sortForDistance(LocationUtils.getCurrentLocation(this).latitude,LocationUtils.getCurrentLocation(this).longitude);
         listView.setupView(listModel.getList(), android.R.layout.simple_list_item_1);
