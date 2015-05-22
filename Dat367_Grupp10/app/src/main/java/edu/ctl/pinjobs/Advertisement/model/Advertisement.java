@@ -195,10 +195,10 @@ public class Advertisement implements IAdvertisement, Serializable {
     @Override
     public boolean equals(Object other){
         //equals if it has the same
-        if(other ==null){
+        if(other == null){
             return false;
         }
-        if(this== other){
+        if(this == other){
             return true;
         }
         if(this.getClass() != other.getClass()){
