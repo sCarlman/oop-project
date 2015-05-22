@@ -23,7 +23,7 @@ public class MainView {
     private TextView loggedInTextView;
 
     public MainView(Activity activity){
-        this.createNewAdButton = (Button) activity.findViewById(R.id.createAdButton);
+        this.createNewAdButton = (Button) activity.findViewById(R.id.postAdButton);
         this.loginButton = (Button) activity.findViewById(R.id.loginButton);
         this.logOfButton = (Button) activity.findViewById(R.id.logOfButton);
         this.loggedInTextView = (TextView) activity.findViewById(R.id.loggedInTextView);

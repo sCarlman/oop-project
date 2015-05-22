@@ -98,7 +98,8 @@ public class AdvertisementService implements IAdvertisementService {
     public void removeOutDatedAds(){
         Calendar today = new GregorianCalendar();
         int thisYear = today.get(Calendar.YEAR);
-        int thisMonth = today.get(Calendar.MONTH);
+        //+1 because months are indexed from 0 to 11, for some reason
+        int thisMonth = today.get(Calendar.MONTH) +1;
         int thisDay = today.get(Calendar.DAY_OF_MONTH);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Advertisement");
         try {
