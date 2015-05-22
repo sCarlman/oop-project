@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.filips.dat367_grupp10.R;
+
 import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.controller.CreateProfileActivity;
 import edu.ctl.pinjobs.profile.model.Profile;
@@ -15,8 +17,12 @@ import edu.ctl.pinjobs.profile.model.WrongInputExeption;
 
 /**
  * Created by Isaac on 2015-05-06.
+ *
+ * View made for create profile
+ * More discription *!*!*!*!*!*!
  */
 public class CreateProfileView {
+
     private EditText firstNameEditText;
     private EditText lastNameEditText;
     private EditText emailEditText;
@@ -24,6 +30,7 @@ public class CreateProfileView {
     private EditText passwordEditText;
     private EditText locationEditText;
     private EditText cityEditText;
+
     private Button createProfileButton;
 
     private String firstName;
@@ -35,26 +42,23 @@ public class CreateProfileView {
     private String city;
 
     private CreateProfileActivity activity;
+    private Profile newProfile;
+
     private boolean cancel = false;
     private View focusView = null;
 
-    private Profile newProfile;
+    public CreateProfileView(CreateProfileActivity createProfileActivity) {
 
-    public CreateProfileView(EditText firstNameEditText, EditText lastNameEditText,
-                      EditText emailEditText, EditText phoneEditText, EditText passwordEditText,
-                      EditText locationEditText, Button createProfileButton, Context v,
-                      EditText city) {
-
-        this.firstNameEditText = firstNameEditText;
-        this.lastNameEditText = lastNameEditText;
-        this.emailEditText = emailEditText;
-        this.phoneEditText = phoneEditText;
-        this.passwordEditText = passwordEditText;
-        this.locationEditText = locationEditText;
-        this.cityEditText = city;
-        this.createProfileButton = createProfileButton;
-        this.createProfileButton.setOnClickListener((View.OnClickListener)v);
-        this.activity = (CreateProfileActivity)v;
+        this.firstNameEditText = (EditText)createProfileActivity.findViewById(R.id.myProfileFirstNameEditText);
+        this.lastNameEditText = (EditText)createProfileActivity.findViewById(R.id.myProfileLastNameEditText);
+        this.emailEditText = (EditText)createProfileActivity.findViewById(R.id.emailEditText);
+        this.phoneEditText = (EditText)createProfileActivity.findViewById(R.id.myProfilePhoneEditText);
+        this.passwordEditText = (EditText)createProfileActivity.findViewById(R.id.passwordEditText);
+        this.locationEditText = (EditText)createProfileActivity.findViewById(R.id.myProfileAddressEditText);
+        this.cityEditText = (EditText)createProfileActivity.findViewById(R.id.myProfileCityEditText);
+        this.createProfileButton = (Button)createProfileActivity.findViewById(R.id.createProfileButton);
+        this.createProfileButton.setOnClickListener(createProfileActivity);
+        this.activity = createProfileActivity;
     }
 
     public void createProfileButtonClicked() {
