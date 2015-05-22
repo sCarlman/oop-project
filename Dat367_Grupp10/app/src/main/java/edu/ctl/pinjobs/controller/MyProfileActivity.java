@@ -76,8 +76,11 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        EventBus.INSTANCE.publish(EventBus.Event.SHOW_MY_ADS, email);
-
+        //EventBus.INSTANCE.publish(EventBus.Event.SHOW_MY_ADS, email);
+        Intent intent = new Intent(getApplicationContext(), ListActivity.class);
+        intent.putExtra("myList", true);
+        intent.putExtra("Email", email);
+        startActivity(intent);
     }
 
     @Override

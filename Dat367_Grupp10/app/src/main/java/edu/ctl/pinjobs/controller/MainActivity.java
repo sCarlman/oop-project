@@ -59,7 +59,7 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
                 (Button)findViewById(R.id.loginButton), (Button)findViewById(R.id.logOfButton),
                 (TextView)findViewById(R.id.loggedInTextView));
 
-        this.adService = new AdvertisementService(MainActivity.this);
+        this.adService = new AdvertisementService();
         profileService = new ProfileService();
         this.backgroundThread = new BackgroundThread(adService);
         backgroundThread.start();
@@ -176,11 +176,6 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
             loginUser(((LoginModel) o).getProfile());
         } else if (evt == EventBus.Event.CREATE_AD_SETUP) {
             callCreateAd();
-        } else if (evt == EventBus.Event.SHOW_MY_ADS) {
-            Intent intent = new Intent(this.getApplicationContext(), UserListActivity.class);
-            intent.putExtra("Email", (String) o);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
         } else if (evt == EventBus.Event.UPDATE_PROFILE) {
             profileService.updateProfile((IProfile) o);
             adService.updateAdvertiser((IProfile) o);
