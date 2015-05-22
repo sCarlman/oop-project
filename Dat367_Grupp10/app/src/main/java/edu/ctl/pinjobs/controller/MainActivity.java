@@ -140,7 +140,7 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
 
     public void openLoginView(View view) {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-        startActivityForResult(intent,1);
+        startActivityForResult(intent, 1);
     }
 
     public void logOfUser(View view){
@@ -154,6 +154,8 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
         super.onResume();
         BackgroundThread thread = new BackgroundThread(adService);
         thread.start();
+        UserModel userModel = UserModel.getInstance();
+        mainView.repaintLogInView(userModel.isLoggedIn, userModel.getProfile());
     }
 
     @Override

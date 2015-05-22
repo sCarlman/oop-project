@@ -83,6 +83,7 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
         if(data !=null) {
             this.myProfile = (IProfile) data.getSerializableExtra("sendProfile");
             myProfileView.setProfileInfoOnCreate(myProfile);
+
         }
     }
 
