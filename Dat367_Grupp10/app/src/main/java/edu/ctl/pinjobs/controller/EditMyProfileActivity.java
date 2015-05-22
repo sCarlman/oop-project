@@ -69,27 +69,27 @@ public class EditMyProfileActivity extends ActionBarActivity {
         try{
             myProfile.setFirstName(editMyProfileView.getTextFromEditFirstName());
         }catch (WrongInputExeption e){
-            editMyProfileView.setErrorEditFirstName("Ogiltligt Förnamn!");
+            editMyProfileView.setInputError("firstname");
             setCanceledByError(true);
         }
         try{
             myProfile.setLastName(editMyProfileView.getTextFromEditLastName());
         }catch (WrongInputExeption e){
-            editMyProfileView.setErrorEditLastName("Ogiltligt Efternamn!");
+            editMyProfileView.setInputError("lastname");
             setCanceledByError(true);
         }
         try{
             myProfile.setPhone(editMyProfileView.getTextFromEditPhone());
         }catch (WrongInputExeption e){
-            editMyProfileView.setErrorEditPhone("Ogiltligt Tele!");
+            editMyProfileView.setInputError("phone");
             setCanceledByError(true);
         }
         try{
             myProfile.setAddress(editMyProfileView.getTextFromEditAddress() + "," + editMyProfileView.getTextFromEditCity());
         }catch (WrongInputExeption e){
-            //SKALL FIXAS!!!!!!
-            editMyProfileView.setErrorEditAddress("Ogiltligt!");
-            editMyProfileView.setErrorEditCity("Ogiltligt!");
+            //TODO: SKALL FIXAS!!!!!!
+            editMyProfileView.setInputError("address");
+            editMyProfileView.setInputError("city");
             setCanceledByError(true);
         }
         if(!getCanceledByError()){

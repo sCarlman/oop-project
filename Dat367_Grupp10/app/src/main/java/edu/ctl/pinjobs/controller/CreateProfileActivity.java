@@ -70,23 +70,24 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
 
                 }catch (WrongInputExeption e){
                     if(e.getError().equals("FirstName")){
-                        view.firstnameExceptionCought();
+                        view.exceptionCought("firstname");
                     }
                     if(e.getError().equals("LastName")){
-                        view.lastnameExceptionCought();
+                        view.exceptionCought("lastname");
                     }
                     if(e.getError().equals("Password")){
-                        view.passwordExceptionCought();
+                        view.exceptionCought("password");
                     }
                     if(e.getError().equals("Email")){
-                        view.emailExceptionCought();
+                        view.exceptionCought("email");
                     }
                     if(e.getError().equals("Phone")){
-                        view.phoneExceptionCought();
+                        view.exceptionCought("phone");
                     }
                     //TODO: SKALL DELAS UPP I ADRESS OCH STAD !*!*!*!*!*!*!
                     if(e.getError().equals("Location")){
-                        view.locationExceptionCought();
+                        view.exceptionCought("address");
+                        view.exceptionCought("city");
                     }
                 }
             }

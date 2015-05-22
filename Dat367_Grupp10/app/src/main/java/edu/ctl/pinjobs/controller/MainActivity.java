@@ -172,15 +172,8 @@ public class MainActivity extends ActionBarActivity implements EventBus.IEventHa
             Toast.makeText(this, "Anons skapad!", Toast.LENGTH_LONG).show();
         } else if (evt == EventBus.Event.CREATE_AD_SETUP) {
             callCreateAd();
-        } else if (evt == EventBus.Event.UPDATE_PROFILE) {
-            profileService.updateProfile((IProfile) o);
-            adService.updateAdvertiser((IProfile) o);
-            loginUser((IProfile) o);
-
         }
     }
-
-
 
     private void loginUser(IProfile profile) {
 

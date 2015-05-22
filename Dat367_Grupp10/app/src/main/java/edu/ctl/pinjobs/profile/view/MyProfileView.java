@@ -1,12 +1,12 @@
 package edu.ctl.pinjobs.profile.view;
 
+import android.app.Activity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.filips.dat367_grupp10.R;
 
-import edu.ctl.pinjobs.controller.MyProfileActivity;
 import edu.ctl.pinjobs.profile.model.IProfile;
 
 /**
@@ -22,7 +22,7 @@ public class MyProfileView {
 
     private Button showMyAds;
 
-    public MyProfileView(MyProfileActivity myProfileActivity, IProfile myProfile, View.OnClickListener activity){
+    public MyProfileView(Activity myProfileActivity, IProfile myProfile, View.OnClickListener activity){
 
         this.profileName = (TextView)myProfileActivity.findViewById(R.id.myProfileProfileNameTextView);
         this.profileMail = (TextView)myProfileActivity.findViewById(R.id.myProfileProfileMailTextView);
