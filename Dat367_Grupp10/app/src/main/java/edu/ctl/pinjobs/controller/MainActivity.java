@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import edu.ctl.pinjobs.advertisement.model.Advertisement;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
