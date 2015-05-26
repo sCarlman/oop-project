@@ -50,7 +50,7 @@ public class Advertisement implements IAdvertisement, Serializable {
     public void setLocation(String location) throws WrongAdInputException{
 
         if(location != null && !infoCheck.isEmpty(location) && infoCheck.containsLetters(location)
-                && infoCheck.containsOnlyLettersOrNumbers(location)) {
+                && infoCheck.containsOnlyLettersNumbersWhitespaceOrComa(location)) {
             this.location = location;
         }else {
             throw new WrongAdInputException("location");

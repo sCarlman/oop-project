@@ -10,7 +10,11 @@ import java.io.Serializable;
 public class InfoCheck implements Serializable {
 
     public boolean isAlphabetic(String name) {
-        char[] chars = name.toCharArray();
+        if(name == null || isEmpty(name)){
+            return false;
+        }
+        String trimmedName = name.replaceAll("\\s+", "");
+        char[] chars = trimmedName.toCharArray();
         for (char c : chars) {
             if(!Character.isLetter(c)) {
                 return false;
@@ -19,19 +23,12 @@ public class InfoCheck implements Serializable {
         return true;
     }
 
-    //Checks if a String contains signs like ! ? # € % etc
-    public boolean isAnySignsInString(String s){
-        char[] chars = s.toCharArray();
-        for (char c : chars){
-            if(Character.isLetterOrDigit(c)){
-                return false;
-            }
-        }
-        return true;
-    }
 
     //Checks if a string contains a coma character
     public boolean containsComa(String s){
+        if(s == null){
+            return false;
+        }
         char[] chars = s.toCharArray();
         boolean containsAnyComa = false;
         for (char c : chars){
@@ -43,6 +40,9 @@ public class InfoCheck implements Serializable {
     }
     //Checks if a string contains any letters
     public boolean containsLetters(String s){
+        if(s == null || isEmpty(s)){
+            return false;
+        }
         char[] chars = s.toCharArray();
         boolean containsAnyLetter = false;
         for (char c : chars){
@@ -53,7 +53,11 @@ public class InfoCheck implements Serializable {
         return containsAnyLetter;
     }
 
-    public boolean containsOnlyLettersOrNumbers(String s){
+    public boolean containsOnlyLettersNumbersWhitespaceOrComa(String s){
+        //uses "" instead of isEmpty since method should say true if containing spaces and not if string is empty
+        if(s == null || s.equals("")){
+            return false;
+        }
         char[] chars = s.toCharArray();
 
         boolean containsOnlyLettersAndNumbers = false;
@@ -71,6 +75,10 @@ public class InfoCheck implements Serializable {
 
     //Checks if a string contains spaces
     public boolean containsSpaces(String password){
+        //uses "" instead of isEmpty since method should say true if containing spaces and not if string is empty
+        if(password==null || password.equals("")){
+            return false;
+        }
         char[] chars = password.toCharArray();
         boolean containsAnySpaces = false;
 
