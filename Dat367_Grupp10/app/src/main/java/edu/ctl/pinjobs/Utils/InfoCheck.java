@@ -17,7 +17,9 @@ public class InfoCheck implements Serializable {
             }
         }
         return true;
-    }/*
+    }
+
+    //Checks if a String contains signs like ! ? # € % etc
     public boolean isAnySignsInString(String s){
         char[] chars = s.toCharArray();
         for (char c : chars){
@@ -26,7 +28,59 @@ public class InfoCheck implements Serializable {
             }
         }
         return true;
-    }*/
+    }
+
+    //Checks if a string contains a coma character
+    public boolean containsComa(String s){
+        char[] chars = s.toCharArray();
+        boolean containsAnyComa = false;
+        for (char c : chars){
+            if(c == ','){
+                containsAnyComa = true;
+            }
+        }
+        return containsAnyComa;
+    }
+    //Checks if a string contains any letters
+    public boolean containsLetters(String s){
+        char[] chars = s.toCharArray();
+        boolean containsAnyLetter = false;
+        for (char c : chars){
+            if(Character.isLetter(c)){
+                containsAnyLetter = true;
+            }
+        }
+        return containsAnyLetter;
+    }
+
+    public boolean containsOnlyLettersOrNumbers(String s){
+        char[] chars = s.toCharArray();
+
+        boolean containsOnlyLettersAndNumbers = false;
+        for (char c : chars){
+            if(Character.isLetterOrDigit(c) || Character.isWhitespace(c) || c == ',') {
+                containsOnlyLettersAndNumbers = true;
+            }else{
+                containsOnlyLettersAndNumbers = false;
+                break;
+
+            }
+        }
+        return containsOnlyLettersAndNumbers;
+    }
+
+    //Checks if a string contains spaces
+    public boolean containsSpaces(String password){
+        char[] chars = password.toCharArray();
+        boolean containsAnySpaces = false;
+
+        for (char c : chars) {
+            if(Character.isWhitespace(c)) {
+                containsAnySpaces = true;
+            }
+        }
+        return containsAnySpaces;
+    }
 
     //Checks if a string is empty or only contains " ".
     public boolean isEmpty(String s){
@@ -39,6 +93,6 @@ public class InfoCheck implements Serializable {
             }
             return true;
         }
-        return false;
+        return true;
     }
 }

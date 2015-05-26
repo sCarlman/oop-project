@@ -46,7 +46,7 @@ public class Profile implements IProfile, Serializable {
     }
 
     public void setLastName(String lastName) throws WrongInputExeption{
-        if(lastName != null && !infoCheck.isEmpty(lastName) && infoCheck.isAlphabetic(firstName)){
+        if(lastName != null && !infoCheck.isEmpty(lastName) && infoCheck.isAlphabetic(lastName) && lastName.length()<100){
             this.lastName = lastName;
         }else{
             throw new WrongInputExeption("LastName");
@@ -54,7 +54,8 @@ public class Profile implements IProfile, Serializable {
     }
 
     public void setPassword(String password) throws WrongInputExeption{
-        if(password != null && !infoCheck.isEmpty(password) && password.length() >= 2){
+        if(password != null && !infoCheck.isEmpty(password) && password.length() >= 2 &&
+                password.length()<=20 && !infoCheck.containsSpaces(password)){
             this.password = password;
         }else{
             throw new WrongInputExeption("Password");
@@ -62,7 +63,7 @@ public class Profile implements IProfile, Serializable {
     }
 
     public void setEmail(String email) throws WrongInputExeption{
-        if(email != null && !infoCheck.isEmpty(email) && isEmailCorrect(email)){
+        if(email != null && !infoCheck.isEmpty(email) && isEmailCorrect(email) && !infoCheck.containsSpaces(email)){
             this.email = email;
         }else{
             throw new WrongInputExeption("Email");
@@ -70,7 +71,7 @@ public class Profile implements IProfile, Serializable {
     }
 
     public void setPhone(String phone) throws WrongInputExeption{
-        if(phone != null && !infoCheck.isEmpty(phone) && isNumeric(phone)){
+        if(phone != null && !infoCheck.isEmpty(phone) && isNumeric(phone) && isPhone(phone)){
             this.phone = phone;
         }else{
             throw new WrongInputExeption("Phone");
@@ -78,10 +79,27 @@ public class Profile implements IProfile, Serializable {
     }
 
     public void setAddress(String preferredLocation) throws WrongInputExeption{
-        splitStringAddress = preferredLocation.split(",")[0];
-        splitStringCity = preferredLocation.split(",")[1];
 
-        if(splitStringAddress != null && !infoCheck.isEmpty(splitStringAddress)){
+        if(preferredLocation == null){
+            throw new WrongInputExeption("Location+City");
+        }
+        if(!infoCheck.containsComa(preferredLocation)){
+            throw new WrongInputExeption("Location+City");
+        }
+        try{
+            splitStringAddress = preferredLocation.split(",")[0];
+        }catch(ArrayIndexOutOfBoundsException e){
+            throw new WrongInputExeption("Location");
+        }
+        try{
+            splitStringCity = preferredLocation.split(",")[1];
+        }catch(ArrayIndexOutOfBoundsException e){
+            throw new WrongInputExeption("City");
+        }
+
+
+        if(splitStringAddress != null && !infoCheck.isEmpty(splitStringAddress) &&
+                infoCheck.containsLetters(splitStringAddress)){
             if(splitStringCity != null && !infoCheck.isEmpty(splitStringCity) && infoCheck.isAlphabetic(splitStringCity)){
                 this.address = splitStringAddress + "," + splitStringCity;
             }else{
@@ -90,6 +108,9 @@ public class Profile implements IProfile, Serializable {
         }else{
             throw new WrongInputExeption("Location");
         }
+
+
+
 
     }
 
@@ -117,6 +138,8 @@ public class Profile implements IProfile, Serializable {
         return address;
     }
 
+
+
     private boolean isEmailCorrect(String email) {
         if (email != null || email != "") {
             Pattern p = Pattern.compile(".+@.+\\.[a-z]+");
@@ -137,6 +160,28 @@ public class Profile implements IProfile, Serializable {
             }
         }
         return true;
+    }
+
+
+
+    private boolean isPhone(String phone){
+        char[] chars = phone.toCharArray();
+        if(!phone.substring(0,2).equals("07")){
+            return false;
+        }
+
+        int numberOfDigits = 0;
+        //counts chars in phone string
+        for (char c : chars) {
+            numberOfDigits = numberOfDigits +1;
+
+        }
+        //checks if there are total 10 digits
+        if(numberOfDigits==10){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     @Override

@@ -49,7 +49,8 @@ public class Advertisement implements IAdvertisement, Serializable {
 
     public void setLocation(String location) throws WrongAdInputException{
 
-        if(location != null && !infoCheck.isEmpty(location)) {
+        if(location != null && !infoCheck.isEmpty(location) && infoCheck.containsLetters(location)
+                && infoCheck.containsOnlyLettersOrNumbers(location)) {
             this.location = location;
         }else {
             throw new WrongAdInputException("location");
@@ -67,7 +68,7 @@ public class Advertisement implements IAdvertisement, Serializable {
 
     public void setDescription(String description) throws WrongAdInputException {
 
-        if(description!=null && description.length()<=300 && !infoCheck.isEmpty(description) ) {
+        if(description!=null && description.length()<=300 && !infoCheck.isEmpty(description) && infoCheck.containsLetters(description)) {
             this.description = description;
         }else{
             throw new WrongAdInputException("description");
@@ -139,7 +140,8 @@ public class Advertisement implements IAdvertisement, Serializable {
     }
 
     public void setLatitude(double latitude) throws WrongAdInputException {
-        if(latitude<90 && latitude>= -90) {
+        //changed latitude from <90 to <=90
+        if(latitude<=90 && latitude>= -90) {
             this.latitude = latitude;
         }else {
             throw new WrongAdInputException("location");

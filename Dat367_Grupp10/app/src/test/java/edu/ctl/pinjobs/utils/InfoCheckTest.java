@@ -24,5 +24,6 @@ public class InfoCheckTest {
         assertFalse(infoCheck.isEmpty(" C"));
         assertFalse(infoCheck.isEmpty("3"));
         assertTrue(infoCheck.isEmpty(null));
+        assertTrue(infoCheck.containsOnlyLettersOrNumbers("kjasbf,,,   n823864"));
     }
 }
