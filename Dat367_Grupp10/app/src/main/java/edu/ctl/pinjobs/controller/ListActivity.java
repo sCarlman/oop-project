@@ -126,10 +126,13 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
                 ad.getLatitude(), currentPosition.longitude, ad.getLongitude());
         AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
 
-        if (email.equals(ad.getAdvertiser().getEmail())) {
+        if(email==null){
+            openDetailedAdView(this, androidAD, adDistance);
+        }else if(email.equals(ad.getAdvertiser().getEmail())){
             openModifyAdView(this, androidAD);
-        } else {
+        }else{
             openDetailedAdView(this, androidAD, adDistance);
         }
+
     }
 }

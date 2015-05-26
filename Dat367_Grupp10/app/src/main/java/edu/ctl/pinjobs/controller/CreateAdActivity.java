@@ -1,5 +1,7 @@
 package edu.ctl.pinjobs.controller;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
@@ -93,6 +95,8 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
             view.switchDatePickerVisibility();
         }
     }
+
+
 
     //uploads ad to database if there is no other ad equal to the newAd
     public void postAd(IAdvertisement newAd){

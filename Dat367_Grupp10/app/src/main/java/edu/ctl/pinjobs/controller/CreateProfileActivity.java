@@ -59,7 +59,6 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                     newProfile = new Profile(view.getTextFromFirstNameEditText(), view.getTextFromLastNameEditText(),
                             view.getTextFromPasswordEditText(), view.getTextFromEmailEditText(), view.getTextFromPhoneEditText(),
                             view.getTextFromLocationEditText() + "," + view.getTextFromCityEditText());
-                    finish();
                     Toast.makeText( this, "Profile created!", Toast.LENGTH_LONG).show();
 
                     IProfileService iProfileService = new ProfileService();
@@ -87,6 +86,8 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                     //TODO: SKALL DELAS UPP I ADRESS OCH STAD !*!*!*!*!*!*!
                     if(e.getError().equals("Location")){
                         view.exceptionCought("address");
+                    }
+                    if(e.getError().equals("City")){
                         view.exceptionCought("city");
                     }
                 }

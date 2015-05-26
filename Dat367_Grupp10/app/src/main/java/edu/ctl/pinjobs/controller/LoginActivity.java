@@ -59,9 +59,17 @@ public class LoginActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+
+        if(resultCode == 5){
+            finish();
+        }
+    }
+
     public void openCreateProfileView(View view) {
         Intent intent = new Intent(getApplicationContext(),CreateProfileActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
     public void testView(View view){

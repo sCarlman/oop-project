@@ -1,6 +1,9 @@
 package edu.ctl.pinjobs.advertisement.model;
 
 import java.io.Serializable;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import edu.ctl.pinjobs.utils.InfoCheck;
 import edu.ctl.pinjobs.profile.model.IProfile;
@@ -31,13 +34,14 @@ public class Advertisement implements IAdvertisement, Serializable {
         setTitle(title);
         setDescription(description);
         setCategory(category);
-        setDay(day);
-        setMonth(month);
         setYear(year);
+        setMonth(month);
+        setDay(day);
+
+
     }
 
     public void setAdvertiser(IProfile advertiser) {
-        System.out.println(advertiser);
         this.advertiser = advertiser;
     }
 
@@ -94,24 +98,36 @@ public class Advertisement implements IAdvertisement, Serializable {
         return day;
     }
 
-    public void setDay(int day) {
-        this.day = day;
+    public void setDay(int day) throws WrongAdInputException {
+        if(checkDay(day, getMonth(), getYear())) {
+            this.day = day;
+        }else {
+            throw new WrongAdInputException("day");
+        }
     }
 
     public int getMonth() {
         return month;
     }
 
-    public void setMonth(int month) {
-        this.month = month;
+    public void setMonth(int month) throws WrongAdInputException{
+        if(checkMonth(month, getYear())) {
+            this.month = month;
+        }else {
+            throw new WrongAdInputException("month");
+        }
     }
 
     public int getYear() {
         return year;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setYear(int year) throws WrongAdInputException {
+        if (checkYear(year)) {
+            this.year = year;
+        }else {
+            throw new WrongAdInputException("year");
+        }
     }
 
     public double getLatitude() {
@@ -138,13 +154,50 @@ public class Advertisement implements IAdvertisement, Serializable {
         }
     }
 
+    public static Boolean checkYear(int year){
+
+        Calendar today = new GregorianCalendar();
+        int thisYear = today.get(Calendar.YEAR);
+
+        if(year>=thisYear){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static Boolean checkMonth(int month, int year){
+
+        Calendar today = new GregorianCalendar();
+        int thisMonth = today.get(Calendar.MONTH);
+        int thisYear = today.get(Calendar.YEAR);
+        if(month>=thisMonth || year>thisYear){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public static Boolean checkDay(int day, int month, int year){
+
+        Calendar today = new GregorianCalendar();
+        int thisDay = today.get(Calendar.DAY_OF_MONTH);
+        int thisMonth = today.get(Calendar.MONTH);
+        int thisYear = today.get(Calendar.YEAR);
+        if(day>=thisDay || (month>thisMonth && year>=thisYear) || year>thisYear){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     @Override
     public boolean equals(Object other){
         //equals if it has the same
-        if(other ==null){
+        if(other == null){
             return false;
         }
-        if(this== other){
+        if(this == other){
             return true;
         }
         if(this.getClass() != other.getClass()){

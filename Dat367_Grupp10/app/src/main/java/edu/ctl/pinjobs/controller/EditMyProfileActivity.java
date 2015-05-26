@@ -87,10 +87,14 @@ public class EditMyProfileActivity extends ActionBarActivity {
         try{
             myProfile.setAddress(editMyProfileView.getTextFromEditAddress() + "," + editMyProfileView.getTextFromEditCity());
         }catch (WrongInputExeption e){
-            //TODO: SKALL FIXAS!!!!!!
-            editMyProfileView.setInputError("address");
-            editMyProfileView.setInputError("city");
-            setCanceledByError(true);
+            if(e.getError().equals("City")){
+                editMyProfileView.setInputError("city");
+                setCanceledByError(true);
+            }
+            if(e.getError().equals("Location")){
+                editMyProfileView.setInputError("address");
+                setCanceledByError(true);
+            }
         }
         if(!getCanceledByError()){
 
@@ -100,7 +104,6 @@ public class EditMyProfileActivity extends ActionBarActivity {
             iProfileService.updateProfile(myProfile);
             iAdvertisementService.updateAdvertiser(myProfile);
             UserModel.getInstance().logIn(myProfile);
-            //TODO: Check if MainView updates whit new profile
         }
 
         if(!canceledByError){

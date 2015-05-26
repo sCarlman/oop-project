@@ -59,7 +59,7 @@ public class ProfileService implements IProfileService{
                         parseProfile.getString("Phone"),
                         parseProfile.getString("PreferredLocation")));
             }catch (WrongInputExeption e){
-                //ERROROROROROROROR *!*!*!*!*!*!*!*!*!*!
+                System.out.println("FEL I PROFILE SERIVE*************************");
             }
 
         }
@@ -89,7 +89,7 @@ public class ProfileService implements IProfileService{
 
             return fetchedProfile;
         }catch (WrongInputExeption e){
-            //ERRORORROROROR *!*!*!*!*!*!*!*!*!*!
+            System.out.println("FEL I PROFILE SERIVE*************************");
         }
         return null;
     }

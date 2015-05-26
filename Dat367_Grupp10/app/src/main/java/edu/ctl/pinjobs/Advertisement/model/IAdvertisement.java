@@ -15,9 +15,9 @@ public interface IAdvertisement extends Serializable {
     public void setTitle(String title) throws WrongAdInputException;
     public void setDescription (String description)throws WrongAdInputException;
     public void setCategory(Category category);
-    public void setDay(int day);
-    public void setMonth(int month);
-    public void setYear(int year);
+    public void setDay(int day)throws WrongAdInputException;
+    public void setMonth(int month)throws WrongAdInputException;
+    public void setYear(int year)throws WrongAdInputException;
     public void setLongitude(double longitude)throws WrongAdInputException;
     public void setLatitude(double latitude)throws WrongAdInputException;
 

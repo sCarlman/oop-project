@@ -20,6 +20,6 @@ public class BackgroundThread extends Thread {
     public void run(){
         List<IAdvertisement> adList = adService.fetchAllAds();
         AdvertisementListHolder.getInstance().setList(adList);
-        adService.removeOutDatedAds();
+        //adService.removeOutDatedAds();
     }
 }
