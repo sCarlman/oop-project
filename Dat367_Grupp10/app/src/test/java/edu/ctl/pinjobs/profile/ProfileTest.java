@@ -248,23 +248,23 @@ public class ProfileTest {
     }
     @Test(expected = WrongInputExeption.class)
     public void testProfileSetAddress3ExceptionExpected() throws WrongInputExeption{
-        profile.setAddress("123234567");
+        profile.setAddress("123234567,123123");
     }
     @Test(expected = WrongInputExeption.class)
     public void testProfileSetAddress4ExceptionExpected() throws WrongInputExeption{
-        profile.setAddress("123 testavenue 123");
+        profile.setAddress("123 testavenue 123,123");
     }
     @Test(expected = WrongInputExeption.class)
     public void testProfileSetAddress5ExceptionExpected() throws WrongInputExeption{
-        profile.setAddress("!#%€&€/");
+        profile.setAddress("!#%€&€/,&/(€#");
     }
     @Test(expected = WrongInputExeption.class)
     public void testProfileSetAddress6ExceptionExpected() throws WrongInputExeption{
-        profile.setAddress("road! 23");
+        profile.setAddress("road! 23,%&/#€");
     }
     @Test(expected = WrongInputExeption.class)
     public void testProfileSetAddress7ExceptionExpected() throws WrongInputExeption{
-        profile.setAddress("23 testväg");
+        profile.setAddress("23 testväg,");
     }
 
     @Test

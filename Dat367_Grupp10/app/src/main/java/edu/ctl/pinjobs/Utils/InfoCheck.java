@@ -17,7 +17,16 @@ public class InfoCheck implements Serializable {
             }
         }
         return true;
-    }
+    }/*
+    public boolean isAnySignsInString(String s){
+        char[] chars = s.toCharArray();
+        for (char c : chars){
+            if(Character.isLetterOrDigit(c)){
+                return false;
+            }
+        }
+        return true;
+    }*/
 
     //Checks if a string is empty or only contains " ".
     public boolean isEmpty(String s){

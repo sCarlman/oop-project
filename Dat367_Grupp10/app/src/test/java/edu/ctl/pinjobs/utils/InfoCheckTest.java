@@ -23,5 +23,6 @@ public class InfoCheckTest {
         assertTrue(infoCheck.isEmpty("        "));
         assertFalse(infoCheck.isEmpty(" C"));
         assertFalse(infoCheck.isEmpty("3"));
+        assertTrue(infoCheck.isEmpty(null));
     }
 }

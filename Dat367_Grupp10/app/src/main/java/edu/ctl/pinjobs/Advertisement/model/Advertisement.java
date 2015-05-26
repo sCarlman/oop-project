@@ -24,6 +24,8 @@ public class Advertisement implements IAdvertisement, Serializable {
     private double latitude;
     private double longitude;
 
+    private InfoCheck infoCheck = new InfoCheck();
+
     public Advertisement(IProfile advertiser, String title, String description, String location,
                          Category category, int day, int month, int year, double latitude,
                          double longitude) throws WrongAdInputException {
@@ -46,7 +48,8 @@ public class Advertisement implements IAdvertisement, Serializable {
     }
 
     public void setLocation(String location) throws WrongAdInputException{
-        if(location != null && location.length()!=0 ) {
+
+        if(location != null && !infoCheck.isEmpty(location)) {
             this.location = location;
         }else {
             throw new WrongAdInputException("location");
@@ -54,8 +57,8 @@ public class Advertisement implements IAdvertisement, Serializable {
     }
 
     public void setTitle(String title)throws WrongAdInputException {
-        InfoCheck infoCheck = new InfoCheck();
-        if(title.length()<=30 && title.length()>0 && title !=null && infoCheck.isAlphabetic(title.replace(" ","")) ) {
+
+        if(title != null && title.length()<=30 && !infoCheck.isEmpty(title) &&  infoCheck.isAlphabetic(title.replace(" ", "")) ) {
             this.title = title;
         }else {
             throw new WrongAdInputException("title");
@@ -63,9 +66,10 @@ public class Advertisement implements IAdvertisement, Serializable {
     }
 
     public void setDescription(String description) throws WrongAdInputException {
-        if(description.length()<=300 && description.length()>0 && description !=null) {
+
+        if(description!=null && description.length()<=300 && !infoCheck.isEmpty(description) ) {
             this.description = description;
-        }else {
+        }else{
             throw new WrongAdInputException("description");
         }
     }

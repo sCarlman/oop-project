@@ -18,9 +18,10 @@ public class AdvertisementTest {
     @Before
     public void before(){
         try{
-            this.ad = new Advertisement(new MockProfile(), "hämta kaffe", "nu tack!",
-                    "rosenvägen2a", Category.OTHER, 22, 10, 2015, 1.3, 85.33);
+            this.ad = new Advertisement(new MockProfile(), "hamtakaffe", "nutack",
+                    "rosenvagen2a,stockholm", Category.OTHER, 22, 10, 2015, 1.3, 85.33);
         }catch(WrongAdInputException e){
+            System.out.println("hej");
         }
     }
 
@@ -84,10 +85,10 @@ public class AdvertisementTest {
     public void testAdvertisementSetTitle5ShouldCastException() throws  WrongAdInputException{
         ad.setTitle("?!?!@@%#");
     }
-    @Test(expected = WrongAdInputException.class)
+    @Test
     public void testAdvertisementSetTitleExceptionShouldNotBeCasted() throws  WrongAdInputException{
         try{
-            ad.setTitle("skotta snö på min uppfart");
+            ad.setTitle("skotta sno på min uppfart");
             assert true;
         }catch(WrongAdInputException e) {
             assert false;
@@ -154,12 +155,9 @@ public class AdvertisementTest {
     public void testAdvertisementSetLocation6ShouldCastException() throws  WrongAdInputException{
         ad.setLocation("123 testvägen 123");
     }
-    @Test(expected = WrongAdInputException.class)
-    public void testAdvertisementSetLocation7ShouldCastException() throws  WrongAdInputException{
-        ad.setLocation(null);
-    }
 
-    @Test(expected = WrongAdInputException.class)
+
+    @Test
     public void testAdvertisementSetLocationExceptionShouldNotBeCasted() throws  WrongAdInputException{
         try{
             ad.setLocation("Alvgatan 1, Varberg");
