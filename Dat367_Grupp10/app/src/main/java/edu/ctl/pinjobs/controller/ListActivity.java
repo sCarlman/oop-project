@@ -18,6 +18,7 @@ import edu.ctl.pinjobs.handler.model.IListModel;
 import edu.ctl.pinjobs.handler.model.ListModel;
 import edu.ctl.pinjobs.handler.utils.HandlerLocationUtils;
 import edu.ctl.pinjobs.handler.view.ListView;
+import edu.ctl.pinjobs.profile.controller.IOpenListView;
 import edu.ctl.pinjobs.utils.LocationUtils;
 import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
@@ -27,7 +28,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.List;
 
 
-public class ListActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
+public class ListActivity extends ActionBarActivity implements AdapterView.OnItemClickListener, IOpenListView {
     IListModel listModel;
     ListView listView;
     String email;
@@ -134,5 +135,13 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
             openDetailedAdView(this, androidAD, adDistance);
         }
 
+    }
+
+    @Override
+    public void openListViewForEmail(Context context,String email) {
+        Intent intent = new Intent(context,ListActivity.class);
+        intent.putExtra("myList", true);
+        intent.putExtra("Email",email);
+        context.startActivity(intent);
     }
 }

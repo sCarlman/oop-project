@@ -14,7 +14,8 @@ import android.widget.Toast;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.main.BackgroundThread;
 import edu.ctl.pinjobs.main.MainView;
-import edu.ctl.pinjobs.main.UserModel;
+import edu.ctl.pinjobs.profile.model.IUserModel;
+import edu.ctl.pinjobs.profile.model.UserModel;
 import edu.ctl.pinjobs.profile.controller.MyProfileActivity;
 import edu.ctl.pinjobs.services.AdvertisementService;
 import edu.ctl.pinjobs.services.IAdvertisementService;
@@ -32,7 +33,7 @@ public class MainActivity extends ActionBarActivity{
     private MainView mainView;
     private IProfileService profileService;
     private IAdvertisementService adService;
-    private UserModel user = UserModel.getInstance();
+    private IUserModel user = UserModel.getInstance();
     private BackgroundThread backgroundThread;
 
     @Override
@@ -92,9 +93,10 @@ public class MainActivity extends ActionBarActivity{
 
     public void openMyProfileView(){
         Intent intent = new Intent(this, MyProfileActivity.class);
-
         Bundle bundle = new Bundle();
+        bundle.putSerializable("IOPENLISTVIEW", new ListActivity());
         bundle.putSerializable("sendProfile", user.getProfile());
+        bundle.putSerializable("PROFILE_SERVICE",profileService);
         intent.putExtras(bundle);
 
         startActivity(intent);
@@ -106,6 +108,7 @@ public class MainActivity extends ActionBarActivity{
         bundle.putSerializable("sendProfile", user.getProfile());
         intent.putExtras(bundle);
         startActivityForResult(intent, 1);
+        System.out.println(user.getProfile().getFirstName());
     }
 
     public void openListView(View view) {
@@ -139,9 +142,12 @@ public class MainActivity extends ActionBarActivity{
         super.onResume();
         BackgroundThread thread = new BackgroundThread(adService);
         thread.start();
-        UserModel userModel = UserModel.getInstance();
-        mainView.repaintLogInView(userModel.getIsLoggedIn(), userModel.getProfile());
+        mainView.repaintLogInView(user.getIsLoggedIn(), user.getProfile());
+        if(user.getIsLoggedIn()) {
+            System.out.println(user.getProfile().getFirstName());
+        }
     }
+
 
     private void loginUser(IProfile profile) {
 
@@ -153,6 +159,7 @@ public class MainActivity extends ActionBarActivity{
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode==5){
             //when an activity has been finished and the next navigation step is to login the user and repaint loginmodel
+            System.out.println(UserModel.getInstance().getProfile()+ " i reusltcode 5");
             UserModel usermodel = UserModel.getInstance();
             mainView.repaintLogInView(usermodel.getIsLoggedIn(),usermodel.getProfile());
         }else if(resultCode==10 && data.getExtras().getParcelable("Advertisement").getClass() ==AndroidAdvertisement.class){

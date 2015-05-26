@@ -11,7 +11,7 @@ import com.example.filips.dat367_grupp10.R;
 
 import java.util.List;
 
-import edu.ctl.pinjobs.main.UserModel;
+import edu.ctl.pinjobs.profile.model.UserModel;
 import edu.ctl.pinjobs.profile.controller.CreateProfileActivity;
 import edu.ctl.pinjobs.profile.controller.IProfileService;
 import edu.ctl.pinjobs.services.ProfileService;
@@ -61,12 +61,16 @@ public class LoginActivity extends ActionBarActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
 
         if(resultCode == 5){
+            setResult(5);
             finish();
         }
     }
 
     public void openCreateProfileView(View view) {
         Intent intent = new Intent(getApplicationContext(),CreateProfileActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("PROFILE_SERVICE",profileService);
+        intent.putExtras(bundle);
         startActivityForResult(intent, 1);
     }
 
