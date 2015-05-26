@@ -1,20 +1,13 @@
 package edu.ctl.pinjobs.profile.view;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.filips.dat367_grupp10.R;
-
-import edu.ctl.pinjobs.eventbus.EventBus;
-import edu.ctl.pinjobs.controller.CreateProfileActivity;
-import edu.ctl.pinjobs.profile.model.Profile;
-import edu.ctl.pinjobs.profile.model.WrongInputExeption;
 
 /**
  * Created by Isaac on 2015-05-06.

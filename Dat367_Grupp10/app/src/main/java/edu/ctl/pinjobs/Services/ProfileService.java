@@ -8,6 +8,7 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.ctl.pinjobs.profile.controller.IProfileService;
 import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.profile.model.Profile;
 import edu.ctl.pinjobs.profile.model.WrongInputExeption;
@@ -15,7 +16,7 @@ import edu.ctl.pinjobs.profile.model.WrongInputExeption;
 /**
  * Created by Isaac on 2015-04-23.
  */
-public class ProfileService implements IProfileService{
+public class ProfileService implements IProfileService {
 
 
     public void saveProfile(IProfile profile){

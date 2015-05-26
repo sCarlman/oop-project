@@ -6,16 +6,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.filips.dat367_grupp10.R;
 
 import java.util.List;
 
-import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.main.UserModel;
-import edu.ctl.pinjobs.services.IProfileService;
+import edu.ctl.pinjobs.profile.controller.CreateProfileActivity;
+import edu.ctl.pinjobs.profile.controller.IProfileService;
 import edu.ctl.pinjobs.services.ProfileService;
 import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.user.model.LoginModel;

@@ -9,30 +9,22 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import edu.ctl.pinjobs.advertisement.model.Advertisement;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
-import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
-import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 import edu.ctl.pinjobs.main.BackgroundThread;
 import edu.ctl.pinjobs.main.MainView;
 import edu.ctl.pinjobs.main.UserModel;
+import edu.ctl.pinjobs.profile.controller.MyProfileActivity;
 import edu.ctl.pinjobs.services.AdvertisementService;
 import edu.ctl.pinjobs.services.IAdvertisementService;
-import edu.ctl.pinjobs.services.IProfileService;
+import edu.ctl.pinjobs.profile.controller.IProfileService;
 import edu.ctl.pinjobs.services.ProfileService;
-import edu.ctl.pinjobs.user.model.LoginModel;
 import edu.ctl.pinjobs.utils.LocationUtils;
-import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.profile.model.IProfile;
 
 import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
-
-import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity{
@@ -148,7 +140,7 @@ public class MainActivity extends ActionBarActivity{
         BackgroundThread thread = new BackgroundThread(adService);
         thread.start();
         UserModel userModel = UserModel.getInstance();
-        mainView.repaintLogInView(userModel.isLoggedIn, userModel.getProfile());
+        mainView.repaintLogInView(userModel.getIsLoggedIn(), userModel.getProfile());
     }
 
     private void loginUser(IProfile profile) {
@@ -162,7 +154,7 @@ public class MainActivity extends ActionBarActivity{
         if(resultCode==5){
             //when an activity has been finished and the next navigation step is to login the user and repaint loginmodel
             UserModel usermodel = UserModel.getInstance();
-            mainView.repaintLogInView(usermodel.isLoggedIn,usermodel.getProfile());
+            mainView.repaintLogInView(usermodel.getIsLoggedIn(),usermodel.getProfile());
         }else if(resultCode==10 && data.getExtras().getParcelable("Advertisement").getClass() ==AndroidAdvertisement.class){
             //Happens after a new ad has been created and the activity is closed which start a new intent for MapActivity
             Intent intent = new Intent(getApplicationContext(), MapActivity.class);

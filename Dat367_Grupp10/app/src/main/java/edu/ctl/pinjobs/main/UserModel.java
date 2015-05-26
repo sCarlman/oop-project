@@ -8,7 +8,7 @@ import edu.ctl.pinjobs.profile.model.IProfile;
 public class UserModel {
 
     private static UserModel instance = null;
-    public boolean isLoggedIn = false;
+    private boolean isLoggedIn = false;
     private IProfile profile;
 
     private UserModel() {

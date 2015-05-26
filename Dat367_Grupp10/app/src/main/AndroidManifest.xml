@@ -41,11 +41,11 @@
         <uses-library android:name="com.google.android.maps" />
 
         <activity
-            android:name="edu.ctl.pinjobs.controller.CreateProfileActivity"
+            android:name="edu.ctl.pinjobs.profile.controller.CreateProfileActivity"
             android:label="@string/title_activity_create_profile" >
         </activity>
         <activity
-            android:name="edu.ctl.pinjobs.controller.MyProfileActivity"
+            android:name="edu.ctl.pinjobs.profile.controller.MyProfileActivity"
             android:label="@string/title_activity_my_profile" >
         </activity>
         <activity
@@ -89,7 +89,7 @@
             android:label="@string/title_activity_loading_screen" >
         </activity>
         <activity
-            android:name="edu.ctl.pinjobs.controller.EditMyProfileActivity"
+            android:name="edu.ctl.pinjobs.profile.controller.EditMyProfileActivity"
             android:label="@string/title_activity_edit_my_profile" >
         </activity>
     </application>
