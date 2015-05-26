@@ -266,19 +266,12 @@ public class ProfileTest {
     public void testProfileSetAddress7ExceptionExpected() throws WrongInputExeption{
         profile.setAddress("23 testväg");
     }
-    @Test(expected = WrongInputExeption.class)
-    public void testProfileSetAddress8ExceptionExpected() throws WrongInputExeption{
-        profile.setAddress("testvägen");
-    }
-    @Test(expected = WrongInputExeption.class)
-    public void testProfileSetAddress9ExceptionExpected() throws WrongInputExeption{
-        profile.setAddress("aaaaaaaaa 4");
-    }
+
     @Test
     public void testProfileSetAddressCorrect() {
         try {
             profile.setAddress("Alvgatan 1, Varberg");
-            profile.setAddress("ócsa, hungary");
+
             assert true;
         } catch (WrongInputExeption e) {
             assert false;

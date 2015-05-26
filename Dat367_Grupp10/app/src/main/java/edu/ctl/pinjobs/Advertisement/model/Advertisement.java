@@ -63,7 +63,7 @@ public class Advertisement implements IAdvertisement, Serializable {
     }
 
     public void setDescription(String description) throws WrongAdInputException {
-        if(title.length()<=300 && title.length()>0 && title !=null) {
+        if(description.length()<=300 && description.length()>0 && description !=null) {
             this.description = description;
         }else {
             throw new WrongAdInputException("description");

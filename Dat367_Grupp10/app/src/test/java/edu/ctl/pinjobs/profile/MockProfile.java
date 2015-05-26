@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.advertisement;
+package edu.ctl.pinjobs.profile;
 
 import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.profile.model.WrongInputExeption;

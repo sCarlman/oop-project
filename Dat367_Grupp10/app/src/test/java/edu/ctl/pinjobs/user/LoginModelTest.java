@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ctl.pinjobs.advertisement.MockProfile;
+import edu.ctl.pinjobs.profile.MockProfile;
 import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.user.model.LoginModel;
 
