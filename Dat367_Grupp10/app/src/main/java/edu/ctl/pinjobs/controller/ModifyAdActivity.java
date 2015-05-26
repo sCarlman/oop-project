@@ -111,6 +111,7 @@ public class ModifyAdActivity extends ActionBarActivity implements View.OnClickL
                     oldAndModded.add(newAd);
 
                 }catch(WrongAdInputException e){
+                    //TODO: kolla på if-statsen nedan...
                     if(e.getName().equals("title")){
                         ModifyAdActivity.this.view.setInputError("title");
                     }else if(e.getName().equals("description")) {

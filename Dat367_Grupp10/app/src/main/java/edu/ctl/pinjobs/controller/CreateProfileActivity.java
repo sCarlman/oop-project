@@ -68,6 +68,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                     finish();
 
                 }catch (WrongInputExeption e){
+                    //TODO:kolla på if-satserna nedan
                     if(e.getError().equals("FirstName")){
                         view.exceptionCought("firstname");
                     }
@@ -83,7 +84,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                     if(e.getError().equals("Phone")){
                         view.exceptionCought("phone");
                     }
-                    //TODO: SKALL DELAS UPP I ADRESS OCH STAD !*!*!*!*!*!*!
+
                     if(e.getError().equals("Location")){
                         view.exceptionCought("address");
                     }

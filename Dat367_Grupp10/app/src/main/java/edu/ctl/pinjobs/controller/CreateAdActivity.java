@@ -81,6 +81,7 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
                             lat, lng);
                     postAd(newAd);
                 }catch(WrongAdInputException e){
+                    //TODO: kolla på if-satsen nedan...
                     if(e.getName().equals("title")){
                         view.setInputError("title");
                     }else if(e.getName().equals("description")) {
