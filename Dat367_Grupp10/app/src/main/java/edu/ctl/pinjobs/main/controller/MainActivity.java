@@ -114,6 +114,7 @@ public class MainActivity extends ActionBarActivity{
     public void openCreateAdView(View view) {
         Intent intent = new Intent(getApplicationContext(), CreateAdActivity.class);
         Bundle bundle = new Bundle();
+        bundle.putParcelableArray("AD_LIST", AdvertisementListHolder.getInstance().getAndroidAdList());
         bundle.putSerializable("AD_SERVICE", adService);
         bundle.putSerializable("USER_PROFILE", user.getProfile());
         intent.putExtras(bundle);

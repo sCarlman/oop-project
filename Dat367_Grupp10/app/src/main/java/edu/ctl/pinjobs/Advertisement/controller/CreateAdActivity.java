@@ -1,6 +1,7 @@
 package edu.ctl.pinjobs.advertisement.controller;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 
 import com.example.filips.dat367_grupp10.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.ctl.pinjobs.advertisement.model.Advertisement;
@@ -26,6 +28,7 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
     private CreateAdView view;
     private IProfile myProfile;
     private IAdvertisementService adService;
+    private List<IAdvertisement> adList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,13 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
         Bundle bundle=intent.getExtras();
         adService = (IAdvertisementService) bundle.getSerializable("AD_SERVICE");
         myProfile = (IProfile)bundle.getSerializable("USER_PROFILE");
+        Parcelable[] androidAdList = bundle.getParcelableArray("AD_LIST");
         view = new CreateAdView(this, this, myProfile);
+
+        adList = new ArrayList<>();
+        for(int i = 0; i < androidAdList.length - 1; i++){
+            adList.add(((AndroidAdvertisement) androidAdList[i]).getAd());
+        }
     }
 
 
@@ -96,7 +105,7 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
 
     //uploads ad to database if there is no other ad equal to the newAd
     public void postAd(IAdvertisement newAd){
-        List<IAdvertisement> adList = AdvertisementListHolder.getInstance().getList();
+
         if (checkIfAdExists(newAd, adList)) {
             Toast.makeText(this, "Anonsen finns redan",
                     Toast.LENGTH_LONG).show();

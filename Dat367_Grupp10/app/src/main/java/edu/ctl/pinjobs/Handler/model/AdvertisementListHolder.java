@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 
 /**
@@ -48,5 +49,15 @@ public class AdvertisementListHolder extends Observable {
 
         }
         return advertiserAdList;
+    }
+
+    public AndroidAdvertisement[] getAndroidAdList(){
+        AndroidAdvertisement[] androidAd = new AndroidAdvertisement[getList().size()];
+        int i = 0;
+        for(IAdvertisement ad: getList()){
+            androidAd[i] = new AndroidAdvertisement(ad);
+            i++;
+        }
+        return androidAd;
     }
 }
