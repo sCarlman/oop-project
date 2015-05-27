@@ -123,10 +123,13 @@ public class ModifyAdView {
         switch (error){
             case "title": titleEditText.setError("Måste vara mellan 1 och 30 bokstäver");
                 titleEditText.requestFocus();
+                break;
             case "description": descriptionEditText.setError("Max 300 tecken, min 1");
                 descriptionEditText.requestFocus();
+                break;
             case "location": addressEditText.setError("Ej giltig adress");
                 addressEditText.requestFocus();
+                break;
         }
     }
 

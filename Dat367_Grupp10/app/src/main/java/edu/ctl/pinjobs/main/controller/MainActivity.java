@@ -15,13 +15,14 @@ import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.controller.CreateAdActivity;
 import edu.ctl.pinjobs.handler.controller.ListActivity;
 import edu.ctl.pinjobs.handler.controller.MapActivity;
+import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 import edu.ctl.pinjobs.main.BackgroundThread;
 import edu.ctl.pinjobs.main.MainView;
 import edu.ctl.pinjobs.profile.model.IUserModel;
 import edu.ctl.pinjobs.profile.model.UserModel;
 import edu.ctl.pinjobs.profile.controller.MyProfileActivity;
 import edu.ctl.pinjobs.services.AdvertisementService;
-import edu.ctl.pinjobs.services.IAdvertisementService;
+import edu.ctl.pinjobs.advertisement.controller.IAdvertisementService;
 import edu.ctl.pinjobs.profile.controller.IProfileService;
 import edu.ctl.pinjobs.services.ProfileService;
 import edu.ctl.pinjobs.user.controller.LoginActivity;
@@ -30,6 +31,9 @@ import edu.ctl.pinjobs.profile.model.IProfile;
 
 import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
+
+import java.io.Serializable;
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity{
@@ -99,6 +103,7 @@ public class MainActivity extends ActionBarActivity{
         Intent intent = new Intent(this, MyProfileActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("IOPENLISTVIEW", new ListActivity());
+        bundle.putSerializable("OPEN_MAP_VIEW", new MapActivity());
         bundle.putSerializable("sendProfile", user.getProfile());
         bundle.putSerializable("PROFILE_SERVICE",profileService);
         intent.putExtras(bundle);
@@ -109,7 +114,8 @@ public class MainActivity extends ActionBarActivity{
     public void openCreateAdView(View view) {
         Intent intent = new Intent(getApplicationContext(), CreateAdActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("sendProfile", user.getProfile());
+        bundle.putSerializable("AD_SERVICE", adService);
+        bundle.putSerializable("USER_PROFILE", user.getProfile());
         intent.putExtras(bundle);
         startActivityForResult(intent, 1);
         System.out.println(user.getProfile().getFirstName());
@@ -117,7 +123,7 @@ public class MainActivity extends ActionBarActivity{
 
     public void openListView(View view) {
         Intent intent = new Intent(getApplicationContext(), ListActivity.class);
-        //UserModel um = UserModel.getInstance();
+        Bundle bundle = new Bundle();
         if (user.getIsLoggedIn()==false){
             String email = null;
             intent.putExtra("Email", email);
@@ -125,6 +131,8 @@ public class MainActivity extends ActionBarActivity{
         }else{
             String email = user.getProfile().getEmail();
             intent.putExtra("Email", email);
+            bundle.putSerializable("OPEN_MAP_VIEW", new MapActivity());
+            intent.putExtras(bundle);
             startActivity(intent);
         }
 
@@ -175,6 +183,5 @@ public class MainActivity extends ActionBarActivity{
             Toast.makeText(this, "Anons skapad!", Toast.LENGTH_LONG).show();
         }
     }
-
 }
 

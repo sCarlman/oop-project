@@ -11,6 +11,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import edu.ctl.pinjobs.advertisement.controller.IAdvertisementService;
 import edu.ctl.pinjobs.advertisement.model.WrongAdInputException;
 import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.advertisement.model.Advertisement;

@@ -1,10 +1,12 @@
 package edu.ctl.pinjobs.handler.controller;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.filips.dat367_grupp10.R;
 import com.google.android.gms.maps.GoogleMap;
@@ -14,6 +16,7 @@ import com.google.android.gms.maps.model.Marker;
 
 import java.util.List;
 
+import edu.ctl.pinjobs.advertisement.controller.IOpenMapView;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
@@ -21,7 +24,8 @@ import edu.ctl.pinjobs.handler.utils.HandlerLocationUtils;
 import edu.ctl.pinjobs.handler.view.MapView;
 import edu.ctl.pinjobs.utils.LocationUtils;
 
-public class MapActivity extends ActionBarActivity implements GoogleMap.OnInfoWindowClickListener {
+public class MapActivity extends ActionBarActivity implements GoogleMap.OnInfoWindowClickListener,
+        IOpenMapView {
 
     private MapView mapView;
     @Override
@@ -99,5 +103,15 @@ public class MapActivity extends ActionBarActivity implements GoogleMap.OnInfoWi
                 ad.getLatitude(),currentPosition.longitude,ad.getLongitude());
         AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
         handlerController.openDetailedAdView(this.getApplicationContext(), androidAD, distance);
+    }
+
+    @Override
+    public void startActivity(Context context, IAdvertisement newAd) {
+        Intent intent = new Intent(context, MapActivity.this.getClass());
+        AndroidAdvertisement androidAD = new AndroidAdvertisement(newAd);
+        intent.putExtra("Advertisement", androidAD);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+        Toast.makeText(context, "Annons ändrad!", Toast.LENGTH_LONG).show();
     }
 }

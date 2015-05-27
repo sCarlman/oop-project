@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.example.filips.dat367_grupp10.R;
 
+import edu.ctl.pinjobs.advertisement.controller.IOpenMapView;
 import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.profile.model.IUserModel;
 import edu.ctl.pinjobs.profile.view.MyProfileView;
@@ -20,8 +21,9 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
     private MyProfileView myProfileView;
     private IProfile myProfile;
     private String email;
-    IProfileService profileService;
-    IOpenListView iOpenListView;
+    private IProfileService profileService;
+    private IOpenListView iOpenListView;
+    private Object iOpenMapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,7 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
             myProfile = (IProfile) bundle.getSerializable("sendProfile");
             profileService=(IProfileService)bundle.getSerializable("PROFILE_SERVICE");
             iOpenListView = (IOpenListView) bundle.getSerializable("IOPENLISTVIEW");
+            iOpenMapView = bundle.getSerializable("OPEN_MAP_VIEW");
         }
         email = myProfile.getEmail();
 
@@ -59,7 +62,6 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
         switch (item.getItemId()) {
             case R.id.action_edit:
                 Intent intent = new Intent(getApplicationContext(), EditMyProfileActivity.class);
-
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("sendProfile", myProfile);
                 bundle.putSerializable("PROFILE_SERVICE",profileService);
@@ -76,7 +78,8 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        iOpenListView.openListViewForEmail(this, email);
+        //TODO: borde inte se ut såhär...
+        iOpenListView.openListViewForEmail(this, email, iOpenMapView);
     }
 
     @Override

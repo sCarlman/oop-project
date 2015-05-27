@@ -20,8 +20,6 @@ import edu.ctl.pinjobs.advertisement.utils.AdvertisementUtils;
 import edu.ctl.pinjobs.advertisement.view.CreateAdView;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 import edu.ctl.pinjobs.profile.model.IProfile;
-import edu.ctl.pinjobs.services.AdvertisementService;
-import edu.ctl.pinjobs.services.IAdvertisementService;
 
 public class CreateAdActivity extends ActionBarActivity implements View.OnClickListener {
 
@@ -36,7 +34,8 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
 
         Intent intent=this.getIntent();
         Bundle bundle=intent.getExtras();
-        myProfile = (IProfile)bundle.getSerializable("sendProfile");
+        adService = (IAdvertisementService) bundle.getSerializable("AD_SERVICE");
+        myProfile = (IProfile)bundle.getSerializable("USER_PROFILE");
         view = new CreateAdView(this, this, myProfile);
     }
 
@@ -102,7 +101,6 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
             Toast.makeText(this, "Anonsen finns redan",
                     Toast.LENGTH_LONG).show();
         } else {
-            adService = new AdvertisementService();
             adService.saveAd(newAd);
             Toast.makeText(this, "Din annons har nu publicerats!", Toast.LENGTH_LONG).show();
             Intent intent = new Intent();
