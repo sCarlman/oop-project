@@ -132,6 +132,7 @@ public class MainActivity extends ActionBarActivity{
         }else{
             String email = user.getProfile().getEmail();
             intent.putExtra("Email", email);
+            bundle.putSerializable("AD_SERVICE", adService);
             bundle.putSerializable("OPEN_MAP_VIEW", new MapActivity());
             intent.putExtras(bundle);
             startActivity(intent);

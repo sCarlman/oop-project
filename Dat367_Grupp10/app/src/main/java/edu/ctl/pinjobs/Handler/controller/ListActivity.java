@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import edu.ctl.pinjobs.advertisement.controller.IAdvertisementService;
 import edu.ctl.pinjobs.advertisement.controller.IOpenMapView;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.controller.DetailedAdActivity;
@@ -34,6 +35,7 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
     private String email;
     private HandlerLocationUtils locationUtils;
     private IOpenMapView iOpenMapView;
+    private IAdvertisementService adService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
 
         this.locationUtils = new HandlerLocationUtils();
         email = getIntent().getExtras().getString("Email");
+        adService = (IAdvertisementService)getIntent().getExtras().getSerializable("AD_SERVICE");
         iOpenMapView = (IOpenMapView) getIntent().getExtras().getSerializable("OPEN_MAP_VIEW");
         System.out.println(iOpenMapView);
 
@@ -117,7 +120,7 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
     public void openModifyAdView(Context context, AndroidAdvertisement ad){
         Intent intent = new Intent(context, ModifyAdActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putSerializable("AD_SERVICE", new AdvertisementService());
+        bundle.putSerializable("AD_SERVICE", adService);
         bundle.putSerializable("OPEN_MAP_VIEW", iOpenMapView);
         intent.putExtra("Advertisement", ad);
         intent.putExtras(bundle);
