@@ -142,6 +142,7 @@ public class MainActivity extends ActionBarActivity{
 
     public void openLoginView(View view) {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        intent.putExtra("PROFILE_SERVICE", profileService);
         startActivityForResult(intent, 1);
     }
 

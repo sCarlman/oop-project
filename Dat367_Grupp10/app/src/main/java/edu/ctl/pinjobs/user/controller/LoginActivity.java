@@ -31,7 +31,7 @@ public class LoginActivity extends ActionBarActivity {
         setContentView(R.layout.activity_login);
         this.loginView = new LoginView(this);
         this.loginModel = new LoginModel();
-        this.profileService = new ProfileService();
+        this.profileService = (IProfileService)this.getIntent().getSerializableExtra("PROFILE_SERVICE");
     }
 
 
