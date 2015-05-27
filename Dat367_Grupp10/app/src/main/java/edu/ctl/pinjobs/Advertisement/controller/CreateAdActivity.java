@@ -1,9 +1,6 @@
-package edu.ctl.pinjobs.controller;
+package edu.ctl.pinjobs.advertisement.controller;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;

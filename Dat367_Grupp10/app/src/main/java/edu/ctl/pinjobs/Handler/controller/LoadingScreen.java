@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.controller;
+package edu.ctl.pinjobs.handler.controller;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,13 +7,14 @@ import android.widget.ProgressBar;
 
 import com.example.filips.dat367_grupp10.R;
 
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 
-public class LoadingScreen extends Activity implements EventBus.IEventHandler {
+public class LoadingScreen extends Activity implements Observer {
 
     private Timer timer= new Timer();
     Activity thisActivity = this;
@@ -21,7 +22,7 @@ public class LoadingScreen extends Activity implements EventBus.IEventHandler {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loading_screen);
-        EventBus.INSTANCE.addListener(this);
+        AdvertisementListHolder.getInstance().addObserver(this);
         ProgressBar spinner;
         spinner = (ProgressBar)findViewById(R.id.progressBar1);
         spinner.setVisibility(View.VISIBLE);
@@ -37,10 +38,10 @@ public class LoadingScreen extends Activity implements EventBus.IEventHandler {
         }
     };
 
-
     @Override
-    public void onEvent(EventBus.Event evt, Object o) {
-        if(evt == EventBus.Event.ADLIST_NOT_EMPTY);
-            this.finish();
+    public void update(Observable observable, Object data) {
+        System.out.println("I UPDATE!! ***************");
+        //task.cancel();
+        thisActivity.finish();
     }
 }

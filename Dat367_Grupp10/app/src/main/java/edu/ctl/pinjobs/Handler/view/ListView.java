@@ -1,8 +1,6 @@
 package edu.ctl.pinjobs.handler.view;
 
-import android.app.Activity;
 import android.content.Context;
-import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
@@ -11,10 +9,7 @@ import com.google.android.gms.maps.model.LatLng;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.ctl.pinjobs.advertisement.model.Advertisement;
-import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
-import edu.ctl.pinjobs.controller.ListActivity;
 import edu.ctl.pinjobs.handler.utils.HandlerLocationUtils;
 
 import edu.ctl.pinjobs.utils.LocationUtils;

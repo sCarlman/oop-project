@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.controller;
+package edu.ctl.pinjobs.user.controller;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;

@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.controller;
+package edu.ctl.pinjobs.main.controller;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
+import edu.ctl.pinjobs.advertisement.controller.CreateAdActivity;
+import edu.ctl.pinjobs.handler.controller.ListActivity;
+import edu.ctl.pinjobs.handler.controller.MapActivity;
 import edu.ctl.pinjobs.main.BackgroundThread;
 import edu.ctl.pinjobs.main.MainView;
 import edu.ctl.pinjobs.profile.model.IUserModel;
@@ -21,6 +24,7 @@ import edu.ctl.pinjobs.services.AdvertisementService;
 import edu.ctl.pinjobs.services.IAdvertisementService;
 import edu.ctl.pinjobs.profile.controller.IProfileService;
 import edu.ctl.pinjobs.services.ProfileService;
+import edu.ctl.pinjobs.user.controller.LoginActivity;
 import edu.ctl.pinjobs.utils.LocationUtils;
 import edu.ctl.pinjobs.profile.model.IProfile;
 

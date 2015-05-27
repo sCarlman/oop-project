@@ -1,6 +1,5 @@
-package edu.ctl.pinjobs.controller;
+package edu.ctl.pinjobs.handler.controller;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -11,8 +10,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
-import edu.ctl.pinjobs.advertisement.model.Advertisement;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
+import edu.ctl.pinjobs.advertisement.controller.DetailedAdActivity;
+import edu.ctl.pinjobs.advertisement.controller.ModifyAdActivity;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 import edu.ctl.pinjobs.handler.model.IListModel;
 import edu.ctl.pinjobs.handler.model.ListModel;
@@ -20,7 +20,6 @@ import edu.ctl.pinjobs.handler.utils.HandlerLocationUtils;
 import edu.ctl.pinjobs.handler.view.ListView;
 import edu.ctl.pinjobs.profile.controller.IOpenListView;
 import edu.ctl.pinjobs.utils.LocationUtils;
-import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import com.example.filips.dat367_grupp10.R;
 import com.google.android.gms.maps.model.LatLng;

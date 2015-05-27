@@ -1,15 +1,12 @@
 package edu.ctl.pinjobs.main;
 
 import android.app.Activity;
-import android.content.Context;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.filips.dat367_grupp10.R;
 
-import edu.ctl.pinjobs.controller.MainActivity;
 import edu.ctl.pinjobs.profile.model.IProfile;
 
 /**

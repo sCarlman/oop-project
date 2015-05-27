@@ -8,11 +8,8 @@ import android.widget.RadioButton;
 
 import com.example.filips.dat367_grupp10.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import edu.ctl.pinjobs.controller.ModifyAdActivity;
-import edu.ctl.pinjobs.advertisement.model.WrongAdInputException;
 import edu.ctl.pinjobs.advertisement.model.Category;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 

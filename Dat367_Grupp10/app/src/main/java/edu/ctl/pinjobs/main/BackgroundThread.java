@@ -5,7 +5,6 @@ import java.util.List;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 import edu.ctl.pinjobs.services.IAdvertisementService;
-import edu.ctl.pinjobs.eventbus.EventBus;
 
 /**
  * Created by Filips on 5/15/2015.

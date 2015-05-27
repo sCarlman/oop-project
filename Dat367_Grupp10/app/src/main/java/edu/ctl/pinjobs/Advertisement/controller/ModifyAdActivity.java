@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.controller;
+package edu.ctl.pinjobs.advertisement.controller;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -6,9 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.filips.dat367_grupp10.R;
@@ -22,7 +19,7 @@ import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.WrongAdInputException;
 import edu.ctl.pinjobs.advertisement.utils.AdvertisementUtils;
 import edu.ctl.pinjobs.advertisement.view.ModifyAdView;
-import edu.ctl.pinjobs.eventbus.EventBus;
+import edu.ctl.pinjobs.handler.controller.MapActivity;
 import edu.ctl.pinjobs.main.BackgroundThread;
 import edu.ctl.pinjobs.services.AdvertisementService;
 import edu.ctl.pinjobs.services.IAdvertisementService;
