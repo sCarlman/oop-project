@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Dat367_Grupp10</string>
+    <string name="app_name">PinJobs</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -8,17 +8,17 @@
 
     <string name="title_activity_maps">Map</string>
 
-    <string name="title_activity_create_profile">CreateProfileActivity</string>
-    <string name="title_activity_create_ad">CreateAdActivity</string>
-    <string name="title_activity_ad_list">AdListActivity</string>
-    <string name="title_activity_login">LoginActivity</string>
-    <string name="title_activity_map">MapActivity</string>
-    <string name="title_activity_detailed_ad">DetailedAdActivity</string>
-    <string name="title_activity_user_list">UserListActivity</string>
-    <string name="title_activity_modify_ad">ModifyAdActivity</string>
+    <string name="title_activity_create_profile">Skapa ny profil</string>
+    <string name="title_activity_create_ad">Skapa ny annons</string>
+    <string name="title_activity_ad_list">Annonslista</string>
+    <string name="title_activity_login">Logga in</string>
+    <string name="title_activity_map">Karta</string>
+    <string name="title_activity_detailed_ad">Detaljerad annons</string>
+    <string name="title_activity_user_list">Mina annonser</string>
+    <string name="title_activity_modify_ad">Redigera annons</string>
 
-    <string name="title_activity_my_profile">MyProfile</string>
+    <string name="title_activity_my_profile">Min profil</string>
     <string name="title_activity_loading_screen">LoadingScreen</string>
-    <string name="title_activity_edit_my_profile">EditMyProfileActivity</string>
+    <string name="title_activity_edit_my_profile">Redigera min profil</string>
 
 </resources>
