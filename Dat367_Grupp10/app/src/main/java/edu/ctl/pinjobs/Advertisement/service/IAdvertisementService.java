@@ -1,5 +1,6 @@
 package edu.ctl.pinjobs.advertisement.service;
 
+import com.parse.ParseException;
 import com.parse.ParseObject;
 
 import java.io.Serializable;
@@ -19,7 +20,7 @@ public interface IAdvertisementService extends Serializable{
     public void updateAd(String id, IAdvertisement ad);
     public void updateAdvertiser(IProfile profile);
 
-    public List<IAdvertisement> fetchAllAds();
+    public List<IAdvertisement> fetchAllAds() throws ParseException;
     public List<IAdvertisement> fetchAdsOfAdvertiser(String email);
     public String getAdID(IAdvertisement ad);
 

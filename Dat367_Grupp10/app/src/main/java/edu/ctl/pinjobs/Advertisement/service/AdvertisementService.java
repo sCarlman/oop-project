@@ -51,14 +51,13 @@ public class AdvertisementService implements IAdvertisementService {
     }
 
     @Override
-    public List<IAdvertisement> fetchAllAds() {
+    public List<IAdvertisement> fetchAllAds() throws ParseException{
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Advertisement");
         try {
             List<IAdvertisement> adList = copyToAdvertisements(query.find());
             return adList;
         } catch (ParseException e) {
-            e.printStackTrace();
-            return null;
+            throw e;
         }
     }
 

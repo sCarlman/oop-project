@@ -8,22 +8,22 @@
     tools:context="edu.ctl.pinjobs.handler.controller.ListActivity"
     android:background="@color/SkyBlue">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Lista med annonser"
-        android:id="@+id/headerTextView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/adListView"
-        android:layout_below="@+id/headerTextView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="30dp"
-        android:choiceMode="singleChoice" />
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/adListView"
+            android:layout_below="@+id/headerTextView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="30dp"
+            android:choiceMode="singleChoice"
+            >
+        </ListView>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 </RelativeLayout>

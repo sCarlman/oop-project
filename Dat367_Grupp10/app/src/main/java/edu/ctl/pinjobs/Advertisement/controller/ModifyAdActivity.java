@@ -65,6 +65,7 @@ public class ModifyAdActivity extends ActionBarActivity implements View.OnClickL
     public void saveNewModifiedAd(IAdvertisement ad){
         adService.updateAd(adService.getAdID(androidAd.getAd()), ad);
         iOpenMapView.startActivity(this, ad);
+        //TODO: shit man
         finish();
     }
 

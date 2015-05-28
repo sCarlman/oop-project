@@ -100,7 +100,7 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
 
     private void setListView(List<IAdvertisement> adList){
         setContentView(R.layout.activity_ad_list);
-        this.listView = new ListView(this.getApplicationContext(),(android.widget.ListView)findViewById(R.id.adListView),this);
+        this.listView = new ListView(this,this);
         this.listModel = new ListModel(adList);
         listModel.sortForDistance(LocationUtils.getCurrentLocation(this).latitude,LocationUtils.getCurrentLocation(this).longitude);
         listView.setupView(listModel.getList(), android.R.layout.simple_list_item_1);
