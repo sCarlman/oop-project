@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import edu.ctl.pinjobs.main.IActivity;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
@@ -18,7 +17,7 @@ import edu.ctl.pinjobs.handler.controller.ListActivity;
 import edu.ctl.pinjobs.handler.controller.MapActivity;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 import edu.ctl.pinjobs.main.BackgroundThread;
-import edu.ctl.pinjobs.main.MainView;
+import edu.ctl.pinjobs.main.view.MainView;
 import edu.ctl.pinjobs.profile.model.IUserModel;
 import edu.ctl.pinjobs.profile.model.UserModel;
 import edu.ctl.pinjobs.profile.controller.MyProfileActivity;

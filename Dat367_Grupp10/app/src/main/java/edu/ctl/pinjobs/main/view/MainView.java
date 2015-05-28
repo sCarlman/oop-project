@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.main;
+package edu.ctl.pinjobs.main.view;
 
 import android.app.Activity;
 import android.app.AlertDialog;
