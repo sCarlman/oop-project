@@ -1,7 +1,8 @@
-package edu.ctl.pinjobs.services;
+package edu.ctl.pinjobs.advertisement.service;
 
 import com.parse.ParseObject;
 
+import java.io.Serializable;
 import java.util.List;
 
 import edu.ctl.pinjobs.profile.model.IProfile;
@@ -10,7 +11,7 @@ import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 /**
  * Created by Isaac on 2015-05-05.
  */
-public interface IAdvertisementService {
+public interface IAdvertisementService extends Serializable{
 
     public void saveAd(IAdvertisement ad);
     public void deleteParseAd(ParseObject parseAd);

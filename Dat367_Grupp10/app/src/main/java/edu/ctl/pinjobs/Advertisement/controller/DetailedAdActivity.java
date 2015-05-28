@@ -1,10 +1,9 @@
-package edu.ctl.pinjobs.controller;
+package edu.ctl.pinjobs.advertisement.controller;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.example.filips.dat367_grupp10.R;
 

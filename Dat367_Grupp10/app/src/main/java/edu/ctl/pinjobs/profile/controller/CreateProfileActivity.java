@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.controller;
+package edu.ctl.pinjobs.profile.controller;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,22 +9,26 @@ import android.widget.Toast;
 
 import com.example.filips.dat367_grupp10.R;
 
-import edu.ctl.pinjobs.main.UserModel;
 import edu.ctl.pinjobs.profile.model.Profile;
+import edu.ctl.pinjobs.profile.model.UserModel;
 import edu.ctl.pinjobs.profile.model.WrongInputExeption;
+import edu.ctl.pinjobs.profile.service.IProfileService;
 import edu.ctl.pinjobs.profile.view.CreateProfileView;
-import edu.ctl.pinjobs.services.IProfileService;
-import edu.ctl.pinjobs.services.ProfileService;
 
 public class CreateProfileActivity extends ActionBarActivity implements View.OnClickListener {
 
     private CreateProfileView view;
     private Profile newProfile;
+    private IProfileService profileService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createprofile);
+        Bundle bundle =getIntent().getExtras();
+        if(bundle!=null){
+            profileService =(IProfileService)bundle.getSerializable("PROFILE_SERVICE");
+        }
 
         view = new CreateProfileView(this, this);
     }
@@ -61,8 +65,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                             view.getTextFromLocationEditText() + "," + view.getTextFromCityEditText());
                     Toast.makeText( this, "Profile created!", Toast.LENGTH_LONG).show();
 
-                    IProfileService iProfileService = new ProfileService();
-                    iProfileService.saveProfile(newProfile);
+                    profileService.saveProfile(newProfile);
                     UserModel.getInstance().logIn(newProfile);
                     setResult(5);
                     finish();

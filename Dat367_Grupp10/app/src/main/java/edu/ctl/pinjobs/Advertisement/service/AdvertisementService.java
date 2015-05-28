@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.services;
+package edu.ctl.pinjobs.advertisement.service;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -16,6 +16,7 @@ import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.advertisement.model.Advertisement;
 import edu.ctl.pinjobs.advertisement.model.Category;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
+import edu.ctl.pinjobs.profile.service.ProfileService;
 
 /**
  * Created by Isaac on 2015-04-27.

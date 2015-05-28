@@ -1,15 +1,17 @@
 package edu.ctl.pinjobs.handler.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
+import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
-import edu.ctl.pinjobs.eventbus.EventBus;
 
 /**
  * Created by Filips on 5/15/2015.
  */
-public class AdvertisementListHolder {
+public class AdvertisementListHolder extends Observable {
     private static AdvertisementListHolder ourInstance = new AdvertisementListHolder();
     List<IAdvertisement> adList = new ArrayList<>();
 
@@ -27,7 +29,8 @@ public class AdvertisementListHolder {
         if(list!=null) {
             if(adList.size()==0) {
                 adList.addAll(list);
-                EventBus.INSTANCE.publish(EventBus.Event.ADLIST_NOT_EMPTY, null);
+                setChanged();
+                notifyObservers();
             }else {
                 adList.clear();
                 adList.addAll(list);
@@ -46,5 +49,15 @@ public class AdvertisementListHolder {
 
         }
         return advertiserAdList;
+    }
+
+    public AndroidAdvertisement[] getAndroidAdList(){
+        AndroidAdvertisement[] androidAd = new AndroidAdvertisement[getList().size()];
+        int i = 0;
+        for(IAdvertisement ad: getList()){
+            androidAd[i] = new AndroidAdvertisement(ad);
+            i++;
+        }
+        return androidAd;
     }
 }

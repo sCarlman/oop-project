@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.controller;
+package edu.ctl.pinjobs.profile.controller;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -7,20 +7,24 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.filips.dat367_grupp10.R;
 
-import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.profile.model.IProfile;
+import edu.ctl.pinjobs.profile.model.IUserModel;
+import edu.ctl.pinjobs.profile.service.IProfileService;
 import edu.ctl.pinjobs.profile.view.MyProfileView;
+import edu.ctl.pinjobs.profile.model.UserModel;
 
 public class MyProfileActivity extends ActionBarActivity implements View.OnClickListener{
 
     private MyProfileView myProfileView;
     private IProfile myProfile;
     private String email;
+    private IProfileService profileService;
+    private IOpenListView iOpenListView;
+    private Object iOpenMapView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,8 +32,12 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
 
         Intent intent=this.getIntent();
         Bundle bundle=intent.getExtras();
-
-        myProfile = (IProfile)bundle.getSerializable("sendProfile");
+        if(bundle!=null) {
+            myProfile = (IProfile) bundle.getSerializable("sendProfile");
+            profileService=(IProfileService)bundle.getSerializable("PROFILE_SERVICE");
+            iOpenListView = (IOpenListView) bundle.getSerializable("IOPENLISTVIEW");
+            iOpenMapView = bundle.getSerializable("OPEN_MAP_VIEW");
+        }
         email = myProfile.getEmail();
 
         myProfileView = new MyProfileView(this, myProfile, this);
@@ -54,11 +62,10 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
         switch (item.getItemId()) {
             case R.id.action_edit:
                 Intent intent = new Intent(getApplicationContext(), EditMyProfileActivity.class);
-
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("sendProfile", myProfile);
+                bundle.putSerializable("PROFILE_SERVICE",profileService);
                 intent.putExtras(bundle);
-
                 startActivityForResult(intent, 1);
                 return true;
             case R.id.action_settings:
@@ -71,18 +78,18 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
 
     @Override
     public void onClick(View v) {
-        //EventBus.INSTANCE.publish(EventBus.Event.SHOW_MY_ADS, email);
-        Intent intent = new Intent(getApplicationContext(), ListActivity.class);
-        intent.putExtra("myList", true);
-        intent.putExtra("Email", email);
-        startActivity(intent);
+        //TODO: borde inte se ut såhär...
+        iOpenListView.openListViewForEmail(this, email, iOpenMapView);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         if(data !=null) {
-            this.myProfile = (IProfile) data.getSerializableExtra("sendProfile");
+            myProfile = (IProfile) data.getSerializableExtra("SEND_BACK_PROFILE");
             myProfileView.setProfileInfoOnCreate(myProfile);
+            IUserModel userModel = UserModel.getInstance();
+            userModel.logIn(myProfile);
+            System.out.println(userModel.getProfile().getFirstName());
 
         }
     }

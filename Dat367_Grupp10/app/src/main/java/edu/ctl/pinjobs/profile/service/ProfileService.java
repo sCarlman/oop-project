@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.services;
+package edu.ctl.pinjobs.profile.service;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
@@ -15,7 +15,7 @@ import edu.ctl.pinjobs.profile.model.WrongInputExeption;
 /**
  * Created by Isaac on 2015-04-23.
  */
-public class ProfileService implements IProfileService{
+public class ProfileService implements IProfileService {
 
 
     public void saveProfile(IProfile profile){

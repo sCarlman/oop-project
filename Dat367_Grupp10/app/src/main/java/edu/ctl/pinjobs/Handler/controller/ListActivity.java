@@ -1,6 +1,5 @@
-package edu.ctl.pinjobs.controller;
+package edu.ctl.pinjobs.handler.controller;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -11,36 +10,43 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
-import edu.ctl.pinjobs.advertisement.model.Advertisement;
+import edu.ctl.pinjobs.advertisement.service.IAdvertisementService;
+import edu.ctl.pinjobs.advertisement.controller.IOpenMapView;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
+import edu.ctl.pinjobs.advertisement.controller.DetailedAdActivity;
+import edu.ctl.pinjobs.advertisement.controller.ModifyAdActivity;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 import edu.ctl.pinjobs.handler.model.IListModel;
 import edu.ctl.pinjobs.handler.model.ListModel;
 import edu.ctl.pinjobs.handler.utils.HandlerLocationUtils;
 import edu.ctl.pinjobs.handler.view.ListView;
+import edu.ctl.pinjobs.profile.controller.IOpenListView;
 import edu.ctl.pinjobs.utils.LocationUtils;
-import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import com.example.filips.dat367_grupp10.R;
 import com.google.android.gms.maps.model.LatLng;
-
 import java.util.List;
 
 
-public class ListActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
-    IListModel listModel;
-    ListView listView;
-    String email;
-    HandlerLocationUtils locationUtils;
+public class ListActivity extends ActionBarActivity implements AdapterView.OnItemClickListener, IOpenListView {
+    private IListModel listModel;
+    private ListView listView;
+    private String email;
+    private HandlerLocationUtils locationUtils;
+    private IOpenMapView iOpenMapView;
+    private IAdvertisementService adService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        this.locationUtils = new HandlerLocationUtils();
-        email = getIntent().getStringExtra("Email");
 
-        Boolean myList = getIntent().getBooleanExtra("myList", false);
+        this.locationUtils = new HandlerLocationUtils();
+        email = getIntent().getExtras().getString("Email");
+        adService = (IAdvertisementService)getIntent().getExtras().getSerializable("AD_SERVICE");
+        iOpenMapView = (IOpenMapView) getIntent().getExtras().getSerializable("OPEN_MAP_VIEW");
+        System.out.println(iOpenMapView);
+
+        Boolean myList = getIntent().getExtras().getBoolean("myList", false);
 
         if(AdvertisementListHolder.getInstance().getList().size()==0) {
             //starts progressbarView
@@ -112,7 +118,11 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
 
     public void openModifyAdView(Context context, AndroidAdvertisement ad){
         Intent intent = new Intent(context, ModifyAdActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("AD_SERVICE", adService);
+        bundle.putSerializable("OPEN_MAP_VIEW", iOpenMapView);
         intent.putExtra("Advertisement", ad);
+        intent.putExtras(bundle);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.getApplicationContext().startActivity(intent);
     }
@@ -134,5 +144,16 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
             openDetailedAdView(this, androidAD, adDistance);
         }
 
+    }
+
+    @Override
+    public void openListViewForEmail(Context context,String email, Object map) {
+        Intent intent = new Intent(context,ListActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("OPEN_MAP_VIEW", (IOpenMapView) map);
+        bundle.putString("Email", email);
+        bundle.putBoolean("myList", true);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
     }
 }

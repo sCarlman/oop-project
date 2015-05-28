@@ -2,7 +2,6 @@ package edu.ctl.pinjobs.user.model;
 
 import java.util.List;
 
-import edu.ctl.pinjobs.eventbus.EventBus;
 import edu.ctl.pinjobs.profile.model.IProfile;
 
 /**

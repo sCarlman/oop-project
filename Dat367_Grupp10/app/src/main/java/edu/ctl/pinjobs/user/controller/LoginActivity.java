@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.controller;
+package edu.ctl.pinjobs.user.controller;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -6,17 +6,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.filips.dat367_grupp10.R;
 
 import java.util.List;
 
-import edu.ctl.pinjobs.eventbus.EventBus;
-import edu.ctl.pinjobs.main.UserModel;
-import edu.ctl.pinjobs.services.IProfileService;
-import edu.ctl.pinjobs.services.ProfileService;
+import edu.ctl.pinjobs.profile.model.UserModel;
+import edu.ctl.pinjobs.profile.controller.CreateProfileActivity;
+import edu.ctl.pinjobs.profile.service.IProfileService;
 import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.user.model.LoginModel;
 import edu.ctl.pinjobs.user.view.LoginView;
@@ -33,7 +30,7 @@ public class LoginActivity extends ActionBarActivity {
         setContentView(R.layout.activity_login);
         this.loginView = new LoginView(this);
         this.loginModel = new LoginModel();
-        this.profileService = new ProfileService();
+        this.profileService = (IProfileService)this.getIntent().getSerializableExtra("PROFILE_SERVICE");
     }
 
 
@@ -63,12 +60,16 @@ public class LoginActivity extends ActionBarActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data){
 
         if(resultCode == 5){
+            setResult(5);
             finish();
         }
     }
 
     public void openCreateProfileView(View view) {
         Intent intent = new Intent(getApplicationContext(),CreateProfileActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("PROFILE_SERVICE",profileService);
+        intent.putExtras(bundle);
         startActivityForResult(intent, 1);
     }
 

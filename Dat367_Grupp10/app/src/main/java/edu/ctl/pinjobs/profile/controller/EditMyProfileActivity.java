@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.controller;
+package edu.ctl.pinjobs.profile.controller;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
@@ -6,24 +6,19 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 
 import com.example.filips.dat367_grupp10.R;
 
-import edu.ctl.pinjobs.eventbus.EventBus;
-import edu.ctl.pinjobs.main.UserModel;
 import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.profile.model.WrongInputExeption;
+import edu.ctl.pinjobs.profile.service.IProfileService;
 import edu.ctl.pinjobs.profile.view.EditMyProfileView;
-import edu.ctl.pinjobs.services.AdvertisementService;
-import edu.ctl.pinjobs.services.IAdvertisementService;
-import edu.ctl.pinjobs.services.IProfileService;
-import edu.ctl.pinjobs.services.ProfileService;
 
 public class EditMyProfileActivity extends ActionBarActivity {
 
     private IProfile myProfile;
     private EditMyProfileView editMyProfileView;
+    private IProfileService iProfileService;
 
     private boolean canceledByError;
 
@@ -34,11 +29,13 @@ public class EditMyProfileActivity extends ActionBarActivity {
 
         Intent intent=this.getIntent();
         Bundle bundle=intent.getExtras();
+        if(bundle!=null) {
+            IProfile profile = (IProfile) bundle.getSerializable("sendProfile");
+            this.myProfile = profile;
+            editMyProfileView = new EditMyProfileView(profile, this);
 
-        IProfile profile = (IProfile)bundle.getSerializable("sendProfile");
-        this.myProfile = profile;
-
-         editMyProfileView = new EditMyProfileView(profile, this);
+            iProfileService = (IProfileService)bundle.getSerializable("PROFILE_SERVICE");
+        }
 
     }
 
@@ -96,21 +93,13 @@ public class EditMyProfileActivity extends ActionBarActivity {
                 setCanceledByError(true);
             }
         }
-        if(!getCanceledByError()){
-
-            IProfileService iProfileService = new ProfileService();
-            IAdvertisementService iAdvertisementService = new AdvertisementService();
-
-            iProfileService.updateProfile(myProfile);
-            iAdvertisementService.updateAdvertiser(myProfile);
-            UserModel.getInstance().logIn(myProfile);
-        }
 
         if(!canceledByError){
             Intent intent = new Intent();
             Bundle bundle = new Bundle();
-            bundle.putSerializable("sendProfile", myProfile);
+            bundle.putSerializable("SEND_BACK_PROFILE", myProfile);
             intent.putExtras(bundle);
+            iProfileService.updateProfile(myProfile);
             setResult(2, intent);
             finish();
         }
@@ -118,9 +107,5 @@ public class EditMyProfileActivity extends ActionBarActivity {
 
     public void setCanceledByError(boolean cancel){
         this.canceledByError = cancel;
-    }
-
-    public boolean getCanceledByError(){
-        return canceledByError;
     }
 }

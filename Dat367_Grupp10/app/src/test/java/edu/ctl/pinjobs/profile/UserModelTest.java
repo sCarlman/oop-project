@@ -2,7 +2,7 @@ package edu.ctl.pinjobs.profile;
 
 import org.junit.Test;
 
-import edu.ctl.pinjobs.main.UserModel;
+import edu.ctl.pinjobs.profile.model.UserModel;
 import edu.ctl.pinjobs.profile.model.IProfile;
 
 /**
