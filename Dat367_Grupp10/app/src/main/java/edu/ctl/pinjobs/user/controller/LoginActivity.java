@@ -13,8 +13,7 @@ import java.util.List;
 
 import edu.ctl.pinjobs.profile.model.UserModel;
 import edu.ctl.pinjobs.profile.controller.CreateProfileActivity;
-import edu.ctl.pinjobs.profile.controller.IProfileService;
-import edu.ctl.pinjobs.services.ProfileService;
+import edu.ctl.pinjobs.profile.service.IProfileService;
 import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.user.model.LoginModel;
 import edu.ctl.pinjobs.user.view.LoginView;

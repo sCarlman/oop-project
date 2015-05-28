@@ -12,6 +12,7 @@ import edu.ctl.pinjobs.advertisement.model.Advertisement;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.WrongAdInputException;
+import edu.ctl.pinjobs.advertisement.service.IAdvertisementService;
 import edu.ctl.pinjobs.advertisement.utils.AdvertisementUtils;
 import edu.ctl.pinjobs.advertisement.view.ModifyAdView;
 
@@ -90,13 +91,7 @@ public class ModifyAdActivity extends ActionBarActivity implements View.OnClickL
                     saveNewModifiedAd(newAd);
 
                 }catch(WrongAdInputException e){
-                    if(e.getName().equals("title")){
-                        ModifyAdActivity.this.view.setInputError("title");
-                    }else if(e.getName().equals("description")) {
-                        ModifyAdActivity.this.view.setInputError("description");
-                    }else if(e.getName().equals("location")){
-                        ModifyAdActivity.this.view.setInputError("location");
-                    }
+                    ModifyAdActivity.this.view.setInputError(e.getName());
                 }
 
             }

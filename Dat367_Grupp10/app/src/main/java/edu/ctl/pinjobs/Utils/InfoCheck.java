@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  *
  * Created by Isaac on 2015-04-01.
- * help class for checking valid inputs
+ * class for checking valid inputs.
  */
 public class InfoCheck implements Serializable {
 

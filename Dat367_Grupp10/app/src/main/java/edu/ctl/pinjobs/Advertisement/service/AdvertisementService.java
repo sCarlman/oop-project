@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.services;
+package edu.ctl.pinjobs.advertisement.service;
 
 import com.parse.FindCallback;
 import com.parse.GetCallback;
@@ -11,12 +11,12 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import edu.ctl.pinjobs.advertisement.controller.IAdvertisementService;
 import edu.ctl.pinjobs.advertisement.model.WrongAdInputException;
 import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.advertisement.model.Advertisement;
 import edu.ctl.pinjobs.advertisement.model.Category;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
+import edu.ctl.pinjobs.profile.service.ProfileService;
 
 /**
  * Created by Isaac on 2015-04-27.

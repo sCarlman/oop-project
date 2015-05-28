@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.profile.controller;
+package edu.ctl.pinjobs.profile.service;
 
 import java.io.Serializable;
 import java.util.List;

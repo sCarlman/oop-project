@@ -21,19 +21,16 @@ import edu.ctl.pinjobs.main.MainView;
 import edu.ctl.pinjobs.profile.model.IUserModel;
 import edu.ctl.pinjobs.profile.model.UserModel;
 import edu.ctl.pinjobs.profile.controller.MyProfileActivity;
-import edu.ctl.pinjobs.services.AdvertisementService;
-import edu.ctl.pinjobs.advertisement.controller.IAdvertisementService;
-import edu.ctl.pinjobs.profile.controller.IProfileService;
-import edu.ctl.pinjobs.services.ProfileService;
+import edu.ctl.pinjobs.advertisement.service.AdvertisementService;
+import edu.ctl.pinjobs.advertisement.service.IAdvertisementService;
+import edu.ctl.pinjobs.profile.service.IProfileService;
+import edu.ctl.pinjobs.profile.service.ProfileService;
 import edu.ctl.pinjobs.user.controller.LoginActivity;
 import edu.ctl.pinjobs.utils.LocationUtils;
 import edu.ctl.pinjobs.profile.model.IProfile;
 
 import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
-
-import java.io.Serializable;
-import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity{

@@ -18,9 +18,9 @@ import edu.ctl.pinjobs.advertisement.model.Advertisement;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.WrongAdInputException;
+import edu.ctl.pinjobs.advertisement.service.IAdvertisementService;
 import edu.ctl.pinjobs.advertisement.utils.AdvertisementUtils;
 import edu.ctl.pinjobs.advertisement.view.CreateAdView;
-import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 import edu.ctl.pinjobs.profile.model.IProfile;
 
 public class CreateAdActivity extends ActionBarActivity implements View.OnClickListener {
@@ -86,13 +86,7 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
                             lat, lng);
                     postAd(newAd);
                 }catch(WrongAdInputException e){
-                    if(e.getName().equals("title")){
-                        view.setInputError("title");
-                    }else if(e.getName().equals("description")) {
-                        view.setInputError("description");
-                    }else if(e.getName().equals("location")){
-                        view.setInputError("location");
-                    }
+                    view.setInputError(e.getName());
                 }
 
             }
@@ -101,13 +95,11 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
         }
     }
 
-
-
     //uploads ad to database if there is no other ad equal to the newAd
     public void postAd(IAdvertisement newAd){
 
         if (checkIfAdExists(newAd, adList)) {
-            Toast.makeText(this, "Anonsen finns redan",
+            Toast.makeText(this, "Du har redan skapat annonsen!",
                     Toast.LENGTH_LONG).show();
         } else {
             adService.saveAd(newAd);

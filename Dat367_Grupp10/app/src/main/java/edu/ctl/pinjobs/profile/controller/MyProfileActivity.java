@@ -10,9 +10,9 @@ import android.view.View;
 
 import com.example.filips.dat367_grupp10.R;
 
-import edu.ctl.pinjobs.advertisement.controller.IOpenMapView;
 import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.profile.model.IUserModel;
+import edu.ctl.pinjobs.profile.service.IProfileService;
 import edu.ctl.pinjobs.profile.view.MyProfileView;
 import edu.ctl.pinjobs.profile.model.UserModel;
 

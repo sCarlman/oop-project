@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
-import edu.ctl.pinjobs.advertisement.controller.IAdvertisementService;
+import edu.ctl.pinjobs.advertisement.service.IAdvertisementService;
 import edu.ctl.pinjobs.advertisement.controller.IOpenMapView;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.controller.DetailedAdActivity;
@@ -21,7 +21,6 @@ import edu.ctl.pinjobs.handler.model.ListModel;
 import edu.ctl.pinjobs.handler.utils.HandlerLocationUtils;
 import edu.ctl.pinjobs.handler.view.ListView;
 import edu.ctl.pinjobs.profile.controller.IOpenListView;
-import edu.ctl.pinjobs.services.AdvertisementService;
 import edu.ctl.pinjobs.utils.LocationUtils;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import com.example.filips.dat367_grupp10.R;

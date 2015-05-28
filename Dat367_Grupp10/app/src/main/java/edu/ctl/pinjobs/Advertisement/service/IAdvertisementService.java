@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.advertisement.controller;
+package edu.ctl.pinjobs.advertisement.service;
 
 import com.parse.ParseObject;
 
