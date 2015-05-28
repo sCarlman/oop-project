@@ -10,7 +10,7 @@ import java.util.List;
 
 import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.profile.model.Profile;
-import edu.ctl.pinjobs.profile.model.WrongInputException;
+import edu.ctl.pinjobs.profile.model.WrongInputExeption;
 
 /**
  * Created by Isaac on 2015-04-23.
@@ -58,7 +58,7 @@ public class ProfileService implements IProfileService {
                         parseProfile.getString("Email"),
                         parseProfile.getString("Phone"),
                         parseProfile.getString("PreferredLocation")));
-            }catch (WrongInputException e){
+            }catch (WrongInputExeption e){
                 System.out.println("FEL I PROFILE SERIVE*************************");
             }
 
@@ -88,7 +88,7 @@ public class ProfileService implements IProfileService {
                     parseProfile.getString("PreferredLocation"));
 
             return fetchedProfile;
-        }catch (WrongInputException e){
+        }catch (WrongInputExeption e){
             System.out.println("FEL I PROFILE SERIVE*************************");
         }
         return null;

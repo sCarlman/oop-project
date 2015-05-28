@@ -11,6 +11,7 @@ import com.example.filips.dat367_grupp10.R;
 
 import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.profile.model.WrongInputExeption;
+import edu.ctl.pinjobs.profile.service.IProfileService;
 import edu.ctl.pinjobs.profile.view.EditMyProfileView;
 
 public class EditMyProfileActivity extends ActionBarActivity {
