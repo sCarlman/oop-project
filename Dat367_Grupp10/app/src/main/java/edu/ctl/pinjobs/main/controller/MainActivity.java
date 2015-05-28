@@ -41,7 +41,7 @@ public class MainActivity extends ActionBarActivity{
     private MainView mainView;
     private IProfileService profileService;
     private IAdvertisementService adService;
-    private IUserModel user = UserModel.getInstance();
+    private IUserModel user;
     private BackgroundThread backgroundThread;
 
     @Override
@@ -55,6 +55,7 @@ public class MainActivity extends ActionBarActivity{
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,60000,100, new LocationUtils());
 
         this.mainView = new MainView(MainActivity.this);
+        user = UserModel.getInstance();
 
         this.adService = new AdvertisementService();
         profileService = new ProfileService();
@@ -161,13 +162,6 @@ public class MainActivity extends ActionBarActivity{
         if(user.getIsLoggedIn()) {
             System.out.println(user.getProfile().getFirstName());
         }
-    }
-
-
-    private void loginUser(IProfile profile) {
-
-        user.logIn(profile);
-        mainView.repaintLogInView(true,UserModel.getInstance().getProfile());
     }
 
     @Override

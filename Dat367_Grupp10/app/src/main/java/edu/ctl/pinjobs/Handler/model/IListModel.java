@@ -15,5 +15,4 @@ public interface IListModel {
     public void removeFromList(IAdvertisement add);
     public void sortForDistance(double currentLatitidue, double currentLongitude);
 
-
 }
