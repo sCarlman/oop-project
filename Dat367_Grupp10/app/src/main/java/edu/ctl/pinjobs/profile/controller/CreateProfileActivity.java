@@ -11,7 +11,7 @@ import com.example.filips.dat367_grupp10.R;
 
 import edu.ctl.pinjobs.profile.model.Profile;
 import edu.ctl.pinjobs.profile.model.UserModel;
-import edu.ctl.pinjobs.profile.model.WrongInputExeption;
+import edu.ctl.pinjobs.profile.model.WrongInputException;
 import edu.ctl.pinjobs.profile.service.IProfileService;
 import edu.ctl.pinjobs.profile.view.CreateProfileView;
 
@@ -70,7 +70,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                     setResult(5);
                     finish();
 
-                }catch (WrongInputExeption e){
+                }catch (WrongInputException e){
                     //TODO:kolla på if-satserna nedan
                     if(e.getError().equals("FirstName")){
                         view.exceptionCought("firstname");

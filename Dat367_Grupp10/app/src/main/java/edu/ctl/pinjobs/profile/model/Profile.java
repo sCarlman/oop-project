@@ -26,7 +26,7 @@ public class Profile implements IProfile, Serializable {
     InfoCheck infoCheck = new InfoCheck();
 
     public Profile(String firstName, String lastName, String password, String email, String phone,
-                           String address)throws WrongInputExeption {
+                           String address)throws WrongInputException {
         setFirstName(firstName);
         setLastName(lastName);
         setPassword(password);
@@ -37,64 +37,64 @@ public class Profile implements IProfile, Serializable {
     }
 
 
-    public void setFirstName(String firstName) throws WrongInputExeption{
+    public void setFirstName(String firstName) throws WrongInputException {
         if(firstName != null &&!infoCheck.isEmpty(firstName) && infoCheck.isAlphabetic(firstName)){
             this.firstName = firstName;
         }else{
-            throw new WrongInputExeption("FirstName");
+            throw new WrongInputException("FirstName");
         }
     }
 
-    public void setLastName(String lastName) throws WrongInputExeption{
+    public void setLastName(String lastName) throws WrongInputException {
         if(lastName != null && !infoCheck.isEmpty(lastName) && infoCheck.isAlphabetic(lastName) && lastName.length()<100){
             this.lastName = lastName;
         }else{
-            throw new WrongInputExeption("LastName");
+            throw new WrongInputException("LastName");
         }
     }
 
-    public void setPassword(String password) throws WrongInputExeption{
+    public void setPassword(String password) throws WrongInputException {
         if(password != null && !infoCheck.isEmpty(password) && password.length() >= 2 &&
                 password.length()<=20 && !infoCheck.containsSpaces(password)){
             this.password = password;
         }else{
-            throw new WrongInputExeption("Password");
+            throw new WrongInputException("Password");
         }
     }
 
-    public void setEmail(String email) throws WrongInputExeption{
+    public void setEmail(String email) throws WrongInputException {
         if(email != null && !infoCheck.isEmpty(email) && isEmailCorrect(email) && !infoCheck.containsSpaces(email)){
             this.email = email;
         }else{
-            throw new WrongInputExeption("Email");
+            throw new WrongInputException("Email");
         }
     }
 
-    public void setPhone(String phone) throws WrongInputExeption{
+    public void setPhone(String phone) throws WrongInputException {
         if(phone != null && !infoCheck.isEmpty(phone) && isNumeric(phone) && isPhone(phone)){
             this.phone = phone;
         }else{
-            throw new WrongInputExeption("Phone");
+            throw new WrongInputException("Phone");
         }
     }
 
-    public void setAddress(String preferredLocation) throws WrongInputExeption{
+    public void setAddress(String preferredLocation) throws WrongInputException {
 
         if(preferredLocation == null){
-            throw new WrongInputExeption("Location+City");
+            throw new WrongInputException("Location+City");
         }
         if(!infoCheck.containsComa(preferredLocation)){
-            throw new WrongInputExeption("Location+City");
+            throw new WrongInputException("Location+City");
         }
         try{
             splitStringAddress = preferredLocation.split(",")[0];
         }catch(ArrayIndexOutOfBoundsException e){
-            throw new WrongInputExeption("Location");
+            throw new WrongInputException("Location");
         }
         try{
             splitStringCity = preferredLocation.split(",")[1];
         }catch(ArrayIndexOutOfBoundsException e){
-            throw new WrongInputExeption("City");
+            throw new WrongInputException("City");
         }
 
 
@@ -103,10 +103,10 @@ public class Profile implements IProfile, Serializable {
             if(splitStringCity != null && !infoCheck.isEmpty(splitStringCity) && infoCheck.isAlphabetic(splitStringCity)){
                 this.address = splitStringAddress + "," + splitStringCity;
             }else{
-                throw new WrongInputExeption("City");
+                throw new WrongInputException("City");
             }
         }else{
-            throw new WrongInputExeption("Location");
+            throw new WrongInputException("Location");
         }
 
 

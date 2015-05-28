@@ -1,39 +1,39 @@
 package edu.ctl.pinjobs.profile;
 
 import edu.ctl.pinjobs.profile.model.IProfile;
-import edu.ctl.pinjobs.profile.model.WrongInputExeption;
+import edu.ctl.pinjobs.profile.model.WrongInputException;
 
 /**
  * Created by Filips on 5/20/2015.
  */
 public class MockProfile implements IProfile{
     @Override
-    public void setFirstName(String firstName) throws WrongInputExeption {
+    public void setFirstName(String firstName) throws WrongInputException {
 
     }
 
     @Override
-    public void setLastName(String lastName) throws WrongInputExeption {
+    public void setLastName(String lastName) throws WrongInputException {
 
     }
 
     @Override
-    public void setPassword(String password) throws WrongInputExeption {
+    public void setPassword(String password) throws WrongInputException {
 
     }
 
     @Override
-    public void setEmail(String email) throws WrongInputExeption {
+    public void setEmail(String email) throws WrongInputException {
 
     }
 
     @Override
-    public void setPhone(String phone) throws WrongInputExeption {
+    public void setPhone(String phone) throws WrongInputException {
 
     }
 
     @Override
-    public void setAddress(String preferredLocation) throws WrongInputExeption {
+    public void setAddress(String preferredLocation) throws WrongInputException {
 
     }
 

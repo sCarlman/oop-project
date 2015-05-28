@@ -10,7 +10,7 @@ import android.view.View;
 import com.example.filips.dat367_grupp10.R;
 
 import edu.ctl.pinjobs.profile.model.IProfile;
-import edu.ctl.pinjobs.profile.model.WrongInputExeption;
+import edu.ctl.pinjobs.profile.model.WrongInputException;
 import edu.ctl.pinjobs.profile.service.IProfileService;
 import edu.ctl.pinjobs.profile.view.EditMyProfileView;
 
@@ -65,25 +65,25 @@ public class EditMyProfileActivity extends ActionBarActivity {
         setCanceledByError(false);
         try{
             myProfile.setFirstName(editMyProfileView.getTextFromEditFirstName());
-        }catch (WrongInputExeption e){
+        }catch (WrongInputException e){
             editMyProfileView.setInputError("firstname");
             setCanceledByError(true);
         }
         try{
             myProfile.setLastName(editMyProfileView.getTextFromEditLastName());
-        }catch (WrongInputExeption e){
+        }catch (WrongInputException e){
             editMyProfileView.setInputError("lastname");
             setCanceledByError(true);
         }
         try{
             myProfile.setPhone(editMyProfileView.getTextFromEditPhone());
-        }catch (WrongInputExeption e){
+        }catch (WrongInputException e){
             editMyProfileView.setInputError("phone");
             setCanceledByError(true);
         }
         try{
             myProfile.setAddress(editMyProfileView.getTextFromEditAddress() + "," + editMyProfileView.getTextFromEditCity());
-        }catch (WrongInputExeption e){
+        }catch (WrongInputException e){
             if(e.getError().equals("City")){
                 editMyProfileView.setInputError("city");
                 setCanceledByError(true);
