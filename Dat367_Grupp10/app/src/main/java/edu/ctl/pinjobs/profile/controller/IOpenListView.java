@@ -4,6 +4,9 @@ import android.content.Context;
 
 import java.io.Serializable;
 
+import edu.ctl.pinjobs.advertisement.service.IAdvertisementService;
+import edu.ctl.pinjobs.profile.service.IProfileService;
+
 /**
  * Created by Filips on 5/26/2015.
  */

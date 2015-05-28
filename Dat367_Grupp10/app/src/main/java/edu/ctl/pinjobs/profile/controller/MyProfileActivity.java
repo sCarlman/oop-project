@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.example.filips.dat367_grupp10.R;
 
+import edu.ctl.pinjobs.advertisement.service.IAdvertisementService;
 import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.profile.model.IUserModel;
 import edu.ctl.pinjobs.profile.service.IProfileService;

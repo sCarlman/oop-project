@@ -79,6 +79,7 @@ public class MapView implements OnMapReadyCallback {
             for (Marker marker : markers) {
                 double markerDistance = locationUtils.calculateDistanceFromPosition(currentposition.latitude, marker.getPosition().latitude,
                         currentposition.longitude, marker.getPosition().longitude); //calulates the distance from your current position to the marker
+                    System.out.println(markerDistance);
                 if (closestMarker == null) { //Sets the first marker as the closest marker
                     closestMarker = marker;
                     closestDistance = markerDistance;

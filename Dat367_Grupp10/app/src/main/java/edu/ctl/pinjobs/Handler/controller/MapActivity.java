@@ -82,7 +82,7 @@ public class MapActivity extends ActionBarActivity implements GoogleMap.OnInfoWi
             //from create ad window
             if(bundle.getParcelable("Advertisement")!=null) {
                 System.out.println("I CREATE AD");
-                AndroidAdvertisement androidAd = (AndroidAdvertisement) bundle.getParcelable("Advertisement");
+                AndroidAdvertisement androidAd = bundle.getParcelable("Advertisement");
                 IAdvertisement ad = androidAd.getAd();
                 mapView = new MapView(this.getApplicationContext(), adList, mapFragment, ad,this);
             }else if(bundle.getParcelable("UpdateAdvertisement")!=null){

@@ -104,6 +104,7 @@ public class MainActivity extends ActionBarActivity{
         bundle.putSerializable("OPEN_MAP_VIEW", new MapActivity());
         bundle.putSerializable("sendProfile", user.getProfile());
         bundle.putSerializable("PROFILE_SERVICE",profileService);
+        bundle.putSerializable("AD_SERVICE",adService);
         intent.putExtras(bundle);
 
         startActivity(intent);
@@ -174,7 +175,6 @@ public class MainActivity extends ActionBarActivity{
             intent.putExtras(data.getExtras());
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
-            Toast.makeText(this, "Anons skapad!", Toast.LENGTH_LONG).show();
         }
     }
 }

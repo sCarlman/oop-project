@@ -107,7 +107,7 @@ public class Advertisement implements IAdvertisement, Serializable {
         if(checkDay(day, getMonth(), getYear())) {
             this.day = day;
         }else {
-            throw new WrongAdInputException("day");
+            throw new WrongAdInputException("date");
         }
     }
 
@@ -119,7 +119,7 @@ public class Advertisement implements IAdvertisement, Serializable {
         if(checkMonth(month, getYear())) {
             this.month = month;
         }else {
-            throw new WrongAdInputException("month");
+            throw new WrongAdInputException("date");
         }
     }
 
@@ -131,7 +131,7 @@ public class Advertisement implements IAdvertisement, Serializable {
         if (checkYear(year)) {
             this.year = year;
         }else {
-            throw new WrongAdInputException("year");
+            throw new WrongAdInputException("date");
         }
     }
 

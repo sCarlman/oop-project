@@ -155,6 +155,9 @@ public class CreateAdView {
             case "location": locationEditText.setError("Ej giltig adress");
                 locationEditText.requestFocus();
                 break;
+            case "date": chooseDateButton.setError("Ej giltigt datum");
+                locationEditText.requestFocus();
+                break;
         }
     }
 

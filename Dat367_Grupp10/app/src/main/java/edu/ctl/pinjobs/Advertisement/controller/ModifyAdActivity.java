@@ -12,6 +12,7 @@ import edu.ctl.pinjobs.advertisement.model.Advertisement;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import edu.ctl.pinjobs.advertisement.model.WrongAdInputException;
+import edu.ctl.pinjobs.advertisement.service.AdvertisementService;
 import edu.ctl.pinjobs.advertisement.service.IAdvertisementService;
 import edu.ctl.pinjobs.advertisement.utils.AdvertisementUtils;
 import edu.ctl.pinjobs.advertisement.view.ModifyAdView;
@@ -30,7 +31,7 @@ public class ModifyAdActivity extends ActionBarActivity implements View.OnClickL
         setContentView(R.layout.activity_modify_ad);
 
         Bundle bundle = getIntent().getExtras();
-        adService = (IAdvertisementService) getIntent().getSerializableExtra("AD_SERVICE");
+        adService = new AdvertisementService();
         iOpenMapView = (IOpenMapView) getIntent().getExtras().getSerializable("OPEN_MAP_VIEW");
         androidAd = bundle.getParcelable("Advertisement");
         ad = androidAd.getAd();

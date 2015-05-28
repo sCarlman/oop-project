@@ -63,7 +63,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                     newProfile = new Profile(view.getTextFromFirstNameEditText(), view.getTextFromLastNameEditText(),
                             view.getTextFromPasswordEditText(), view.getTextFromEmailEditText(), view.getTextFromPhoneEditText(),
                             view.getTextFromLocationEditText() + "," + view.getTextFromCityEditText());
-                    Toast.makeText( this, "Profile created!", Toast.LENGTH_LONG).show();
+                    Toast.makeText( this, "Profil skapad!", Toast.LENGTH_LONG).show();
 
                     profileService.saveProfile(newProfile);
                     UserModel.getInstance().logIn(newProfile);
