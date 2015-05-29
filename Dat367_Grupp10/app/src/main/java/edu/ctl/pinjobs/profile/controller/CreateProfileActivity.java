@@ -71,29 +71,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                     finish();
 
                 }catch (WrongInputException e){
-                    //TODO:kolla på if-satserna nedan
-                    if(e.getError().equals("FirstName")){
-                        view.exceptionCought("firstname");
-                    }
-                    if(e.getError().equals("LastName")){
-                        view.exceptionCought("lastname");
-                    }
-                    if(e.getError().equals("Password")){
-                        view.exceptionCought("password");
-                    }
-                    if(e.getError().equals("Email")){
-                        view.exceptionCought("email");
-                    }
-                    if(e.getError().equals("Phone")){
-                        view.exceptionCought("phone");
-                    }
-
-                    if(e.getError().equals("Location")){
-                        view.exceptionCought("address");
-                    }
-                    if(e.getError().equals("City")){
-                        view.exceptionCought("city");
-                    }
+                    view.exceptionCought(e.getError());
                 }
             }
         }
