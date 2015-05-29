@@ -70,6 +70,13 @@ public class MainActivity extends ActionBarActivity implements IActivity{
         // Inflate the menu items for use in the action bar
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
+
+        MenuItem item = menu.findItem(R.id.action_person);
+        if(user.getIsLoggedIn() == true){
+            item.setVisible(true);
+        }else{
+            item.setVisible(false);
+        }
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -150,6 +157,7 @@ public class MainActivity extends ActionBarActivity implements IActivity{
     public void logOfUser(View view){
         user.logOff();
         mainView.repaintLogInView(false,null);
+        invalidateOptionsMenu();
     }
 
 
@@ -163,6 +171,7 @@ public class MainActivity extends ActionBarActivity implements IActivity{
         if(user.getIsLoggedIn()) {
             System.out.println(user.getProfile().getFirstName());
         }
+        invalidateOptionsMenu();
     }
 
     @Override
