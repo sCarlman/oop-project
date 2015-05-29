@@ -160,7 +160,7 @@ public class Advertisement implements IAdvertisement, Serializable {
         }
     }
 
-    public static Boolean checkYear(int year){
+    private boolean checkYear(int year){
 
         Calendar today = new GregorianCalendar();
         int thisYear = today.get(Calendar.YEAR);
@@ -172,7 +172,7 @@ public class Advertisement implements IAdvertisement, Serializable {
         }
     }
 
-    public static Boolean checkMonth(int month, int year){
+    private boolean checkMonth(int month, int year){
 
         Calendar today = new GregorianCalendar();
         int thisMonth = today.get(Calendar.MONTH);
@@ -184,7 +184,7 @@ public class Advertisement implements IAdvertisement, Serializable {
         }
     }
 
-    public static Boolean checkDay(int day, int month, int year){
+    private boolean checkDay(int day, int month, int year){
 
         Calendar today = new GregorianCalendar();
         int thisDay = today.get(Calendar.DAY_OF_MONTH);

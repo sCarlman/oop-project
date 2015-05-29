@@ -1,6 +1,8 @@
 package edu.ctl.pinjobs.handler.view;
 
 import android.content.Context;
+import android.util.DisplayMetrics;
+import android.view.WindowManager;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -34,7 +36,7 @@ public class MapView implements OnMapReadyCallback {
     Map<Marker,IAdvertisement> markerAdHashmap = new HashMap<>(); //keeps track of which ad the marker represents
     List<IAdvertisement> adList;
     List<Marker> markers = new ArrayList<Marker>(); //a list of all the markers placed on the map
-    IAdvertisement zoomAd; //hold a new ad the will be added and camera moved and zoomed too
+    IAdvertisement zoomAd = null; //hold a new ad the will be added and camera moved and zoomed too
     GoogleMap.OnInfoWindowClickListener infoWindowClickListener;
 
 
@@ -116,7 +118,8 @@ public class MapView implements OnMapReadyCallback {
     }
 
     private void setUpCamera(){
-        map.moveCamera(CameraUpdateFactory.newLatLngBounds(setMapBounds().build(), 200)); //sets the location to your current location
+
+        map.moveCamera(CameraUpdateFactory.newLatLngBounds(setMapBounds().build(), 200 )); //sets the location to your current location
     }
 
     public void setUpMap(List<IAdvertisement> list){
@@ -124,8 +127,11 @@ public class MapView implements OnMapReadyCallback {
 
         if(list!=null) {
             addAllStartMarkers(list);
+        }if(zoomAd != null){
+
+            setUpCamera();
         }
-        setUpCamera();
+
     }
 
     @Override
