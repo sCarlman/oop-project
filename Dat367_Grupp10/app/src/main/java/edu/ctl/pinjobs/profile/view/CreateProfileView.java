@@ -96,26 +96,33 @@ public class CreateProfileView {
 
     public void exceptionCought(String error){
         switch (error){
-            case "firstname": firstNameEditText.setError("Ej giltigt förnamn");
+            case "FirstName": firstNameEditText.setError("Ej giltigt förnamn");
                 firstNameEditText.requestFocus();
                 break;
-            case "lastname": lastNameEditText.setError("Ej giltigt efternamn");
+            case "LastName": lastNameEditText.setError("Ej giltigt efternamn");
                 lastNameEditText.requestFocus();
                 break;
-            case "password": passwordEditText.setError("Ej giltigt lösenord");
+            case "Password": passwordEditText.setError("Ej giltigt lösenord");
                 passwordEditText.requestFocus();
                 break;
-            case "email": emailEditText.setError("Ej giltig E-mail");
+            case "Email": emailEditText.setError("Ej giltig E-mail");
                 emailEditText.requestFocus();
                 break;
-            case "phone": phoneEditText.setError("Ej giltigt telefonnummer");
+            case "EMAIL_EXISTS": emailEditText.setError("E-mail finns redan");
+                emailEditText.requestFocus();
+                break;
+            case "Phone": phoneEditText.setError("Ej giltigt telefonnummer");
                 phoneEditText.requestFocus();
                 break;
-            case "address": locationEditText.setError("Ej giltig adress");
+            case "Location": locationEditText.setError("Ej giltig adress");
                 locationEditText.requestFocus();
                 break;
-            case "city": cityEditText.setError("Ej giltig adress");
+            case "City": cityEditText.setError("Ej giltig adress");
                 cityEditText.requestFocus();
+                break;
+            case "Location+City": cityEditText.setError("Ej giltig adress");
+                locationEditText.setError("Ej giltig adress");
+                locationEditText.requestFocus();
                 break;
         }
     }

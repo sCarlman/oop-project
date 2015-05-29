@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import com.example.filips.dat367_grupp10.R;
 
+import java.util.List;
+
+import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.profile.model.Profile;
 import edu.ctl.pinjobs.profile.model.UserModel;
 import edu.ctl.pinjobs.profile.model.WrongInputException;
@@ -55,6 +58,15 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
         return super.onOptionsItemSelected(item);
     }
 
+    private boolean checkIfEmailExistsInList(List<IProfile> profilesList,String email){
+        for(IProfile profile : profilesList ) {
+            if (profile.getEmail().equals(email)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public void onClick(View v) {
         if (v == findViewById(R.id.createProfileButton)) {
@@ -63,37 +75,19 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                     newProfile = new Profile(view.getTextFromFirstNameEditText(), view.getTextFromLastNameEditText(),
                             view.getTextFromPasswordEditText(), view.getTextFromEmailEditText(), view.getTextFromPhoneEditText(),
                             view.getTextFromLocationEditText() + "," + view.getTextFromCityEditText());
-                    Toast.makeText( this, "Profil skapad!", Toast.LENGTH_LONG).show();
-
-                    profileService.saveProfile(newProfile);
-                    UserModel.getInstance().logIn(newProfile);
-                    setResult(5);
-                    finish();
+                    if(checkIfEmailExistsInList(profileService.fetchAllProfiles(), newProfile.getEmail())){
+                        //checks if e-mail already exists in database
+                        throw new WrongInputException("EMAIL_EXISTS");
+                    }else{
+                        Toast.makeText(this, "Profil skapad!", Toast.LENGTH_LONG).show();
+                        profileService.saveProfile(newProfile);
+                        UserModel.getInstance().logIn(newProfile);
+                        setResult(5);
+                        finish();
+                    }
 
                 }catch (WrongInputException e){
-                    //TODO:kolla på if-satserna nedan
-                    if(e.getError().equals("FirstName")){
-                        view.exceptionCought("firstname");
-                    }
-                    if(e.getError().equals("LastName")){
-                        view.exceptionCought("lastname");
-                    }
-                    if(e.getError().equals("Password")){
-                        view.exceptionCought("password");
-                    }
-                    if(e.getError().equals("Email")){
-                        view.exceptionCought("email");
-                    }
-                    if(e.getError().equals("Phone")){
-                        view.exceptionCought("phone");
-                    }
-
-                    if(e.getError().equals("Location")){
-                        view.exceptionCought("address");
-                    }
-                    if(e.getError().equals("City")){
-                        view.exceptionCought("city");
-                    }
+                    view.exceptionCought(e.getError());
                 }
             }
         }

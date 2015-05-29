@@ -32,4 +32,7 @@ public interface IAdvertisement extends Serializable {
     public double getLatitude();
     public double getLongitude();
 
+    public String getMonthString();
+    public String getDayString();
+
 }

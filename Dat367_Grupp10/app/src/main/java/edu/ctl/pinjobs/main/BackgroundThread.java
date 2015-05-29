@@ -29,6 +29,6 @@ public class BackgroundThread extends Thread {
         }catch(ParseException e){
             activity.showConnectionErrorMsg();
         }
-        //adService.removeOutDatedAds();
+        adService.removeOutDatedAds();
     }
 }
