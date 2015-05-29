@@ -29,12 +29,12 @@ public class AdvertisementListHolder extends Observable {
         if(list!=null) {
             if(adList.size()==0) {
                 adList.addAll(list);
-                setChanged();
-                notifyObservers();
             }else {
                 adList.clear();
                 adList.addAll(list);
             }
+            setChanged();
+            notifyObservers();
         }
     }
     public List<IAdvertisement> getAdvertiserAdsList(String email){

@@ -17,6 +17,7 @@ import edu.ctl.pinjobs.advertisement.controller.IOpenMapView;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.controller.DetailedAdActivity;
 import edu.ctl.pinjobs.advertisement.controller.ModifyAdActivity;
+import edu.ctl.pinjobs.handler.IActivity;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 import edu.ctl.pinjobs.handler.model.IListModel;
 import edu.ctl.pinjobs.handler.model.ListModel;
@@ -33,13 +34,14 @@ import java.util.List;
 
 
 public class ListActivity extends ActionBarActivity implements AdapterView.OnItemClickListener,
-        IOpenListView, SwipeRefreshLayout.OnRefreshListener {
+        IOpenListView, SwipeRefreshLayout.OnRefreshListener, IActivity {
     private IListModel listModel;
     private ListView listView;
     private String email;
     private HandlerLocationUtils locationUtils;
     private IOpenMapView iOpenMapView;
     private IAdvertisementService adService;
+    private boolean isMyList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +53,14 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
         iOpenMapView = (IOpenMapView) getIntent().getExtras().getSerializable("OPEN_MAP_VIEW");
         System.out.println(iOpenMapView);
 
-        boolean myList = getIntent().getExtras().getBoolean("myList", false);
+        isMyList = getIntent().getExtras().getBoolean("myList", false);
 
         if(AdvertisementListHolder.getInstance().getList().size()==0) {
             //starts progressbarView
             Intent intent = new Intent(getApplicationContext(), LoadingScreen.class);
             startActivityForResult(intent,1);
         }else {
-            if(myList){
+            if(isMyList){
                 //Creates a MyAdsView
                 setListView(AdvertisementListHolder.getInstance().getAdvertiserAdsList(email));
             }else{
@@ -164,6 +166,24 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
 
     @Override
     public void onRefresh() {
-        setListView(AdvertisementListHolder.getInstance().getList());
+        if(isMyList){
+            //Creates a MyAdsView
+            setListView(adService.fetchAdsOfAdvertiser(email));
+            AdvertisementListHolder.getInstance().setList(adService.fetchAdsOfAdvertiser(email));
+        }else{
+            //Creates a ListView
+            try {
+                setListView(adService.fetchAllAds());
+                AdvertisementListHolder.getInstance().setList(adService.fetchAllAds());
+            }catch (ParseException e){
+                showConnectionErrorMsg();
+            }
+        }
+        listView.setRefreshing(false);
+    }
+
+    @Override
+    public void showConnectionErrorMsg() {
+        listView.showAlertDialog();
     }
 }

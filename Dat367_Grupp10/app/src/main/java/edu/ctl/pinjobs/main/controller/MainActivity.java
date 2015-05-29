@@ -10,13 +10,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import edu.ctl.pinjobs.main.IActivity;
+import edu.ctl.pinjobs.handler.IActivity;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.controller.CreateAdActivity;
 import edu.ctl.pinjobs.handler.controller.ListActivity;
 import edu.ctl.pinjobs.handler.controller.MapActivity;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
-import edu.ctl.pinjobs.main.BackgroundThread;
+import edu.ctl.pinjobs.handler.BackgroundThread;
 import edu.ctl.pinjobs.main.view.MainView;
 import edu.ctl.pinjobs.profile.model.IUserModel;
 import edu.ctl.pinjobs.profile.model.UserModel;
@@ -32,7 +32,7 @@ import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
 
 
-public class MainActivity extends ActionBarActivity implements IActivity{
+public class MainActivity extends ActionBarActivity {
 
     private MainView mainView;
     private IProfileService profileService;
@@ -58,7 +58,7 @@ public class MainActivity extends ActionBarActivity implements IActivity{
 
         this.adService = new AdvertisementService();
         profileService = new ProfileService();
-        this.backgroundThread = new BackgroundThread(adService, MainActivity.this);
+        //this.backgroundThread = new BackgroundThread(adService, MainActivity.this);
         //backgroundThread.start();
         onCreateDone = true;
     }
@@ -133,14 +133,15 @@ public class MainActivity extends ActionBarActivity implements IActivity{
     public void openListView(View view) {
         Intent intent = new Intent(getApplicationContext(), ListActivity.class);
         Bundle bundle = new Bundle();
+        bundle.putSerializable("AD_SERVICE", adService);
         if (user.getIsLoggedIn()==false){
             String email = null;
             intent.putExtra("Email", email);
+            intent.putExtras(bundle);
             startActivity(intent);
         }else{
             String email = user.getProfile().getEmail();
             intent.putExtra("Email", email);
-            bundle.putSerializable("AD_SERVICE", adService);
             bundle.putSerializable("OPEN_MAP_VIEW", new MapActivity());
             intent.putExtras(bundle);
             startActivity(intent);
@@ -165,7 +166,7 @@ public class MainActivity extends ActionBarActivity implements IActivity{
     public void onResume(){
         super.onResume();
 
-        BackgroundThread thread = new BackgroundThread(adService, MainActivity.this);
+        BackgroundThread thread = new BackgroundThread(adService, new ListActivity());
         thread.start();
         mainView.repaintLogInView(user.getIsLoggedIn(), user.getProfile());
         if(user.getIsLoggedIn()) {
@@ -188,11 +189,6 @@ public class MainActivity extends ActionBarActivity implements IActivity{
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
-    }
-
-    @Override
-    public void showConnectionErrorMsg() {
-        mainView.showAlertDialog(MainActivity.this);
     }
 }
 
