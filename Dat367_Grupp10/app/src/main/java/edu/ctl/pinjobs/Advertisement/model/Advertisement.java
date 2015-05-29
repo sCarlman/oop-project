@@ -226,7 +226,7 @@ public class Advertisement implements IAdvertisement, Serializable {
 
     public String getMonthString(){
         String sMonth;
-        if(day < 10){
+        if(month < 10){
             sMonth = "0" + Integer.toString(month);
         }else{
             sMonth = Integer.toString(month);
