@@ -45,7 +45,7 @@ public class DetailedAdView {
         this.phoneTextView.setText(ad.getAdvertiser().getPhone());
         this.mailTextView.setText(ad.getAdvertiser().getEmail());
         this.cityTextView.setText(ad.getAdvertiser().getAddress().split(",")[1]);
-        this.dateTextView.setText(ad.getYear() + "-" + ad.getMonth() + "-" + ad.getDay());
+        this.dateTextView.setText(ad.getYear() + "-" + ad.getMonthString() + "-" + ad.getDayString());
 
         int index = distance.indexOf('.');
         distance = distance.substring(0,index+2);

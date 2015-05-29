@@ -215,5 +215,23 @@ public class Advertisement implements IAdvertisement, Serializable {
                 && year==advertisement.getYear() && category == advertisement.getCategory();
     }
 
+    public String getDayString(){
+        String sDay;
+        if(day < 10){
+            sDay = "0" + Integer.toString(day);
+        }else{
+            sDay = Integer.toString(day);
+        } return sDay;
+    }
+
+    public String getMonthString(){
+        String sMonth;
+        if(day < 10){
+            sMonth = "0" + Integer.toString(month);
+        }else{
+            sMonth = Integer.toString(month);
+        } return sMonth;
+    }
+
 }
 
