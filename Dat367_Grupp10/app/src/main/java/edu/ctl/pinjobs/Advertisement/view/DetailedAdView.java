@@ -21,6 +21,7 @@ public class DetailedAdView {
     private TextView phoneTextView;
     private TextView mailTextView;
     private TextView cityTextView;
+    private TextView dateTextView;
 
     public DetailedAdView(Activity activity, IAdvertisement ad, String distance){
 
@@ -33,6 +34,7 @@ public class DetailedAdView {
         this.phoneTextView = (TextView)activity.findViewById(R.id.myProfilePhoneTextView);
         this.mailTextView = (TextView)activity.findViewById(R.id.emailTextView);
         this.cityTextView = (TextView)activity.findViewById(R.id.detailedAdCityTextView);
+        this.dateTextView = (TextView)activity.findViewById(R.id.detailAdDateTextView);
 
 
         this.titleTextView.setText(ad.getTitle());
@@ -43,6 +45,7 @@ public class DetailedAdView {
         this.phoneTextView.setText(ad.getAdvertiser().getPhone());
         this.mailTextView.setText(ad.getAdvertiser().getEmail());
         this.cityTextView.setText(ad.getAdvertiser().getAddress().split(",")[1]);
+        this.dateTextView.setText(ad.getYear() + "-" + ad.getMonth() + "-" + ad.getDay());
 
         int index = distance.indexOf('.');
         distance = distance.substring(0,index+2);
