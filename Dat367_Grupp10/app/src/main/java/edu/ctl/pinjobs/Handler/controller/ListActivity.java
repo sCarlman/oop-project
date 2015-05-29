@@ -2,6 +2,8 @@ package edu.ctl.pinjobs.handler.controller;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,10 +27,13 @@ import edu.ctl.pinjobs.utils.LocationUtils;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import com.example.filips.dat367_grupp10.R;
 import com.google.android.gms.maps.model.LatLng;
+import com.parse.ParseException;
+
 import java.util.List;
 
 
-public class ListActivity extends ActionBarActivity implements AdapterView.OnItemClickListener, IOpenListView {
+public class ListActivity extends ActionBarActivity implements AdapterView.OnItemClickListener,
+        IOpenListView, SwipeRefreshLayout.OnRefreshListener {
     private IListModel listModel;
     private ListView listView;
     private String email;
@@ -46,14 +51,14 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
         iOpenMapView = (IOpenMapView) getIntent().getExtras().getSerializable("OPEN_MAP_VIEW");
         System.out.println(iOpenMapView);
 
-        Boolean myList = getIntent().getExtras().getBoolean("myList", false);
+        boolean myList = getIntent().getExtras().getBoolean("myList", false);
 
         if(AdvertisementListHolder.getInstance().getList().size()==0) {
             //starts progressbarView
             Intent intent = new Intent(getApplicationContext(), LoadingScreen.class);
             startActivityForResult(intent,1);
         }else {
-            if(myList==true){
+            if(myList){
                 //Creates a MyAdsView
                 setListView(AdvertisementListHolder.getInstance().getAdvertiserAdsList(email));
             }else{
@@ -87,7 +92,7 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        //Happends when returned from progressBarView
+        //Happens when returned from progressBarView
         if(resultCode == 2) {
             setListView(AdvertisementListHolder.getInstance().getList());
             Toast.makeText(getApplicationContext(), "Finns inga anonser uppe för tillfället",
@@ -100,7 +105,7 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
 
     private void setListView(List<IAdvertisement> adList){
         setContentView(R.layout.activity_ad_list);
-        this.listView = new ListView(this.getApplicationContext(),(android.widget.ListView)findViewById(R.id.adListView),this);
+        this.listView = new ListView(this,this,this);
         this.listModel = new ListModel(adList);
         listModel.sortForDistance(LocationUtils.getCurrentLocation(this).latitude,LocationUtils.getCurrentLocation(this).longitude);
         listView.setupView(listModel.getList(), android.R.layout.simple_list_item_1);
@@ -155,5 +160,10 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
         bundle.putBoolean("myList", true);
         intent.putExtras(bundle);
         context.startActivity(intent);
+    }
+
+    @Override
+    public void onRefresh() {
+        setListView(AdvertisementListHolder.getInstance().getList());
     }
 }

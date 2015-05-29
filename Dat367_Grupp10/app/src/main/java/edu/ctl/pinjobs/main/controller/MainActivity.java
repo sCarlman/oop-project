@@ -9,15 +9,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
+import edu.ctl.pinjobs.main.IActivity;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.controller.CreateAdActivity;
 import edu.ctl.pinjobs.handler.controller.ListActivity;
 import edu.ctl.pinjobs.handler.controller.MapActivity;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 import edu.ctl.pinjobs.main.BackgroundThread;
-import edu.ctl.pinjobs.main.MainView;
+import edu.ctl.pinjobs.main.view.MainView;
 import edu.ctl.pinjobs.profile.model.IUserModel;
 import edu.ctl.pinjobs.profile.model.UserModel;
 import edu.ctl.pinjobs.profile.controller.MyProfileActivity;
@@ -27,26 +27,28 @@ import edu.ctl.pinjobs.profile.service.IProfileService;
 import edu.ctl.pinjobs.profile.service.ProfileService;
 import edu.ctl.pinjobs.user.controller.LoginActivity;
 import edu.ctl.pinjobs.utils.LocationUtils;
-import edu.ctl.pinjobs.profile.model.IProfile;
 
 import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
 
 
-public class MainActivity extends ActionBarActivity{
+public class MainActivity extends ActionBarActivity implements IActivity{
 
     private MainView mainView;
     private IProfileService profileService;
     private IAdvertisementService adService;
     private IUserModel user;
     private BackgroundThread backgroundThread;
+    private boolean onCreateDone = false;
+    private final String PARSE_APPLICATION_ID = "W4QRsIPB5oFT6F6drmZi0BrxdPYPEYHY2GYSUU4q";
+    private final String PARSE_CLIENT_KEY = "JpXn4VB0Y63wqNIf0qgvRGg7k3QmjfzJjD9qhzqE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Parse.initialize(this, "W4QRsIPB5oFT6F6drmZi0BrxdPYPEYHY2GYSUU4q", "JpXn4VB0Y63wqNIf0qgvRGg7k3QmjfzJjD9qhzqE");
+        Parse.initialize(MainActivity.this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
 
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,60000,100, new LocationUtils());
@@ -56,9 +58,9 @@ public class MainActivity extends ActionBarActivity{
 
         this.adService = new AdvertisementService();
         profileService = new ProfileService();
-        this.backgroundThread = new BackgroundThread(adService);
-        backgroundThread.start();
-
+        this.backgroundThread = new BackgroundThread(adService, MainActivity.this);
+        //backgroundThread.start();
+        onCreateDone = true;
     }
 
 
@@ -154,7 +156,8 @@ public class MainActivity extends ActionBarActivity{
     @Override
     public void onResume(){
         super.onResume();
-        BackgroundThread thread = new BackgroundThread(adService);
+
+        BackgroundThread thread = new BackgroundThread(adService, MainActivity.this);
         thread.start();
         mainView.repaintLogInView(user.getIsLoggedIn(), user.getProfile());
         if(user.getIsLoggedIn()) {
@@ -176,6 +179,11 @@ public class MainActivity extends ActionBarActivity{
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void showConnectionErrorMsg() {
+        mainView.showAlertDialog(MainActivity.this);
     }
 }
 

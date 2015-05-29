@@ -36,6 +36,7 @@ public class MapView implements OnMapReadyCallback {
     List<Marker> markers = new ArrayList<Marker>(); //a list of all the markers placed on the map
     IAdvertisement zoomAd; //hold a new ad the will be added and camera moved and zoomed too
     GoogleMap.OnInfoWindowClickListener infoWindowClickListener;
+    IAdvertisement oldAD; //If an ad is updated this is the old ad that should be removed
 
 
     public MapView(Context context, List<IAdvertisement> adList,MapFragment mapFragment,
@@ -56,6 +57,16 @@ public class MapView implements OnMapReadyCallback {
         zoomAd = ad;
         this.infoWindowClickListener = InfoWindowClickListener;
     }
+    public MapView(Context context, List<IAdvertisement> adList,MapFragment mapFragment,IAdvertisement ad,
+                   GoogleMap.OnInfoWindowClickListener InfoWindowClickListener,IAdvertisement oldAd){
+        this.context = context;
+        this.adList = adList;
+        mapFragment.getMapAsync(this);
+        this.locationUtils = new HandlerLocationUtils();
+        zoomAd = ad;
+        this.oldAD = oldAd;
+        this.infoWindowClickListener = InfoWindowClickListener;
+    }
 
 
     public void addMarker(LatLng location,String title){
@@ -63,10 +74,12 @@ public class MapView implements OnMapReadyCallback {
     }
 
     private void addMarker(IAdvertisement ad,LatLng currentPosition){
-        Marker marker = map.addMarker(new MarkerOptions().position(new LatLng(ad.getLatitude(), ad.getLongitude()))
-                .title(ad.getTitle()).icon(addCorrectCollorMarker(ad)).snippet(setSnippet(ad,currentPosition)));
+        if(!ad.equals(oldAD)) {
+            Marker marker = map.addMarker(new MarkerOptions().position(new LatLng(ad.getLatitude(), ad.getLongitude()))
+                    .title(ad.getTitle()).icon(addCorrectCollorMarker(ad)).snippet(setSnippet(ad, currentPosition)));
             markers.add(marker);
             markerAdHashmap.put(marker, ad);
+        }
     }
 
     private LatLngBounds.Builder setMapBounds(){
@@ -79,7 +92,6 @@ public class MapView implements OnMapReadyCallback {
             for (Marker marker : markers) {
                 double markerDistance = locationUtils.calculateDistanceFromPosition(currentposition.latitude, marker.getPosition().latitude,
                         currentposition.longitude, marker.getPosition().longitude); //calulates the distance from your current position to the marker
-                    System.out.println(markerDistance);
                 if (closestMarker == null) { //Sets the first marker as the closest marker
                     closestMarker = marker;
                     closestDistance = markerDistance;

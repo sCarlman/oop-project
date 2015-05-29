@@ -79,14 +79,20 @@ public class MapActivity extends ActionBarActivity implements GoogleMap.OnInfoWi
         //uses different constructors depending on coming from create ad or mainwindow
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
+            if(bundle.getParcelable("OLD_ADVERTISEMENT")!=null){
+                //from update ad window
+                System.out.println("I update ad");
+                AndroidAdvertisement androidAd = bundle.getParcelable("Advertisement");
+                IAdvertisement newAd = androidAd.getAd();
+                AndroidAdvertisement oldAndroidAd = bundle.getParcelable("OLD_ADVERTISEMENT");
+                IAdvertisement oldAd = oldAndroidAd.getAd();
+                mapView = new MapView(this.getApplicationContext(),adList,mapFragment,newAd,this,oldAd);
+            }
             //from create ad window
-            if(bundle.getParcelable("Advertisement")!=null) {
-                System.out.println("I CREATE AD");
+             else if(bundle.getParcelable("Advertisement")!=null) {
                 AndroidAdvertisement androidAd = bundle.getParcelable("Advertisement");
                 IAdvertisement ad = androidAd.getAd();
                 mapView = new MapView(this.getApplicationContext(), adList, mapFragment, ad,this);
-            }else if(bundle.getParcelable("UpdateAdvertisement")!=null){
-                System.out.println("I UPDATE AD");
             }
         } else { //from mainwindow
             mapView = new MapView(this.getApplicationContext(), adList, mapFragment,this);
@@ -106,10 +112,11 @@ public class MapActivity extends ActionBarActivity implements GoogleMap.OnInfoWi
     }
 
     @Override
-    public void startActivity(Context context, IAdvertisement newAd) {
+    public void startActivity(Context context, IAdvertisement newAd, AndroidAdvertisement oldAd) {
         Intent intent = new Intent(context, MapActivity.this.getClass());
         AndroidAdvertisement androidAD = new AndroidAdvertisement(newAd);
         intent.putExtra("Advertisement", androidAD);
+        intent.putExtra("OLD_ADVERTISEMENT",oldAd);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
         Toast.makeText(context, "Annons ändrad!", Toast.LENGTH_LONG).show();

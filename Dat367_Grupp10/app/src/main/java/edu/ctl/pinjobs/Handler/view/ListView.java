@@ -1,9 +1,12 @@
 package edu.ctl.pinjobs.handler.view;
 
+import android.app.Activity;
 import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
+import com.example.filips.dat367_grupp10.R;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.util.ArrayList;
@@ -21,17 +24,21 @@ public class ListView{
 
     private android.widget.ListView listView;
     private Context context;
-    AdapterView.OnItemClickListener clickListener;
-    HandlerLocationUtils locationUtils;
+    private AdapterView.OnItemClickListener clickListener;
+    private SwipeRefreshLayout.OnRefreshListener onRefreshListener;
+    private HandlerLocationUtils locationUtils;
+    private SwipeRefreshLayout swipeRefreshList;
 
+    public ListView(Activity activity,AdapterView.OnItemClickListener clickListener,
+                    SwipeRefreshLayout.OnRefreshListener onRefreshListener){
 
-
-    public ListView(Context context,android.widget.ListView listView,AdapterView.OnItemClickListener clickListener){
-
-        this.listView = listView;
-        this.context = context;
+        this.listView = (android.widget.ListView) activity.findViewById(R.id.adListView);
+        this.swipeRefreshList = (SwipeRefreshLayout) activity.findViewById(R.id.swipeRefreshList);
+        this.context = activity.getApplicationContext();
         this.clickListener = clickListener;
+        this.onRefreshListener = onRefreshListener;
         this.locationUtils = new HandlerLocationUtils();
+
     }
 
     public void setupView(final List<IAdvertisement> adList, int id){
@@ -45,14 +52,16 @@ public class ListView{
         listView.setAdapter(adapter);
         listView.invalidate();
         listView.setOnItemClickListener(clickListener);
+        swipeRefreshList.setOnRefreshListener(onRefreshListener);
 
     }
+
     private String setMessage(IAdvertisement ad,LatLng currentPos){
         String message =ad.getTitle();
         String distance = "" + locationUtils.calculateDistanceFromPosition(currentPos.latitude,ad.getLatitude(),currentPos.longitude,ad.getLongitude());
         int index = distance.indexOf('.');
         distance = distance.substring(0, index + 2);
-        return message + "      " + distance + " km bort";
+        return message + "\n" + distance + "km bort";
     }
 
 }
