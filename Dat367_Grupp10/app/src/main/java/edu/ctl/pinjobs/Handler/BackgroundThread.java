@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.main;
+package edu.ctl.pinjobs.handler;
 
 import com.parse.ParseException;
 
@@ -27,6 +27,7 @@ public class BackgroundThread extends Thread {
             List<IAdvertisement> adList = adService.fetchAllAds();
             AdvertisementListHolder.getInstance().setList(adList);
         }catch(ParseException e){
+            System.out.println("OH SHIT U FUCKED UP NOW");
             activity.showConnectionErrorMsg();
         }
         adService.removeOutDatedAds();

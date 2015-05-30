@@ -38,7 +38,19 @@ public class DetailedAdView {
 
 
         this.titleTextView.setText(ad.getTitle());
-        this.categoryTextView.setText(ad.getCategory().toString().trim());
+
+        switch (ad.getCategory()) {
+            case GARDEN:
+                this.categoryTextView.setText("Trädgårdsarbete");
+                break;
+            case LABOUR:
+                this.categoryTextView.setText("Städ");
+                break;
+            case OTHER:
+                this.categoryTextView.setText("Övrigt");
+                break;
+        }
+
         this.descriptionTextView.setText(ad.getDescription());
         this.nameTextView.setText(ad.getAdvertiser().getFirstName() + " " + ad.getAdvertiser().getLastName());
         this.addressTextView.setText(ad.getAdvertiser().getAddress().split(",")[0]);

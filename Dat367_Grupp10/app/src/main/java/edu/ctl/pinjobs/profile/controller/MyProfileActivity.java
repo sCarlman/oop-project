@@ -90,7 +90,6 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
             myProfileView.setProfileInfoOnCreate(myProfile);
             IUserModel userModel = UserModel.getInstance();
             userModel.logIn(myProfile);
-            System.out.println(userModel.getProfile().getFirstName());
 
         }
     }
