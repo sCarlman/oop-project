@@ -36,7 +36,6 @@ public class EditMyProfileActivity extends ActionBarActivity {
 
             iProfileService = (IProfileService)bundle.getSerializable("PROFILE_SERVICE");
         }
-
     }
 
     @Override
@@ -57,10 +56,11 @@ public class EditMyProfileActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+    //Sets the new inputs and saves it to profile
+    //If textField input is incorrect exception is cought
     public void saveNewInputToProfile(View view){
         setCanceledByError(false);
         try{

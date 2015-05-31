@@ -43,6 +43,7 @@ public class EditMyProfileView {
         editCity.setText(myProfile.getAddress().split(",")[1]);
     }
 
+    //get methods so the controller can recive texts from textFields
     public String getTextFromEditFirstName() {
         return editFirstName.getText().toString().trim();
     }
@@ -63,7 +64,7 @@ public class EditMyProfileView {
         return editCity.getText().toString().trim();
     }
 
-
+    //sets error on textField if exception cought from Profile
     public void setInputError(String error){
         switch (error){
             case "firstname": editFirstName.setError("Ej giltigt förnamn");

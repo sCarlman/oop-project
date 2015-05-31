@@ -43,6 +43,8 @@ public class MainActivity extends ActionBarActivity {
     private final String PARSE_APPLICATION_ID = "W4QRsIPB5oFT6F6drmZi0BrxdPYPEYHY2GYSUU4q";
     private final String PARSE_CLIENT_KEY = "JpXn4VB0Y63wqNIf0qgvRGg7k3QmjfzJjD9qhzqE";
 
+    private final int LOGGIN_SUCCESS = 5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -157,7 +159,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void logOfUser(View view){
         user.logOff();
-        mainView.repaintLogInView(false,null);
+        mainView.repaintLogInView(false, null);
         invalidateOptionsMenu();
     }
 
@@ -177,11 +179,11 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(resultCode==5){
+        if(resultCode == LOGGIN_SUCCESS){
             //when an activity has been finished and the next navigation step is to login the user and repaint loginmodel
-            System.out.println(UserModel.getInstance().getProfile()+ " i reusltcode 5");
             UserModel usermodel = UserModel.getInstance();
             mainView.repaintLogInView(usermodel.getIsLoggedIn(),usermodel.getProfile());
+
         }else if(resultCode==10 && data.getExtras().getParcelable("Advertisement").getClass() ==AndroidAdvertisement.class){
             //Happens after a new ad has been created and the activity is closed which start a new intent for MapActivity
             Intent intent = new Intent(getApplicationContext(), MapActivity.class);
