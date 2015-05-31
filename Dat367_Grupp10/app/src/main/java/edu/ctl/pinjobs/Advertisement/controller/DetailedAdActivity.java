@@ -20,8 +20,8 @@ public class DetailedAdActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_ad);
 
+        //Gets extra info/data from previous activity
         Bundle bundle = getIntent().getExtras();
-
         AndroidAdvertisement androidAd = bundle.getParcelable("Advertisement");
         IAdvertisement ad = androidAd.getAd();
         String distance = getIntent().getStringExtra("Distance");
