@@ -32,6 +32,7 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
     private IProfile myProfile;
     private IAdvertisementService adService;
     private List<IAdvertisement> adList;
+    private final int AD_POSTED = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,29 +82,17 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
         //This happens if the create ad button is clicked
         if (v == findViewById(R.id.createAdButton)){
             if(!view.isTextFieldsNull()) {
-
                 AdvertisementUtils adUtils = new AdvertisementUtils();
-
-                System.out.println(view.getLocation());
                 //Sets illegal coordinates so tha app don't say it posts ad if try catch passes
                 double lat = 100.0;
                 double lng= 100.0;
-
                 try {
                     //Tries to get coordinates from the given location
                     lat = adUtils.getLocationFromAddress(CreateAdActivity.this, view.getLocation()).latitude;
                     lng = adUtils.getLocationFromAddress(CreateAdActivity.this, view.getLocation()).longitude;
                 } catch (IOException e) {
-                    //Creates an dialog telling you it's the internet connections fault you can't post new ad
-                    new AlertDialog.Builder(CreateAdActivity.this)
-                            .setTitle("Info")
-                            .setMessage("Internet not available, Cross check your internet connectivity and try again")
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            }).setIcon(android.R.drawable.ic_dialog_alert).show();
+                    showInternetConnectionLost();
                 }
-
                 //Tries to save a modified ad and cast WrongAdInputException if inputs are wrong
                 try {
                     Advertisement newAd = new Advertisement(myProfile, view.getTitle(),
@@ -115,11 +104,21 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
                 }catch(WrongAdInputException e){
                     view.setInputError(e.getName());
                 }
-
             }
         }else if(v == findViewById(R.id.chooseDateButton)){
             view.switchDatePickerVisibility();
         }
+    }
+
+    //Creates an dialog telling you it's the internet connections fault you can't post new ad
+    private void showInternetConnectionLost(){
+        new AlertDialog.Builder(CreateAdActivity.this)
+                .setTitle("Info")
+                .setMessage("Internet not available, Cross check your internet connectivity and try again")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }).setIcon(android.R.drawable.ic_dialog_alert).show();
     }
 
     //uploads ad to database if there is no other ad equal to the newAd
@@ -138,7 +137,7 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
             bundle.putParcelable("Advertisement",new AndroidAdvertisement(newAd));
             intent.putExtras(bundle);
 
-            setResult(10,intent);
+            setResult(AD_POSTED,intent);
             finish();
         }
     }

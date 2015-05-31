@@ -77,15 +77,9 @@ public class ModifyAdActivity extends ActionBarActivity implements View.OnClickL
     @Override
     public void onClick(View view) {
         if(view == findViewById(R.id.modifyButton)) {
-
             if(!ModifyAdActivity.this.view.getEditable()){
-
-                ModifyAdActivity.this.view.enableEditTextFields();
-                ModifyAdActivity.this.view.enableRadioButtons();
-                ModifyAdActivity.this.view.changeButtonText();
-                ModifyAdActivity.this.view.setEditable();
+                setEditableView();
             }else{
-
                 AdvertisementUtils adUtils = new AdvertisementUtils();
                 //Sets illegal coordinates so tha app don't say it posts ad if try catch passes
                 double lat = 100.0;
@@ -95,14 +89,7 @@ public class ModifyAdActivity extends ActionBarActivity implements View.OnClickL
                     lat = adUtils.getLocationFromAddress(ModifyAdActivity.this, ModifyAdActivity.this.view.getLocation()).latitude;
                     lng = adUtils.getLocationFromAddress(ModifyAdActivity.this, ModifyAdActivity.this.view.getLocation()).longitude;
                 }catch(IOException e) {
-                    //Creates an dialog telling you it's the internet connections fault you can't post new ad
-                    new AlertDialog.Builder(ModifyAdActivity.this)
-                            .setTitle("Info")
-                            .setMessage("Internet not available, Cross check your internet connectivity and try again")
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            }).setIcon(android.R.drawable.ic_dialog_alert).show();
+                   showInternetConnectionLost();
                 }
                 //Tries to save a modified ad and cast WrongAdInputException if inputs are wrong
                 try {
@@ -111,7 +98,6 @@ public class ModifyAdActivity extends ActionBarActivity implements View.OnClickL
                             ModifyAdActivity.this.view.getCategory(),ad.getDay(),ad.getMonth(),ad.getYear(),
                             lat, lng);
                     saveNewModifiedAd(newAd);
-
                 }catch(WrongAdInputException e){
                     ModifyAdActivity.this.view.setInputError(e.getName());
                 }
@@ -120,4 +106,23 @@ public class ModifyAdActivity extends ActionBarActivity implements View.OnClickL
 
         }
     }
+
+    //Creates an dialog telling you it's the internet connections fault you can't post new ad
+    private void showInternetConnectionLost(){
+        new AlertDialog.Builder(ModifyAdActivity.this)
+                .setTitle("Info")
+                .setMessage("Internet not available, Cross check your internet connectivity and try again")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }).setIcon(android.R.drawable.ic_dialog_alert).show();
+    }
+
+    private void setEditableView(){
+        ModifyAdActivity.this.view.enableEditTextFields();
+        ModifyAdActivity.this.view.enableRadioButtons();
+        ModifyAdActivity.this.view.changeButtonText();
+        ModifyAdActivity.this.view.setEditable();
+    }
+
 }
