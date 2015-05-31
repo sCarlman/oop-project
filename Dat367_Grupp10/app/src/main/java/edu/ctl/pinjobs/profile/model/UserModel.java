@@ -24,7 +24,6 @@ public class UserModel implements IUserModel {
     public void logIn(IProfile logInProfile){
         this.isLoggedIn = true;
         this.profile = logInProfile;
-        System.out.println(profile.getFirstName()+ "IS logged in");
     }
 
     @Override

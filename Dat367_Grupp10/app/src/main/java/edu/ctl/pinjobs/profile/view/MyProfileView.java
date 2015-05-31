@@ -41,6 +41,8 @@ public class MyProfileView {
         profileName.setText(profile.getFirstName() + " " + profile.getLastName());
         profileMail.setText(profile.getEmail());
         profilePhone.setText(profile.getPhone());
+        // Splits the address string and puts streetaddres on one field
+        //and city on another
         profileAddress.setText((profile.getAddress().split(",")[0]));
         profileCity.setText((profile.getAddress().split(",")[1]));
     }

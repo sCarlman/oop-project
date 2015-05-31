@@ -9,6 +9,7 @@ import edu.ctl.pinjobs.utils.InfoCheck;
 
 /**
  * Created by Isaac on 2015-04-01.
+ * 
  * A profile is needed to post ads
  *
  */
@@ -23,7 +24,7 @@ public class Profile implements IProfile, Serializable {
 
     private String splitStringCity;
     private String splitStringAddress;
-    InfoCheck infoCheck = new InfoCheck();
+    private InfoCheck infoCheck = new InfoCheck();
 
     public Profile(String firstName, String lastName, String password, String email, String phone,
                            String address)throws WrongInputException {
@@ -33,7 +34,6 @@ public class Profile implements IProfile, Serializable {
         setEmail(email);
         setPhone(phone);
         setAddress(address);
-
     }
 
 
@@ -97,7 +97,6 @@ public class Profile implements IProfile, Serializable {
             throw new WrongInputException("City");
         }
 
-
         if(splitStringAddress != null && !infoCheck.isEmpty(splitStringAddress) &&
                 infoCheck.containsLetters(splitStringAddress)){
             if(splitStringCity != null && !infoCheck.isEmpty(splitStringCity) && infoCheck.isAlphabetic(splitStringCity)){
@@ -108,10 +107,6 @@ public class Profile implements IProfile, Serializable {
         }else{
             throw new WrongInputException("Location");
         }
-
-
-
-
     }
 
     public String getFirstName() {
@@ -163,7 +158,7 @@ public class Profile implements IProfile, Serializable {
     }
 
 
-
+    //Checks if phonenumber is correct and it must start with 07xxx...
     private boolean isPhone(String phone){
         char[] chars = phone.toCharArray();
         if(!phone.substring(0,2).equals("07")){

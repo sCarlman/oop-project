@@ -30,16 +30,16 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
 
-        Intent intent=this.getIntent();
-        Bundle bundle=intent.getExtras();
-        if(bundle!=null) {
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        if(bundle != null) {
             myProfile = (IProfile) bundle.getSerializable("sendProfile");
             profileService=(IProfileService)bundle.getSerializable("PROFILE_SERVICE");
             iOpenListView = (IOpenListView) bundle.getSerializable("IOPENLISTVIEW");
             iOpenMapView = bundle.getSerializable("OPEN_MAP_VIEW");
         }
         email = myProfile.getEmail();
-
+        //Creates a new MyProfileView with parameters (Activity, IProfile, OnClickListener)
         myProfileView = new MyProfileView(this, myProfile, this);
     }
 
@@ -69,29 +69,24 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
                 startActivityForResult(intent, 1);
                 return true;
             case R.id.action_settings:
-                //open setings method
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
+    
     @Override
     public void onClick(View v) {
-        //TODO: borde inte se ut såhär...
         iOpenListView.openListViewForEmail(this, email, iOpenMapView);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(data !=null) {
+        if(data != null) {
             myProfile = (IProfile) data.getSerializableExtra("SEND_BACK_PROFILE");
             myProfileView.setProfileInfoOnCreate(myProfile);
             IUserModel userModel = UserModel.getInstance();
             userModel.logIn(myProfile);
-
         }
     }
-
-
 }

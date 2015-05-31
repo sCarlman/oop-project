@@ -11,9 +11,6 @@ import com.example.filips.dat367_grupp10.R;
 
 /**
  * Created by Isaac on 2015-05-06.
- *
- * View made for create profile
- * More discription *!*!*!*!*!*!
  */
 public class CreateProfileView {
 
@@ -68,7 +65,6 @@ public class CreateProfileView {
         checkFields(locationEditText, "Gatuadress ej ifyllt");
         checkFields(cityEditText, "Stad ej ifyllt");
 
-
         if (cancel) {
             // There was an error; don't attempt createProfile and focus the first
             // form field with an error.
@@ -94,30 +90,31 @@ public class CreateProfileView {
         e.setError(null);
     }
 
+    //sets error if exception cought from Profile
     public void exceptionCought(String error){
         switch (error){
-            case "FirstName": firstNameEditText.setError("Ej giltigt förnamn");
+            case "FirstName": firstNameEditText.setError("Endast bokstäver: A-Ö");
                 firstNameEditText.requestFocus();
                 break;
-            case "LastName": lastNameEditText.setError("Ej giltigt efternamn");
+            case "LastName": lastNameEditText.setError("Endast bokstäver: A-Ö");
                 lastNameEditText.requestFocus();
                 break;
-            case "Password": passwordEditText.setError("Ej giltigt lösenord");
+            case "Password": passwordEditText.setError("Ej giltigt: Mellan 2 till 20 bokstäver");
                 passwordEditText.requestFocus();
                 break;
-            case "Email": emailEditText.setError("Ej giltig E-mail");
+            case "Email": emailEditText.setError("Ej giltig: format xx@x.x");
                 emailEditText.requestFocus();
                 break;
             case "EMAIL_EXISTS": emailEditText.setError("E-mail finns redan");
                 emailEditText.requestFocus();
                 break;
-            case "Phone": phoneEditText.setError("Ej giltigt telefonnummer");
+            case "Phone": phoneEditText.setError("Format: 07xxxxxxxx");
                 phoneEditText.requestFocus();
                 break;
             case "Location": locationEditText.setError("Ej giltig adress");
                 locationEditText.requestFocus();
                 break;
-            case "City": cityEditText.setError("Ej giltig adress");
+            case "City": cityEditText.setError("Endast bokstäver: A-Ö");
                 cityEditText.requestFocus();
                 break;
             case "Location+City": cityEditText.setError("Ej giltig adress");
@@ -127,6 +124,7 @@ public class CreateProfileView {
         }
     }
 
+    //get methods so the controller can recive texts from textFields
     public String getTextFromFirstNameEditText() {
         return firstNameEditText.getText().toString().trim();
     }

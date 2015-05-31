@@ -103,6 +103,7 @@ public class AdvertisementService implements IAdvertisementService {
         int thisDay = today.get(Calendar.DAY_OF_MONTH);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Advertisement");
         try {
+            System.out.println("SÅHÄR MÅNGA ADS FINNS: " + query.find().size());
             for(ParseObject parseAd: query.find()){
 
                 int endDay = parseAd.getInt("Day");
@@ -111,10 +112,14 @@ public class AdvertisementService implements IAdvertisementService {
 
                 if(endYear < thisYear){
                     deleteParseAd(parseAd);
+                    System.out.println("deleted by year");
                 }else if((endYear == thisYear) && (endMonth < thisMonth)){
+                    System.out.println(endMonth);
                     deleteParseAd(parseAd);
+                    System.out.println("deleted by month");
                 }else if((endYear == thisYear) && (endMonth == thisMonth) && (endDay < thisDay)){
                     deleteParseAd(parseAd);
+                    System.out.println("deleted by day");
                 }
             }
         } catch (ParseException e) {

@@ -26,6 +26,7 @@ public class Advertisement implements IAdvertisement, Serializable {
 
     private InfoCheck infoCheck = new InfoCheck();
 
+    //advertisement constructor
     public Advertisement(IProfile advertiser, String title, String description, String location,
                          Category category, int day, int month, int year, double latitude,
                          double longitude) throws WrongAdInputException {
@@ -140,7 +141,6 @@ public class Advertisement implements IAdvertisement, Serializable {
     }
 
     public void setLatitude(double latitude) throws WrongAdInputException {
-        //changed latitude from <90 to <=90
         if(latitude<=90 && latitude>= -90) {
             this.latitude = latitude;
         }else {
@@ -215,6 +215,7 @@ public class Advertisement implements IAdvertisement, Serializable {
                 && year==advertisement.getYear() && category == advertisement.getCategory();
     }
 
+
     public String getDayString(){
         String sDay;
         if(day < 10){
@@ -223,6 +224,7 @@ public class Advertisement implements IAdvertisement, Serializable {
             sDay = Integer.toString(day);
         } return sDay;
     }
+
 
     public String getMonthString(){
         String sMonth;

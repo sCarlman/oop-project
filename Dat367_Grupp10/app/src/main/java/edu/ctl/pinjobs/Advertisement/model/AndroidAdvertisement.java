@@ -14,6 +14,7 @@ public class AndroidAdvertisement implements Parcelable{
     private IProfile advertiser;
     private Category category;
 
+    //Constructor for AndroidAdvertisement
     public AndroidAdvertisement(IAdvertisement ad) {
         this.ad = ad;
         this.advertiser = ad.getAdvertiser();
@@ -24,6 +25,11 @@ public class AndroidAdvertisement implements Parcelable{
         return this.ad;
     }
 
+
+    /*
+    * Methods below are implemented to make the AndroidAdvertisement class
+    * implement Parcelable
+    */
     protected AndroidAdvertisement(Parcel in) {
         ad = (Advertisement) in.readValue(Advertisement.class.getClassLoader());
         advertiser = (IProfile) in.readValue(IProfile.class.getClassLoader());

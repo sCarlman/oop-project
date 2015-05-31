@@ -24,6 +24,9 @@ public class LoginActivity extends ActionBarActivity {
     private LoginModel loginModel;
     private IProfileService profileService;
 
+    private final int PROFILE_CREATED = 5;
+    private final int LOGGIN_SUCCESS = 5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,13 +62,14 @@ public class LoginActivity extends ActionBarActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
 
-        if(resultCode == 5){
-            setResult(5);
+        if(resultCode == PROFILE_CREATED){
+            setResult(LOGGIN_SUCCESS);
             finish();
         }
     }
 
     public void openCreateProfileView(View view) {
+        //OnClick for pressing "Registrer dig här"
         Intent intent = new Intent(getApplicationContext(),CreateProfileActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("PROFILE_SERVICE",profileService);
@@ -74,13 +78,13 @@ public class LoginActivity extends ActionBarActivity {
     }
 
     public void testView(View view){
-        if(loginView.attemptLoginSucces()){
+        if(loginView.attemptLoginSucces()){ //the view checks if fields are empty
             List<IProfile> list = profileService.fetchAllProfiles();
             loginModel.setEmail(loginView.getTextFromEmailField());
             loginModel.setPassword(loginView.getTextFromPasswordField());
             if(loginModel.doesMailAndPasswordExistInList(list)){
                 UserModel.getInstance().logIn(loginModel.getProfile());
-                setResult(5);
+                setResult(LOGGIN_SUCCESS);
                 finish();
             }else{
                 if(loginModel.doesMailExistInList(list)==null) {

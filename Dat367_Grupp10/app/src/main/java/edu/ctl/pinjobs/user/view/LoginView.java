@@ -27,7 +27,6 @@ public class LoginView{
         this.activity = activity;
         this.eMail = (EditText)activity.findViewById(R.id.LoginEmaileditText);
         this.pwd = (EditText)activity.findViewById(R.id.LoginpasswordEditText);
-        System.out.println(eMail);
     }
 
     /**
@@ -38,32 +37,23 @@ public class LoginView{
     public boolean attemptLoginSucces() {
 
         resetErrors();
-
         // Store values at the time of the login attempt.
         String email = getTextFromEmailField();
         String password = getTextFromPasswordField();
-
         boolean cancel = false;
         View focusView = null;
-
-        // Check for a valid password, if the user entered one.
-        //TODO: isEmptyfunkar inte
+        // Checks if the password textfield is empty.
         if (TextUtils.isEmpty(password)) {
             setError(pwd,"Du måste fylla i ett lösenord");
-
             cancel = true;
             focusView = pwd;
         }
-
-        // Check for a valid email address.
-        //TODO: isEmpty fnkar inte
+        // Checks if the username textfield is empty.
         if (TextUtils.isEmpty(email)) {
             setError(eMail,"Du måste fylla i en E-mail");
-
             cancel = true;
             focusView = eMail;
         }
-
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.

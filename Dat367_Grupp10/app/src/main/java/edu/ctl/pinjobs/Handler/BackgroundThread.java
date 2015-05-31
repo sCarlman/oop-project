@@ -7,6 +7,7 @@ import java.util.List;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 import edu.ctl.pinjobs.advertisement.service.IAdvertisementService;
+import edu.ctl.pinjobs.handler.view.ConnectionErrorActivity;
 
 /**
  * Created by Filips on 5/15/2015.
@@ -14,15 +15,16 @@ import edu.ctl.pinjobs.advertisement.service.IAdvertisementService;
 public class BackgroundThread extends Thread {
 
     private IAdvertisementService adService;
-    private IActivity activity;
+    private ConnectionErrorActivity activity;
 
-    public BackgroundThread(IAdvertisementService adService, IActivity activity){
+    public BackgroundThread(IAdvertisementService adService,ConnectionErrorActivity activity){
         this.adService = adService;
         this.activity = activity;
     }
 
     @Override
     public void run() {
+        adService.removeOutDatedAds();
         try {
             //places the Ad list from the databse in the system
             List<IAdvertisement> adList = adService.fetchAllAds();
@@ -30,6 +32,5 @@ public class BackgroundThread extends Thread {
         }catch(ParseException e){
             activity.showConnectionErrorMsg();
         }
-        //adService.removeOutDatedAds();
     }
 }

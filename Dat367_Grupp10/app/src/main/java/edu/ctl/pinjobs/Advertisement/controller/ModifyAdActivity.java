@@ -1,5 +1,7 @@
 package edu.ctl.pinjobs.advertisement.controller;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,6 +9,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.filips.dat367_grupp10.R;
+
+import java.io.IOException;
 
 import edu.ctl.pinjobs.advertisement.model.Advertisement;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
@@ -30,6 +34,7 @@ public class ModifyAdActivity extends ActionBarActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_ad);
 
+        //gets all extra info/data form previous activity
         Bundle bundle = getIntent().getExtras();
         adService = new AdvertisementService();
         iOpenMapView = (IOpenMapView) getIntent().getExtras().getSerializable("OPEN_MAP_VIEW");
@@ -62,6 +67,7 @@ public class ModifyAdActivity extends ActionBarActivity implements View.OnClickL
         return super.onOptionsItemSelected(item);
     }
 
+    //method that saves the modified ad and fisishes the activity
     public void saveNewModifiedAd(IAdvertisement newAd){
         adService.updateAd(adService.getAdID(androidAd.getAd()), newAd);
         iOpenMapView.startActivity(this, newAd,androidAd);
@@ -81,9 +87,24 @@ public class ModifyAdActivity extends ActionBarActivity implements View.OnClickL
             }else{
 
                 AdvertisementUtils adUtils = new AdvertisementUtils();
-                double lat = adUtils.getLocationFromAddress(ModifyAdActivity.this, ModifyAdActivity.this.view.getLocation()).latitude;
-                double lng = adUtils.getLocationFromAddress(ModifyAdActivity.this, ModifyAdActivity.this.view.getLocation()).longitude;
-
+                //Sets illegal coordinates so tha app don't say it posts ad if try catch passes
+                double lat = 100.0;
+                double lng = 100.0;
+                try{
+                    //Tries to get coordinates from the given location
+                    lat = adUtils.getLocationFromAddress(ModifyAdActivity.this, ModifyAdActivity.this.view.getLocation()).latitude;
+                    lng = adUtils.getLocationFromAddress(ModifyAdActivity.this, ModifyAdActivity.this.view.getLocation()).longitude;
+                }catch(IOException e) {
+                    //Creates an dialog telling you it's the internet connections fault you can't post new ad
+                    new AlertDialog.Builder(ModifyAdActivity.this)
+                            .setTitle("Info")
+                            .setMessage("Internet not available, Cross check your internet connectivity and try again")
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            }).setIcon(android.R.drawable.ic_dialog_alert).show();
+                }
+                //Tries to save a modified ad and cast WrongAdInputException if inputs are wrong
                 try {
                     IAdvertisement newAd = new Advertisement(ad.getAdvertiser(), ModifyAdActivity.this.view.getTitle(),
                             ModifyAdActivity.this.view.getDescription(), ModifyAdActivity.this.view.getLocation(),

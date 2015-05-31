@@ -24,15 +24,19 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
     private Profile newProfile;
     private IProfileService profileService;
 
+    private final int PROFILE_CREATED = 5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_createprofile);
-        Bundle bundle =getIntent().getExtras();
+
+        Bundle bundle = getIntent().getExtras();
+
         if(bundle!=null){
             profileService =(IProfileService)bundle.getSerializable("PROFILE_SERVICE");
         }
-
+        //constructor has parameters (Activity, OnCLickListner)
         view = new CreateProfileView(this, this);
     }
 
@@ -54,7 +58,6 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -75,6 +78,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                     newProfile = new Profile(view.getTextFromFirstNameEditText(), view.getTextFromLastNameEditText(),
                             view.getTextFromPasswordEditText(), view.getTextFromEmailEditText(), view.getTextFromPhoneEditText(),
                             view.getTextFromLocationEditText() + "," + view.getTextFromCityEditText());
+
                     if(checkIfEmailExistsInList(profileService.fetchAllProfiles(), newProfile.getEmail())){
                         //checks if e-mail already exists in database
                         throw new WrongInputException("EMAIL_EXISTS");
@@ -82,10 +86,9 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                         Toast.makeText(this, "Profil skapad!", Toast.LENGTH_LONG).show();
                         profileService.saveProfile(newProfile);
                         UserModel.getInstance().logIn(newProfile);
-                        setResult(5);
+                        setResult(PROFILE_CREATED);
                         finish();
                     }
-
                 }catch (WrongInputException e){
                     view.exceptionCought(e.getError());
                 }

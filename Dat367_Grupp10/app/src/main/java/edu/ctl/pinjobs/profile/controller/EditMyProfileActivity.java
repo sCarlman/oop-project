@@ -22,6 +22,8 @@ public class EditMyProfileActivity extends ActionBarActivity {
 
     private boolean canceledByError;
 
+    private final int EDIT_PROFILE_SUCCESS = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +38,6 @@ public class EditMyProfileActivity extends ActionBarActivity {
 
             iProfileService = (IProfileService)bundle.getSerializable("PROFILE_SERVICE");
         }
-
     }
 
     @Override
@@ -57,10 +58,11 @@ public class EditMyProfileActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+    //Sets the new inputs and saves it to profile
+    //If textFieldInput is incorrect exception is cought
     public void saveNewInputToProfile(View view){
         setCanceledByError(false);
         try{
@@ -100,7 +102,7 @@ public class EditMyProfileActivity extends ActionBarActivity {
             bundle.putSerializable("SEND_BACK_PROFILE", myProfile);
             intent.putExtras(bundle);
             iProfileService.updateProfile(myProfile);
-            setResult(2, intent);
+            setResult(EDIT_PROFILE_SUCCESS, intent);
             finish();
         }
     }

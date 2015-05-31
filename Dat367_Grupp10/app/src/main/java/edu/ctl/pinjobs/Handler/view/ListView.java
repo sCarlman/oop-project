@@ -57,7 +57,7 @@ public class ListView{
         listView.invalidate();
         listView.setOnItemClickListener(clickListener);
         swipeRefreshList.setOnRefreshListener(onRefreshListener);
-        swipeRefreshList.setColorScheme(android.R.color.holo_blue_bright,
+        swipeRefreshList.setColorSchemeColors(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
@@ -75,26 +75,4 @@ public class ListView{
     public void setRefreshing(boolean b){
         swipeRefreshList.setRefreshing(b);
     }
-
-    public void showAlertDialog(){
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-                alertDialog.setTitle("Nätverksproblem!");
-                alertDialog.setMessage("Kan inte kontakta databasen. Se till att du har " +
-                        "internetanslutning och försök igen");
-                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "aight",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                alertDialog.dismiss();
-                            }
-                        });
-                alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
-                alertDialog.show();
-            }
-        });
-    }
-
 }

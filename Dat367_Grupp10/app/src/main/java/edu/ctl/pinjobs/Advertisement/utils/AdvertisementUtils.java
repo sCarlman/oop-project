@@ -16,7 +16,7 @@ import java.util.List;
  */
 public class AdvertisementUtils {
 
-    public LatLng getLocationFromAddress(Context context,String strAddress) {
+    public LatLng getLocationFromAddress(Context context,String strAddress) throws IOException{
 
         Geocoder coder = new Geocoder(context);
         List<Address> address; //A list witch holds the adresses that match the adress input.
@@ -30,16 +30,11 @@ public class AdvertisementUtils {
             Address location = address.get(0);
             position = new LatLng(location.getLatitude(), location.getLongitude());
 
+        }catch(NullPointerException e){
+
         } catch (IllegalArgumentException e) { //the method throws both IOexception and illegalargumentexcpetion, Ioexception if there is no
             //internet connection and illegalargument if input is null
-        }catch (IOException e){
-            new AlertDialog.Builder(context)
-                    .setTitle("Info")
-                    .setMessage("Internet not available, Cross check your internet connectivity and try again")
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    }).show();
+
         }
         return position;
     }

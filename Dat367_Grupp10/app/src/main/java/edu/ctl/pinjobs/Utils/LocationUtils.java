@@ -16,7 +16,7 @@ import com.google.android.gms.maps.model.LatLng;
  */
 public class LocationUtils implements LocationListener{
 
-    private static LatLng currentLocation;
+    private static LatLng currentLocation; //keeps track of the current location of the device
 
     public static LatLng getCurrentLocation(Context context){
 
@@ -36,6 +36,7 @@ public class LocationUtils implements LocationListener{
         if(location !=null) {
             lastKnownLocation = new LatLng(location.getLatitude(), location.getLongitude());
         }else{
+            //places a dummy location in case no location is ever recorded by the system
             lastKnownLocation = new LatLng(57.686843, 11.921514);
         }
 
@@ -49,6 +50,7 @@ public class LocationUtils implements LocationListener{
 
     @Override
     public void onLocationChanged(Location location) {
+        //method implemented by the interface, sets currentlocation to the updated location from the gps
         currentLocation = new LatLng(location.getLatitude(),location.getLongitude());
     }
 

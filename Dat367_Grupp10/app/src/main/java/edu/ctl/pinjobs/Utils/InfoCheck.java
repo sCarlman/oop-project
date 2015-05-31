@@ -24,7 +24,7 @@ public class InfoCheck implements Serializable {
     }
 
 
-    //Checks if a string contains a coma character
+    //Checks if a string contains a coma (,) character
     public boolean containsComa(String s){
         if(s == null){
             return false;
@@ -67,7 +67,6 @@ public class InfoCheck implements Serializable {
             }else{
                 containsOnlyLettersAndNumbers = false;
                 break;
-
             }
         }
         return containsOnlyLettersAndNumbers;
