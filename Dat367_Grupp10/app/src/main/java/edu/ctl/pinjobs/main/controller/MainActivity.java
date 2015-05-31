@@ -38,31 +38,27 @@ public class MainActivity extends ActionBarActivity implements ConnectionErrorAc
     private IProfileService profileService;
     private IAdvertisementService adService;
     private IUserModel user;
-    private BackgroundThread backgroundThread;
-    private boolean onCreateDone = false;
     private final String PARSE_APPLICATION_ID = "W4QRsIPB5oFT6F6drmZi0BrxdPYPEYHY2GYSUU4q";
     private final String PARSE_CLIENT_KEY = "JpXn4VB0Y63wqNIf0qgvRGg7k3QmjfzJjD9qhzqE";
-
-    private final int LOGGIN_SUCCESS = 5;
+    private final int LOGIN_SUCCESS = 5;
+    private final int AD_POSTED = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //initializes this app with our project in Parse database.
+        //This needs to be done before accessing it.
         Parse.initialize(MainActivity.this, PARSE_APPLICATION_ID, PARSE_CLIENT_KEY);
 
+        //updates LocationUtils by GPS every minute
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,60000,100, new LocationUtils());
 
-        this.mainView = new MainView(MainActivity.this);
+        mainView = new MainView(MainActivity.this);
         user = UserModel.getInstance();
-
-        this.adService = new AdvertisementService();
+        adService = new AdvertisementService();
         profileService = new ProfileService();
-        //this.backgroundThread = new BackgroundThread(adService, MainActivity.this);
-        //backgroundThread.start();
-        onCreateDone = true;
     }
 
 
@@ -73,8 +69,9 @@ public class MainActivity extends ActionBarActivity implements ConnectionErrorAc
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_main, menu);
 
+        //hides profiles if not logged in. Shows if logged in.
         MenuItem item = menu.findItem(R.id.action_person);
-        if(user.getIsLoggedIn() == true){
+        if(user.getIsLoggedIn()){
             item.setVisible(true);
         }else{
             item.setVisible(false);
@@ -88,9 +85,10 @@ public class MainActivity extends ActionBarActivity implements ConnectionErrorAc
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
 
+
         switch (item.getItemId()) {
             case R.id.action_person:
-                if(user.getIsLoggedIn() == true) {
+                if(user.getIsLoggedIn()) {
                     openMyProfileView();
                 }
                 return true;
@@ -102,6 +100,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionErrorAc
         }
     }
 
+    //onClick for mapButton, defined in activity_main.xml
     public void openMapView(View view){
         //on click on "Karta" button from mainView that opens map view
         Intent intent = new Intent(this, MapActivity.class);
@@ -136,7 +135,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionErrorAc
         Intent intent = new Intent(getApplicationContext(), ListActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("AD_SERVICE", adService);
-        if (user.getIsLoggedIn()==false){
+        if (!user.getIsLoggedIn()){
             String email = null;
             intent.putExtra("Email", email);
             intent.putExtras(bundle);
@@ -179,13 +178,17 @@ public class MainActivity extends ActionBarActivity implements ConnectionErrorAc
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
-        if(resultCode == LOGGIN_SUCCESS){
-            //when an activity has been finished and the next navigation step is to login the user and repaint loginmodel
+        if(resultCode == LOGIN_SUCCESS){
+            //when an activity has been finished and the next navigation step is
+            // to login the user and repaint loginmodel
             UserModel usermodel = UserModel.getInstance();
             mainView.repaintLogInView(usermodel.getIsLoggedIn(),usermodel.getProfile());
 
-        }else if(resultCode==10 && data.getExtras().getParcelable("Advertisement").getClass() ==AndroidAdvertisement.class){
-            //Happens after a new ad has been created and the activity is closed which start a new intent for MapActivity
+        }else if(resultCode == AD_POSTED &&
+                data.getExtras().getParcelable("Advertisement").getClass() ==
+                        AndroidAdvertisement.class){
+            //Happens after a new ad has been created and the activity is closed
+            // which start a new intent for MapActivity
             Intent intent = new Intent(getApplicationContext(), MapActivity.class);
             intent.putExtras(data.getExtras());
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -193,6 +196,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionErrorAc
         }
     }
 
+    //calls when parseException is thrown from the thread.
     @Override
     public void showConnectionErrorMsg() {
         mainView.showAlertDialog(MainActivity.this);

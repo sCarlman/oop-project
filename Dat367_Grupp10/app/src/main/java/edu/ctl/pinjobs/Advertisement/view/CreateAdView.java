@@ -86,7 +86,7 @@ public class CreateAdView {
     public List<Integer> getDate() {
         List<Integer> dayMonthYear= new ArrayList<>();
         dayMonthYear.add(adEndDatePicker.getDayOfMonth());
-        dayMonthYear.add(adEndDatePicker.getMonth());
+        dayMonthYear.add(adEndDatePicker.getMonth() + 1);
         dayMonthYear.add(adEndDatePicker.getYear());
         return dayMonthYear;
     }

@@ -23,6 +23,7 @@ public class BackgroundThread extends Thread {
 
     @Override
     public void run() {
+        adService.removeOutDatedAds();
         try {
             List<IAdvertisement> adList = adService.fetchAllAds();
             AdvertisementListHolder.getInstance().setList(adList);
@@ -30,6 +31,5 @@ public class BackgroundThread extends Thread {
             System.out.println("OH SHIT U FUCKED UP NOW");
             activity.showConnectionErrorMsg();
         }
-        //adService.removeOutDatedAds();
     }
 }
