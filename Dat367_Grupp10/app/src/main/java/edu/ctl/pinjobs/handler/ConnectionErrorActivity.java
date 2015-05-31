@@ -1,4 +1,4 @@
-package edu.ctl.pinjobs.handler.view;
+package edu.ctl.pinjobs.handler;
 
 /**
  * Created by Filips on 5/31/2015.

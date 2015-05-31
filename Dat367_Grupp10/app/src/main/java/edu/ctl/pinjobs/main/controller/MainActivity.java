@@ -16,7 +16,7 @@ import edu.ctl.pinjobs.handler.controller.ListActivity;
 import edu.ctl.pinjobs.handler.controller.MapActivity;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 import edu.ctl.pinjobs.handler.BackgroundThread;
-import edu.ctl.pinjobs.handler.view.ConnectionErrorActivity;
+import edu.ctl.pinjobs.handler.ConnectionErrorActivity;
 import edu.ctl.pinjobs.main.view.MainView;
 import edu.ctl.pinjobs.profile.model.IUserModel;
 import edu.ctl.pinjobs.profile.model.UserModel;
@@ -130,7 +130,6 @@ public class MainActivity extends ActionBarActivity implements ConnectionErrorAc
         bundle.putSerializable("USER_PROFILE", user.getProfile());
         intent.putExtras(bundle);
         startActivityForResult(intent, 1);
-        System.out.println(user.getProfile().getFirstName());
     }
 
     //onClick for listButton

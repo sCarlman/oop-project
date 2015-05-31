@@ -20,7 +20,6 @@ import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 import edu.ctl.pinjobs.handler.model.IListModel;
 import edu.ctl.pinjobs.handler.model.ListModel;
 import edu.ctl.pinjobs.handler.utils.HandlerLocationUtils;
-import edu.ctl.pinjobs.handler.view.ConnectionErrorActivity;
 import edu.ctl.pinjobs.handler.view.ListView;
 import edu.ctl.pinjobs.profile.controller.IOpenListView;
 import edu.ctl.pinjobs.utils.LocationUtils;
