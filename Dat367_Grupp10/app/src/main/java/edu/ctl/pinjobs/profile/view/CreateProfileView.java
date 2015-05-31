@@ -99,10 +99,10 @@ public class CreateProfileView {
             case "LastName": lastNameEditText.setError("Endast bokstäver: A-Ö");
                 lastNameEditText.requestFocus();
                 break;
-            case "Password": passwordEditText.setError("Ej giltigt lösenord");
+            case "Password": passwordEditText.setError("Ej giltigt: Mellan 2 till 20 bokstäver");
                 passwordEditText.requestFocus();
                 break;
-            case "Email": emailEditText.setError("Ej giltig E-mail");
+            case "Email": emailEditText.setError("Ej giltig: format xx@x.x");
                 emailEditText.requestFocus();
                 break;
             case "EMAIL_EXISTS": emailEditText.setError("E-mail finns redan");
@@ -114,7 +114,7 @@ public class CreateProfileView {
             case "Location": locationEditText.setError("Ej giltig adress");
                 locationEditText.requestFocus();
                 break;
-            case "City": cityEditText.setError("Ej giltig adress");
+            case "City": cityEditText.setError("Endast bokstäver: A-Ö");
                 cityEditText.requestFocus();
                 break;
             case "Location+City": cityEditText.setError("Ej giltig adress");
