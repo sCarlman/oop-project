@@ -107,6 +107,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionErrorAc
         startActivity(intent);
     }
 
+    //opens MyProfileActivity and puts some necesarry extras
     public void openMyProfileView(){
         Intent intent = new Intent(this, MyProfileActivity.class);
         Bundle bundle = new Bundle();
@@ -116,10 +117,11 @@ public class MainActivity extends ActionBarActivity implements ConnectionErrorAc
         bundle.putSerializable("PROFILE_SERVICE",profileService);
         bundle.putSerializable("AD_SERVICE",adService);
         intent.putExtras(bundle);
-
         startActivity(intent);
     }
 
+    //onClick for PostAdButton
+    //opens CreateAdActivity and puts some necesarry extras
     public void openCreateAdView(View view) {
         Intent intent = new Intent(getApplicationContext(), CreateAdActivity.class);
         Bundle bundle = new Bundle();
@@ -131,6 +133,8 @@ public class MainActivity extends ActionBarActivity implements ConnectionErrorAc
         System.out.println(user.getProfile().getFirstName());
     }
 
+    //onClick for listButton
+    //opens ListActivity and puts some necesarry extras
     public void openListView(View view) {
         Intent intent = new Intent(getApplicationContext(), ListActivity.class);
         Bundle bundle = new Bundle();
@@ -150,12 +154,15 @@ public class MainActivity extends ActionBarActivity implements ConnectionErrorAc
 
     }
 
+    //onClick for loginButton
+    //opens loginView and puts necesarry extra
     public void openLoginView(View view) {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         intent.putExtra("PROFILE_SERVICE", profileService);
         startActivityForResult(intent, 1);
     }
 
+    //onClick for logOfButton
     public void logOfUser(View view){
         user.logOff();
         mainView.repaintLogInView(false, null);
@@ -166,9 +173,9 @@ public class MainActivity extends ActionBarActivity implements ConnectionErrorAc
     @Override
     public void onResume(){
         super.onResume();
-
         BackgroundThread thread = new BackgroundThread(adService, MainActivity.this);
         thread.start();
+
         mainView.repaintLogInView(user.getIsLoggedIn(), user.getProfile());
         if(user.getIsLoggedIn()) {
             System.out.println(user.getProfile().getFirstName());

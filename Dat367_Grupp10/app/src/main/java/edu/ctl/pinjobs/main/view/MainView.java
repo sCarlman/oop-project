@@ -16,6 +16,7 @@ import edu.ctl.pinjobs.profile.model.IProfile;
 
 /**
  * Created by Albertsson on 15-05-11.
+ * view for MainActivity
  */
 public class MainView {
 
@@ -31,13 +32,14 @@ public class MainView {
         this.loggedInTextView = (TextView) activity.findViewById(R.id.loggedInTextView);
     }
 
-    public void repaintForLogOf(){
+    private void repaintForLogOf(){
         createNewAdButton.setVisibility(View.GONE);
         logOfButton.setVisibility(View.GONE);
         loginButton.setVisibility(View.VISIBLE);
         loggedInTextView.setVisibility(View.GONE);
     }
 
+    //repaints view depending on login status
     public void repaintLogInView(boolean loggedIn,IProfile loggedInProfile) {
 
         if (loggedIn) {
@@ -52,6 +54,7 @@ public class MainView {
         }
     }
 
+    //error message alert dialog that shows up when no connection to parse is available
     public void showAlertDialog(final Context context){
         Handler handler = new Handler(Looper.getMainLooper());
         handler.post(new Runnable() {
