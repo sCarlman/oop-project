@@ -10,9 +10,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
-import edu.ctl.pinjobs.handler.IActivity;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.controller.CreateAdActivity;
+import edu.ctl.pinjobs.handler.ConnectionErrorActivity;
 import edu.ctl.pinjobs.handler.controller.ListActivity;
 import edu.ctl.pinjobs.handler.controller.MapActivity;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
@@ -32,7 +32,7 @@ import com.example.filips.dat367_grupp10.R;
 import com.parse.Parse;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements ConnectionErrorActivity{
 
     private MainView mainView;
     private IProfileService profileService;
@@ -168,7 +168,7 @@ public class MainActivity extends ActionBarActivity {
     public void onResume(){
         super.onResume();
 
-        BackgroundThread thread = new BackgroundThread(adService, new ListActivity());
+        BackgroundThread thread = new BackgroundThread(adService, MainActivity.this);
         thread.start();
         mainView.repaintLogInView(user.getIsLoggedIn(), user.getProfile());
         if(user.getIsLoggedIn()) {
@@ -191,6 +191,11 @@ public class MainActivity extends ActionBarActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void showConnectionErrorMsg() {
+        mainView.showAlertDialog(MainActivity.this);
     }
 }
 

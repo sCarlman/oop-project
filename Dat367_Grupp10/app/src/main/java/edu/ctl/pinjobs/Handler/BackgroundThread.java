@@ -14,9 +14,9 @@ import edu.ctl.pinjobs.advertisement.service.IAdvertisementService;
 public class BackgroundThread extends Thread {
 
     private IAdvertisementService adService;
-    private IActivity activity;
+    private ConnectionErrorActivity activity;
 
-    public BackgroundThread(IAdvertisementService adService, IActivity activity){
+    public BackgroundThread(IAdvertisementService adService, ConnectionErrorActivity activity){
         this.adService = adService;
         this.activity = activity;
     }

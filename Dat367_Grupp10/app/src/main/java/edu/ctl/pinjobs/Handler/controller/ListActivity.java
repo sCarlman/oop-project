@@ -2,7 +2,6 @@ package edu.ctl.pinjobs.handler.controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -17,7 +16,6 @@ import edu.ctl.pinjobs.advertisement.controller.IOpenMapView;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
 import edu.ctl.pinjobs.advertisement.controller.DetailedAdActivity;
 import edu.ctl.pinjobs.advertisement.controller.ModifyAdActivity;
-import edu.ctl.pinjobs.handler.IActivity;
 import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 import edu.ctl.pinjobs.handler.model.IListModel;
 import edu.ctl.pinjobs.handler.model.ListModel;
@@ -34,7 +32,7 @@ import java.util.List;
 
 
 public class ListActivity extends ActionBarActivity implements AdapterView.OnItemClickListener,
-        IOpenListView, SwipeRefreshLayout.OnRefreshListener, IActivity {
+        IOpenListView, SwipeRefreshLayout.OnRefreshListener {
     private IListModel listModel;
     private ListView listView;
     private String email;
@@ -49,21 +47,21 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
 
         this.locationUtils = new HandlerLocationUtils();
         email = getIntent().getExtras().getString("Email");
-        adService = (IAdvertisementService)getIntent().getExtras().getSerializable("AD_SERVICE");
+        adService = (IAdvertisementService) getIntent().getExtras().getSerializable("AD_SERVICE");
         iOpenMapView = (IOpenMapView) getIntent().getExtras().getSerializable("OPEN_MAP_VIEW");
         System.out.println(iOpenMapView);
 
         isMyList = getIntent().getExtras().getBoolean("myList", false);
 
-        if(AdvertisementListHolder.getInstance().getList().size()==0) {
+        if (AdvertisementListHolder.getInstance().getList().size() == 0) {
             //starts progressbarView
             Intent intent = new Intent(getApplicationContext(), LoadingScreen.class);
-            startActivityForResult(intent,1);
-        }else {
-            if(isMyList){
+            startActivityForResult(intent, 1);
+        } else {
+            if (isMyList) {
                 //Creates a MyAdsView
                 setListView(AdvertisementListHolder.getInstance().getAdvertiserAdsList(email));
-            }else{
+            } else {
                 //Creates a ListView
                 setListView(AdvertisementListHolder.getInstance().getList());
             }
@@ -92,30 +90,31 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data){
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         //Happens when returned from progressBarView
-        if(resultCode == 2) {
+        if (resultCode == 2) {
             setListView(AdvertisementListHolder.getInstance().getList());
             Toast.makeText(getApplicationContext(), "Finns inga anonser uppe för tillfället",
                     Toast.LENGTH_LONG).show();
-        }else {
+        } else {
             setListView(AdvertisementListHolder.getInstance().getList());
         }
 
     }
 
-    private void setListView(List<IAdvertisement> adList){
+    private void setListView(List<IAdvertisement> adList) {
         setContentView(R.layout.activity_ad_list);
-        this.listView = new ListView(this,this,this);
+        this.listView = new ListView(this, this, this);
         this.listModel = new ListModel(adList);
-        listModel.sortForDistance(LocationUtils.getCurrentLocation(this).latitude,LocationUtils.getCurrentLocation(this).longitude);
+        listModel.sortForDistance(LocationUtils.getCurrentLocation(this).latitude, LocationUtils.getCurrentLocation(this).longitude);
         listView.setupView(listModel.getList(), android.R.layout.simple_list_item_1);
 
     }
 
 
-    public void openDetailedAdView(Context context, AndroidAdvertisement ad,String distance){
+    public void openDetailedAdView(Context context, AndroidAdvertisement ad, String distance) {
         Intent intent = new Intent(context, DetailedAdActivity.class);
         intent.putExtra("Advertisement", ad);
         intent.putExtra("Distance", distance);
@@ -123,7 +122,7 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
         context.getApplicationContext().startActivity(intent);
     }
 
-    public void openModifyAdView(Context context, AndroidAdvertisement ad){
+    public void openModifyAdView(Context context, AndroidAdvertisement ad) {
         Intent intent = new Intent(context, ModifyAdActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("AD_SERVICE", adService);
@@ -143,19 +142,19 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
                 ad.getLatitude(), currentPosition.longitude, ad.getLongitude());
         AndroidAdvertisement androidAD = new AndroidAdvertisement(ad);
 
-        if(email==null){
+        if (email == null) {
             openDetailedAdView(this, androidAD, adDistance);
-        }else if(email.equals(ad.getAdvertiser().getEmail())){
+        } else if (email.equals(ad.getAdvertiser().getEmail())) {
             openModifyAdView(this, androidAD);
-        }else{
+        } else {
             openDetailedAdView(this, androidAD, adDistance);
         }
 
     }
 
     @Override
-    public void openListViewForEmail(Context context,String email, Object map) {
-        Intent intent = new Intent(context,ListActivity.class);
+    public void openListViewForEmail(Context context, String email, Object map) {
+        Intent intent = new Intent(context, ListActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("OPEN_MAP_VIEW", (IOpenMapView) map);
         bundle.putString("Email", email);
@@ -166,24 +165,20 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
 
     @Override
     public void onRefresh() {
-        if(isMyList){
+        if (isMyList) {
             //Creates a MyAdsView
             setListView(adService.fetchAdsOfAdvertiser(email));
             AdvertisementListHolder.getInstance().setList(adService.fetchAdsOfAdvertiser(email));
-        }else{
+        } else {
             //Creates a ListView
             try {
                 setListView(adService.fetchAllAds());
                 AdvertisementListHolder.getInstance().setList(adService.fetchAllAds());
-            }catch (ParseException e){
-                showConnectionErrorMsg();
+            } catch (ParseException e) {
+                finish();
             }
         }
         listView.setRefreshing(false);
     }
-
-    @Override
-    public void showConnectionErrorMsg() {
-        listView.showAlertDialog();
-    }
 }
+

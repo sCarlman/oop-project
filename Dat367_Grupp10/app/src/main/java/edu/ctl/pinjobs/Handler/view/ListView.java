@@ -76,25 +76,4 @@ public class ListView{
         swipeRefreshList.setRefreshing(b);
     }
 
-    public void showAlertDialog(){
-        Handler handler = new Handler(Looper.getMainLooper());
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                final AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-                alertDialog.setTitle("Nätverksproblem!");
-                alertDialog.setMessage("Kan inte kontakta databasen. Se till att du har " +
-                        "internetanslutning och försök igen");
-                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Aight",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                alertDialog.dismiss();
-                            }
-                        });
-                alertDialog.setIcon(android.R.drawable.ic_dialog_alert);
-                alertDialog.show();
-            }
-        });
-    }
-
 }
