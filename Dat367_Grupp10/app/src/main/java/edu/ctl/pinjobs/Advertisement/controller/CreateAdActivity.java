@@ -78,20 +78,24 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
 
     public void onClick(View v){
 
+        //This happens if the create ad button is clicked
         if (v == findViewById(R.id.createAdButton)){
             if(!view.isTextFieldsNull()) {
 
                 AdvertisementUtils adUtils = new AdvertisementUtils();
 
                 System.out.println(view.getLocation());
-                //Sets lat and lng to illegal values so if internet missing you cant create ad
+                //Sets illegal coordinates so tha app don't say it posts ad if try catch passes
                 double lat = 100.0;
                 double lng= 100.0;
 
+
                 try {
+                    //Tries to get coordinates from the given location
                     lat = adUtils.getLocationFromAddress(CreateAdActivity.this, view.getLocation()).latitude;
                     lng = adUtils.getLocationFromAddress(CreateAdActivity.this, view.getLocation()).longitude;
                 } catch (IOException e) {
+                    //Creates an dialog telling you it's the internet connections fault you can't post new ad
                     new AlertDialog.Builder(CreateAdActivity.this)
                             .setTitle("Info")
                             .setMessage("Internet not available, Cross check your internet connectivity and try again")
@@ -101,7 +105,7 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
                             }).setIcon(android.R.drawable.ic_dialog_alert).show();
                 }
 
-
+                //Tries to save a modified ad and cast WrongAdInputException if inputs are wrong
                 try {
                     Advertisement newAd = new Advertisement(myProfile, view.getTitle(),
                             view.getDescription(), view.getLocation(),
@@ -128,10 +132,13 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
         } else {
             adService.saveAd(newAd);
             Toast.makeText(this, "Din annons har nu publicerats!", Toast.LENGTH_LONG).show();
+
+            //Puts an ad in the intent so it's possible to have acces to it in next acivity
             Intent intent = new Intent();
             Bundle bundle = new Bundle();
             bundle.putParcelable("Advertisement",new AndroidAdvertisement(newAd));
             intent.putExtras(bundle);
+
             setResult(10,intent);
             finish();
         }

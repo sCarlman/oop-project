@@ -67,6 +67,7 @@ public class ModifyAdActivity extends ActionBarActivity implements View.OnClickL
         return super.onOptionsItemSelected(item);
     }
 
+    //method that saves the modified ad and fisishes the activity
     public void saveNewModifiedAd(IAdvertisement newAd){
         adService.updateAd(adService.getAdID(androidAd.getAd()), newAd);
         iOpenMapView.startActivity(this, newAd,androidAd);
@@ -86,12 +87,15 @@ public class ModifyAdActivity extends ActionBarActivity implements View.OnClickL
             }else{
 
                 AdvertisementUtils adUtils = new AdvertisementUtils();
+                //Sets illegal coordinates so tha app don't say it posts ad if try catch passes
                 double lat = 100.0;
                 double lng = 100.0;
                 try{
+                    //Tries to get coordinates from the given location
                     lat = adUtils.getLocationFromAddress(ModifyAdActivity.this, ModifyAdActivity.this.view.getLocation()).latitude;
                     lng = adUtils.getLocationFromAddress(ModifyAdActivity.this, ModifyAdActivity.this.view.getLocation()).longitude;
                 }catch(IOException e) {
+                    //Creates an dialog telling you it's the internet connections fault you can't post new ad
                     new AlertDialog.Builder(ModifyAdActivity.this)
                             .setTitle("Info")
                             .setMessage("Internet not available, Cross check your internet connectivity and try again")
@@ -100,6 +104,7 @@ public class ModifyAdActivity extends ActionBarActivity implements View.OnClickL
                                 }
                             }).setIcon(android.R.drawable.ic_dialog_alert).show();
                 }
+                //Tries to save a modified ad and cast WrongAdInputException if inputs are wrong
                 try {
                     IAdvertisement newAd = new Advertisement(ad.getAdvertiser(), ModifyAdActivity.this.view.getTitle(),
                             ModifyAdActivity.this.view.getDescription(), ModifyAdActivity.this.view.getLocation(),
