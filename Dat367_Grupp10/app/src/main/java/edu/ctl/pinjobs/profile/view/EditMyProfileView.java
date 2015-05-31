@@ -67,19 +67,19 @@ public class EditMyProfileView {
     //sets error on textField if exception cought from Profile
     public void setInputError(String error){
         switch (error){
-            case "firstname": editFirstName.setError("Ej giltigt förnamn");
+            case "firstname": editFirstName.setError("Endast bokstäver: A-Ö");
                 editFirstName.requestFocus();
                 break;
-            case "lastname": editLastName.setError("Ej giltigt efternamn");
+            case "lastname": editLastName.setError("Endast bokstäver: A-Ö");
                 editLastName.requestFocus();
                 break;
-            case "phone": editPhone.setError("Ej giltigt telefonnummer");
+            case "phone": editPhone.setError("Format: 07xxxxxxxx");
                 editPhone.requestFocus();
                 break;
             case "address": editAddress.setError("Ej giltig adress");
                 editAddress.requestFocus();
                 break;
-            case "city": editCity.setError("Ej giltig adress");
+            case "city": editCity.setError("Endast bokstäver: A-Ö");
                 editCity.requestFocus();
                 break;
         }

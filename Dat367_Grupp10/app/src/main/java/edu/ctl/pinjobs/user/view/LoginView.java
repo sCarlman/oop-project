@@ -27,7 +27,6 @@ public class LoginView{
         this.activity = activity;
         this.eMail = (EditText)activity.findViewById(R.id.LoginEmaileditText);
         this.pwd = (EditText)activity.findViewById(R.id.LoginpasswordEditText);
-        System.out.println(eMail);
     }
 
     /**
