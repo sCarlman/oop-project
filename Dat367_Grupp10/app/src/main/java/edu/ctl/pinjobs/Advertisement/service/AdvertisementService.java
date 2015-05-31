@@ -20,6 +20,8 @@ import edu.ctl.pinjobs.profile.service.ProfileService;
 
 /**
  * Created by Isaac on 2015-04-27.
+ * This Service class handles all available usability of Parse database concerning Advertisements
+ * in this application.
  */
 public class AdvertisementService implements IAdvertisementService {
 
@@ -30,10 +32,12 @@ public class AdvertisementService implements IAdvertisementService {
         uploadToParse(parseAd);
     }
 
+    //saves to Parse
     private void uploadToParse(ParseObject parseAd) {
         parseAd.saveInBackground();
     }
 
+    //makes an Ad into a ParseObject to be saved to Parse
     private void setParseAdvertisement(IAdvertisement ad, ParseObject parseAd) {
         parseAd.put("FirstName", ad.getAdvertiser().getFirstName());
         parseAd.put("LastName", ad.getAdvertiser().getLastName());
@@ -61,6 +65,8 @@ public class AdvertisementService implements IAdvertisementService {
         }
     }
 
+    //when fetching ads they need to first be made into IAdvertisements before
+    //they can be returned.
     private List<IAdvertisement> copyToAdvertisements(List<ParseObject> parseAds) {
         List<IAdvertisement> fetchedAds = new ArrayList<IAdvertisement>();
         ProfileService pService = new ProfileService();
@@ -95,6 +101,7 @@ public class AdvertisementService implements IAdvertisementService {
         }
     }
 
+    //removes ads that have run out of end date
     public void removeOutDatedAds(){
         Calendar today = new GregorianCalendar();
         int thisYear = today.get(Calendar.YEAR);
@@ -103,7 +110,6 @@ public class AdvertisementService implements IAdvertisementService {
         int thisDay = today.get(Calendar.DAY_OF_MONTH);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Advertisement");
         try {
-            System.out.println("SÅHÄR MÅNGA ADS FINNS: " + query.find().size());
             for(ParseObject parseAd: query.find()){
 
                 int endDay = parseAd.getInt("Day");
@@ -112,14 +118,10 @@ public class AdvertisementService implements IAdvertisementService {
 
                 if(endYear < thisYear){
                     deleteParseAd(parseAd);
-                    System.out.println("deleted by year");
                 }else if((endYear == thisYear) && (endMonth < thisMonth)){
-                    System.out.println(endMonth);
                     deleteParseAd(parseAd);
-                    System.out.println("deleted by month");
                 }else if((endYear == thisYear) && (endMonth == thisMonth) && (endDay < thisDay)){
                     deleteParseAd(parseAd);
-                    System.out.println("deleted by day");
                 }
             }
         } catch (ParseException e) {
@@ -127,6 +129,7 @@ public class AdvertisementService implements IAdvertisementService {
         }
     }
 
+    //updates ad
     @Override
     public void updateAd(String id, final IAdvertisement ad) {
         final ParseQuery<ParseObject> query = ParseQuery.getQuery("Advertisement");
@@ -143,6 +146,8 @@ public class AdvertisementService implements IAdvertisementService {
         });
     }
 
+    //gets ID from Ad, unlike Profiles Ads do not have any field that are unique.
+    //But all ParseObjects in Parse have a unique ID.
     public String getAdID(IAdvertisement ad) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Advertisement");
         query.whereEqualTo("Email", ad.getAdvertiser().getEmail());
@@ -158,6 +163,8 @@ public class AdvertisementService implements IAdvertisementService {
 
     }
 
+    //updates the advertiser/Profile of an Ad, this has to be done when a Profile
+    //which has published Ads is modified.
     public void updateAdvertiser(final IProfile profile) {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Advertisement");
         query.whereEqualTo("Email", profile.getEmail());
@@ -179,6 +186,7 @@ public class AdvertisementService implements IAdvertisementService {
         });
     }
 
+    //deletes an ad from Parse
     public void deleteParseAd(ParseObject parseAd) {
         parseAd.deleteInBackground();
     }

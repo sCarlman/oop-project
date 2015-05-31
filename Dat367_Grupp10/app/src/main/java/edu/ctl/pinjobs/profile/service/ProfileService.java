@@ -14,9 +14,10 @@ import edu.ctl.pinjobs.profile.model.WrongInputException;
 
 /**
  * Created by Isaac on 2015-04-23.
+ * This Service class handles all available usability of Parse database concerning Profile
+ * in this application.
  */
 public class ProfileService implements IProfileService {
-
 
     public void saveProfile(IProfile profile){
         ParseObject parseProfile = new ParseObject("Profile");
@@ -24,6 +25,8 @@ public class ProfileService implements IProfileService {
         uploadToParse(parseProfile);
     }
 
+    //Parse cannot save own made classes like Profile, so we have to copy its content into
+    //a ParseObject.
     private void setParseProfile(IProfile p, ParseObject returnParseObject) {
         returnParseObject.put("FirstName", p.getFirstName());
         returnParseObject.put("LastName", p.getLastName());
@@ -33,6 +36,7 @@ public class ProfileService implements IProfileService {
         returnParseObject.put("PreferredLocation", p.getAddress());
     }
 
+    //saves to Parse
     private void uploadToParse(ParseObject parseProfile){
         parseProfile.saveInBackground();
     }
@@ -48,6 +52,8 @@ public class ProfileService implements IProfileService {
         }
     }
 
+    //The classes saved to Parse are ParseObjects, therefore they have to be made into Profiles again
+    //when retrieved.
     private List<IProfile> copyToProfiles(List<ParseObject> profileList) {
         List<IProfile> fetchedProfiles = new ArrayList<IProfile>();
         for (ParseObject parseProfile: profileList) {
@@ -59,7 +65,7 @@ public class ProfileService implements IProfileService {
                         parseProfile.getString("Phone"),
                         parseProfile.getString("PreferredLocation")));
             }catch (WrongInputException e){
-                System.out.println("FEL I PROFILE SERIVE*************************");
+                e.printStackTrace();
             }
 
         }
@@ -73,11 +79,11 @@ public class ProfileService implements IProfileService {
             return copyToProfile(query.getFirst());
         } catch (ParseException e) {
             e.printStackTrace();
-            //TODO: Handle error.
             return null;
         }
     }
 
+    //makes a ProfileParseObject to Profile
     private IProfile copyToProfile(ParseObject parseProfile) {
         try{
             Profile fetchedProfile = new Profile(parseProfile.getString("FirstName"),
@@ -89,13 +95,15 @@ public class ProfileService implements IProfileService {
 
             return fetchedProfile;
         }catch (WrongInputException e){
-            System.out.println("FEL I PROFILE SERIVE*************************");
+            e.printStackTrace();
         }
         return null;
     }
 
+    //Modifies basic information of a Profile
     public void updateProfile(final IProfile profile){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Profile");
+        //the email is the only thing that is unique for Profiles
         query.whereEqualTo("Email", profile.getEmail());
         query.getFirstInBackground(new GetCallback<ParseObject>() {
             @Override
