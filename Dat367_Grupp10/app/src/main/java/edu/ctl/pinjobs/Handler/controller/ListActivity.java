@@ -2,7 +2,6 @@ package edu.ctl.pinjobs.handler.controller;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -35,13 +34,16 @@ import java.util.List;
 
 public class ListActivity extends ActionBarActivity implements AdapterView.OnItemClickListener,
         IOpenListView, SwipeRefreshLayout.OnRefreshListener, IActivity {
+
+    private final int FROM_LOADINGSCREEN_NO_ADS_FOUND = 2;
+
     private IListModel listModel;
     private ListView listView;
-    private String email;
+    private String email; // the e-mail variable that keeps track of the inlogged users e-mail
     private HandlerLocationUtils locationUtils;
-    private IOpenMapView iOpenMapView;
-    private IAdvertisementService adService;
-    private boolean isMyList;
+    private IOpenMapView iOpenMapView; //interface to navigate to the mapView
+    private IAdvertisementService adService; //adservice is used to communicate with databse
+    private boolean isMyList; //keeps track if the system should open the logged in users list or all ads that exists
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,20 +53,19 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
         email = getIntent().getExtras().getString("Email");
         adService = (IAdvertisementService)getIntent().getExtras().getSerializable("AD_SERVICE");
         iOpenMapView = (IOpenMapView) getIntent().getExtras().getSerializable("OPEN_MAP_VIEW");
-        System.out.println(iOpenMapView);
 
         isMyList = getIntent().getExtras().getBoolean("myList", false);
 
         if(AdvertisementListHolder.getInstance().getList().size()==0) {
-            //starts progressbarView
+            //starts progressbarView if adList hasn't been downloaded to the system
             Intent intent = new Intent(getApplicationContext(), LoadingScreen.class);
             startActivityForResult(intent,1);
         }else {
             if(isMyList){
-                //Creates a MyAdsView
+                //Creates a listView with the logged in users ads
                 setListView(AdvertisementListHolder.getInstance().getAdvertiserAdsList(email));
             }else{
-                //Creates a ListView
+                //Creates a ListView with all ads in the system
                 setListView(AdvertisementListHolder.getInstance().getList());
             }
 
@@ -95,7 +96,7 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         //Happens when returned from progressBarView
-        if(resultCode == 2) {
+        if(resultCode == FROM_LOADINGSCREEN_NO_ADS_FOUND) {
             setListView(AdvertisementListHolder.getInstance().getList());
             Toast.makeText(getApplicationContext(), "Finns inga anonser uppe för tillfället",
                     Toast.LENGTH_LONG).show();
@@ -107,9 +108,10 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
 
     private void setListView(List<IAdvertisement> adList){
         setContentView(R.layout.activity_ad_list);
-        this.listView = new ListView(this,this,this);
+        this.listView = new ListView(this,this,this);//new ListView(Acitivyt, OnItemClickListener, OnRefreshListener)
         this.listModel = new ListModel(adList);
-        listModel.sortForDistance(LocationUtils.getCurrentLocation(this).latitude,LocationUtils.getCurrentLocation(this).longitude);
+        listModel.sortForDistance(LocationUtils.getCurrentLocation(this).
+                latitude,LocationUtils.getCurrentLocation(this).longitude);
         listView.setupView(listModel.getList(), android.R.layout.simple_list_item_1);
 
     }
@@ -146,6 +148,7 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
         if(email==null){
             openDetailedAdView(this, androidAD, adDistance);
         }else if(email.equals(ad.getAdvertiser().getEmail())){
+            //opens modifyAdView if the email matches the logged in Users email
             openModifyAdView(this, androidAD);
         }else{
             openDetailedAdView(this, androidAD, adDistance);
@@ -157,6 +160,7 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
     public void openListViewForEmail(Context context,String email, Object map) {
         Intent intent = new Intent(context,ListActivity.class);
         Bundle bundle = new Bundle();
+        //the IOpenMapView is needed for later further navigation
         bundle.putSerializable("OPEN_MAP_VIEW", (IOpenMapView) map);
         bundle.putString("Email", email);
         bundle.putBoolean("myList", true);
@@ -167,11 +171,11 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
     @Override
     public void onRefresh() {
         if(isMyList){
-            //Creates a MyAdsView
+            //Creates a Listview with the logged in's users ads
             setListView(adService.fetchAdsOfAdvertiser(email));
             AdvertisementListHolder.getInstance().setList(adService.fetchAdsOfAdvertiser(email));
         }else{
-            //Creates a ListView
+            //Creates a ListView with all ads in the system.
             try {
                 setListView(adService.fetchAllAds());
                 AdvertisementListHolder.getInstance().setList(adService.fetchAllAds());

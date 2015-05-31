@@ -30,7 +30,6 @@ public class MapActivity extends ActionBarActivity implements GoogleMap.OnInfoWi
     private MapView mapView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Saves the mapfragment(the view object) from .xml
         super.onCreate(savedInstanceState);
 
         if(AdvertisementListHolder.getInstance().getList().size()==0) {
@@ -72,6 +71,7 @@ public class MapActivity extends ActionBarActivity implements GoogleMap.OnInfoWi
 
     private void setUpMapView(){
         setContentView(R.layout.activity_maps);
+        //Saves the mapfragment(the view object) from .xml
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         List<IAdvertisement> adList = AdvertisementListHolder.getInstance().getList();
@@ -80,21 +80,16 @@ public class MapActivity extends ActionBarActivity implements GoogleMap.OnInfoWi
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             if(bundle.getParcelable("OLD_ADVERTISEMENT")!=null){
-                //from update ad window
-                System.out.println("I update ad");
-                AndroidAdvertisement androidAd = bundle.getParcelable("Advertisement");
-                IAdvertisement newAd = androidAd.getAd();
-                AndroidAdvertisement oldAndroidAd = bundle.getParcelable("OLD_ADVERTISEMENT");
-                IAdvertisement oldAd = oldAndroidAd.getAd();
-                mapView = new MapView(this.getApplicationContext(),adList,mapFragment,newAd,this,oldAd);
+                //from update ad (CreateAdActivity)
+                setUpUpdateAdView(bundle,mapFragment,adList);
             }
-            //from create ad window
              else if(bundle.getParcelable("Advertisement")!=null) {
+                //from create ad window (CreateAdAvtivity)
                 AndroidAdvertisement androidAd = bundle.getParcelable("Advertisement");
                 IAdvertisement ad = androidAd.getAd();
                 mapView = new MapView(this.getApplicationContext(), adList, mapFragment, ad,this);
             }
-        } else { //from mainwindow
+        } else { //from mainwindow (MainActivity)
             mapView = new MapView(this.getApplicationContext(), adList, mapFragment,this);
         }
     }
@@ -113,6 +108,7 @@ public class MapActivity extends ActionBarActivity implements GoogleMap.OnInfoWi
 
     @Override
     public void startActivity(Context context, IAdvertisement newAd, AndroidAdvertisement oldAd) {
+        //Starts this activity if notified from IOpenMapView interface
         Intent intent = new Intent(context, MapActivity.this.getClass());
         AndroidAdvertisement androidAD = new AndroidAdvertisement(newAd);
         intent.putExtra("Advertisement", androidAD);
@@ -120,5 +116,13 @@ public class MapActivity extends ActionBarActivity implements GoogleMap.OnInfoWi
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
         Toast.makeText(context, "Annons ändrad!", Toast.LENGTH_LONG).show();
+    }
+
+    private void setUpUpdateAdView(Bundle bundle, MapFragment mapFragment, List<IAdvertisement>adList){
+        AndroidAdvertisement androidAd = bundle.getParcelable("Advertisement");
+        IAdvertisement newAd = androidAd.getAd();
+        AndroidAdvertisement oldAndroidAd = bundle.getParcelable("OLD_ADVERTISEMENT");
+        IAdvertisement oldAd = oldAndroidAd.getAd();
+        mapView = new MapView(this.getApplicationContext(),adList,mapFragment,newAd,this,oldAd);
     }
 }

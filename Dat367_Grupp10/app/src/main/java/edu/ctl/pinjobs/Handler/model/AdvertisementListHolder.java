@@ -12,6 +12,8 @@ import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
  * Created by Filips on 5/15/2015.
  */
 public class AdvertisementListHolder extends Observable {
+
+    //this Singelton class holds the list downloaded by Parse
     private static AdvertisementListHolder ourInstance = new AdvertisementListHolder();
     List<IAdvertisement> adList = new ArrayList<>();
 
@@ -33,14 +35,15 @@ public class AdvertisementListHolder extends Observable {
                 adList.clear();
                 adList.addAll(list);
             }
+            //notifys observers that the list has been updates
             setChanged();
             notifyObservers();
         }
     }
     public List<IAdvertisement> getAdvertiserAdsList(String email){
+        //gets adList from e-mail
         List<IAdvertisement> advertiserAdList = new ArrayList<>();
         if(adList.size() != 0){
-
             for(IAdvertisement ad : adList){
                 if(ad.getAdvertiser().getEmail().equals(email)){
                     advertiserAdList.add(ad);
@@ -52,6 +55,7 @@ public class AdvertisementListHolder extends Observable {
     }
 
     public AndroidAdvertisement[] getAndroidAdList(){
+        //makes the placesholder AndroidadList to send with intents
         AndroidAdvertisement[] androidAd = new AndroidAdvertisement[getList().size()];
         int i = 0;
         for(IAdvertisement ad: getList()){

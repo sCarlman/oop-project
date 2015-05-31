@@ -24,10 +24,10 @@ public class BackgroundThread extends Thread {
     @Override
     public void run() {
         try {
+            //places the Ad list from the databse in the system
             List<IAdvertisement> adList = adService.fetchAllAds();
             AdvertisementListHolder.getInstance().setList(adList);
         }catch(ParseException e){
-            System.out.println("OH SHIT U FUCKED UP NOW");
             activity.showConnectionErrorMsg();
         }
         //adService.removeOutDatedAds();

@@ -46,13 +46,13 @@ public class ListView{
     }
 
     public void setupView(final List<IAdvertisement> adList, int id){
-        List<String> titleList = new ArrayList<String>();
+        List<String> titleList = new ArrayList<String>(); //List of Strings that is displayed in the listView
         final LatLng currentPosition = LocationUtils.getCurrentLocation(context);
         for(IAdvertisement ad : adList){
             titleList.add(setMessage(ad,currentPosition));
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context,
-                id, titleList);
+                id, titleList); //the listView need an adapter which contains a list of Strings
         listView.setAdapter(adapter);
         listView.invalidate();
         listView.setOnItemClickListener(clickListener);
@@ -85,7 +85,7 @@ public class ListView{
                 alertDialog.setTitle("Nätverksproblem!");
                 alertDialog.setMessage("Kan inte kontakta databasen. Se till att du har " +
                         "internetanslutning och försök igen");
-                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "Aight",
+                alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "aight",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 alertDialog.dismiss();

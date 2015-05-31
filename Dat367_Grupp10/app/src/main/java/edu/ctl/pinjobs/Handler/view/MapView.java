@@ -36,34 +36,37 @@ public class MapView implements OnMapReadyCallback {
     Map<Marker,IAdvertisement> markerAdHashmap = new HashMap<>(); //keeps track of which ad the marker represents
     List<IAdvertisement> adList;
     List<Marker> markers = new ArrayList<Marker>(); //a list of all the markers placed on the map
-    IAdvertisement zoomAd = null; //hold a new ad the will be added and camera moved and zoomed too
+    IAdvertisement zoomAd = null; //hold a new ad that will be added and camera moved and zoomed too
     GoogleMap.OnInfoWindowClickListener infoWindowClickListener;
     IAdvertisement oldAD; //If an ad is updated this is the old ad that should be removed
 
 
     public MapView(Context context, List<IAdvertisement> adList,MapFragment mapFragment,
                    GoogleMap.OnInfoWindowClickListener infoWindowClickListener){
+        //used when setting up the regular map
         this.context = context;
         this.adList = adList;
-        mapFragment.getMapAsync(this);
+        mapFragment.getMapAsync(this); //calls the onMapReady method
         this.locationUtils = new HandlerLocationUtils();
         this.infoWindowClickListener = infoWindowClickListener;
     }
-    //Used when setting up the regular map with zoom on a new pin.
+
     public MapView(Context context, List<IAdvertisement> adList,MapFragment mapFragment,IAdvertisement ad,
                    GoogleMap.OnInfoWindowClickListener InfoWindowClickListener){
+        //Used when setting up the regular map with zoom on a new pin.
         this.context = context;
         this.adList = adList;
-        mapFragment.getMapAsync(this);
+        mapFragment.getMapAsync(this); //calls the onMapReady method
         this.locationUtils = new HandlerLocationUtils();
         zoomAd = ad;
         this.infoWindowClickListener = InfoWindowClickListener;
     }
     public MapView(Context context, List<IAdvertisement> adList,MapFragment mapFragment,IAdvertisement ad,
                    GoogleMap.OnInfoWindowClickListener InfoWindowClickListener,IAdvertisement oldAd){
+        //Used when modifying an ad and adds and zoom on the new pin and removes the old one.
         this.context = context;
         this.adList = adList;
-        mapFragment.getMapAsync(this);
+        mapFragment.getMapAsync(this); //calls the onMapReady method
         this.locationUtils = new HandlerLocationUtils();
         zoomAd = ad;
         this.oldAD = oldAd;
@@ -76,9 +79,10 @@ public class MapView implements OnMapReadyCallback {
     }
 
     private void addMarker(IAdvertisement ad,LatLng currentPosition){
-        if(!ad.equals(oldAD)) {
+        if(!ad.equals(oldAD)) { //skips the old ad that should be removed if third constructor is used
             Marker marker = map.addMarker(new MarkerOptions().position(new LatLng(ad.getLatitude(), ad.getLongitude()))
                     .title(ad.getTitle()).icon(addCorrectCollorMarker(ad)).snippet(setSnippet(ad, currentPosition)));
+            //ads the marker with correct information
             markers.add(marker);
             markerAdHashmap.put(marker, ad);
         }
@@ -109,6 +113,7 @@ public class MapView implements OnMapReadyCallback {
             return builder;
         }
         return new LatLngBounds.Builder().include(new LatLng(57.686746, 11.921653));
+        //should never occur but prevents crashing if it would, should always return builder
     }
 
     private void addAllStartMarkers(List<IAdvertisement> list){
@@ -118,8 +123,8 @@ public class MapView implements OnMapReadyCallback {
         }
     }
 
-    //Chooses different colors depending on the Job category
     private BitmapDescriptor addCorrectCollorMarker(IAdvertisement ad){
+        //Chooses different colors depending on the Job category
         Category category = ad.getCategory();
         switch (category){
             case GARDEN : return BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN);
@@ -131,12 +136,12 @@ public class MapView implements OnMapReadyCallback {
 
     private void setUpCamera(){
 
-        map.moveCamera(CameraUpdateFactory.newLatLngBounds(setMapBounds().build(), 200 )); //sets the location to your current location
+        map.moveCamera(CameraUpdateFactory.newLatLngBounds(setMapBounds().build(), 200 ));
+        //sets the camera to include your position and closest marker
     }
 
     public void setUpMap(List<IAdvertisement> list){
         map.setMyLocationEnabled(true);
-
         if(list!=null) {
             addAllStartMarkers(list);
         }if(zoomAd == null){

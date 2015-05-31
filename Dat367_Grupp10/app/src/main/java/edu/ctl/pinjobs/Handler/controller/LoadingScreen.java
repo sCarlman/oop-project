@@ -16,8 +16,9 @@ import edu.ctl.pinjobs.handler.model.AdvertisementListHolder;
 
 public class LoadingScreen extends Activity implements Observer {
 
+    private final int FROM_LOADINGSCREEN_NO_ADS_FOUND = 2;
     private Timer timer= new Timer();
-    Activity thisActivity = this;
+    private Activity thisActivity = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,18 +31,17 @@ public class LoadingScreen extends Activity implements Observer {
 
     }
     TimerTask task = new TimerTask() {
-
+        //after 5 seconds the loadingscreen Finishes and sets a fail result to the creator activity
         @Override
         public void run() {
-            thisActivity.setResult(2);
+            thisActivity.setResult(FROM_LOADINGSCREEN_NO_ADS_FOUND);
             thisActivity.finish();
         }
     };
 
     @Override
     public void update(Observable observable, Object data) {
-        System.out.println("I UPDATE!! ***************");
-        //task.cancel();
+        // Tells the loadingscreen to stop loading
         thisActivity.finish();
     }
 }
