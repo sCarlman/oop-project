@@ -74,10 +74,9 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
                 return super.onOptionsItemSelected(item);
         }
     }
-
+    
     @Override
     public void onClick(View v) {
-        //TODO: borde inte se ut såhär...
         iOpenListView.openListViewForEmail(this, email, iOpenMapView);
     }
 

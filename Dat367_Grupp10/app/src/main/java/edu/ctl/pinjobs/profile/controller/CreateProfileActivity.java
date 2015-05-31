@@ -36,6 +36,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
         if(bundle!=null){
             profileService =(IProfileService)bundle.getSerializable("PROFILE_SERVICE");
         }
+        //constructor has parameters (Activity, OnCLickListner)
         view = new CreateProfileView(this, this);
     }
 
@@ -77,6 +78,7 @@ public class CreateProfileActivity extends ActionBarActivity implements View.OnC
                     newProfile = new Profile(view.getTextFromFirstNameEditText(), view.getTextFromLastNameEditText(),
                             view.getTextFromPasswordEditText(), view.getTextFromEmailEditText(), view.getTextFromPhoneEditText(),
                             view.getTextFromLocationEditText() + "," + view.getTextFromCityEditText());
+
                     if(checkIfEmailExistsInList(profileService.fetchAllProfiles(), newProfile.getEmail())){
                         //checks if e-mail already exists in database
                         throw new WrongInputException("EMAIL_EXISTS");

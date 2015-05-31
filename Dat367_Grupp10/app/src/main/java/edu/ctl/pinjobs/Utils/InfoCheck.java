@@ -67,7 +67,6 @@ public class InfoCheck implements Serializable {
             }else{
                 containsOnlyLettersAndNumbers = false;
                 break;
-
             }
         }
         return containsOnlyLettersAndNumbers;
