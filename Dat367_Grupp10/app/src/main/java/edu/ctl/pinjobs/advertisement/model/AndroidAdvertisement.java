@@ -7,6 +7,7 @@ import edu.ctl.pinjobs.profile.model.IProfile;
 
 /**
  * Created by filiplarsson on 15-05-12.
+ * this class should have its own interface, but due to time limitation it is not implemented..
  */
 public class AndroidAdvertisement implements Parcelable{
 

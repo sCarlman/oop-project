@@ -77,7 +77,7 @@ public class MyProfileActivity extends ActionBarActivity implements View.OnClick
     
     @Override
     public void onClick(View v) {
-        iOpenListView.openListViewForEmail(this, email, iOpenMapView);
+        iOpenListView.openListViewForEmail(this, email, iOpenMapView, profileService);
     }
 
     @Override

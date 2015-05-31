@@ -35,7 +35,6 @@ public class EditMyProfileActivity extends ActionBarActivity {
             IProfile profile = (IProfile) bundle.getSerializable("sendProfile");
             this.myProfile = profile;
             editMyProfileView = new EditMyProfileView(profile, this);
-
             iProfileService = (IProfileService)bundle.getSerializable("PROFILE_SERVICE");
         }
     }

@@ -20,11 +20,13 @@ import edu.ctl.pinjobs.advertisement.service.AdvertisementService;
 import edu.ctl.pinjobs.advertisement.service.IAdvertisementService;
 import edu.ctl.pinjobs.advertisement.utils.AdvertisementUtils;
 import edu.ctl.pinjobs.advertisement.view.ModifyAdView;
+import edu.ctl.pinjobs.profile.service.IProfileService;
 
 public class ModifyAdActivity extends ActionBarActivity implements View.OnClickListener {
 
     private ModifyAdView view;
     private IAdvertisementService adService;
+    private IProfileService profileService;
     private IAdvertisement ad;
     private IOpenMapView iOpenMapView;
     private AndroidAdvertisement androidAd;
@@ -36,7 +38,8 @@ public class ModifyAdActivity extends ActionBarActivity implements View.OnClickL
 
         //gets all extra info/data form previous activity
         Bundle bundle = getIntent().getExtras();
-        adService = new AdvertisementService();
+        profileService = (IProfileService) getIntent().getExtras().getSerializable("PROFILE_SERVICE");
+        adService = new AdvertisementService(profileService);
         iOpenMapView = (IOpenMapView) getIntent().getExtras().getSerializable("OPEN_MAP_VIEW");
         androidAd = bundle.getParcelable("Advertisement");
         ad = androidAd.getAd();

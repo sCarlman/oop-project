@@ -16,7 +16,7 @@ import edu.ctl.pinjobs.profile.model.IProfile;
 import edu.ctl.pinjobs.advertisement.model.Advertisement;
 import edu.ctl.pinjobs.advertisement.model.Category;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
-import edu.ctl.pinjobs.profile.service.ProfileService;
+import edu.ctl.pinjobs.profile.service.IProfileService;
 
 /**
  * Created by Isaac on 2015-04-27.
@@ -24,6 +24,11 @@ import edu.ctl.pinjobs.profile.service.ProfileService;
  * in this application.
  */
 public class AdvertisementService implements IAdvertisementService {
+    private IProfileService pService;
+
+    public AdvertisementService(IProfileService pService){
+        this.pService = pService;
+    }
 
     @Override
     public void saveAd(IAdvertisement Ad) {
@@ -69,7 +74,6 @@ public class AdvertisementService implements IAdvertisementService {
     //they can be returned.
     private List<IAdvertisement> copyToAdvertisements(List<ParseObject> parseAds) {
         List<IAdvertisement> fetchedAds = new ArrayList<IAdvertisement>();
-        ProfileService pService = new ProfileService();
         for (ParseObject parseAd: parseAds) {
             try {
                 fetchedAds.add(new Advertisement(pService.fetchProfile(parseAd.getString("Email")),

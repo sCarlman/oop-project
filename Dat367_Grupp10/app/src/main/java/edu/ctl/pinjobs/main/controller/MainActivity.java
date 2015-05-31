@@ -57,8 +57,8 @@ public class MainActivity extends ActionBarActivity implements ConnectionErrorAc
 
         mainView = new MainView(MainActivity.this);
         user = UserModel.getInstance();
-        adService = new AdvertisementService();
         profileService = new ProfileService();
+        adService = new AdvertisementService(profileService);
     }
 
 
@@ -147,6 +147,7 @@ public class MainActivity extends ActionBarActivity implements ConnectionErrorAc
             String email = user.getProfile().getEmail();
             intent.putExtra("Email", email);
             bundle.putSerializable("OPEN_MAP_VIEW", new MapActivity());
+            bundle.putSerializable("PROFILE_SERVICE", profileService);
             intent.putExtras(bundle);
             startActivity(intent);
         }

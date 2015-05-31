@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import edu.ctl.pinjobs.advertisement.service.AdvertisementService;
 import edu.ctl.pinjobs.advertisement.service.IAdvertisementService;
 import edu.ctl.pinjobs.advertisement.controller.IOpenMapView;
 import edu.ctl.pinjobs.advertisement.model.AndroidAdvertisement;
@@ -22,6 +23,7 @@ import edu.ctl.pinjobs.handler.model.ListModel;
 import edu.ctl.pinjobs.handler.utils.HandlerLocationUtils;
 import edu.ctl.pinjobs.handler.view.ListView;
 import edu.ctl.pinjobs.profile.controller.IOpenListView;
+import edu.ctl.pinjobs.profile.service.IProfileService;
 import edu.ctl.pinjobs.utils.LocationUtils;
 import edu.ctl.pinjobs.advertisement.model.IAdvertisement;
 import com.example.filips.dat367_grupp10.R;
@@ -37,6 +39,7 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
     private final int FROM_LOADINGSCREEN_NO_ADS_FOUND = 2;
     private IListModel listModel;
     private ListView listView;
+    private IProfileService profileService;
     private String email; // the e-mail variable that keeps track of the inlogged users e-mail
     private HandlerLocationUtils locationUtils;
     private IOpenMapView iOpenMapView; //interface to navigate to the mapView
@@ -50,9 +53,14 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
         this.locationUtils = new HandlerLocationUtils();
         email = getIntent().getExtras().getString("Email");
         adService = (IAdvertisementService) getIntent().getExtras().getSerializable("AD_SERVICE");
+        profileService = (IProfileService) getIntent().getExtras().getSerializable("PROFILE_SERVICE");
         iOpenMapView = (IOpenMapView) getIntent().getExtras().getSerializable("OPEN_MAP_VIEW");
-
         isMyList = getIntent().getExtras().getBoolean("myList", false);
+
+        //last minute bug fix, because this activity can be opened from two different activities
+        if(adService == null){
+            adService = new AdvertisementService(profileService);
+        }
 
         if(AdvertisementListHolder.getInstance().getList().size()==0) {
             //starts progressbarView if adList hasn't been downloaded to the system
@@ -119,6 +127,7 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
     public void openDetailedAdView(Context context, AndroidAdvertisement ad, String distance) {
         Intent intent = new Intent(context, DetailedAdActivity.class);
         intent.putExtra("Advertisement", ad);
+        intent.putExtra("PROFILE_SERVICE", profileService);
         intent.putExtra("Distance", distance);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.getApplicationContext().startActivity(intent);
@@ -156,11 +165,13 @@ public class ListActivity extends ActionBarActivity implements AdapterView.OnIte
     }
 
     @Override
-    public void openListViewForEmail(Context context, String email, Object map) {
+    public void openListViewForEmail(Context context, String email, Object map,
+                                     IProfileService pService) {
         Intent intent = new Intent(context, ListActivity.class);
         Bundle bundle = new Bundle();
         //the IOpenMapView is needed for later further navigation
         bundle.putSerializable("OPEN_MAP_VIEW", (IOpenMapView) map);
+        bundle.putSerializable("PROFILE_SERVICE", pService);
         bundle.putString("Email", email);
         bundle.putBoolean("myList", true);
         intent.putExtras(bundle);
