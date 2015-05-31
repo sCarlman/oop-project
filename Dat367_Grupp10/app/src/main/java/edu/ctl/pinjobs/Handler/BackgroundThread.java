@@ -30,6 +30,6 @@ public class BackgroundThread extends Thread {
             System.out.println("OH SHIT U FUCKED UP NOW");
             activity.showConnectionErrorMsg();
         }
-        adService.removeOutDatedAds();
+        //adService.removeOutDatedAds();
     }
 }
