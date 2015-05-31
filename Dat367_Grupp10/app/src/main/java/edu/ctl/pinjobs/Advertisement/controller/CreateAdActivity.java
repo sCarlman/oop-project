@@ -95,14 +95,7 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
                     lat = adUtils.getLocationFromAddress(CreateAdActivity.this, view.getLocation()).latitude;
                     lng = adUtils.getLocationFromAddress(CreateAdActivity.this, view.getLocation()).longitude;
                 } catch (IOException e) {
-                    //Creates an dialog telling you it's the internet connections fault you can't post new ad
-                    new AlertDialog.Builder(CreateAdActivity.this)
-                            .setTitle("Info")
-                            .setMessage("Internet not available, Cross check your internet connectivity and try again")
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            }).setIcon(android.R.drawable.ic_dialog_alert).show();
+                    showInternetConnectionLost();
                 }
 
                 //Tries to save a modified ad and cast WrongAdInputException if inputs are wrong
@@ -121,6 +114,17 @@ public class CreateAdActivity extends ActionBarActivity implements View.OnClickL
         }else if(v == findViewById(R.id.chooseDateButton)){
             view.switchDatePickerVisibility();
         }
+    }
+
+    //Creates an dialog telling you it's the internet connections fault you can't post new ad
+    private void showInternetConnectionLost(){
+        new AlertDialog.Builder(CreateAdActivity.this)
+                .setTitle("Info")
+                .setMessage("Internet not available, Cross check your internet connectivity and try again")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }).setIcon(android.R.drawable.ic_dialog_alert).show();
     }
 
     //uploads ad to database if there is no other ad equal to the newAd
